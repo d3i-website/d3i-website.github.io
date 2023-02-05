@@ -33,13 +33,14 @@ github_username:  jekyll
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-include-cache
 
 domain: d3i-infra.github.io       # if you want to force HTTPS, specify the domain without the http at the start, e.g. example.com
 url: https://d3i-infra.github.io  # the base hostname and protocol for your site, e.g. http://example.com
 
 # Custom settings
-theme: minimal-mistakes-jekyll
-minimal_mistakes_skin: "air" #"default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+remote_theme: "mmistakes/minimal-mistakes@4.24.0"
+minimal_mistakes_skin: "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 repository: "d3i-infra/d3i-infra.github.io"
 logo: "/assets/images/logo_transparent_crop.png"
 masthead_title: |
