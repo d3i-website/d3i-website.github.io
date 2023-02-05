@@ -1,0 +1,9 @@
+main:
+  - title: "About"
+    url: /about
+  - title: "Team"
+    url: /year-archive/
+  - title: "Software"
+    url: /categories/
+  - title: "Research"
+    url: /tags/
