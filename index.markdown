@@ -25,6 +25,27 @@ header:
 
 Vestibulum vitae tincidunt ligula. Nunc dolor orci, convallis id volutpat ultricies, finibus et quam. Duis vel elit sit amet lacus efficitur rutrum. Fusce et mi quis libero facilisis commodo. Ut ornare vel mi sit amet pretium. Morbi cursus tellus nec ipsum dictum fringilla. Ut non est nec nulla sagittis blandit. In hac habitasse platea dictumst. Nulla non pulvinar erat, eu sollicitudin neque. In sem odio, posuere eget nisi mattis, luctus pharetra lectus. Integer vel nibh erat. Suspendisse aliquet ligula vestibulum, ornare tellus in, aliquet velit. Aliquam elit enim, facilisis non purus id, ornare accumsan nulla. In mauris turpis, tempus sed tincidunt ac, scelerisque et arcu.
 
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .imgbox {
+        display: grid;
+        height: 100%;
+    }
+    .center-fit {
+        max-width: 100%;
+        max-height: 100vh;
+        margin: auto;
+    }
+</style>
+
+<div class="imgbox">
+    <img class="center-fit" src='./assets/images/data_donation.jpg'>
+</div>
+
 ## Lorem ipsum dolor sit amet, consectetur adipiscing elit
 
 Vestibulum vitae tincidunt ligula. Nunc dolor orci, convallis id volutpat ultricies, finibus et quam. Duis vel elit sit amet lacus efficitur rutrum. Fusce et mi quis libero facilisis commodo. Ut ornare vel mi sit amet pretium. Morbi cursus tellus nec ipsum dictum fringilla. Ut non est nec nulla sagittis blandit. In hac habitasse platea dictumst. Nulla non pulvinar erat, eu sollicitudin neque. In sem odio, posuere eget nisi mattis, luctus pharetra lectus. Integer vel nibh erat. Suspendisse aliquet ligula vestibulum, ornare tellus in, aliquet velit. Aliquam elit enim, facilisis non purus id, ornare accumsan nulla. In mauris turpis, tempus sed tincidunt ac, scelerisque et arcu.
