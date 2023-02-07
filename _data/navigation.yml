@@ -2,7 +2,7 @@ main:
   - title: "About"
     url: /about
   - title: "Team"
-    url: /year-archive/
+    url: /team
   - title: "Software"
     url: /categories/
   - title: "Research"
