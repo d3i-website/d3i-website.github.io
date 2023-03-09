@@ -42,9 +42,9 @@ url: https://d3i-infra.github.io  # the base hostname and protocol for your site
 remote_theme: "mmistakes/minimal-mistakes@4.24.0"
 minimal_mistakes_skin: "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 repository: "d3i-infra/d3i-infra.github.io"
-logo: "/assets/images/logo_transparent_crop.png"
+logo: ""
 masthead_title: |
-  A digital data donation infrastructure
+  D3I: A digital data donation infrastructure
 include: ["_pages"]
 
 

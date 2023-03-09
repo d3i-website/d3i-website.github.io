@@ -1,5 +1,5 @@
 ---
-layout: splash
+layout: single
 title: Team
 feature_row:
   - image_path: /assets/images/people/person1.jpg

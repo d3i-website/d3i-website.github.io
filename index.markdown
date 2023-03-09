@@ -7,9 +7,9 @@ title: |
     Digital data donation infrastructure
 excerpt: "This post should [...]"
 header:
-  overlay_image: /assets/images/data_donation.png
+  #overlay_image: 
+  overlay_color: "#333"
   overlay_filter: 0.5 # same as adding an opacity of 0.5 to a black background
-  caption: "caption"
   actions:
     - label: "Download"
       url: "https://unsplash.com"
