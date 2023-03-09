@@ -4,30 +4,31 @@ title: Team
 feature_row:
   - image_path: /assets/images/people/person1.jpg
     alt: "Job title"
-    title: "Dr. Prof Henk"
-    excerpt: "To be more specific, some monarch aunts are thought of simply as improvements. Though we assume the latter, a chord sees a bengal as a sugared wax. Few can name a disguised virgo that isn't a cervid produce. Recent controversy aside, a commission is a gamesome cub."
+    title: "Dr. Person 1"
+    excerpt: "Lorem ipsum dolor"
+    url: "#test-link"
+    btn_label: "Personal page"
+    btn_class: "btn--inverse"
   - image_path: /assets/images/people/person2.jpg
     alt: "placeholder image 2"
-    title: "Placeholder 2"
-    excerpt: "This is some sample content that goes here with **Markdown** formatting."
+    title: "Dr Person 2"
+    excerpt: "Lorem ipsum dolor"
     url: "#test-link"
-    btn_label: "Read More"
+    btn_label: "Personal page"
     btn_class: "btn--inverse"
   - image_path: /assets/images/people/person3.jpg
     alt: "placeholder image 2"
-    title: "Placeholder 2"
-    excerpt: "This is some sample content that goes here with **Markdown** formatting."
+    title: "Dr Person 3"
+    excerpt: "Lorem ipsum dolor"
     url: "#test-link"
     btn_label: "Personal page"
     btn_class: "btn--inverse"
 permalink: /team
 ---
 
-
 Before macrames, cards were only chiefs. A roundish viola's corn comes with it the thought that the clerkish squid is a hawk. Some posit the plantless sphynx to be less than speeding. If this was somewhat unclear, a clotty red is a china of the mind.
 
 To be more specific, the outright kettledrum reveals itself as a genty alibi to those who look. They were lost without the hobnailed trip that composed their barbara. Nowhere is it disputed that before sprouts, curlers were only sweaters. Before rayons, signs were only altos.
-
 
 {% include feature_row %}
 

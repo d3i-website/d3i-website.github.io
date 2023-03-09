@@ -5,15 +5,15 @@ classes:
   - dark-theme
 title: | 
     Digital data donation infrastructure
-excerpt: "This post should [...]"
+excerpt: "Creating an ethical and methodological sound infrastructure for researchers to perform data donation studies"
 header:
   #overlay_image: 
   overlay_color: "#333"
-  overlay_filter: 0.5 # same as adding an opacity of 0.5 to a black background
+  overlay_filter: 0.7 # same as adding an opacity of 0.5 to a black background
   actions:
-    - label: "Download"
+    - label: "Download Port"
       url: "https://unsplash.com"
-
+      btn_class: "btn--inverse"
 ---
 
 # Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
