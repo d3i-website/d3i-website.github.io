@@ -23,7 +23,7 @@ feature_row:
     url: "#test-link"
     btn_label: "Personal page"
     btn_class: "btn--inverse"
-permalink: /team
+permalink: /team/
 toc: true
 ---
 
