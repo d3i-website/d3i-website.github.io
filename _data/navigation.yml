@@ -1,9 +1,37 @@
 main:
   - title: "About"
-    url: /about
+    url: /about/
   - title: "Team"
-    url: /team
-  - title: "Software"
-    url: /categories/
-  - title: "Research"
-    url: /tags/
+    url: /team/
+  - title: "Port"
+    url: /port/
+  - title: "For Researchers"
+    url: /for-researchers/
+  - title: "Community"
+    url: /community/
+
+for-researchers:
+  - title: Privacy
+    children:
+      - title: "Privacy protection"
+        url: /for-researchers/privacy/privacy-protection
+      - title: "DPIA"
+        url: /for-researchers/privacy/dpia
+      - title: "ERB approval"
+        url: /for-researchers/privacy/erb
+      - title: "Consent forms"
+        url: /for-researchers/privacy/consent-forms
+  - title: Ethics
+    children:
+      - title: "Ethics 1"
+        url: /for-researchers/ethics/ethics-1
+      - title: "Ethics 2"
+        url: /for-researchers/ethics/ethics-1
+      - title: "Ethics 3"
+        url: /for-researchers/ethics/ethics-1
+  - title: Study archive
+    children:
+      - title: "Cool study 1"
+        url: /for-researchers/study-archive/cool-study-1
+      - title: "Cool study 2"
+        url: /for-researchers/study-archive/cool-study-2
