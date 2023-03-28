@@ -3,21 +3,21 @@ layout: single
 title: Team
 
 feature_row_1:
-  - image_path: /assets/images/people/theo.jpg
+  - image_path: /assets/images/people/person1.jpg
     alt: "Job title"
     title: "Dr. T.B. (Theo) Araujo"
     excerpt: "Principal Investigator"
     url: "https://www.uva.nl/profiel/a/r/t.b.araujo/t.b.araujo.html"
     btn_label: "Personal page"
     btn_class: "btn--inverse"
-  - image_path: /assets/images/people/laura.jpg
+  - image_path: /assets/images/people/person1.jpg
     alt: "placeholder image 2"
     title: "Dr. L. (Laura) Boeschoten"
     excerpt: "Project Lead"
     url: "https://www.uu.nl/medewerkers/LBoeschoten"
     btn_label: "Personal page"
     btn_class: "btn--inverse"
-  - image_path: /assets/images/people/niek.jpg
+  - image_path: /assets/images/people/person1.jpg
     alt: "placeholder image 2"
     title: "Dr. N.C. (Niek) de Schipper"
     excerpt: "Research Engineer"
@@ -27,21 +27,21 @@ feature_row_1:
 
 
 feature_row_2:
-  - image_path: /assets/images/people/heleen.jpeg
+  - image_path: /assets/images/people/person2.jpg
     alt: "placeholder image 2"
     title: "Dr. mr. H.L. (Heleen) Janssen"
     excerpt: "Legal expert"
     url: "https://www.uva.nl/en/profile/j/a/h.l.janssen/h.l.janssen.html"
     btn_label: "Personal page"
     btn_class: "btn--inverse"
-  - image_path: /assets/images/people/bella.jpg
+  - image_path: /assets/images/people/person2.jpg
     alt: "Job title"
     title: "Dr. B. (Bella) Struminskaya"
     excerpt: "Methodological expert"
     url: "https://www.uu.nl/staff/BStruminskaya"
     btn_label: "Personal page"
     btn_class: "btn--inverse"
-  - image_path: /assets/images/people/kasper.jpg
+  - image_path: /assets/images/people/person2.jpg
     alt: "Job title"
     title: "Dr. K. (Kasper) Welbers"
     excerpt: "Visualization expert"
@@ -50,7 +50,7 @@ feature_row_2:
     btn_class: "btn--inverse"
     
 feature_row_3:
-  - image_path: /assets/images/people/thijs.jpg
+  - image_path: /assets/images/people/person3.jpg
     alt: "Job title"
     title: "T.C. Carri??re MSc"
     excerpt: "Researcher methodology"
