@@ -17,7 +17,7 @@ header:
 ---
 
 # Digital Data Donation Infrastructure
-Welcome at the Digital Data Donation Infrastructure (in short ???D3I???).
+Welcome at the Digital Data Donation Infrastructure (in short D3I).
 
 Do you want to collect digital trace data in a way that is transparent to your research participants and which preserves their privacy as much as possible? Then data donation is your answer!
 
