@@ -2,7 +2,7 @@
 layout: single
 title: About
 permalink: /about/
-toc: true
+toc: false
 ---
 
 ## What is Data donation
