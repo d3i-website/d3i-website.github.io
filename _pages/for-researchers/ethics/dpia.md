@@ -1,7 +1,7 @@
 ---
 layout: single
 title: Privacy Protection
-permalink: /for-researchers/privacy/privacy-protection
+permalink: /for-researchers/ethics-dpia
 toc: true
 sidebar:
   nav: "for-researchers"
