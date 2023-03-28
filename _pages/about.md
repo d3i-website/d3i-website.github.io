@@ -24,5 +24,14 @@ Data donation allows researchers to invite participants to share their DDPs. A m
 
 ![Figure 1: An overview of the data donation workflow](/assets/images/about/figure_workflow.jpg)
 
+## PORT: Software for data donation
+
+To allow for the local processing step to take place, we developed the software PORT. PORT is open-source and allows for researchers to fully configure their own data donation study. It creates a website that guides participants through the data donation steps. Researchers can tailor this website to their own DDPs of interest and process these in their desired ways. We have both a free open-source version available that you can configure yourself, or you can use our SURF configuration. Please see ![PORT](/port/) for more details. 
+
+## The D3I Project
+
+D3I is a project funded by PDI-SSH. PDI-SSH is responsible for allocating resources to digital infrastructure facilities within the SSH domain, for coordinating digital infrastructures in the SSH domain and for strategy within that domain. For more information, see [their website](https://pdi-ssh.nl/en/). The D3I project runs from March 2022 to February 2025 and primarily aims to make data donation available to all social science and humanities researchers in the Netherlands.
+
+
 
 
