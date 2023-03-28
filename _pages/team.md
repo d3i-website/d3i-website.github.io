@@ -24,15 +24,16 @@ feature_row_1:
     url: "https://www.uva.nl/en/profile/s/c/n.c.deschipper/n.c.de-schipper.html"
     btn_label: "Personal page"
     btn_class: "btn--inverse"
-  - image_path: /assets/images/people/heleen.jpg
+
+
+feature_row_2:
+  - image_path: /assets/images/people/heleen.jpeg
     alt: "placeholder image 2"
     title: "Dr. mr. H.L. (Heleen) Janssen"
     excerpt: "Legal expert"
     url: "https://www.uva.nl/en/profile/j/a/h.l.janssen/h.l.janssen.html"
     btn_label: "Personal page"
     btn_class: "btn--inverse"
-
-feature_row_2:
   - image_path: /assets/images/people/bella.jpg
     alt: "Job title"
     title: "Dr. B. (Bella) Struminskaya"
@@ -47,6 +48,8 @@ feature_row_2:
     url: "https://research.vu.nl/en/persons/kasper-welbers"
     btn_label: "Personal page"
     btn_class: "btn--inverse"
+    
+feature_row_3:
   - image_path: /assets/images/people/thijs.jpg
     alt: "Job title"
     title: "T.C. Carri??re MSc"
@@ -63,6 +66,7 @@ toc: false
 
 {% include feature_row id="feature_row_1" %}
 {% include feature_row id="feature_row_2" %}
+{% include feature_row id="feature_row_3" %}
 
 ## the D3I Project structure
 
