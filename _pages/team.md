@@ -52,7 +52,7 @@ feature_row_2:
 feature_row_3:
   - image_path: /assets/images/people/person3.jpg
     alt: "Job title"
-    title: "T.C. Carri??re MSc"
+    title: "T.C. (Thijs) Carri\`ere MSc"
     excerpt: "Researcher methodology"
     url: "https://www.uu.nl/medewerkers/TCCarriere"
     btn_label: "Personal page"
