@@ -56,7 +56,7 @@ feature_row_2:
     btn_class: "btn--inverse"
 
 permalink: /team/
-toc: true
+toc: false
 ---
 
 ## The D3I Team
