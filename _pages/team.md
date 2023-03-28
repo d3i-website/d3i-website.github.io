@@ -1,12 +1,12 @@
 ---
 layout: single
 title: Team
-feature_row:
+team_row_1:
   - image_path: /assets/images/people/person1.jpg
     alt: "Job title"
-    title: "Dr. Person 1"
-    excerpt: "Lorem ipsum dolor"
-    url: "#test-link"
+    title: "Dr. T.B. (Theo) Araujo"
+    excerpt: "Principal Investigator"
+    url: "https://www.uva.nl/profiel/a/r/t.b.araujo/t.b.araujo.html"
     btn_label: "Personal page"
     btn_class: "btn--inverse"
   - image_path: /assets/images/people/person2.jpg
@@ -27,25 +27,50 @@ permalink: /team/
 toc: true
 ---
 
-### Project team
+## The D3I Team
 
-Before macrames, cards were only chiefs. A roundish viola's corn comes with it the thought that the clerkish squid is a hawk. Some posit the plantless sphynx to be less than speeding. If this was somewhat unclear, a clotty red is a china of the mind.
+- Theo
+- Laura
+- Niek
+- Heleen
+- Bella
+- Kasper
+- Thijs 
 
-To be more specific, the outright kettledrum reveals itself as a genty alibi to those who look. They were lost without the hobnailed trip that composed their barbara. Nowhere is it disputed that before sprouts, curlers were only sweaters. Before rayons, signs were only altos.
 
-{% include feature_row %}
+{% include team_row_1 %}
 
-### Core team
+## the D3I Project structure
 
-Before hubcaps, handballs were only deposits. One cannot separate spots from unbreathed caterpillars. The condition is a glue. In recent years, a horrid son without yams is truly a wedge of unborne machines.
+The project work is carried out by the D3I Team. For supervision, the D3I team regularly meets with
+its Core team:
 
-Their option was, in this moment, a themeless keyboard. We know that some textile heads are thought of simply as peer-to-peers. Some entranced brasses are thought of simply as crayfishes. The leeks could be said to resemble transient yellows.
+Core Team:
+- Daniel Oberski
+- Enny Das
+- Jef Ausloos
+- Judith M??ller
+- Wouter van Atteveldt
 
-### Governance board
+In addition, the D3I Team and Core Team have bi-monthly meetings with the Governance Board
+to provide steering and input for the project, ensuring that the developments are 
+suitable for a wide range of disciplines and institutional settings. 
 
-Before hubcaps, handballs were only deposits. One cannot separate spots from unbreathed caterpillars. The condition is a glue. In recent years, a horrid son without yams is truly a wedge of unborne machines.
+Governance Board:
+- Karin van Es
+- Dennis Nguyen
+- Mirko Schafer
+- Marjolijn Atheunis
+- Marieke Fransen
+- Claartje ter Hoeven
+- Wyke Stommel
+- Maarten van Gompel
+- Henk van den Heuvel
 
-Their option was, in this moment, a themeless keyboard. We know that some textile heads are thought of simply as peer-to-peers. Some entranced brasses are thought of simply as crayfishes. The leeks could be said to resemble transient yellows.
+
+## D3I Partners
+
+
 
 
 
