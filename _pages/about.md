@@ -22,7 +22,7 @@ An alternative approach to gain access to digital traces is enabled thanks to th
 
 Data donation allows researchers to invite participants to share their DDPs. A major challenge is however that DDPs potentially contain very sensitive data, and often not all data is needed to answer the specific research question under investigation. To circumvent these challenges, an alternative framework was developed: First, the research participant requests their personal DDP at the platform of interest. Second, they download it onto their own personal device. Third, by means of local processing, only the features of interest to the researcher are extracted from that DDP. Fourth, the participant inspects the extracted features after which they can consent (or decline) to donate. Only after providing this consent, the donated data is sent to a server which can be accessed by the researcher for further analyses.
 
-[Figure 1: An overview of the data donation workflow](/assets/images/about/figure_workflow.jpg)
+![Figure 1: An overview of the data donation workflow](/assets/images/about/figure_workflow.jpg)
 
 
 
