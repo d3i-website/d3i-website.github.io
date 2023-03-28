@@ -3,28 +3,28 @@ layout: single
 title: Team
 
 feature_row_1:
-  - image_path: /assets/images/people/person1.jpg
+  - image_path: /assets/images/people/theo.jpg
     alt: "Job title"
     title: "Dr. T.B. (Theo) Araujo"
     excerpt: "Principal Investigator"
     url: "https://www.uva.nl/profiel/a/r/t.b.araujo/t.b.araujo.html"
     btn_label: "Personal page"
     btn_class: "btn--inverse"
-  - image_path: /assets/images/people/person2.jpg
+  - image_path: /assets/images/people/laura.jpg
     alt: "placeholder image 2"
     title: "Dr. L. (Laura) Boeschoten"
     excerpt: "Project Lead"
     url: "https://www.uu.nl/medewerkers/LBoeschoten"
     btn_label: "Personal page"
     btn_class: "btn--inverse"
-  - image_path: /assets/images/people/person3.jpg
+  - image_path: /assets/images/people/niek.jpg
     alt: "placeholder image 2"
     title: "Dr. N.C. (Niek) de Schipper"
     excerpt: "Research Engineer"
     url: "https://www.uva.nl/en/profile/s/c/n.c.deschipper/n.c.de-schipper.html"
     btn_label: "Personal page"
     btn_class: "btn--inverse"
-  - image_path: /assets/images/people/person3.jpg
+  - image_path: /assets/images/people/heleen.jpg
     alt: "placeholder image 2"
     title: "Dr. mr. H.L. (Heleen) Janssen"
     excerpt: "Legal expert"
@@ -33,21 +33,21 @@ feature_row_1:
     btn_class: "btn--inverse"
 
 feature_row_2:
-  - image_path: /assets/images/people/person1.jpg
+  - image_path: /assets/images/people/bella.jpg
     alt: "Job title"
     title: "Dr. B. (Bella) Struminskaya"
     excerpt: "Methodological expert"
     url: "https://www.uu.nl/staff/BStruminskaya"
     btn_label: "Personal page"
     btn_class: "btn--inverse"
-  - image_path: /assets/images/people/person1.jpg
+  - image_path: /assets/images/people/kasper.jpg
     alt: "Job title"
     title: "Dr. K. (Kasper) Welbers"
     excerpt: "Visualization expert"
     url: "https://research.vu.nl/en/persons/kasper-welbers"
     btn_label: "Personal page"
     btn_class: "btn--inverse"
-  - image_path: /assets/images/people/person1.jpg
+  - image_path: /assets/images/people/thijs.jpg
     alt: "Job title"
     title: "T.C. Carri??re MSc"
     excerpt: "Researcher methodology"
