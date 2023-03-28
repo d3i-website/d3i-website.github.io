@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Privacy Protection
+title: Privacy Policy
 permalink: /for-researchers/ethics/privacy-policy
 toc: true
 sidebar:

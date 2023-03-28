@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Forms
+title: Consent Form
 permalink: /for-researchers/ethics/consent-form
 toc: true
 sidebar:

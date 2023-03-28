@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Privacy Protection
+title: Data Privacy Impact Assessment
 permalink: /for-researchers/ethics-dpia
 toc: true
 sidebar:
