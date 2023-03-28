@@ -1,7 +1,8 @@
 ---
 layout: single
 title: Team
-team_row_1:
+
+feature_row_1:
   - image_path: /assets/images/people/person1.jpg
     alt: "Job title"
     title: "Dr. T.B. (Theo) Araujo"
@@ -23,6 +24,16 @@ team_row_1:
     url: "#test-link"
     btn_label: "Personal page"
     btn_class: "btn--inverse"
+
+feature_row_2:
+  - image_path: /assets/images/people/person1.jpg
+    alt: "Job title"
+    title: "Dr. T.B. (Theo) Araujo"
+    excerpt: "Principal Investigator"
+    url: "https://www.uva.nl/profiel/a/r/t.b.araujo/t.b.araujo.html"
+    btn_label: "Personal page"
+    btn_class: "btn--inverse"
+
 permalink: /team/
 toc: true
 ---
@@ -38,7 +49,8 @@ toc: true
 - Thijs 
 
 
-{% include team_row_1 %}
+{% include feature_row id="feature_row_1" %}
+{% include feature_row id="feature_row_2" %}
 
 ## the D3I Project structure
 
