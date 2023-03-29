@@ -27,7 +27,7 @@ feature_row_1:
 
 
 feature_row_2:
-  - image_path: /assets/images/people/heleen.jpg
+  - image_path: /assets/images/people/heleen.jpeg
     alt: "placeholder image 2"
     title: "Dr. mr. H.L. (Heleen) Janssen"
     excerpt: "Legal expert"

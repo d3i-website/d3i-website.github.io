@@ -13,14 +13,12 @@ main:
 for-researchers:
   - title: Privacy
     children:
-      - title: "Privacy protection"
-        url: /for-researchers/privacy/privacy-protection
-      - title: "DPIA"
-        url: /for-researchers/privacy/dpia
-      - title: "ERB approval"
-        url: /for-researchers/privacy/erb
-      - title: "Consent forms"
-        url: /for-researchers/privacy/consent-forms
+      - title: "Study design"
+        url: /for-researchers/study-design/recruitment
+      - title: "Participant recruitment"
+        url: /for-researchers/study-design/questionnaire
+      - title: "Data request and download"
+        url: /for-researchers/study-design/data-request-download
   - title: Ethics
     children:
       - title: "Ethics 1"

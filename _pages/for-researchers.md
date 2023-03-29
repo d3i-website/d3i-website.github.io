@@ -2,7 +2,7 @@
 layout: single
 title: For Researchers
 permalink: /for-researchers/
-toc: true
+toc: false
 sidebar:
   nav: "for-researchers"
 ---
