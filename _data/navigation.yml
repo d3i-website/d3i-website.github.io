@@ -11,11 +11,11 @@ main:
     url: /community/
 
 for-researchers:
-  - title: Privacy
+  - title: Study design
     children:
-      - title: "Study design"
+      - title: "Participant ecruitment"
         url: /for-researchers/study-design/recruitment
-      - title: "Participant recruitment"
+      - title: "Questionnaire"
         url: /for-researchers/study-design/questionnaire
       - title: "Data request and download"
         url: /for-researchers/study-design/data-request-download
