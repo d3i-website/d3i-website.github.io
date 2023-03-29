@@ -19,17 +19,19 @@ for-researchers:
         url: /for-researchers/study-design/questionnaire
       - title: "Data request and download"
         url: /for-researchers/study-design/data-request-download
-  - title: Ethics
+  - title: "Local extraction"
     children:
-      - title: "Ethics 1"
-        url: /for-researchers/ethics/ethics-1
-      - title: "Ethics 2"
-        url: /for-researchers/ethics/ethics-1
-      - title: "Ethics 3"
-        url: /for-researchers/ethics/ethics-1
-  - title: Study archive
+      - title: "Python extraction script"
+        url: /for-researchers/local-extraction/extraction-script
+      - title: "Documentation"
+        url: /for-researchers/local-extraction/documentation
+      - title: "Tutorial"
+        url: /for-researchers/local-extraction/tutorial
+  - title: "Ethics"
     children:
-      - title: "Cool study 1"
-        url: /for-researchers/study-archive/cool-study-1
-      - title: "Cool study 2"
-        url: /for-researchers/study-archive/cool-study-2
+      - title: "Consent form"
+        url: /for-researchers/ethics/consent-form
+      - title: "DPIA"
+        url: /for-researchers/ethics/dpia
+      - title: "Privacy policy"
+        url: /for-researchers/ethics/privacy-policy
