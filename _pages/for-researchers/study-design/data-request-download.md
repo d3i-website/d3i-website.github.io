@@ -1,7 +1,7 @@
 ---
 layout: single
 title: Forms
-permalink: /for-researchers/privacy/forms
+permalink: /for-researchers/study-design/data-request-download
 toc: true
 sidebar:
   nav: "for-researchers"

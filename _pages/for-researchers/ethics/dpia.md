@@ -1,7 +1,7 @@
 ---
 layout: single
 title: Data Privacy Impact Assessment
-permalink: /for-researchers/ethics-dpia
+permalink: /for-researchers/ethics/dpia
 toc: true
 sidebar:
   nav: "for-researchers"

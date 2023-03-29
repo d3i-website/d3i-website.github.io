@@ -1,7 +1,7 @@
 ---
 layout: single
 title: Forms
-permalink: /for-researchers/privacy/forms
+permalink: /for-researchers/local-extraction/tutorial
 toc: true
 sidebar:
   nav: "for-researchers"

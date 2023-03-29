@@ -3,7 +3,7 @@ layout: single
 title: Team
 
 feature_row_1:
-  - image_path: /assets/images/people/person1.jpg
+  - image_path: /assets/images/people/theo.jpg
     alt: "Job title"
     title: "Dr. T.B. (Theo) Araujo"
     excerpt: "Principal Investigator"
