@@ -558,10 +558,15 @@ body {
 .wide {
   .page {
     @include breakpoint($large) {
+
+      float: none;                //ADDED BY NIEK
+      margin: 0 auto;             //ADDED BY NIEK
       padding-right: 0;
     }
 
     @include breakpoint($x-large) {
+      float: none;                //ADDED BY NIEK
+      margin: 0 auto;             //ADDED BY NIEK
       padding-right: 0;
     }
   }

@@ -13,7 +13,7 @@ main:
 for-researchers:
   - title: Study design
     children:
-      - title: "Participant ecruitment"
+      - title: "Participant recruitment"
         url: /for-researchers/study-design/recruitment
       - title: "Questionnaire"
         url: /for-researchers/study-design/questionnaire

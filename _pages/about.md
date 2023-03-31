@@ -1,5 +1,6 @@
 ---
-layout: splash
+layout: single
+classes: wide
 title: About
 permalink: /about/
 toc: false

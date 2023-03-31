@@ -2,11 +2,12 @@
 layout: single
 title: community
 permalink: /community/
-toc: true
+toc: false
 ---
 
-To be more specific, the outright kettledrum reveals itself as a genty alibi to those who look. They were lost without the hobnailed trip that composed their barbara. Nowhere is it disputed that before sprouts, curlers were only sweaters. Before rayons, signs were only altos.
+Under construction
 
+<!--
 ### Upcomming events
 
 To be more specific, the outright kettledrum reveals itself as a genty alibi to those who look. They were lost without the hobnailed trip that composed their barbara. Nowhere is it disputed that before sprouts, curlers were only sweaters. Before rayons, signs were only altos.
@@ -33,3 +34,4 @@ To be more specific, the outright kettledrum reveals itself as a genty alibi to 
 ### Code of conduct
 
 To be more specific, the outright kettledrum reveals itself as a genty alibi to those who look. They were lost without the hobnailed trip that composed their barbara. Nowhere is it disputed that before sprouts, curlers were only sweaters. Before rayons, signs were only altos.
+-->

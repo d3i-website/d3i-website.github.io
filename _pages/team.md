@@ -1,6 +1,46 @@
 ---
 layout: single
 title: Team
+classes: wide
+
+feature_row_1:
+  - image_path: /assets/images/people/theo.jpg
+    alt: "Job title"
+    title: "Dr. T.B. (Theo) Araujo"
+    excerpt: "Principal Investigator"
+  - image_path: /assets/images/people/laura.jpg
+    alt: "placeholder image 2"
+    title: "Dr. L. (Laura) Boeschoten"
+    excerpt: "Project Lead"
+  - image_path: /assets/images/people/niek.jpg
+    alt: "placeholder image 2"
+    title: "Dr. N.C. (Niek) de Schipper"
+    excerpt: "Research Engineer"
+  - image_path: /assets/images/people/heleen.jpeg
+    alt: "placeholder image 2"
+    title: "Dr. mr. H.L. (Heleen) Janssen"
+    excerpt: "Legal expert"
+  - image_path: /assets/images/people/bella.jpg
+    alt: "Job title"
+    title: "Dr. B. (Bella) Struminskaya"
+    excerpt: "Methodological expert"
+  - image_path: /assets/images/people/kasper.jpg
+    alt: "Job title"
+    title: "Dr. K. (Kasper) Welbers"
+    excerpt: "Visualization expert"
+  - image_path: /assets/images/people/thijs.jpg
+    alt: "Job title"
+    title: "T.C. (Thijs) Carriere MSc."
+    excerpt: "Researcher methodology"
+
+
+permalink: /team/
+toc: false
+---
+
+<!--
+
+EXAMPLE REMAINS HERE SO YOU CAN SEE HOW TO DEAL WITH LINKS TO PAGES
 
 feature_row_1:
   - image_path: /assets/images/people/theo.jpg
@@ -48,8 +88,6 @@ feature_row_2:
     url: "https://research.vu.nl/en/persons/kasper-welbers"
     btn_label: "Personal page"
     btn_class: "btn--inverse"
-    
-feature_row_3:
   - image_path: /assets/images/people/thijs.jpg
     alt: "Job title"
     title: "T.C. (Thijs) Carriere MSc"
@@ -57,16 +95,11 @@ feature_row_3:
     url: "https://www.uu.nl/medewerkers/TCCarriere"
     btn_label: "Personal page"
     btn_class: "btn--inverse"
-
-permalink: /team/
-toc: false
----
+-->
 
 ## The D3I Team
 
 {% include feature_row id="feature_row_1" %}
-{% include feature_row id="feature_row_2" %}
-{% include feature_row id="feature_row_3" %}
 
 ## the D3I Project structure
 
@@ -101,9 +134,3 @@ Governance Board:
 For the development of PORT, we collaborate with Eyra, developers of open-source software for scientific purposes. Please see [their website](https://eyra.co/) for more information.
 
 To make PORT available on SURF Research Cloud, we collaborate with [SURF](https://www.surf.nl/).
-
-
-
-
-
-

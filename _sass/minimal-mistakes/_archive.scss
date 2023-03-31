@@ -91,7 +91,10 @@
   overflow: hidden;
 
   img {
-    width: 100%;
+    //width: 100%;
+
+    object-fit: scale-down; // ADDED BY NIEK
+    max-width: 100%;        // ADDED BY NIEK
   }
 }
 
@@ -459,5 +462,10 @@
 .layout--single {
 	.feature__wrapper {
 		display: inline-block;
+
+        .archive__item-title {
+              margin-top: 0.5em;
+              font-size: $type-size-5;
+        }
 	}
 }
