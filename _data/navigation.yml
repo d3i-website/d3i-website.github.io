@@ -5,10 +5,6 @@ main:
     url: /team/
   - title: "Port"
     url: /port/
-  - title: "For Researchers"
-    url: /for-researchers/
-  - title: "Community"
-    url: /community/
 
 for-researchers:
   - title: Study design
