@@ -101,7 +101,7 @@ feature_row_2:
 
 {% include feature_row id="feature_row_1" %}
 
-## the D3I Project structure
+## The D3I Project structure
 
 The project work is carried out by the D3I Team. For supervision, the D3I team regularly meets with
 its Core team:
