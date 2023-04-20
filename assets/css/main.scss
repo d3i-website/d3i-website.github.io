@@ -11,7 +11,31 @@
    max-height:4rem
 }
 
+// ------------------------------------------------------------
+// This is all custom css by Niek
+// All custom classes start with niek so its clear 
+// the css is not part of the main theme
+
+
+// ------------------------------------------------------------
+// Install a different font
+
 @font-face {
   font-family: "Montserrat-Regular";
   src: url("../fonts/Montserrat-Regular.ttf");
+}
+
+// ------------------------------------------------------------
+// Class to resize image in splash screen
+
+@media only screen and (max-width: 500px) { 
+    .niek-image-width {
+        width: 100%
+    }
+}
+
+@media only screen and (min-width: 500px) { 
+    .niek-image-width {
+        width: 75%
+    }
 }

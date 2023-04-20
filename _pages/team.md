@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Team
+title: "The D3I Team"
 classes: wide
 
 feature_row_1:
@@ -97,14 +97,13 @@ feature_row_2:
     btn_class: "btn--inverse"
 -->
 
-## The D3I Team
+The project work is carried out by the D3I Team. 
 
 {% include feature_row id="feature_row_1" %}
 
 ## The D3I Project structure
 
-The project work is carried out by the D3I Team. For supervision, the D3I team regularly meets with
-its Core team:
+For supervision, the D3I team regularly meets with its Core team:
 
 Core Team:
 - Daniel Oberski
