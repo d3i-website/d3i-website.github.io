@@ -45,7 +45,6 @@ permalink: /team/
 toc: false
 ---
 
-
 Meet our team members: 
 
 {% include feature_row id="feature_row_1" %}

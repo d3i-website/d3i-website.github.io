@@ -14,8 +14,11 @@ $indent-var: 1.3em !default;
 
 /* system typefaces */
 $serif                        : Georgia, Times, serif !default;
-/* $sans-serif                   : Montserrat-Regular, -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif !default; */
-$sans-serif                   : -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif !default;
+$sans-serif                   : Finador-Regular, -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif !default;
+$sans-serif-header            : Finador-Bold, -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif !default;
+$sans-serif-caption           : Finador-Bold, -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif !default;
+$sans-serif-title             : Finador-Black, -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif !default;
+/* $sans-serif                   : -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif !default; */
 $monospace                    : Monaco, Consolas, "Lucida Console", monospace !default;
 
 /* sans serif typefaces */
@@ -30,8 +33,9 @@ $calisto                      : "Calisto MT", serif !default;
 $garamond                     : Garamond, serif !default;
 
 $global-font-family           : $sans-serif !default;
-$header-font-family           : $sans-serif !default;
-$caption-font-family          : $serif !default;
+$header-font-family           : $sans-serif-header !default;
+$title-font-family            : $sans-serif-title !default;
+$caption-font-family          : $sans-serif-caption !default;
 
 /* type scale */
 $type-size-1: 2.441em !default; // ~39.056px
@@ -55,25 +59,29 @@ $h-size-6: 1em !default; // ~16px
    Colors
    ========================================================================== */
 
-$gray: #7a8288 !default;
-$dark-gray: mix(#000, $gray, 50%) !default;
-$darker-gray: mix(#000, $gray, 60%) !default;
-$light-gray: mix(#fff, $gray, 50%) !default;
-$lighter-gray: mix(#fff, $gray, 90%) !default;
+$accent-primary: #4272EF;
+$accent-secondary: #FF5E5E;
+$accent-tertiary: #FFCF60;
+
+$gray: #CCCCCC;
+$dark-gray: #999999;
+$darker-gray: #222222;
+$light-gray: #F6F6F6;
+$lighter-gray: #FAFAFA;
 
 $background-color: #fff !default;
 $code-background-color: #fafafa !default;
 $code-background-color-dark: $light-gray !default;
-$text-color: $dark-gray !default;
+$text-color: $darker-gray !default;
 $muted-text-color: mix(#fff, $text-color, 20%) !default;
 $border-color: $lighter-gray !default;
 $form-background-color: $lighter-gray !default;
-$footer-background-color: $lighter-gray !default;
+$footer-background-color: $light-gray !default;
 
-$primary-color: #6f777d !default;
-$success-color: #3fa63f !default;
-$warning-color: #d67f05 !default;
-$danger-color: #ee5f5b !default;
+$primary-color: $dark-gray !default;
+$success-color: #6FCA37 !default;
+$warning-color: #F28D15 !default;
+$danger-color: #DB1E1E !default;
 $info-color: #3b9cba !default;
 $focus-color: $primary-color !default;
 $active-color: mix(#fff, $primary-color, 80%) !default;
@@ -115,7 +123,7 @@ $link-color: mix(#000, $info-color, 20%) !default;
 $link-color-hover: mix(#000, $link-color, 25%) !default;
 $link-color-visited: mix(#fff, $link-color, 15%) !default;
 $masthead-link-color: $primary-color !default;
-$masthead-link-color-hover: mix(#000, $primary-color, 25%) !default;
+$masthead-link-color-hover: $accent-primary !default;
 $navicon-link-color-hover: mix(#fff, $primary-color, 75%) !default;
 
 /* notices */

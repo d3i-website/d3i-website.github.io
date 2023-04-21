@@ -7,8 +7,8 @@ title: |
     datadonation.eu
 excerpt: ""
 header:
-  #overlay_image: 
-  overlay_color: "#333"
+  overlay_image: "assets/images/port_banner.png"
+  #overlay_color: "#333"
   overlay_filter: 0.7 # same as adding an opacity of 0.5 to a black background
   #actions:
   #  - label: "Download Port"
