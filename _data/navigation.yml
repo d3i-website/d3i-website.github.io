@@ -1,12 +1,14 @@
 main:
-    #- title: "About"
-    #  url: /about/
+  - title: "Data donation"
+    url: /data-donation/
   - title: "Team"
     url: /team/
-  - title: "Port"
-    url: /port/
-      #  - title: "For Researchers"
-      #    url: /for-researchers/
+  - title: "D3I"
+    url: /d3i/
+  - title: "Software"
+    url: /software/
+  - title: "Prepare a study"
+    url: /prepare-a-study/
       #  - title: "Community"
       #    url: /community/
 

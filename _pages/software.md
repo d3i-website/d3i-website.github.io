@@ -1,7 +1,7 @@
 ---
 layout: single
-title: 'Port'
-permalink: /port/
+title: 'Software'
+permalink: /software/
 toc: false
 ---
 

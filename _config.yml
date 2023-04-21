@@ -44,7 +44,7 @@ minimal_mistakes_skin: "default" # "air", "aqua", "contrast", "dark", "dirt", "n
 repository: "d3i-infra/d3i-infra.github.io"
 logo: ""
 masthead_title: |
-  D3I: A digital data donation infrastructure
+  datadonation.eu
 include: ["_pages"]
 atom_feed: # Disables RSS feed in footer
   hide: true

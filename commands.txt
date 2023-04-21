@@ -1,0 +1,2 @@
+cd C:\Users\F112974\surfdrive2\Onderzoek\D3I\d3i-infra.github.io
+bundle exec jekyll serve
