@@ -1,10 +1,10 @@
 ---
 layout: single
-title: For Researchers
-permalink: /for-researchers/
+title: Prepare a study
+permalink: /prepare-a-study/
 toc: false
 sidebar:
-  nav: "for-researchers"
+  nav: "prepare-a-study"
 ---
 
 ## Getting started

@@ -12,26 +12,24 @@ main:
       #  - title: "Community"
       #    url: /community/
 
-for-researchers:
+prepare-a-study:
   - title: Study design
     children:
       - title: "Participant recruitment"
-        url: /for-researchers/study-design/recruitment
-      - title: "Questionnaire"
-        url: /for-researchers/study-design/questionnaire
+        url: /prepare-a-study/study-design/participant-recruitment
       - title: "Data request and download"
-        url: /for-researchers/study-design/data-request-download
+        url: /prepare-a-study/study-design/data-request-download
   - title: "Local extraction"
     children:
       - title: "Python extraction script"
-        url: /for-researchers/local-extraction/extraction-script
+        url: /prepare-a-study/local-extraction/extraction-script
       - title: "Documentation"
-        url: /for-researchers/local-extraction/documentation
+        url: /prepare-a-study/local-extraction/documentation
       - title: "Tutorial"
-        url: /for-researchers/local-extraction/tutorial
-  - title: "Legal & Ethical Aspects"
+        url: /prepare-a-study/local-extraction/tutorial
+  - title: "Legal and ethical aspects"
     children:
       - title: "Introduction"
-        url: /for-researchers/legal-ethical-aspects/introduction
+        url: /prepare-a-study/legal-ethical-aspects/introduction
       - title: "Documents"
-        url: /for-researchers/legal-ethical-aspects/documents
+        url: /prepare-a-study/legal-ethical-aspects/documents

@@ -1,10 +1,10 @@
 ---
 layout: single
 title: Documents
-permalink: /for-researchers/legal-ethical-aspects/documents
+permalink: /prepare-a-study/legal-ethical-aspects/documents
 toc: true
 sidebar:
-  nav: "for-researchers"
+  nav: "legal-ethical-aspects"
 ---
 
 Here we present the documents researchers should take note of. Some documents contain templates that researchers should fill in, in order for their research to be compliant with the GDPR.
