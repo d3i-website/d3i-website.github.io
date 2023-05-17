@@ -8,9 +8,9 @@ main:
   - title: "Software"
     url: /software/
   - title: "Prepare a study"
-    url: /prepare-a-study/
-      #  - title: "Community"
-      #    url: /community/
+    url: /under_construction
+#  - title: "Community"
+#    url: /community/
 
 prepare-a-study:
   - title: Study design
