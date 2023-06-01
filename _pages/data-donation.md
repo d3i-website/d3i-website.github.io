@@ -22,7 +22,7 @@ An alternative approach to gain access to digital traces is enabled thanks to th
 
 Data donation allows researchers to invite participants to share their DDPs. A major challenge is however that DDPs potentially contain very sensitive data, and often not all data is needed to answer the specific research question under investigation. To circumvent these challenges, an alternative framework has been developed: First, the research participant requests their personal DDP at the platform of interest. Second, they download it onto their own personal device. Third, by means of local processing, only the features of interest to the researcher are extracted from that DDP. Fourth, the participant inspects the extracted features after which they can consent (or decline) to donate. Only after providing this consent, the donated data is sent to a server which can be accessed by the researcher for further analyses.
 
-![Figure 1: An overview of the data donation workflow](/assets/images/about/figure_workflow.jpg)
+![Figure 1: An overview of the data donation workflow](/assets/images/about/data_donation_flow.png)
 
 To allow for the local processing step to take place, we developed the [software PORT](/software/). PORT is open-source and allows for researchers to fully configure their own data donation study. It creates a website that guides participants through the data donation steps. Researchers can tailor this website to their own DDPs of interest and process these in their desired ways. 
 
