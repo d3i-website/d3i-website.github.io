@@ -1,0 +1,4 @@
+User-agent: *                # any robot
+Allow: /                     # all directories may be crawled
+
+Sitemap: https://datadonation.eu/sitemap.xml 

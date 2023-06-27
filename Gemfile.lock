@@ -258,7 +258,8 @@ PLATFORMS
 DEPENDENCIES
   github-pages
   jekyll-include-cache
+  jekyll-sitemap
   webrick (~> 1.8)
 
 BUNDLED WITH
-   2.4.1
+   2.4.12
