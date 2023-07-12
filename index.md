@@ -18,9 +18,6 @@ header:
   #    btn_class: "btn--inverse"
 ---
 
-HI PAVLOS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-WORKING WITH GIT IS EXCITING!!!!
 
 Welcome at datadonation.eu, the website of [D3I](/d3i/), a project funded by [PDI-SSH](https://pdi-ssh.nl/en/). datadonation.eu aims to bring together an international community of researchers interested in using data donation for research. 
 
