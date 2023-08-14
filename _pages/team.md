@@ -39,7 +39,7 @@ feature_row_1:
     title: "T.C. (Thijs) Carriere MSc."
     excerpt: "Researcher methodology"
     url: "https://www.uu.nl/medewerkers/TCCarriere"
-     - image_path: /assets/images/people/pavlos.jpg
+  - image_path: /assets/images/people/pavlos.jpg
     alt: "Job title"
     title: "P. (Pavlos) Ferlachidis MSc."
     excerpt: "Research assistant"
