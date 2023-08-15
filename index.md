@@ -25,4 +25,3 @@ Do you want to collect digital trace data in a way that is transparent to your r
 
 Enjoy and please reach out to one of our [team](/team/) members in case you have any questions or comments!
 
-PP hbfhbhkjdfkd
