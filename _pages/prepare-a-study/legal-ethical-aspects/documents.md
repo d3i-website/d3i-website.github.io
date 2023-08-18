@@ -26,7 +26,7 @@ Data protection obligations generally scale up according to the risk that the pr
 
 In this background document, we unpack who in the context of D3I projects is responsible for compliance with the GDPR, and how the derogations work in practice. We elaborate other important GDPR requirements for researchers to consider in separate documentation about “consent” and “Data Protection Impact Assessments”.
 
-* [Background Document](/assets/documents/legal_ethical/Background_document_-_scientific_research_and_data_protection_-_Background_document.docx)
+* [Background Document](/assets/documents/legal_ethical/Background_document_-_scientific_research_and_data_protection_-_Background_document.pdf)
 
 ### Privacy policy
 
