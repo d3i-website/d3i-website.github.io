@@ -36,8 +36,8 @@ Most importantly, the privacy policy informs the envisioned participants about t
 
 The consent form in which the participant gives his or her specific, informed and unambiguous consent that the participant will sign can be found in [consent](/for-researchers/legal-ethical-aspects/documents#consent) (see the next section).
 
-* [Privacy Policy English](/assets/documents/legal_ethical/Privacy_policy_EN.docx)
-* [Privacy Policy Dutch](/assets/documents/legal_ethical/Privacy_policy_NL.docx)
+* [Privacy Policy English](/assets/documents/legal_ethical/Privacy_policy_EN.pdf)
+* [Privacy Policy Dutch](/assets/documents/legal_ethical/Privacy_policy_NL.pdf)
 
 ### Consent
  
@@ -51,9 +51,9 @@ We offer a consent manual in which we explain why consent is crucial for researc
 
 We developed a consent form template for researchers that they can fill out before submitting it to the participant for obtaining consent. the participant must sign the document and return the document to the researcher (most likely via e-mail).
 
-* [Consent Manual](/assets/documents/legal_ethical/Consent_manual.docx)
-* [Consent Template Dutch](/assets/documents/legal_ethical/Consent_template_Dutch.docx)
-* [Consent Template English](/assets/documents/legal_ethical/Consent_template_ENG.docx)
+* [Consent Manual](/assets/documents/legal_ethical/Consent_manual.pdf)
+* [Consent Template Dutch](/assets/documents/legal_ethical/Consent_template_Dutch.pdf)
+* [Consent Template English](/assets/documents/legal_ethical/Consent_template_ENG.pdf)
 
 ### Data protection impact assessment - DPIA
 
