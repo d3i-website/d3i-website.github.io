@@ -35,7 +35,7 @@ Governance Board:
 - Dr. Wyke Stommel
 - Dr. Maarten van Gompel
 - Dr. Henk van den Heuvel
-url: "https://research.vu.nl/en/persons/kasper-welbers"
+
 
 
 ## D3I Partners
