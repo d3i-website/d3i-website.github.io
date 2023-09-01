@@ -15,11 +15,12 @@ D3I is a project funded by PDI-SSH. PDI-SSH is responsible for allocating resour
 For supervision, the D3I team regularly meets with its Core team:
 
 Core Team:
-- Prof. Dr. Daniel Oberski
-- Prof. Dr. Enny Das
-- Dr. Jef Ausloos
-- Prof. Dr. Judith Moeller
-- Prof. Dr. Wouter van Atteveldt
+- [Prof. Dr. Daniel Oberski](https://www.uu.nl/staff/DLOberski/0)
+- [Prof. Dr. Enny Das](https://www.ru.nl/en/people/das-h)
+- [Dr. Jef Ausloos](https://www.uva.nl/en/profile/a/u/j.ausloos/j.ausloos.html)
+- [Prof. Dr. Judith Moeller](https://leibniz-hbi.de/en/staff/judith-moeller)
+- [Prof. Dr. Wouter van Atteveldt](https://research.vu.nl/en/persons/wouter-van-atteveldt)
+
 
 In addition, the D3I Team and Core Team have bi-monthly meetings with the Governance Board
 to provide steering and input for the project, ensuring that the developments are 
