@@ -27,6 +27,7 @@ suitable for a wide range of disciplines and institutional settings.
 
 Governance Board:
 - Dr. Karin van Es
+- [Dr. Karin van Es](https://www.uu.nl/staff/KFvanEs/Courses)
 - Dr. Dennis Nguyen
 - Dr. Mirko Schafer
 - Prof. Dr. Marjolijn Atheunis
