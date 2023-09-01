@@ -51,7 +51,7 @@ We offer a consent manual in which we explain why consent is crucial for researc
 
 We developed a consent form template for researchers that they can fill out before submitting it to the participant for obtaining consent. the participant must sign the document and return the document to the researcher (most likely via e-mail).
 
-* [Consent Manual](/assets/documents/legal_ethical/Consent_manual.docx)
+* [Consent Manual](\assets\documents\legal_ethical\Consent_manual.md)
 * [Consent Template Dutch](/assets/documents/legal_ethical/Consent_template_Dutch.docx)
 * [Consent Template English](/assets/documents/legal_ethical/Consent_template_ENG.docx)
 
