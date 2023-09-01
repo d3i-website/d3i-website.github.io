@@ -26,8 +26,17 @@ to provide steering and input for the project, ensuring that the developments ar
 suitable for a wide range of disciplines and institutional settings. 
 
 Governance Board:
-- Dr. Karin van Es
 - [Dr. Karin van Es](https://www.uu.nl/staff/KFvanEs/Courses)
+- [Dr. Dennis Nguyen](https://www.uu.nl/staff/DNguyen1/Courses)
+- [Dr. Mirko Schafer](https://www.uu.nl/staff/MTSchaefer)
+- [Prof. Dr. Marjolijn Antheunis](https://www.tilburguniversity.edu/staff/m-l-antheunis)
+- [Prof. Dr. Marieke Fransen](https://www.ru.nl/personen/fransen-m)
+- [Prof. Dr. Claartje ter Hoeven](https://www.eur.nl/people/claartje-ter-hoeven)
+- [Dr. Wyke Stommel](https://www.ru.nl/en/people/stommel-w)
+- [Dr. Maarten van Gompel](https://www.ru.nl/en/people/gompel-m-van)
+- [Dr. Henk van den Heuvel](https://www.ru.nl/en/people/heuvel-h-van-den)
+
+
 - Dr. Dennis Nguyen
 - Dr. Mirko Schafer
 - Prof. Dr. Marjolijn Atheunis
