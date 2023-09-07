@@ -38,15 +38,6 @@ Governance Board:
 - [Dr. Henk van den Heuvel](https://www.ru.nl/en/people/heuvel-h-van-den)
 
 
-- Dr. Dennis Nguyen
-- Dr. Mirko Schafer
-- Prof. Dr. Marjolijn Atheunis
-- Prof. Dr. Marieke Fransen
-- Prof. Dr. Claartje ter Hoeven
-- Dr. Wyke Stommel
-- Dr. Maarten van Gompel
-- Dr. Henk van den Heuvel
-
 
 
 ## D3I Partners
