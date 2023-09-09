@@ -9,6 +9,8 @@ main:
     url: /software/
   - title: "Prepare a study"
     url: /prepare-a-study/
+  - title: "Best practices in data donation"
+    url: /best-practices-in-data-donation/    
 #  - title: "Community"
 #    url: /community/
 
