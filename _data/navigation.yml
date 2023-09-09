@@ -33,3 +33,8 @@ prepare-a-study:
         url: /prepare-a-study/legal-ethical-aspects/introduction
       - title: "Documents"
         url: /prepare-a-study/legal-ethical-aspects/documents
+
+best-practices-in-data-donation:
+ - title: Introduction
+  children:
+   -title
