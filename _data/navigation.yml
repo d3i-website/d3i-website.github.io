@@ -38,4 +38,13 @@ prepare-a-study:
 
 best-practices-in-data-donation:
  - title: Introduction
+ - title: A workflow for data donation studies
+   children:
+      - title: "Workflow overview"
+        url: /best-practices-in-data-donation/a-workflow-for-data-donation-studies/workflow-extraction
+      - title: "Domain experts"
+        url: /best-practices-in-data-donation/a-workflow-for-data-donation-studies/domain-experts
+      - title: "Illustrative research questions"
+        url: /best-practices-in-data-donation/a-workflow-for-data-donation-studies/illustrative-research-questions
   
+ 
