@@ -14,7 +14,7 @@ main:
 #  - title: "Community"
 #    url: /community/
 
-prepare-a-study:
+# prepare-a-study:
   - title: Study design
     children:
       - title: "Participant recruitment"
@@ -46,5 +46,16 @@ best-practices-in-data-donation:
         url: /best-practices-in-data-donation/a-workflow-for-data-donation-studies/domain-experts
       - title: "Illustrative research questions"
         url: /best-practices-in-data-donation/a-workflow-for-data-donation-studies/illustrative-research-questions
-  
- 
+  - title: Defining the purpose of data donation in the study
+    children:
+      - title: "Operationalize constructs and delineate the research question"
+        url: /best-practices-in-data-donation/defining-the-purpose-of-data-donation-in-the-study/operationalize-constructs-and-delineate-the-research-question
+      - title: "Select candidate DDPs"
+        url: /best-practices-in-data-donation/defining-the-purpose-of-data-donation-in-the-study/select-candidate-DDPs
+      - title: "Evaluate the constructs and research question for the DDPs"
+        url: /best-practices-in-data-donation/defining-the-purpose-of-data-donation-in-the-study/Evaluate-the-constructs-and-research-question-for-the-DDPs
+      - title: "Reiterate the operationalization of the constructs in the DDPs"
+        url: /best-practices-in-data-donation/defining-the-purpose-of-data-donation-in-the-study/reiterate-the-operationalization-of-the-constructs-in-the-DDPs
+      - title: "Map the limitations of choices"
+        url: /best-practices-in-data-donation/defining-the-purpose-of-data-donation-in-the-study/map-the-limitations-of-choices
+         
