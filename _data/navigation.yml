@@ -68,3 +68,35 @@ best-practices-in-data-donation:
         url: /best-practices-in-data-donation/data-donation-study-design/participant-flow
       - title: "Benefits of additional data collection methods"
         url: /best-practices-in-data-donation/data-donation-study-design/participant-flow/benefits-of-additional-data-collection-methods  
+  - title: Local extraction
+    children:
+      - title: Script preparations
+        url: /best-practices-in-data-donation/local-extraction/script-preparations
+      - title: The extraction script
+        url: /best-practices-in-data-donation/local-extraction/the-extraction-script
+      - title: Acounting for DDP volatility and testing the script
+        url: /best-practices-in-data-donation/local-extraction/acounting-for-DDP-volatility-and-testing-the-script
+  - title: Configuring the data donation tool
+  - title: Submitting to an Ethical Review Board
+    children: 
+      - title: Data protection impact assessment  
+        url: /best-practices-in-data-donation/submitting-to-an-ethical-review-board/data-protection-impact-assessment
+      - title: Consent form
+        url: /best-practices-in-data-donation/submitting-to-an-ethical-review-board/consent-form
+  - title: From pilot to the complete study
+    children: 
+      - title: The pilot study and study improvements  
+        url: /best-practices-in-data-donation/from-pilot-to-the-complete-study/the-pilot-study-and-study-improvements  
+      - title: Linkage of data sources
+        url: /best-practices-in-data-donation/from-pilot-to-the-complete-study/linkage-of-data-sources
+  - title: Total error framework for digital data donation
+    children:
+      - title: The Total Error framework
+        url: /best-practices-in-data-donation/total-error-framework-for-digital-data-donation/the-total-error-framework
+      - title: Steps in concretizing and the TE framework (Section 3)
+        url: /best-practices-in-data-donation/total-error-framework-for-digital-data-donation/steps-in-concretizing-and-the-TE-framework
+      - title: Error sources in the participant flow
+        url: /best-practices-in-data-donation/total-error-framework-for-digital-data-donation/error-sources-in-the-partipant-flow
+      - title: Questionnaire and TEF
+        url: /best-practices-in-data-donation/total-error-framework-for-digital-data-donation/questionnaire-and-TEF
+        
