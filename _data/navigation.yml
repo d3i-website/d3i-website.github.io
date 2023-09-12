@@ -7,34 +7,34 @@ main:
     url: /d3i/
   - title: "Software"
     url: /software/
-  - title: "Prepare a study"
-    url: /prepare-a-study/    
+#- title: "Prepare a study"
+#  url: /prepare-a-study/    
   - title: "Best practices in data donation"
     url: /best-practices-in-data-donation/    
 #  - title: "Community"
 #    url: /community/
 
 # prepare-a-study:
-  - title: Study design
-    children:
-      - title: "Participant recruitment"
-        url: /prepare-a-study/study-design/participant-recruitment
-      - title: "Data request and download"
-        url: /prepare-a-study/study-design/data-request-download
-  - title: "Local extraction"
-    children:
-      - title: "Python extraction script"
-        url: /prepare-a-study/local-extraction/extraction-script
-      - title: "Documentation"
-        url: /prepare-a-study/local-extraction/documentation
-      - title: "Tutorial"
-        url: /prepare-a-study/local-extraction/tutorial
-  - title: "Legal and ethical aspects"
-    children:
-      - title: "Introduction"
-        url: /prepare-a-study/legal-ethical-aspects/introduction
-      - title: "Documents"
-        url: /prepare-a-study/legal-ethical-aspects/documents
+  #- title: Study design
+    #children:
+     #- title: "Participant recruitment"
+       #url: /prepare-a-study/study-design/participant-recruitment
+    #- title: "Data request and download"
+        #url: /prepare-a-study/study-design/data-request-download
+ #- title: "Local extraction"
+    #children:
+      #- title: "Python extraction script"
+       # url: /prepare-a-study/local-extraction/extraction-script
+      #- title: "Documentation"
+       # url: /prepare-a-study/local-extraction/documentation
+      #- title: "Tutorial"
+       # url: /prepare-a-study/local-extraction/tutorial
+  #- title: "Legal and ethical aspects"
+   # children:
+    #  - title: "Introduction"
+     #   url: /prepare-a-study/legal-ethical-aspects/introduction
+      #- title: "Documents"
+       # url: /prepare-a-study/legal-ethical-aspects/documents
 
 best-practices-in-data-donation:
   - title: Introduction
