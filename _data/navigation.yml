@@ -58,4 +58,13 @@ best-practices-in-data-donation:
         url: /best-practices-in-data-donation/defining-the-purpose-of-data-donation-in-the-study/reiterate-the-operationalization-of-the-constructs-in-the-DDPs
       - title: "Map the limitations of choices"
         url: /best-practices-in-data-donation/defining-the-purpose-of-data-donation-in-the-study/map-the-limitations-of-choices
-         
+  - title: Data donation study design    
+    children:  
+      - title: "Participant recruitment"
+        url: /best-practices-in-data-donation/data-donation-study-design/participant-recruitment
+      - title: "Participant flow"
+        url: /best-practices-in-data-donation/data-donation-study-design/participant-flow  
+      - title: "Participant flow"
+        url: /best-practices-in-data-donation/data-donation-study-design/participant-flow
+      - title: "Benefits of additional data collection methods"
+        url: /best-practices-in-data-donation/data-donation-study-design/participant-flow/benefits-of-additional-data-collection-methods  
