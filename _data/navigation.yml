@@ -64,8 +64,6 @@ best-practices-in-data-donation:
         url: /best-practices-in-data-donation/data-donation-study-design/participant-recruitment
       - title: "Participant flow"
         url: /best-practices-in-data-donation/data-donation-study-design/participant-flow  
-      - title: "Participant flow"
-        url: /best-practices-in-data-donation/data-donation-study-design/participant-flow
       - title: "Benefits of additional data collection methods"
         url: /best-practices-in-data-donation/data-donation-study-design/participant-flow/benefits-of-additional-data-collection-methods  
   - title: Local extraction
@@ -99,4 +97,3 @@ best-practices-in-data-donation:
         url: /best-practices-in-data-donation/total-error-framework-for-digital-data-donation/error-sources-in-the-partipant-flow
       - title: Questionnaire and TEF
         url: /best-practices-in-data-donation/total-error-framework-for-digital-data-donation/questionnaire-and-TEF
-        
