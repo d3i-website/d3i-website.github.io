@@ -64,8 +64,8 @@ best-practices-in-data-donation:
         url: /best-practices-in-data-donation/data-donation-study-design/participant-recruitment
       - title: "Participant flow"
         url: /best-practices-in-data-donation/data-donation-study-design/participant-flow  
-      - title: "Benefits of additional data collection methods"
-        url: /best-practices-in-data-donation/data-donation-study-design/participant-flow/benefits-of-additional-data-collection-methods  
+      - title: "Combining data donation with other approaches for data collection"
+        url: /best-practices-in-data-donation/data-donation-study-design/combining-data-donation-with-other-approaches-for-data-colllection  
   - title: Local extraction
     children:
       - title: Script preparations
@@ -91,7 +91,7 @@ best-practices-in-data-donation:
     children:
       - title: The Total Error framework
         url: /best-practices-in-data-donation/total-error-framework-for-digital-data-donation/the-total-error-framework
-      - title: Steps in concretizing and the TE framework (Section 3)
+      - title: Steps in concretizing and the TE framework 
         url: /best-practices-in-data-donation/total-error-framework-for-digital-data-donation/steps-in-concretizing-and-the-TE-framework
       - title: Error sources in the participant flow
         url: /best-practices-in-data-donation/total-error-framework-for-digital-data-donation/error-sources-in-the-partipant-flow
