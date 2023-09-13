@@ -6,3 +6,10 @@ toc: true
 sidebar:
   nav: "a-workflow-for-data-donation-studies"
 ---
+
+A data donation study starts with a research idea or topic where data donation is considered to be of added value. This research idea becomes more specific by identifying DDPs of relevant platforms and operationalizing how constructs of interest can be measured from those. Then, the workflow continues with (simultaneously) preparing the three core elements of the data donation study:
+1. The study design.
+2. The feature extraction script.
+3. Configuration of the data donation tool.
+
+Next, the study can be submitted to an ethical review boar (ERB). After approval of the ERB, it is advised to conduct a pilot study prior to starting the full data donation study, such that all study elements can be tested and improved accordingly.
