@@ -37,11 +37,13 @@ main:
        # url: /prepare-a-study/legal-ethical-aspects/documents
 
 best-practices-in-data-donation:
-  - title: Introduction
+  #- title: Introduction
   - title: A workflow for data donation studies
     children:
+      - title: "Introduction"
+        url: /best-practices-in-data-donation/a-workflow-for-data-donation-studies/introduction
       - title: "Workflow overview"
-        url: /best-practices-in-data-donation/a-workflow-for-data-donation-studies/workflow-extraction
+        url: /best-practices-in-data-donation/a-workflow-for-data-donation-studies/workflow-overview
       - title: "Domain experts"
         url: /best-practices-in-data-donation/a-workflow-for-data-donation-studies/domain-experts
       - title: "Illustrative research questions"
