@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Best practices in data donation
+title: Best practices in data donation - A workflow for studies using digital data donation
 permalink: /best-practices-in-data-donation/
 toc: false
 sidebar:
