@@ -13,3 +13,5 @@ A data donation study starts with a research idea or topic where data donation i
 3. Configuration of the data donation tool.
 
 Next, the study can be submitted to an ethical review boar (ERB). After approval of the ERB, it is advised to conduct a pilot study prior to starting the full data donation study, such that all study elements can be tested and improved accordingly.
+
+![Figure 1: Full workflow for a data donation studies](/assets/images/about/full_flow_try3.png)
