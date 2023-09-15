@@ -16,7 +16,8 @@ A data donation study starts with a research idea or topic where data donation i
 
 Next, the study can be submitted to an ethical review boar (ERB). After approval of the ERB, it is advised to conduct a pilot study prior to starting the full data donation study, such that all study elements can be tested and improved accordingly.
 
+## Figure 1: 
 ![Figure 1: Full workflow for a data donation studies](/assets/images/about/full_flow_try3.png)
 
-## Figure 1: 
+
 Full workflow for data donation studies. Different colors refer to the different domain experts involved. The block color indicate the primary domain expert required for this element. Colored circles indicate potential consultants. Parts with an outlined border are explained in more detail in subsequent figures and paragraphs.
