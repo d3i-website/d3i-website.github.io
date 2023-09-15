@@ -68,8 +68,8 @@ best-practices-in-data-donation:
         url: /best-practices-in-data-donation/data-donation-study-design/participant-recruitment
       - title: "Participant flow"
         url: /best-practices-in-data-donation/data-donation-study-design/participant-flow  
-      - title: "Combining data donation with other approaches for data collection"
-        url: /best-practices-in-data-donation/data-donation-study-design/combining-data-donation-with-other-approaches-for-data-colllection  
+      #- title: "Combining data donation with other approaches for data collection"
+      #  url: /best-practices-in-data-donation/data-donation-study-design/combining-data-donation-with-other-approaches-for-data-colllection  
   - title: Local extraction
     children:
       - title: Script preparations
@@ -79,16 +79,21 @@ best-practices-in-data-donation:
       - title: Acounting for DDP volatility and testing the script
         url: /best-practices-in-data-donation/local-extraction/acounting-for-DDP-volatility-and-testing-the-script
   - title: Configuring the data donation tool
+    children:
+      - title: Configuration of the data donation tool
+        url: /best-practices-in-data-donation/configuring-the-data-donation-tool/configuration-of-the-data-donation-tool
   - title: Submitting to an Ethical Review Board
     children: 
       - title: Data protection impact assessment  
         url: /best-practices-in-data-donation/submitting-to-an-ethical-review-board/data-protection-impact-assessment
       - title: Consent form
         url: /best-practices-in-data-donation/submitting-to-an-ethical-review-board/consent-form
-  - title: From pilot to the complete study
-    children: 
+  - title: From pilot to full study
+    children:
+      - title: From pilot to full study  
+        url: /best-practices-in-data-donation/from-pilot-to-full-study/from-pilot-to-full-study
       - title: The pilot study and study improvements  
-        url: /best-practices-in-data-donation/from-pilot-to-the-complete-study/the-pilot-study-and-study-improvements  
+        url: /best-practices-in-data-donation/from-pilot-to-the-full-study/the-pilot-study-and-study-improvements  
       - title: Linkage of data sources
         url: /best-practices-in-data-donation/from-pilot-to-the-complete-study/linkage-of-data-sources
   - title: Total error framework for digital data donation

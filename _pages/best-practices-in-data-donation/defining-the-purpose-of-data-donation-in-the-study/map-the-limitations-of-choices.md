@@ -18,7 +18,7 @@ To conclude, going over the steps presented in this section should result in a c
 Illustration on concretization of the use of data donation for RQ1: ‘Did travel behavior in the Dutch population change during Covid-19?’.
 
 ## Table 2:
-![Table 2: Illustration on concretization of the use of data donation for RQ2: ‘What interests do social media platforms infer from their users, and how do these differ over platforms?’..](/assets/images/about/Table 2.png)
+![Table 2: Illustration on concretization of the use of data donation for RQ2: ‘What interests do social media platforms infer from their users, and how do these differ over platforms?’.](/assets/images/about/Table 2.png)
 
 
 Illustration on concretization of the use of data donation for RQ2: ‘What interests do social media platforms infer from their users, and how do these differ over platforms?’.
