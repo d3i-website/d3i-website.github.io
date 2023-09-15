@@ -50,12 +50,14 @@ best-practices-in-data-donation:
         url: /best-practices-in-data-donation/a-workflow-for-data-donation-studies/illustrative-research-questions
   - title: Defining the purpose of data donation in the study
     children:
+      - title: "Steps in data donation"
+        url: /best-practices-in-data-donation/defining-the-purpose-of-data-donation-in-the-study/steps
       - title: "Operationalize constructs and delineate the research question"
         url: /best-practices-in-data-donation/defining-the-purpose-of-data-donation-in-the-study/operationalize-constructs-and-delineate-the-research-question
       - title: "Select candidate DDPs"
         url: /best-practices-in-data-donation/defining-the-purpose-of-data-donation-in-the-study/select-candidate-DDPs
       - title: "Evaluate the constructs and research question for the DDPs"
-        url: /best-practices-in-data-donation/defining-the-purpose-of-data-donation-in-the-study/Evaluate-the-constructs-and-research-question-for-the-DDPs
+        url: /best-practices-in-data-donation/defining-the-purpose-of-data-donation-in-the-study/evaluate-the-constructs-and-research-question-for-the-DDPs
       - title: "Reiterate the operationalization of the constructs in the DDPs"
         url: /best-practices-in-data-donation/defining-the-purpose-of-data-donation-in-the-study/reiterate-the-operationalization-of-the-constructs-in-the-DDPs
       - title: "Map the limitations of choices"
