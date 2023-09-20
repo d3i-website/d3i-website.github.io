@@ -10,6 +10,9 @@ toc: false
 
 Data donation is a method for data collection. It allows a researcher to collect digital trace data, by asking their participants to request and share their Data Download Packages (DDPs).
 
+<iframe width="560" height="315" src="https://youtube.com/embed/O_kYejQIaK8" frameborder="0" allowfullscreen></iframe>
+
+
 ## Why use data donation?
 
 In our everyday lives, we leave more and more digital traces behind. Whether we like a post on Instagram, or send a message on WhatsApp. Even when we check-in at a public transportation, or when we do a bank transaction, we leave behind a digital trace. The promise of digital humanities and computational social science has been that researchers can utilize these digital traces to study human behavior and interaction at an unprecendented level of detail.
@@ -19,6 +22,8 @@ However, while the amount of digital trace data increases, most are closed off i
 An alternative approach to gain access to digital traces is enabled thanks to the European Union's General Data Protection Regulations (GDPR) right to data access and data portability. Thanks to this legislation, all data processing entities are required to provide citizens a digital copy of their personal data upon request, which typically come in the form of .zip files to which we refer as *Data Download Packages* (DDPs).
 
 ## How does data donation work?
+
+<iframe width="560" height="315" src="https://youtube.com/embed/FRjtZxjmrCE" frameborder="0" allowfullscreen></iframe>
 
 Data donation allows researchers to invite participants to share their DDPs. A major challenge is however that DDPs potentially contain very sensitive data, and often not all data is needed to answer the specific research question under investigation. To circumvent these challenges, an alternative framework has been developed: First, the research participant requests their personal DDP at the platform of interest. Second, they download it onto their own personal device. Third, by means of local processing, only the features of interest to the researcher are extracted from that DDP. Fourth, the participant inspects the extracted features after which they can consent (or decline) to donate. Only after providing this consent, the donated data is sent to a server which can be accessed by the researcher for further analyses.
 
