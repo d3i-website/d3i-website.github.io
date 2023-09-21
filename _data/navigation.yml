@@ -11,6 +11,8 @@ main:
 #  url: /prepare-a-study/    
   - title: "Best practices in data donation"
     url: /best-practices-in-data-donation/    
+  - title: "Previous studies"
+    url: /previous-studies/
 #  - title: "Community"
 #    url: /community/
 
