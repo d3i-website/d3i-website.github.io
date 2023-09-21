@@ -443,6 +443,11 @@
 
   a {
     color: inherit;
+
+      &:hover {
+        text-decoration: underline;
+        color: $accent-primary;
+      }
   }
 
   .active {
@@ -450,6 +455,7 @@
     padding-left: 0.5em;
     padding-right: 0.5em;
     font-weight: bold;
+    color: $accent-primary;
   }
 
   @include breakpoint(max-width $large - 1px) {

@@ -8,6 +8,7 @@ sidebar:
 ---
 
 Prior to participation in any research, human subjects or participants have to provide an informed consent (Falagas et al., 2009; Neff, 2008). This usually is done by signing a consent form after being provided with thorough information on the concerning study. At least the participant should be informed on:
+
 • the researcher’s identity; 
 • the data being collected and what data is being used;
 • the purpose of any data processing steps;
