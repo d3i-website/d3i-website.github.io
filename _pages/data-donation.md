@@ -1,6 +1,6 @@
 ---
 layout: single
-classes: wide
+classes: wide_center_content
 title: Data donation
 permalink: /data-donation/
 toc: false

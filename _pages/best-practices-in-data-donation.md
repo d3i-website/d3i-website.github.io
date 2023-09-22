@@ -1,8 +1,9 @@
 ---
-layout: single
+layout: single-toc-on-top
+classes: wide
 title: Best practices in data donation - A workflow for studies using digital data donation
 permalink: /best-practices-in-data-donation/
-toc: false
+toc: true
 sidebar:
   nav: "best-practices-in-data-donation"
 ---

@@ -555,7 +555,8 @@ body {
    Wide Pages
    ========================================================================== */
 
-.wide {
+/* CLASS CREATED BY NIEK */
+.wide_center_content {
   .page {
     @include breakpoint($large) {
 
@@ -567,6 +568,29 @@ body {
     @include breakpoint($x-large) {
       float: none;                //ADDED BY NIEK
       margin: 0 auto;             //ADDED BY NIEK
+      padding-right: 0;
+    }
+  }
+
+  .page__related {
+    @include breakpoint($large) {
+      padding-right: 0;
+    }
+
+    @include breakpoint($x-large) {
+      padding-right: 0;
+    }
+  }
+}
+
+.wide {
+  .page {
+    @include breakpoint($large) {
+
+      padding-right: 0;
+    }
+
+    @include breakpoint($x-large) {
       padding-right: 0;
     }
   }
