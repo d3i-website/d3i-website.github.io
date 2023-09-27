@@ -1,11 +1,14 @@
 ---
-layout: single
-title:  Configuration of the data donation tool
-permalink: /best-practices-in-data-donation/configuring-the-data-donation-tool/configuration-of-the-data-donation-tool
-toc: false
+layout: single-toc-on-top
+classes: wide
+title:  Configuring the data donation tool
+permalink: /best-practices-in-data-donation/configuring-the-data-donation-tool
+toc: true
 sidebar:
   nav: "best-practices-in-data-donation"
 ---
+
+# Configuring the data donation tool
 
 A data donation tool consists of an app that can be accessed by participants. At the minimum, this app should allow for the local processing step to take place. In practice, this means that a participant opens their DDP in the app, the extraction script (see Section 5) is run, and after the participate presses the ‘yes, donate’ button, the extracted data is sent to a server which can be accessed by the researcher for further analysis. To enable these steps, the researcher, together with an IT-specialist of their institution, decides where the app is hosted and where data is stored.
 
