@@ -186,6 +186,7 @@ body {
   animation-delay: 0.25s;
 
   &--overlay {
+    height: 50%;
     position: relative;
     margin-bottom: 2em;
     padding: 3em 0;
@@ -215,7 +216,7 @@ body {
     .page__meta,
     .page__lead,
     .btn {
-      color: #fff;
+      color: $text-color;
       text-shadow: 1px 1px 4px rgba(#000, 0.5);
     }
 

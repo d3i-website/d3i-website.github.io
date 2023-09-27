@@ -7,9 +7,9 @@ title: |
     Welcome at Europe's Data Donation Infrastructure
 excerpt: "Leveraging the right of data access for research"
 header:
-  overlay_image: "assets/images/port_banner.png"
+  overlay_image: "assets/images/banner.png"
   #overlay_color: "#333"
-  overlay_filter: 0.7 # same as adding an opacity of 0.5 to a black background
+  #overlay_filter: 0.7 # same as adding an opacity of 0.5 to a black background
   #caption: 
     
   #actions:
