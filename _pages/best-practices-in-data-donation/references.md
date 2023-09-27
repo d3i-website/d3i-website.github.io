@@ -1,5 +1,6 @@
 ---
 layout: single
+classes: wide
 title:  References
 permalink: /best-practices-in-data-donation/references
 toc: false

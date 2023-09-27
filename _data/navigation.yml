@@ -7,16 +7,13 @@ main:
     url: /d3i/
   - title: "Software"
     url: /software/
-#- title: "Prepare a study"
-#  url: /prepare-a-study/    
   - title: "Best practices in data donation"
-    url: /best-practices-in-data-donation/    
-  - title: "Previous studies"
-    url: /previous-studies/
+    url: /best-practices-in-data-donation/introduction
 
 
 best-practices-in-data-donation:
-  #- title: Introduction
+  - title: Introduction
+    url: /best-practices-in-data-donation/introduction
   - title: A workflow for data donation studies
     url: /best-practices-in-data-donation/a-workflow-for-data-donation-studies
   - title: Defining the purpose of data donation in the study
@@ -30,27 +27,9 @@ best-practices-in-data-donation:
   - title: Submitting to an Ethical Review Board
     url: /best-practices-in-data-donation/submitting-to-an-ethical-review-board
   - title: From pilot to full study
-    children:
-      - title: From pilot to full study  
-        url: /best-practices-in-data-donation/from-pilot-to-full-study/from-pilot-to-full-study  
-      - title: Linking data sources
-        url: /best-practices-in-data-donation/from-pilot-to-full-study/linking-data-sources
+    url: /best-practices-in-data-donation/from-pilot-to-full-study
   - title: The Total Error framework for data donation
-    children:
-      - title: The Total Error framework
-        url: /best-practices-in-data-donation/the-total-error-framework-for-data-donation/the-total-error-framework
-  - title: The data donation workflow in light of the TE framework
-    children:
-      - title: Defining the study purpose of the TE framework 
-        url: /best-practices-in-data-donation/the-data-donation-workflow-in-light-of-the-TE-framework/defining-the-study-purpose-and-the-TE-framework
-      - title: Constructing the study design and the TE framework
-        url: /best-practices-in-data-donation/the-data-donation-workflow-in-light-of-the-TE-framework/constructing-the-study-design-and-the-TE-framework
-      - title: Feature extraction and the TE framework
-        url: /best-practices-in-data-donation/the-data-donation-workflow-in-light-of-the-TE-framework/feature-extraction-and-the-TE-framework
-      - title: Remainder of the workflow and the TE framework
-        url: /best-practices-in-data-donation/the-data-donation-workflow-in-light-of-the-TE-framework/remainder-of-the-workflow-and-the-TE-framework
+    url: /best-practices-in-data-donation/the-total-error-framework-for-data-donation
   - title: References
-    children:
-      - title: References
-        url: /best-practices-in-data-donation/references      
+    url: /best-practices-in-data-donation/references      
      
