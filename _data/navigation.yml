@@ -8,12 +8,11 @@ main:
   - title: "Software"
     url: /software/
   - title: "Prepare a study"
-    url: /prepare-a-study/introduction
-
+    url: /prepare-a-study/getting-started
 
 prepare-a-study:
-  - title: Introduction
-    url: /prepare-a-study/introduction
+  - title: Getting started
+    url: /prepare-a-study/getting-started
   - title: Workflow
     url: /prepare-a-study/workflow
   - title: Defining the purpose of data donation in the study
@@ -32,4 +31,3 @@ prepare-a-study:
     url: /prepare-a-study/the-total-error-framework-for-data-donation
   - title: References
     url: /prepare-a-study/references      
-     

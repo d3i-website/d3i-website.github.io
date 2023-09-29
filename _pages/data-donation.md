@@ -10,6 +10,8 @@ toc: false
 
 Data donation is a method for data collection. It allows a researcher to collect digital trace data, by asking their participants to request and share their Data Download Packages (DDPs).
 
+**Watch the video below to understand what data donation is**
+
 <iframe width="560" height="315" src="https://youtube.com/embed/O_kYejQIaK8" frameborder="0" allowfullscreen></iframe>
 
 
@@ -22,6 +24,8 @@ However, while the amount of digital trace data increases, most are closed off i
 An alternative approach to gain access to digital traces is enabled thanks to the European Union's General Data Protection Regulations (GDPR) right to data access and data portability. Thanks to this legislation, all data processing entities are required to provide citizens a digital copy of their personal data upon request, which typically come in the form of .zip files to which we refer as *Data Download Packages* (DDPs).
 
 ## How does data donation work?
+
+**Watch this video below to learn how data donation works**
 
 <iframe width="560" height="315" src="https://youtube.com/embed/FRjtZxjmrCE" frameborder="0" allowfullscreen></iframe>
 
