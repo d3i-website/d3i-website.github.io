@@ -2,10 +2,10 @@
 layout: single-toc-on-top
 classes: wide
 title: Prepare a study - Getting started
-permalink: /best-practices-in-data-donation/getting-started
+permalink: /prepare-a-study/getting-started
 toc: false
 sidebar:
-  nav: "best-practices-in-data-donation"
+  nav: "prepare-a-study"
 ---
 
 ## Getting started
