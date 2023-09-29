@@ -2,10 +2,10 @@
 layout: single-toc-on-top
 classes: wide
 title:  Local extraction
-permalink: /best-practices-in-data-donation/submitting-to-an-ethical-review-board
+permalink: /prepare-a-study/submitting-to-an-ethical-review-board
 toc: true
 sidebar:
-  nav: "best-practices-in-data-donation"
+  nav: "prepare-a-study"
 ---
 
 # Data protection impact assessment

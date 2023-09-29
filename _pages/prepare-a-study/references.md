@@ -2,10 +2,10 @@
 layout: single
 classes: wide
 title:  References
-permalink: /best-practices-in-data-donation/references
+permalink: /prepare-a-study/references
 toc: false
 sidebar:
-  nav: "best-practices-in-data-donation"
+  nav: "prepare-a-study"
 ---
 
 Ahn, S. (2023). Towards designerly data donation in practice.

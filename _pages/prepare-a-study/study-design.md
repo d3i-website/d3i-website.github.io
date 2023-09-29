@@ -2,10 +2,10 @@
 layout: single-toc-on-top
 classes: wide
 title: Study design
-permalink: /best-practices-in-data-donation/study-design
+permalink: /prepare-a-study/study-design
 toc: true
 sidebar:
-  nav: "best-practices-in-data-donation"
+  nav: "prepare-a-study"
 ---
 
 # Participant recruitment

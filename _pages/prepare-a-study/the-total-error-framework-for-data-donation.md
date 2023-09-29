@@ -2,10 +2,10 @@
 layout: single-toc-on-top
 classes: wide
 title:  The total error framework for data donation
-permalink: /best-practices-in-data-donation/the-total-error-framework-for-data-donation
+permalink: /prepare-a-study/the-total-error-framework-for-data-donation
 toc: true
 sidebar:
-  nav: "best-practices-in-data-donation"
+  nav: "prepare-a-study"
 ---
 
 # The total error framework

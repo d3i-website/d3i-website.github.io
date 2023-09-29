@@ -2,10 +2,10 @@
 layout: single-toc-on-top
 classes: wide
 title:  Local extraction
-permalink: /best-practices-in-data-donation/local-extraction
+permalink: /prepare-a-study/local-extraction
 toc: true
 sidebar:
-  nav: "best-practices-in-data-donation"
+  nav: "prepare-a-study"
 ---
 
 # Script preparations

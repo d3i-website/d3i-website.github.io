@@ -1,11 +1,11 @@
 ---
 layout: single-toc-on-top
 classes: wide
-title: Best practices in data donation - A workflow for studies using digital data donation
-permalink: /best-practices-in-data-donation/
+title: Prepare a study - A workflow for studies using digital data donation
+permalink: /prepare-a-study/introduction
 toc: true
 sidebar:
-  nav: "best-practices-in-data-donation"
+  nav: "prepare-a-study"
 ---
 
 ## Introduction

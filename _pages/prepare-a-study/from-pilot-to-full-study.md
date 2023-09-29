@@ -2,10 +2,10 @@
 layout: single-toc-on-top
 classes: wide
 title: From pilot to full study
-permalink: /best-practices-in-data-donation/from-pilot-to-full-study
+permalink: /prepare-a-study/from-pilot-to-full-study
 toc: true
 sidebar:
-  nav: "best-practices-in-data-donation"
+  nav: "prepare-a-study"
 ---
 
 # From pilot to full study

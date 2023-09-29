@@ -2,10 +2,10 @@
 layout: single-toc-on-top
 classes: wide
 title:  Configuring the data donation tool
-permalink: /best-practices-in-data-donation/configuring-the-data-donation-tool
+permalink: /prepare-a-study/configuring-the-data-donation-tool
 toc: true
 sidebar:
-  nav: "best-practices-in-data-donation"
+  nav: "prepare-a-study"
 ---
 
 # Configuring the data donation tool

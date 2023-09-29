@@ -7,29 +7,29 @@ main:
     url: /d3i/
   - title: "Software"
     url: /software/
-  - title: "Best practices in data donation"
-    url: /best-practices-in-data-donation/introduction
+  - title: "Prepare a study"
+    url: /prepare-a-study/introduction
 
 
-best-practices-in-data-donation:
+prepare-a-study:
   - title: Introduction
-    url: /best-practices-in-data-donation/introduction
-  - title: A workflow for data donation studies
-    url: /best-practices-in-data-donation/a-workflow-for-data-donation-studies
+    url: /prepare-a-study/introduction
+  - title: Workflow
+    url: /prepare-a-study/workflow
   - title: Defining the purpose of data donation in the study
-    url: /best-practices-in-data-donation/defining-the-purpose-of-data-donation-in-the-study
+    url: /prepare-a-study/defining-the-purpose-of-data-donation-in-the-study
   - title: Study design    
-    url: /best-practices-in-data-donation/study-design
+    url: /prepare-a-study/study-design
   - title: Local extraction
-    url: /best-practices-in-data-donation/local-extraction
+    url: /prepare-a-study/local-extraction
   - title: Configuring the data donation tool
-    url: /best-practices-in-data-donation/configuring-the-data-donation-tool
+    url: /prepare-a-study/configuring-the-data-donation-tool
   - title: Submitting to an Ethical Review Board
-    url: /best-practices-in-data-donation/submitting-to-an-ethical-review-board
+    url: /prepare-a-study/submitting-to-an-ethical-review-board
   - title: From pilot to full study
-    url: /best-practices-in-data-donation/from-pilot-to-full-study
+    url: /prepare-a-study/from-pilot-to-full-study
   - title: The Total Error framework for data donation
-    url: /best-practices-in-data-donation/the-total-error-framework-for-data-donation
+    url: /prepare-a-study/the-total-error-framework-for-data-donation
   - title: References
-    url: /best-practices-in-data-donation/references      
+    url: /prepare-a-study/references      
      

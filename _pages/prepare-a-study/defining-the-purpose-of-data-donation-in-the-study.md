@@ -2,10 +2,10 @@
 layout: single-toc-on-top
 classes: wide
 title: Defining the purpose of data donation in the study
-permalink: /best-practices-in-data-donation/defining-the-purpose-of-data-donation-in-the-study
+permalink: /prepare-a-study/defining-the-purpose-of-data-donation-in-the-study
 toc: true
 sidebar:
-  nav: "best-practices-in-data-donation"
+  nav: "prepare-a-study"
 ---
 
 # Steps in data donation
