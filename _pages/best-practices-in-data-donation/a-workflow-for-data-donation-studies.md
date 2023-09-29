@@ -47,7 +47,7 @@ In Figure 1, it is summarized what domain experts are involved in each step of t
 
 # Illustrative research questions
 
-To illustrate the workflow and possible challenges that can arise at each step, three example research questions that can be answered with the use of data donation are used. These research questions vary in their level of processing of the extracted data prior to donation. The first research question is based on the study by Struminskaya (2022). Struminskaya et al. investigated data donation in a Dutch non-probability panel, concerning travel data. Data on the number of kilometers and hours traveled was extracted from Google Semantic Location History (GSLH) DDPs and processed to aggregate statistics, using PORT. The illustrative research question based on this study is the following:
+To illustrate the workflow and possible challenges that can arise at each step, three example research questions that can be answered with the use of data donation are used. These research questions vary in their level of processing of the extracted data prior to donation. The first research question is based on the study by Struminskaya (2022). Struminskaya et al. investigated data donation in a Dutch non-probability panel, concerning travel data. Data on the number of kilometers and hours traveled was extracted from Google Semantic Location History (GSLH) DDPs and processed to aggregate statistics, using Port. The illustrative research question based on this study is the following:
 
 Did travel behaviour in the Dutch population change during Covid-19? (1)
 
@@ -59,7 +59,7 @@ these differ over platforms? (2)
 
 The last example research question is based on the data donation study by Corten et al. (2022),
 studying behaviour of participants ofWhatsApp groups. The study extracted data from two different
-WhatsApp DDPs, and used the local processing of PORT to aggregate these data. This last research
+WhatsApp DDPs, and used the local processing of Port to aggregate these data. This last research
 question is:
 
 What are the social network structures in group chats? (3)
