@@ -8,12 +8,12 @@ main:
   - title: "Software"
     url: /software/
   - title: "Best practices in data donation"
-    url: /best-practices-in-data-donation/introduction
+    url: /best-practices-in-data-donation/getting-started
 
 
 best-practices-in-data-donation:
-  - title: Introduction
-    url: /best-practices-in-data-donation/introduction
+  - title: Getting started
+    url: /best-practices-in-data-donation/getting-started
   - title: A workflow for data donation studies
     url: /best-practices-in-data-donation/a-workflow-for-data-donation-studies
   - title: Defining the purpose of data donation in the study
