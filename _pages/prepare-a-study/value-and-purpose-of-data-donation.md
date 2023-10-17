@@ -1,36 +1,41 @@
 ---
 layout: single-toc-on-top
 classes: wide
-title: Defining the purpose of data donation in the study
-permalink: /prepare-a-study/defining-the-purpose-of-data-donation-in-the-study
+title: Value and purpose of data donation
+permalink: /prepare-a-study/value-and-purpose-of-data-donation
 toc: true
 sidebar:
   nav: "prepare-a-study"
 ---
 
-# Steps in data donation
+# Introduction
 
-When a researcher plans to include data donation as a tool for data collection in their study, they should first consider the exact purpose and added value of data donation in the context of that study. Defining such purpose is mandated by the GDPR for processing of any personal data (Hoofnagle et al., 2019). In addition, the idea of using data donation in a study should be made more concrete.
-The following steps can help here:
+ When considering using data donation to collect digital trace data for your research, carefully think about what the exact purpose and added value is of using data donation here. Defining such a purpose is mandated by the GDPR for processing any personal data (Hoofnagle et al., 2019). It helps to make more specific how you plan to use data donation exactly:
 
-1. Operationalize constructs and delineate the research question.
-2. Select candidate DDPs based on the chosen constructs.
-3. Evaluate the constructs and delineated research question in light of each candidate DDP.
-4. Reiterate the operationalization of the constructs in light of the DDPs.
+1. Operationalize your constructs.
+2. Identify candidate platforms.
+3. Evaluate how to measure constructs per platform.
+4. Evaluate how to use your chosen platform(s). 
+5. Map the limitations of the chosen platform(s). 
 
-# Operationalize constructs and delineate the research question
 
-First, each construct of interest for the study should be operationalized. Additionally, the research questions can provide further specifications about the context that the constructs will be measured in. Examples for these specifications could be populations and time restrictions. For example, for the construct 'travel behaviour' in example RQ1, the specifications distinction between modes of travel, tracking over time, and commonly used in the Dutch population were identified (see Table 1). In some cases, constructs are already specific by their own definition, and no further specifications are needed or provided by the research question (see for example Step 1 in Table 2, where the construct 'Inferred interests by social media' for example RQ2 is not further delineated). Delineation of the research question facilitates choosing between relevant DDPs for the research idea.
+# Operationalize your constructs
 
-# Select candidate DDPs
+Determine which constructs you are planning to measure through data donation, and how you want to measure them. Also consider other potential aspects, such as time restrictions or the population of interest. 
+
+To illustrate, for the construct "Travel behavior" in [RQ1](/prepare-a-study/workflow#Illustrative-research -questions) 
+
+RQ1 (can we link to these on the page they are?), being able to distinguish various modes of travel is important, being able to measure travel behavior over time is important, and it is important that data is donated from a commonly used platform, since it is of interest to generalize with respect to the Dutch population. Sometimes, constructs are already specific by their own definition. An example of such a construct is "Inferred interests by social media platforms" in RQ2. 
+
+# Identify candidate platforms
 
 When selecting platforms with potentially relevant DDPs, it is advised to get an overview on a wide range of platforms connected to the study topic, as well as on the general users of these platforms. Platform usage can differ strongly over age groups, countries, and levels of education. National studies on platform usage can therefore provide insights on what platforms match well with the targeted study population, such as the study by Hoekstra et al. (2022) on social media usage in the Netherlands. As platform usage can change greatly over a short time period, researchers should always look for recent sources. In addition, it is important for the researcher to explore platforms that they might not be familiar with at all, as the population of interest might use different platforms than the researcher knows of. While exploring platforms, it is advised to create an overview of the
 
-# Evaluate the constructs and research question for the DDPs
+# Evaluate how to use your chosen platform(s)
 
 Once an overview of the candidate platforms is created, it can be evaluated how well each platform matches the defined constructs and the research question (see for example Step 3 in Tables 1 and 3). Based on this evaluation, it can be opted to select a single platform to continue the study with (e.g. Table 1). However, if after such an evaluation it is concluded that multiple platforms can provide equally suited DDPs or DDPs supplementing each other, the subsequent steps can also be executed for multiple platform (e.g. Table 2).
 
-# Reiterate the operationalization of the constructs in the DDPs
+# Map the limitations of the chosen platform(s) 
 
 Once a suited platform is selected, it can be determined what exact data from the DDP will be used to measure the constructs. This means a second iteration of operationalization of the construct\is performed, now specifically in the light of the research question. Constructs can be measured either directly or indirectly in a DDP. For an indirect construct, this means that further processing of the data from the DDP is required (see e.g. Table 1), and a direct alignment between construct and measurements obtained from the DDP is not always possible (see e.g. Table 2). For a direct construct, no processing is needed and measurements can be taken directly from the data present in the DDP (see e.g. Table 3).
 
@@ -40,13 +45,13 @@ A challenge in determining the operationalization of the construct in the DDPs, 
 
 ![Figure 2: Illustration of the WhatsApp functionality to quote other user’s messages, and how data on this functionality cannot be found in the WhatsApp DDPs.](/assets/images/about/WhatsApp_quoting_figure_v2.png)
 
-Illustration of the WhatsApp functionality to quote other user’s messages, and how data on this functionality cannot be found in the WhatsApp DDPs.
+*Illustration of the WhatsApp functionality to quote other user’s messages, and how data on this functionality cannot be found in the WhatsApp DDPs.*
 
 **Figure 3**
 
 ![Figure 3: Illustration of unrealistic logs in the GSLH DDPs. This problem could be accounted for by imputing realistic distance values in the extracted data.](/assets/images/about/GSLH_error_figure_v4.png)
 
-Illustration of unrealistic logs in the GSLH DDPs. This problem could be accounted for by imputing realistic distance values in the extracted data.
+*Illustration of unrealistic logs in the GSLH DDPs. This problem could be accounted for by imputing realistic distance values in the extracted data.*
 
 # Map the limitations of choices
 
@@ -57,17 +62,16 @@ To conclude, going over the steps presented in this section should result in a c
 **Table 1**
 ![Table 1: Illustration on concretization of the use of data donation for RQ1: ‘Did travel behavior in the Dutch population change during Covid-19?’.](/assets/images/about/Table 1.png)
 
-Illustration on concretization of the use of data donation for RQ1: ‘Did travel behavior in the Dutch population change during Covid-19?’.
+*Illustration on concretization of the use of data donation for RQ1: ‘Did travel behavior in the Dutch population change during Covid-19?’.*
 
 **Table 2**
 ![Table 2: Illustration on concretization of the use of data donation for RQ2: ‘What interests do social media platforms infer from their users, and how do these differ over platforms?’.](/assets/images/about/Table 2.png)
 
-
-Illustration on concretization of the use of data donation for RQ2: ‘What interests do social media platforms infer from their users, and how do these differ over platforms?’.
+*Illustration on concretization of the use of data donation for RQ2: ‘What interests do social media platforms infer from their users, and how do these differ over platforms?’.*
 
 **Table 3**
 
 ![Table 3: Illustration on concretization of the use of data donation for RQ3: ‘What are the social network
 structures in group chats?’.](/assets/images/about/Table 3.png)
 
-Illustration on concretization of the use of data donation for RQ3: ‘What are the social network structures in group chats?’.
+*Illustration on concretization of the use of data donation for RQ3: ‘What are the social network structures in group chats?’.*
