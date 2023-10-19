@@ -9,6 +9,8 @@ main:
     url: /software/
   - title: "Prepare a study"
     url: /prepare-a-study/workflow
+  - title: "Symposium 2024"
+    url: /symposium-2024/
 
 prepare-a-study:
   - title: Workflow
