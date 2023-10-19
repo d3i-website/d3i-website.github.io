@@ -21,10 +21,10 @@ prepare-a-study:
     url: /prepare-a-study/study-design
   - title: Local extraction
     url: /prepare-a-study/local-extraction
-  - title: Configuring the data donation tool
-    url: /prepare-a-study/configuring-the-data-donation-tool
-  - title: Submitting to an Ethical Review Board
-    url: /prepare-a-study/submitting-to-an-ethical-review-board
+  - title: Configuring the software
+    url: /prepare-a-study/configuring-the-software
+  - title: Ethical considerations
+    url: /prepare-a-study/ethical-considerations
   - title: From pilot to full study
     url: /prepare-a-study/from-pilot-to-full-study
   - title: The Total Error framework for data donation

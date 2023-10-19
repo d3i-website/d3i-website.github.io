@@ -25,12 +25,6 @@ A data donation study starts with a research idea or topic where data donation i
 Next, the study can be submitted to an ethical review boar (ERB). After approval of the ERB, it is advised to conduct a pilot study prior to starting the full data donation study, such that all study elements can be tested and improved accordingly.
 
 **Figure 1**
-
-![Figure 1: Full workflow for a data donation studies](/assets/images/about/full_flow_try3.png)
-
-
-*Full workflow for data donation studies. Different colors refer to the different domain experts involved. The block color indicate the primary domain expert required for this element. Colored circles indicate potential consultants. Parts with an outlined border are explained in more detail in subsequent figures and paragraphs.*
-
 <figure>
   <img src="/assets/images/about/full_flow_try3.png" alt="Alt Text">
   <figcaption>Full workflow for data donation studies. Different colors refer to the different domain experts involved. The block color indicate the primary domain expert required for this element. Colored circles indicate potential consultants. Parts with an outlined border are explained in more detail in subsequent figures and paragraphs.</figcaption>
@@ -54,21 +48,21 @@ workflow to ensure legal and ethical standards are met.
 In Figure 1, it is summarized what domain experts are involved in each step of the workflow.
 
 
-# Illustrative research questions {#Illustrative-research-questions}
+# Illustrative research questions {#illustrative-research-questions}
 
 To illustrate the workflow and possible challenges that can arise at each step, three example research questions that can be answered with the use of data donation are used. These research questions vary in their level of processing of the extracted data prior to donation. The first research question is based on the study by Struminskaya (2022). Struminskaya et al. investigated data donation in a Dutch non-probability panel, concerning travel data. Data on the number of kilometers and hours traveled was extracted from Google Semantic Location History (GSLH) DDPs and processed to aggregate statistics, using Port. The illustrative research question based on this study is the following:
 
-RQ1: Did travel behaviour in the Dutch population change during Covid-19? 
+*RQ1: Did travel behaviour in the Dutch population change during Covid-19?* 
 
 The second example research question is based on a study by Theo Araujo, investigating algorithmic profiling by social media platforms using a first iteration of D3I. The study extracted the inferred interest of participants as raw data from DDPs. The research question following from this example
 is:
 
-RQ2: What interests do social media platforms infer from their users, and how do
-these differ over platforms? 
+*RQ2: What interests do social media platforms infer from their users, and how do
+these differ over platforms?* 
 
 The last example research question is based on the data donation study by Corten et al. (2022),
 studying behaviour of participants ofWhatsApp groups. The study extracted data from two different
 WhatsApp DDPs, and used the local processing of Port to aggregate these data. This last research
 question is:
 
-RQ3: What are the social network structures in group chats? 
+*RQ3: What are the social network structures in group chats?* 

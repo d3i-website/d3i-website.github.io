@@ -1,14 +1,14 @@
 ---
 layout: single-toc-on-top
 classes: wide
-title:  Local extraction
-permalink: /prepare-a-study/submitting-to-an-ethical-review-board
+title:  Ethical considerations
+permalink: /prepare-a-study/ethical-considerations
 toc: true
 sidebar:
   nav: "prepare-a-study"
 ---
 
-# Data protection impact assessment
+# Introduction
 
 In the early stages of a data donation study, the researcher should work towards submission to an Ethical Review Board (ERB) in order to obtain ethical approval. To guide a researcher in this process, consulting a legal expert is recommended. The exact process of obtaining ethical approval differs over academic institutions. Hence, it is advised to get in contact with legal experts of the institute of the principle investigator. Despite these possible differences over institutions, two elements required for any ethical submission are a data protection impact assessment and a consent form. A solid worked out idea of the study design (section 4), extraction script (section 5), and data donation tool configuration (section 6) can provide the required information to prepare the data protection impact assessment and consent form.
 
