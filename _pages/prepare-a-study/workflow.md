@@ -8,6 +8,10 @@ sidebar:
   nav: "prepare-a-study"
 ---
 
+**The following text is a summary of the paper published by Carrière et al., (2023).** 
+
+**In case you make use of this, please cite: Carrière, T. C., Boeschoten, L., Struminskaya, B., Janssen, H., de Schipper, N. C., & Araujo, T. (2023, October 13). Best practices in data donation: A workflow for studies using digital data donation. [https://doi.org/10.31219/osf.io/3vhbj](https://doi.org/10.31219/osf.io/3vhbj)**
+
 # Introduction
 
 The workflow we designed for data donation studies is shown in Figure 1. In this section, we first provide a brief overview of the proposed workflow. Next, different domains of expertise are identified for the workflow. At last, illustrative research questions are introduced to guide the more detailed discussion of the workflow in the following sections.
