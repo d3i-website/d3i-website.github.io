@@ -31,5 +31,7 @@ More information on how to register for the symposium and/or short course will f
 **Past editions:** 
 
 Below you can find the program of earlier data donation symposia: 
+
 [2023, University of Zurich](https://datadonation.uzh.ch/en/symposium-2023/) 
+
 [2022, Utrecht University](https://hds.sites.uu.nl/2022/01/15/data-donation-day/) 
