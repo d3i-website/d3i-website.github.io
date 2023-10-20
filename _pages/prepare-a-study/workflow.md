@@ -12,7 +12,7 @@ sidebar:
 
 **In case you make use of this, please cite: Carrière, T. C., Boeschoten, L., Struminskaya, B., Janssen, H., de Schipper, N. C., & Araujo, T. (2023, October 13). Best practices in data donation: A workflow for studies using digital data donation. [https://doi.org/10.31219/osf.io/3vhbj](https://doi.org/10.31219/osf.io/3vhbj)**
 
-# Introduction
+## Introduction
 
 The workflow we designed for data donation studies is shown in Figure 1. In this section, we first provide a brief overview of the proposed workflow. Next, different domains of expertise are identified for the workflow. At last, illustrative research questions are introduced to guide the more detailed discussion of the workflow in the following sections.
 
@@ -30,7 +30,7 @@ Next, the study can be submitted to an ethical review boar (ERB). After approval
   <figcaption>Full workflow for data donation studies. Different colors refer to the different domain experts involved. The block color indicate the primary domain expert required for this element. Colored circles indicate potential consultants. Parts with an outlined border are explained in more detail in subsequent figures and paragraphs.</figcaption>
 </figure>
 
-# Domain experts
+## Domain experts
 
 In order to successfully prepare a data donation study, unique knowledge and expertise from several
 different domains are required. We identified five domains of expertise deemed relevant for data
@@ -48,7 +48,7 @@ workflow to ensure legal and ethical standards are met.
 In Figure 1, it is summarized what domain experts are involved in each step of the workflow.
 
 
-# Illustrative research questions {#illustrative-research-questions}
+## Illustrative research questions {#illustrative-research-questions}
 
 To illustrate the workflow and possible challenges that can arise at each step, three example research questions that can be answered with the use of data donation are used. These research questions vary in their level of processing of the extracted data prior to donation. The first research question is based on the study by Struminskaya (2022). Struminskaya et al. investigated data donation in a Dutch non-probability panel, concerning travel data. Data on the number of kilometers and hours traveled was extracted from Google Semantic Location History (GSLH) DDPs and processed to aggregate statistics, using Port. The illustrative research question based on this study is the following:
 

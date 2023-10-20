@@ -25,9 +25,9 @@ prepare-a-study:
     url: /prepare-a-study/configuring-the-software
   - title: Ethical considerations
     url: /prepare-a-study/ethical-considerations
-  - title: From pilot to full study
-    url: /prepare-a-study/from-pilot-to-full-study
-  - title: The Total Error framework for data donation
-    url: /prepare-a-study/the-total-error-framework-for-data-donation
+  #- title: From pilot to full study
+  #  url: /prepare-a-study/from-pilot-to-full-study
+  #- title: The Total Error framework for data donation
+  #  url: /prepare-a-study/the-total-error-framework-for-data-donation
   - title: References
     url: /prepare-a-study/references      
