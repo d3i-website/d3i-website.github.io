@@ -9,8 +9,8 @@ main:
     url: /software/
   - title: "Prepare a study"
     url: /prepare-a-study/workflow
-  - title: "Symposium 2024"
-    url: /symposium-2024/
+  - title: "Community"
+    url: /community/symposium-2024
 
 prepare-a-study:
   - title: Workflow
@@ -25,9 +25,11 @@ prepare-a-study:
     url: /prepare-a-study/configuring-the-software
   - title: Ethical considerations
     url: /prepare-a-study/ethical-considerations
-  #- title: From pilot to full study
-  #  url: /prepare-a-study/from-pilot-to-full-study
-  #- title: The Total Error framework for data donation
-  #  url: /prepare-a-study/the-total-error-framework-for-data-donation
   - title: References
     url: /prepare-a-study/references      
+
+community:
+  - title: Symposium 2024
+    url: /community/symposium-2024
+  - title: Newsletter
+    url: /community/newsletter

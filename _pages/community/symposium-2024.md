@@ -1,9 +1,11 @@
 ---
 layout: single-toc-on-top
 classes: wide
-title: Data Donation Symposium 2024 
-permalink: /symposium-2024/
+title: Data Donation Symposium 2024
+permalink: /community/symposium-2024
 toc: false
+sidebar:
+  nav: "community"
 ---
 
 At Data Donation Symposium 2024 we bring together applied researchers, methodologists, legal and ethical experts, research engineers and software developers with an interest in using digital trace data for scientific research purposes. 
@@ -28,7 +30,7 @@ In the morning of the 30th of May, a course is organized where we teach the basi
 
 More information on how to register for the symposium and/or short course will follow soon here! 
 
-#### Past editions:
+#### Past editions
 
 Below you can find the program of earlier data donation symposia: 
 
