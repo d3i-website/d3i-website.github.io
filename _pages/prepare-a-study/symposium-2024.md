@@ -10,25 +10,25 @@ At Data Donation Symposium 2024 we bring together applied researchers, methodolo
 
 *May 30-31st at the University of Amsterdam, The Netherlands* 
 
-**Call for abstracts**
+#### Call for abstracts
 
 We invite researchers from various disciplines working on this topic to share their experiences. Participation is free of charge. 
 
-Deadline to submit your abstract is Friday, January 26th 2024. More information on how to submit your abstract will follow soon here! 
+Deadline to submit your abstract is Friday, January 26th 2024. Submit your abstract [here](https://forms.uu.nl/universiteitutrecht-fsw/abstract-data-donation)!
 
-**Location**
+#### Location
 
-The symposium takes place in room REC C.001, Roeterseilandcampus Building C. Look [here](https://www.uva.nl/en/shared-content/locaties/en/roeterseiland/rec-b-c-d-entrance-b-c.html) for more details on the location.
+The symposium takes place in room REC C0.01, Roeterseilandcampus Building C in the city center of Amsterdam. See [here](https://www.uva.nl/en/shared-content/locaties/en/roeterseiland/rec-b-c-d-entrance-b-c.html) for more details on the location.
 
-**Short course** 
+#### Short course
 
 In the morning of the 30th of May, a course is organized where we teach the basics of how to prepare your own data donation study using the data donation software Port. 
 
-**Registration**
+#### Registration
 
 More information on how to register for the symposium and/or short course will follow soon here! 
 
-**Past editions:** 
+#### Past editions:
 
 Below you can find the program of earlier data donation symposia: 
 
