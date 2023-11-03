@@ -16,6 +16,13 @@ At Data Donation Symposium 2024 we bring together applied researchers, methodolo
 
 We invite researchers from various disciplines working on this topic to share their experiences. Participation is free of charge. 
 
+We are looking for presentations on the following topics:
+
+* Research projects making use of data donation to answer scientific research questions across multiple domains
+* Methodological challenges and best practices regarding data donation
+* Demonstrations of tools and infrastructures that can facilitate and/or complement data donation pipelines
+* Discussion of legal, ethical and normative considerations regarding data donation
+
 Deadline to submit your abstract is Friday, January 26th 2024. Submit your abstract [here](https://forms.uu.nl/universiteitutrecht-fsw/abstract-data-donation)!
 
 #### Location
