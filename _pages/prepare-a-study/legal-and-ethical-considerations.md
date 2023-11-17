@@ -1,8 +1,8 @@
 ---
 layout: single-toc-on-top
 classes: wide
-title:  Ethical considerations
-permalink: /prepare-a-study/ethical-considerations
+title:  Legal and ethical considerations
+permalink: /prepare-a-study/legal-and-ethical-considerations
 toc: true
 sidebar:
   nav: "prepare-a-study"
@@ -25,6 +25,8 @@ Prior to participation in any research, human subjects or participants have to p
 
 Depending on the study population and type of data being collected, additional information might have to be provided as well. The legal expert should guide the researcher and ensure that participants are provided with all required information. Participants should be able to access this information at any moment during the study. Ensuring this continuous access can be attained by providing participants with a privacy policy, summarizing all required information on the rights of participants and potential risks of the study.
 
+You can find a template of a consent form [here](https://osf.io/sjg9m), and a template of a privacy policy [here](https://osf.io/ysdmr).
+
 
 ## Data protection impact assessment {#Data-protection-impact-assesment}
 
@@ -34,4 +36,9 @@ Furthermore, in a DPIA the researcher needs to reflect on situations in the data
 
 ## Consent manual
 
-[This](/assets/documents/legal_ethical/Consent-manual.pdf) is an extensive manual that explains how consent is arranged in the GDPR and that provides templates for a consent form and privacy policy for a data donation study. 
+[Here](https://osf.io/xt6r4), you can find an extensive manual that explains how consent is arranged in the GDPR, and that provides templates for a consent form and privacy policy for a data donation study.and here 
+
+ [Here](https://osf.io/usvxn), relevant texts researchers must comply with whenever they seek to obtain consent from the participants envisaged in their study, are included. 
+
+
+ 
