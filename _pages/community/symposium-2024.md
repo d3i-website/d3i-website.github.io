@@ -8,6 +8,8 @@ sidebar:
   nav: "community"
 ---
 
+![](/assets/images/ddsymposium.png)
+
 At Data Donation Symposium 2024 we bring together applied researchers, methodologists, legal and ethical experts, research engineers and software developers with an interest in using digital trace data for scientific research purposes. 
 
 *May 30-31st at the University of Amsterdam, The Netherlands* 
