@@ -12,6 +12,8 @@ At Data Donation Symposium 2024 we bring together applied researchers, methodolo
 
 *May 30-31st at the University of Amsterdam, The Netherlands* 
 
+![](/assets/images/ddsymposium.png)
+
 #### Call for abstracts
 
 We invite researchers from various disciplines working on this topic to share their experiences. Participation is free of charge. 
@@ -25,7 +27,6 @@ We are looking for presentations on the following topics:
 
 Deadline to submit your abstract is Friday, January 26th 2024. Submit your abstract [here](https://forms.uu.nl/universiteitutrecht-fsw/abstract-data-donation)!
 
-![](/assets/images/ddsymposium.png)
 
 #### Location
 
