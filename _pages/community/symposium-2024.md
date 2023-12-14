@@ -8,8 +8,6 @@ sidebar:
   nav: "community"
 ---
 
-![](/assets/images/ddsymposium.png)
-
 At Data Donation Symposium 2024 we bring together applied researchers, methodologists, legal and ethical experts, research engineers and software developers with an interest in using digital trace data for scientific research purposes. 
 
 *May 30-31st at the University of Amsterdam, The Netherlands* 
@@ -26,6 +24,8 @@ We are looking for presentations on the following topics:
 * Discussion of legal, ethical and normative considerations regarding data donation
 
 Deadline to submit your abstract is Friday, January 26th 2024. Submit your abstract [here](https://forms.uu.nl/universiteitutrecht-fsw/abstract-data-donation)!
+
+![](/assets/images/ddsymposium.png)
 
 #### Location
 
