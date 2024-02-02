@@ -25,8 +25,7 @@ We are looking for presentations on the following topics:
 * Demonstrations of tools and infrastructures that can facilitate and/or complement data donation pipelines
 * Discussion of legal, ethical and normative considerations regarding data donation
 
-Deadline to submit your abstract is Friday, January 26th 2024. Submit your abstract [here](https://forms.uu.nl/universiteitutrecht-fsw/abstract-data-donation)!
-
+Abstract submission is now closed. We will inform you about acceptance by the end of February.
 
 #### Location
 
