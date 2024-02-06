@@ -37,7 +37,7 @@ feature_row_1:
   - image_path: /assets/images/people/thijs.jpg
     alt: "Job title"
     title: "T.C. (Thijs) Carriere MSc."
-    excerpt: "Researcher methodology"
+    excerpt: "PhD student"
     url: "https://www.uu.nl/medewerkers/TCCarriere"
   - image_path: /assets/images/people/pavlos.jpg
     alt: "Job title"
