@@ -39,9 +39,9 @@ feature_row_1:
     title: "T.C. (Thijs) Carriere MSc."
     excerpt: "PhD student"
     url: "https://www.uu.nl/medewerkers/TCCarriere"
-  - image_path: /assets/images/people/pavlos.jpg
+  - image_path: /assets/images/people/jonathan.jpg
     alt: "Job title"
-    title: "P. (Pavlos) Ferlachidis MSc."
+    title: "J. (Jonathan) Koop BA."
     excerpt: "Research assistant"
     
 
