@@ -12,20 +12,11 @@ At Data Donation Symposium 2024 we bring together applied researchers, methodolo
 
 *May 30-31st at the University of Amsterdam, The Netherlands* 
 
-![](/assets/images/ddsymposium.png)
+![](/assets/images/ddsymposium_updated.png)
 
-#### Call for abstracts
+#### Program
 
-We invite researchers from various disciplines working on this topic to share their experiences. Participation is free of charge. 
-
-We are looking for presentations on the following topics:
-
-* Research projects making use of data donation to answer scientific research questions across multiple domains
-* Methodological challenges and best practices regarding data donation
-* Demonstrations of tools and infrastructures that can facilitate and/or complement data donation pipelines
-* Discussion of legal, ethical and normative considerations regarding data donation
-
-Abstract submission is now closed. We will inform you about acceptance by the end of February.
+An overview of the program can be found [here](/assets/documents/ddsymposium_program.pdf).
 
 #### Location
 
@@ -33,11 +24,11 @@ The symposium takes place in room REC C0.01, Roeterseilandcampus Building C in t
 
 #### Short course
 
-In the morning of the 30th of May, a course is organized where we teach the basics of how to prepare your own data donation study using the data donation software Port. 
+In the morning of the 30th of May, a course is organized where we teach the basics of how to prepare your own data donation study using the data donation software Port. A document providing further information about the course can be found [here](/assets/documents/ddsymposium_short_course.pdf).
 
 #### Registration
 
-More information on how to register for the symposium and/or short course will follow soon here! 
+Registration is now open until the 10th of May! Click [here](https://forms.uu.nl/universiteitutrecht-fsw/Registration-form-Data-Donation-Symposium) to get to the registration form.
 
 #### Past editions
 
