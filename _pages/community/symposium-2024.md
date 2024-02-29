@@ -12,8 +12,6 @@ At Data Donation Symposium 2024 we bring together applied researchers, methodolo
 
 *May 30-31st at the University of Amsterdam, The Netherlands* 
 
-![](/assets/images/ddsymposium_updated.png)
-
 #### Program
 
 An overview of the program can be found [here](/assets/documents/ddsymposium_program.pdf).
@@ -37,3 +35,5 @@ Below you can find the program of earlier data donation symposia:
 [2023, University of Zurich](https://datadonation.uzh.ch/en/symposium-2023/) 
 
 [2022, Utrecht University](https://hds.sites.uu.nl/2022/01/15/data-donation-day/) 
+
+![](/assets/images/ddsymposium_updated.png)
