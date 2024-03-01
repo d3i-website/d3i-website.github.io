@@ -40,8 +40,4 @@ Below you can find the program of earlier data donation symposia:
 
 [2022, Utrecht University](https://hds.sites.uu.nl/2022/01/15/data-donation-day/) 
 
-<<<<<<< HEAD
 ![](/assets/images/ddsymposium_updated.png)
-=======
-![](/assets/images/ddsymposium_updated.png)
->>>>>>> dev
