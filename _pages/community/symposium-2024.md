@@ -28,6 +28,10 @@ In the morning of the 30th of May, a course is organized where we teach the basi
 
 Registration is now open until the 10th of May! Click [here](https://forms.uu.nl/universiteitutrecht-fsw/Registration-form-Data-Donation-Symposium) to get to the registration form.
 
+#### Costs
+
+Both the symposium and the short course are free of charge.
+
 #### Past editions
 
 Below you can find the program of earlier data donation symposia: 
@@ -36,4 +40,8 @@ Below you can find the program of earlier data donation symposia:
 
 [2022, Utrecht University](https://hds.sites.uu.nl/2022/01/15/data-donation-day/) 
 
+<<<<<<< HEAD
 ![](/assets/images/ddsymposium_updated.png)
+=======
+![](/assets/images/ddsymposium_updated.png)
+>>>>>>> dev
