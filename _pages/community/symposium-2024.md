@@ -32,7 +32,7 @@ See the [program](/assets/documents/ddsymposium_program.pdf) to read the keynote
 
 In the morning of the 30th of May, a course is organized where we teach the basics of how to prepare your own data donation study using the data donation software Port. A document providing further information about the course can be found [here](/assets/documents/ddsymposium_short_course.pdf).
 
-Spaces to the course are limited, so we kindly encourage early registration through the form below, as admission will be granted on a first-come, first-served basis. Following the registration deadline, you will receive a notification of your place in the course.
+*The course is currently fully booked. Please email [l.boeschoten@uu.nl](mailto:l.boeschoten@uu.nl?subject=Waiting%20List:%20Short%20Course%20Data%20Donation) to be added to the waiting list.*
 
 #### Registration
 
