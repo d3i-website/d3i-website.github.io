@@ -25,14 +25,31 @@ Prior to participation in any research, human subjects or participants have to p
 
 Depending on the study population and type of data being collected, additional information might have to be provided as well. The legal expert should guide the researcher and ensure that participants are provided with all required information. Participants should be able to access this information at any moment during the study. Ensuring this continuous access can be attained by providing participants with a privacy policy, summarizing all required information on the rights of participants and potential risks of the study.
 
-You can find a template of a consent form [here](https://osf.io/cavxm), and a template of a privacy policy [here](https://osf.io/kmdpc).
+You can find a template of a consent form [here](https://osf.io/cavxm) (Dutch version [here](https://osf.io/85ajc)), and a template of a privacy policy [here](https://osf.io/kmdpc) (Dutch version [here](https://osf.io/hgu38)).
 
 
 ## Data protection impact assessment {#Data-protection-impact-assesment}
 
-A data protection impact assessment (DPIA) is expected or even mandatory to be carried out in every situation where personal data is collected or processed. Hence, for data donation studies a DPIA will always be required. A DPIA is documentation in which is described exactly how data will be collected, processed and stored (Demetzou, 2019; Hoofnagle et al., 2019). 
+In the context of Digital Data Donation Studies, researchers are often collecting sensitive data. The
+processing of such data can entail risks for participants. Researchers may for instance collect and
+process data revealing sensitive characteristics of a participant, such as their ethnic origin, their
+religious or philosophical beliefs, their health, or their sexual preference. Whenever researchers
+process data that can reveal such characteristics, or data that can entail other sensitivities for the
+participant, Digital Data Donation Studies researchers are, under the European Union’s General Data
+Protection Regulation, obliged to perform a Data Protection Impact Assessment (‘DPIA’). A DPIA
+allows a researcher to accurately identify risks that may occur due to their collection and processing
+of data in the context of their research.
 
-Furthermore, in a DPIA the researcher needs to reflect on situations in the data handling process where privacy of participants potentially could be violated. They need to argue how they minimize these potential risks. The DPIA mainly concerns the steps in the workflow of constructing the extraction script and configuring the data donation tool. The DPIA should be adjusted to the type of data that is collected in the study. Studies with data collection on sensitive topics require more risk protection than studies in which unidentifiable summary statistics are collected. The expert on legal, privacy and ethical issues can advise on taking measures fitting the type of data of interest.
+Whenever the researcher identifies risks, they must take appropriate measures to mitigate these
+risks to a level acceptable for the participant. We provide researchers a generic overview of what a
+DPIA entails, how it works, who is involved, and the steps researchers need to take to perform a
+DPIA. Importantly, universities usually have their own detailed DPIA guidance and policies.
+Researchers should therefore consult the university’s expert on data protection (in the EU, this is the
+Data Protection Officer, or ‘DPO’) who will guide and advise the researcher about performing a DPIA.
+The university Ethical Research Board (ERB) can advise on taking appropriate measures study
+whenever ethical issues might arise.
+
+A more comprehensive overview of data protection impact assessment can be found [here](https://osf.io/7r6fk).
 
 ## Consent manual
 
