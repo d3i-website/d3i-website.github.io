@@ -18,7 +18,7 @@ This platform, among other things, allows researcher to log in configure, host a
 A very important piece of a data donation study is the data donation task, this is the part of the data donation study where the donation of data by the participant takes place. 
 This data donation task is a small web application that can be tailored to the needs of the researcher and needs to be hosted using Next.
 
-Here you can find the [data donation task](https://github.com/d3i-infra/data-donation-task)! Checkout the read me and the wiki articles for more information!
+Here you can find the [data donation task](https://github.com/d3i-infra/data-donation-task) toolkit, checkout the read me and the wiki articles for more information!
 
 ### Eyra
 
@@ -30,11 +30,11 @@ We want researcher to be able to continue to do data donation studies, even if t
 
 The data donation software then called Port. Started as a proof of concept:
 
-    Laura Boeschoten, Adriënne Mendrik, Emiel van der Veen, Jeroen Vloothuis, Haili Hu, Roos Voorvaart, Daniel L. Oberski, Privacy-preserving local analysis of digital trace data: A proof-of-concept, Patterns, Volume 3, Issue 3, 2022, 100444, [ISSN 2666-3899](https://doi.org/10.1016/j.patter.2022.100444.)
+Laura Boeschoten, Adriënne Mendrik, Emiel van der Veen, Jeroen Vloothuis, Haili Hu, Roos Voorvaart, Daniel L. Oberski, Privacy-preserving local analysis of digital trace data: A proof-of-concept, Patterns, Volume 3, Issue 3, 2022, 100444, [ISSN 2666-3899](https://doi.org/10.1016/j.patter.2022.100444.)
 
 Port later evolved into fully usable software, see the following paper:
 
-    Boeschoten, L., De Schipper, N.C., Mendrik, A.M., Van der Veen, E., Struminskaya, B., Janssen, H. and Araujo, T. (2023). Port: A software tool for digital data donation. Journal of Open Source Software, 8(90), 5596, [https://doi.org/10.21105/joss.05596](https://doi.org/10.21105/joss.05596) 
+Boeschoten, L., De Schipper, N.C., Mendrik, A.M., Van der Veen, E., Struminskaya, B., Janssen, H. and Araujo, T. (2023). Port: A software tool for digital data donation. Journal of Open Source Software, 8(90), 5596, [https://doi.org/10.21105/joss.05596](https://doi.org/10.21105/joss.05596) 
 
 Port can still be found [here](https://github.com/eyra/port). Port then, is what we now call the data donation task. 
 Port was an application that only contained the actual part where got donated.
