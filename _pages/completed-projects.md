@@ -1,9 +1,9 @@
 ---
-layout: single-toc-on-top
-classes: wide
+layout: single
+classes: wide_center_content
 title: Completed projects using Port
-permalink: /completed-projects
-toc: true
+permalink: /completed-projects/
+toc: false
 ---
 
 # Behind the Screens: Exploring Netflix via Data Donations
