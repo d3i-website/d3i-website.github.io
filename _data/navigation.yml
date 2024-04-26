@@ -1,18 +1,23 @@
 main:
   - title: "Data donation"
     url: /data-donation/
-  - title: "Team"
-    url: /team/
   - title: "D3I"
-    url: /d3i/
+    url: /d3i/project-d3i
   - title: "Software"
     url: /software/
   - title: "Prepare a study"
     url: /prepare-a-study/workflow
   - title: "Completed projects"
-    url: /completed-projects/
+    url: /completed-projects/2024-netflix
   - title: "Community"
     url: /community/symposium-2024
+
+d3i:
+  - title: D3I
+    url: /d3i/project-d3i
+  - title: Team
+    url: /d3i/team
+
 
 prepare-a-study:
   - title: Workflow
@@ -35,3 +40,7 @@ community:
     url: /community/symposium-2024
   - title: Newsletter
     url: /community/newsletter
+
+completed-projects:
+  - title: 2024 Exploring Netflix via Data Donations
+    url: /completed-projects/2024-netflix  

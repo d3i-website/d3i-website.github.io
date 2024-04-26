@@ -1,5 +1,5 @@
 ---
-layout: single
+layout: single-toc-on-top
 title: "The D3I Team"
 classes: wide
 
@@ -47,8 +47,10 @@ feature_row_1:
 
 
 
-permalink: /team/
+permalink: /d3i/team
 toc: false
+sidebar:
+  nav: "d3i"
 ---
 
 Meet our team members: 

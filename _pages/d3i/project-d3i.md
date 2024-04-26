@@ -1,9 +1,11 @@
 ---
-layout: single
-title: "D3I"
+layout: single-toc-on-top
 classes: wide
-permalink: /d3i/
+title: "D3I"
+permalink: /d3i/project-d3i
 toc: false
+sidebar:
+  nav: "d3i"
 ---
 
 ## The D3I Project
