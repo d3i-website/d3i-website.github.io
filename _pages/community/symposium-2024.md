@@ -15,6 +15,7 @@ At Data Donation Symposium 2024 we bring together applied researchers, methodolo
 #### Program
 
 An overview of the program can be found [here](/assets/documents/ddsymposium_program.pdf).
+Find [here](/assets/documents/ddsymposium_longprogram.pdf) an extended version of the program including all abstracts and authors.
 
 #### Location
 
