@@ -37,7 +37,7 @@ In the morning of the 30th of May, a course is organized where we teach the basi
 
 #### Registration
 
-Registration is now open until the 10th of May! Click [here](https://forms.uu.nl/universiteitutrecht-fsw/Registration-form-Data-Donation-Symposium) to get to the registration form.
+*Registration to the symposium is now closed.*
 
 #### Costs
 
