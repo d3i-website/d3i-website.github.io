@@ -51,7 +51,5 @@ Below you can find the program of earlier data donation symposia:
 
 [2022, Utrecht University](https://hds.sites.uu.nl/2022/01/15/data-donation-day/)
 
-![](/assets/images/ddsymposium_updated.png)
-
 
 *This event is funded by [PDI-SSH](https://pdi-ssh.nl/) and [ODISSEI](https://odissei-data.nl/).*
