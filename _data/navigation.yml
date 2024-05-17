@@ -38,9 +38,19 @@ prepare-a-study:
 community:
   - title: Symposium 2024
     url: /community/symposium-2024
+  - title: Courses
+    url: /community/courses
   - title: Newsletter
     url: /community/newsletter
 
 completed-projects:
   - title: 2024 Exploring Netflix via Data Donations
     url: /completed-projects/2024-netflix  
+  - title: 2024 Exploring the Use of Google Assistant in Families via Data Donations
+    url: /completed-projects/2024-google 
+  - title: 2024 Harnessing digital data to study 21st-century adolescence
+    url: /completed-projects/2024-tiktok
+  - title: 2024 An investigation of Facebook groups dedicated to rare diseases
+    url: /completed-projects/2024-facebook
+  - title: 2023 Mapping the digital food environment using YouTube data
+    url: /completed-projects/2023-youtube
