@@ -19,7 +19,7 @@ Find [here](/assets/documents/ddsymposium_longprogram.pdf) an extended version o
 
 #### Location
 
-The symposium takes place in room REC C0.01, Roeterseilandcampus Building C in the city center of Amsterdam. See [here](https://www.uva.nl/en/shared-content/locaties/en/roeterseiland/rec-b-c-d-entrance-b-c.html) for more details on the location.
+The symposium takes place at Zoku Amsterdam, Weesperstraat 105. See [here](https://livezoku.com/amsterdam/location-directions/) for more details on the location.
 
 #### Keynote
 
