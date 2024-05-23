@@ -14,7 +14,7 @@ sidebar:
   - Lotz, A. D. (2023). "Netflix Data Dump: Cautions Regarding Gifts of Data." Retrieved from [here](https://www.linkedin.com/pulse/netflix-data-dump-cautions-regarding-gifts-amanda-lotz-sa7pf%3FtrackingId=dzRGj195SdOBwqZA%252BS62eA%253D%253D/?trackingId=dzRGj195SdOBwqZA%2BS62eA%3D%3D).
   - Van Es, K. (2023). "Netflix, (Re)Claiming Television: Myths and Horseless Carriages." Keynote at ECREA TV Studies Section Conference, Potsdam, Germany, 26 October 2023.
 - **Data collection period:** January – February 2024
-- **Participant recruitment:** Participants were recruited through [I&O Research](https://www.ioresearch.nl/).
+- **Participant recruitment:** Participants were recruited through [Ipsos I&O (previously I&O Research)](https://www.ioresearch.nl/).
 - **Instructions:** Instructions to perform the data access can be found [here](/assets/documents/Netflix_instructions_request.pdf). Instructions to download the data can be found [here](/assets/documents/Netflix_instructions_download.pdf).
 - **Codebook:** This study included a questionnaire that was carried out by I&O Research. The codebook of the questionnaire is available upon request at the PI.
 - **Ethical review:** The invitation letter, consent form, and privacy policy were reviewed by the Click on [invitation letter](/assets/documents/Ethics_1_Invitation_email.pdf), [consent form](/assets/documents/Ethics_2_Consent.pdf), or [privacy policy](/assets/documents/Ethics_3_Privacy_policy.pdf) to access the respective document.
