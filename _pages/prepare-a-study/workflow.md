@@ -11,7 +11,7 @@ sidebar:
 ## Introduction
 
 <div class="notice--warning">
-  <h4>The following text is a summary of the paper published by Carrière et al., (2023). <br>
+  <h4>The following text is a summary of the paper published by Carrière et al. (2023). <br>
   In case you make use of this, please cite:</h4>
   <p> Carrière, T. C., Boeschoten, L., Struminskaya, B., Janssen, H., de Schipper, N. C., & Araujo, T. (2023, October 13). Best practices in data donation: A workflow for studies using digital data donation. <a href="https://doi.org/10.31219/osf.io/3vhbj">https://doi.org/10.31219/osf.io/3vhbj</a></p>
 </div>
