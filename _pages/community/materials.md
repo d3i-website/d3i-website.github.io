@@ -1,11 +1,8 @@
 ---
-layout: single-toc-on-top
-classes: wide
+layout: single
 title: Materials
-permalink: /community/materials
+permalink: /community/courses/materials
 toc: false
-sidebar:
-  nav: "community"
 ---
 
 On this page, you can find all the materials you need to set up your own mock data donation study on the Next platform. For these illustration purposes, we make use of some materials that have previously been used in studies interested in Netflix data. You are of course free to create any data donation participant flow you want!  
@@ -17,5 +14,5 @@ On this page, you can find all the materials you need to set up your own mock da
 -	[Instructions on how to do a data access request](/assets/documents/materials/Netflix_instructions_request.pdf)
 -	[Instructions on how to download and store your data](/assets/documents/materials/Netflix_instructions_download.pdf)
 -	[The .zip file containing the Python script for the donate task](/assets/documents/materials/release_Netflix.zip)
--	[A DDP which you can use to try out this donate task](/assets/documents/materials/netflix-report.zip)
+-	[A DDP which you can use to try out this donate task](/assets/documents/materials/netflix-data-with-viz.zip)
 
