@@ -8,6 +8,9 @@ sidebar:
   nav: "completed-projects"
 ---
 
+<img src="/assets/images/family-image.png" alt="alternative text" title="Designed by rawpixel.com / Freepik"/>
+<a href="http://www.freepik.com">Designed by rawpixel.com / Freepik</a>
+
 - **Principal investigators:** Rebecca Wald, Jessica Piotrowski, Theo Araujo, Johanna M.F. van Oosten
 Amsterdam School of Communication Research, University of Amsterdam
 - **Summary:** Smart speakers, such as Google Home or Alexa Echo, have become increasingly popular in family houesholds over the past years – also in the Netherlands (Wald, Piotrowski, van Oosten, et al., 2024). Given that media use in families is known to impact children’s further upbringing and development (Arora & Arora, 2022; Valkenburg & Piotrowski, 2017) and that the integration of such smart devices in intimate spaces like families has broader implications for the design and regulation of the technology (Wald et al., 2023), it is crucial to learn more about how families concretely use these devices at home. Thus far, two main types of measurements have most often been used to assess smart speaker use: self-reports of users and actual registered interactions with the smart speaker. Yet, both measurements of smart speaker use have not yet been compared in research, leaving open to what extent they align, are feasible to obtain, and based on that are best suitable in what research scenario. The overarching aim of 'The Google Family Home' study is therefore to understand to what extent there is a systematic difference between self-reported (via survey) and observed smart speaker use (via data donations), and how Dutch families with young children actually use smart speakers at home, that is how frequently the device is used (use-frequency), for what activity (use-purpose), and by whom in the family (use-form) (Wald, van Oosten, Piotrowski, et al., 2024).

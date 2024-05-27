@@ -8,6 +8,9 @@ sidebar:
   nav: "completed-projects"
 ---
 
+<img src="/assets/images/netflix-image.png" alt="alternative text" title="Vecteezy.com"/>
+<a href="https://vecteezy.com">vecteezy.com</a>
+
 - **Principal investigators:** [Dennis Nguyen](https://www.uu.nl/medewerkers/DNguyen1) and [Karin van Es](https://www.uu.nl/medewerkers/KFvanEs), Utrecht University
 - **Summary:** Netflix is often hailed as a disruptor of the traditional media industry, primarily due to its extensive data collection and analysis capabilities, as well as the effectiveness of its recommendation system. As a subscription-based service, Netflix has historically been reticent to share viewing data with external parties. However, under increasing public pressure and with the introduction of an ad-supported tier, Netflix has begun to show greater transparency. Nonetheless, as Lotz (2023) observes, “Netflix is only sharing information it wants to share.” This selective data sharing results in a reliance on Netflix's own narratives about aspects like binge-watching, content popularity and diversity, and the intricacies of their recommendation algorithms. Such narratives contribute to perpetuating myths, limiting our understanding of streaming platforms and obscuring their true disruptive impact (van Es 2023).
 - **References**
@@ -16,8 +19,8 @@ sidebar:
 - **Data collection period:** January – February 2024
 - **Participant recruitment:** Participants were recruited through [Ipsos I&O (previously I&O Research)](https://www.ioresearch.nl/).
 - **Instructions:** Instructions to perform the data access can be found [here](/assets/documents/Netflix_instructions_request.pdf). Instructions to download the data can be found [here](/assets/documents/Netflix_instructions_download.pdf).
-- **Codebook:** This study included a questionnaire that was carried out by I&O Research. The codebook of the questionnaire is available upon request at the PI.
-- **Ethical review:** The invitation letter, consent form, and privacy policy were reviewed by the Click on [invitation letter](/assets/documents/Ethics_1_Invitation_email.pdf), [consent form](/assets/documents/Ethics_2_Consent.pdf), or [privacy policy](/assets/documents/Ethics_3_Privacy_policy.pdf) to access the respective document.
+- **Codebook:** This study included a questionnaire that was carried out by Ipsos I&O. The codebook of the questionnaire is available upon request at the PI.
+- **Ethical review:** The invitation letter, consent form, and privacy policy were reviewed by the Ethical Review Board of the Faculty of Humanities of Utrecht University. Click on [invitation letter](/assets/documents/Ethics_1_Invitation_email.pdf), [consent form](/assets/documents/Ethics_2_Consent.pdf), or [privacy policy](/assets/documents/Ethics_3_Privacy_policy.pdf) to access the respective document.
 - **Software:** The data donations were collected using Port.
 - **Local processing:** The Python script for local processing of the Netflix data is available on [Github](https://github.com/d3i-infra/port-pilot-netflix).
 - **Data:** Please contact the PI of this study.
