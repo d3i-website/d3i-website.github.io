@@ -8,8 +8,10 @@ sidebar:
   nav: "completed-projects"
 ---
 
-<img src="/assets/images/food-image.png" alt="alternative text" title="Designed by Freepik"/>
-<a href="http://www.freepik.com">Designed by Freepik</a>
+<div style="text-align: right;">
+  <img src="/assets/images/food-image.png" alt="alternative text" title="Designed by Freepik" style="display: block; margin: 0 auto;"/>
+  <a href="http://www.freepik.com" style="font-size: 10px; display: block; text-align: right; margin-top: 0em;">Designed by Freepik</a>
+</div>
 
 - **Principal investigators:** [Kaiyang Qin](https://www.uva.nl/profiel/q/i/k.qin/k.qin.html), [Saar Mollen](https://www.uva.nl/en/profile/m/o/s.mollen/s.mollen.html), [Wilma Waterlander](https://researchinformation.amsterdamumc.org/en/persons/wilma-e-waterlander), and [Eline Smit](https://www.uva.nl/en/profile/s/m/e.s.smit/e.s.smit.html)
 - **Summary:** Social media represents an emerging dimension of the digital food environment. The digital food environment on social media is mainly built upon two sources: food-relevant advertisements from companies (ads) and food-relevant posts from consumers. Together, we call this food-relevant content. This food-relevant content may vary in healthfulness. In our research, we examine whether people are exposed to more unhealthy food-relevant content than healthy food-relevant content on social media platforms. And to what extent this is due to companies pushing (unhealthy) food content to social media users or because of users' own interaction with food-related content that may lead to self-selection of more of such content. In sum, the present study aims to map the digital food environment on social media by exploring users' interactions with two sources of (unhealthy) food content: food ads and food posts. To this end, we collected participants' YouTube data, and we tested their social media interactions with exposure to the food content, as well as with the number of food companies that have targeted participants as their customers. In the present study, we investigated the following questions:

@@ -8,8 +8,10 @@ sidebar:
   nav: "completed-projects"
 ---
 
-<img src="/assets/images/netflix-image.png" alt="alternative text" title="Vecteezy.com"/>
-<a href="https://vecteezy.com">vecteezy.com</a>
+<div style="text-align: right;">
+  <img src="/assets/images/netflix-image.png" alt="alternative text" title="Vecteezy.com" style="display: block; margin: 0 auto;"/>
+  <a href="https://vecteezy.com" style="font-size: 10px; display: block; text-align: right; margin-top: 0em;">vecteezy.com</a>
+</div>
 
 - **Principal investigators:** [Dennis Nguyen](https://www.uu.nl/medewerkers/DNguyen1) and [Karin van Es](https://www.uu.nl/medewerkers/KFvanEs), Utrecht University
 - **Summary:** Netflix is often hailed as a disruptor of the traditional media industry, primarily due to its extensive data collection and analysis capabilities, as well as the effectiveness of its recommendation system. As a subscription-based service, Netflix has historically been reticent to share viewing data with external parties. However, under increasing public pressure and with the introduction of an ad-supported tier, Netflix has begun to show greater transparency. Nonetheless, as Lotz (2023) observes, “Netflix is only sharing information it wants to share.” This selective data sharing results in a reliance on Netflix's own narratives about aspects like binge-watching, content popularity and diversity, and the intricacies of their recommendation algorithms. Such narratives contribute to perpetuating myths, limiting our understanding of streaming platforms and obscuring their true disruptive impact (van Es 2023).

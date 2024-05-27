@@ -8,8 +8,10 @@ sidebar:
   nav: "completed-projects"
 ---
 
-<img src="/assets/images/family-image.png" alt="alternative text" title="Designed by rawpixel.com / Freepik"/>
-<a href="http://www.freepik.com">Designed by rawpixel.com / Freepik</a>
+<div style="text-align: right;">
+  <img src="/assets/images/family-image.png" alt="alternative text" title="Designed by rawpixel.com / Freepik" style="display: block; margin: 0 auto;"/>
+  <a href="http://www.freepik.com" style="font-size: 10px; display: block; text-align: right; margin-top: 0em;">Designed by rawpixel.com / Freepik</a>
+</div>
 
 - **Principal investigators:** Rebecca Wald, Jessica Piotrowski, Theo Araujo, Johanna M.F. van Oosten
 Amsterdam School of Communication Research, University of Amsterdam
