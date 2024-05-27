@@ -25,4 +25,4 @@ You can find out more about [data donation](/data-donation/), how to [prepare a 
 
 Learn more about the [Data Donation Symposium 2024](/community/symposium-2024), hosted at the University of Amsterdam, and subscribe to our [newsletter](/community/newsletter)! 
 
-Enjoy and please reach out to one of our [team](/team/) members in case you have any questions or comments!
+Enjoy and please reach out to one of our [team](/d3i/team/) members in case you have any questions or comments!
