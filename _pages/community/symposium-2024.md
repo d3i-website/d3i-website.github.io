@@ -12,6 +12,10 @@ At Data Donation Symposium 2024 we bring together applied researchers, methodolo
 
 *May 30-31st at the University of Amsterdam, The Netherlands* 
 
+#### Photos
+
+We thank all participants of the symposium for their contributions! Photos to the symposium can now be accessed [here](https://www.superformosa.nl/2024/datadonation/).
+
 #### Program
 
 An overview of the program can be found [here](/assets/documents/ddsymposium_program.pdf).
