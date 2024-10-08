@@ -41,8 +41,12 @@ feature_row_1:
     url: "https://www.uu.nl/medewerkers/TCCarriere"
   - image_path: /assets/images/people/jonathan.jpg
     alt: "Job title"
-    title: "J. (Jonathan) Koop BA."
+    title: "J. (Jonathan) Koop BSc."
     excerpt: "Research assistant"
+  - image_path: /assets/images/people/danielle.jpg
+    alt: "Job title"
+    title: "D. (Danielle) McCool MSc."
+    excerpt: "Researcher"
     
 
 
