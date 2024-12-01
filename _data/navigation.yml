@@ -3,8 +3,7 @@ main:
     url: /data-donation/
   - title: "D3I"
     url: /d3i/project-d3i
-  - title: "Software"
-    url: /software/
+ 
   - title: "Prepare a study"
     url: /prepare-a-study/software
   - title: "Completed projects"

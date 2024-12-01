@@ -9,6 +9,11 @@ sidebar:
 ---
 ## Software
 
+<div class="notice--info">
+  <h4>If you use our software for your research, cite:</h4>
+  <p> Boeschoten, L., De Schipper, N.C., Mendrik, A.M., Van der Veen, E., Struminskaya, B., Janssen, H. and Araujo, T. (2023). Port: A software tool for digital data donation. Journal of Open Source Software, 8(90), 5596, <a href="https://doi.org/10.21105/joss.05596">https://doi.org/10.21105/joss.05596</a></p>
+</div>
+
 # The Next platform
 You can configure a complete data donation participant flow on the Next platform. The [Next](https://next.eyra.co/) platform can be used through a Software-as-a-Service agreement with Eyra. Click [here](https://www.eyra.co/projects/data-donation) for more information about terms and pricing. 
 
