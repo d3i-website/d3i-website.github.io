@@ -20,20 +20,10 @@ d3i:
 
 
 prepare-a-study:
-  - title: Workflow
-    url: /prepare-a-study/workflow
-  - title: Value and purpose of data donation
-    url: /prepare-a-study/value-and-purpose-of-data-donation
   - title: Study design    
     url: /prepare-a-study/study-design
-  - title: Local extraction
-    url: /prepare-a-study/local-extraction
-  - title: Configuring the software
-    url: /prepare-a-study/configuring-the-software
   - title: Legal and ethical considerations
-    url: /prepare-a-study/legal-and-ethical-considerations
-  - title: References
-    url: /prepare-a-study/references      
+    url: /prepare-a-study/legal-and-ethical-considerations    
 
 community:
   - title: Symposium 2024
