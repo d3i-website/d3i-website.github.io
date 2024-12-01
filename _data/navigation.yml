@@ -6,7 +6,7 @@ main:
   - title: "Software"
     url: /software/
   - title: "Prepare a study"
-    url: /prepare-a-study/study-design
+    url: /prepare-a-study/software
   - title: "Completed projects"
     url: /completed-projects/2024-netflix
   - title: "Community"
@@ -20,6 +20,8 @@ d3i:
 
 
 prepare-a-study:
+  - title: Software
+    url: /prepare-a-study/software 
   - title: Study design    
     url: /prepare-a-study/study-design
   - title: Privacy and consent

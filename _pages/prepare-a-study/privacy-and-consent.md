@@ -14,6 +14,6 @@ You can find there fore example:
 - A [manual](https://osf.io/7r6fk) for performing a data protection impact assessment (DPIA) in the context of data donation.
 - A [template](https://osf.io/a97se) for a DPIA in the context of data donation.
 - A [manual](https://osf.io/z64cy) that explains how consent is arranged in the GDPR.
-- A template for a privacy policy ([English](https://osf.io/kmdpc), [Dutch](https://osf.io/hgu38))
-- A template for a consent form ([English](https://osf.io/cavxm), [Dutch](https://osf.io/85ajc))
-- An [overview](https://osf.io/usvxn) of relevant articles from GDPR
+- A template for a privacy policy ([English](https://osf.io/kmdpc), [Dutch](https://osf.io/hgu38)).
+- A template for a consent form ([English](https://osf.io/cavxm), [Dutch](https://osf.io/85ajc)).
+- An [overview](https://osf.io/usvxn) of relevant articles from GDPR.
