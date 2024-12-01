@@ -22,8 +22,8 @@ d3i:
 prepare-a-study:
   - title: Study design    
     url: /prepare-a-study/study-design
-  - title: Legal and ethical considerations
-    url: /prepare-a-study/legal-and-ethical-considerations    
+  - title: Privacy and consent
+    url: /prepare-a-study/privacy-consent   
 
 community:
   - title: Symposium 2024
