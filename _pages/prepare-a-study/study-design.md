@@ -3,7 +3,7 @@ layout: single-toc-on-top
 classes: wide
 title: Study design
 permalink: /prepare-a-study/study-design
-toc: true
+toc: false
 sidebar:
   nav: "prepare-a-study"
 ---
