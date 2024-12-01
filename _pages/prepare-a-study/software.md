@@ -5,7 +5,7 @@ title: Software
 permalink: /prepare-a-study/software
 toc: false
 sidebar:
-  nav: "software"
+  nav: "prepare-a-study"
 ---
 ## Software
 
