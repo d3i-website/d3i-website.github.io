@@ -1,7 +1,7 @@
 ---
 layout: single-toc-on-top
 classes: wide
-title: Data Donation Symposium 2024
+title: \[Completed\] Data Donation Symposium 2024
 permalink: /community/symposium-2024
 toc: false
 sidebar:

@@ -8,9 +8,9 @@ sidebar:
   nav: "prepare-a-study"
 ---
 
-Our privacy expert [Dr. mr. Heleen Janssen](https://www.uva.nl/en/profile/j/a/h.l.janssen/h.l.janssen.html) has compiled a [collection of documents](https://osf.io/dmk2p/) to help you navigate through important legal and ethical considerations when performing a data donation study. 
+[Dr. mr. Heleen Janssen](https://www.uva.nl/en/profile/j/a/h.l.janssen/h.l.janssen.html) has compiled a [collection of documents](https://osf.io/dmk2p/) to help you navigate through important legal and ethical considerations when performing a data donation study. 
 
-You can find there fore example: 
+There you can find:
 - A [manual](https://osf.io/7r6fk) for performing a data protection impact assessment (DPIA) in the context of data donation.
 - A [template](https://osf.io/a97se) for a DPIA in the context of data donation.
 - A [manual](https://osf.io/z64cy) that explains how consent is arranged in the GDPR.
