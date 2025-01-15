@@ -9,7 +9,7 @@ main:
   - title: "Completed projects"
     url: /completed-projects/2024-netflix
   - title: "Community"
-    url: /community/symposium-2024
+    url: /community/newsletter
 
 d3i:
   - title: D3I
@@ -27,12 +27,10 @@ prepare-a-study:
     url: /prepare-a-study/privacy-and-consent
 
 community:
-  - title: Symposium 2024
-    url: /community/symposium-2024
-  - title: Courses
-    url: /community/courses
   - title: Newsletter
     url: /community/newsletter
+  - title: Upcomming courses
+    url: /community/courses
 
 completed-projects:
   - title: 2024 Exploring Netflix via Data Donations
