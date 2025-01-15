@@ -2,8 +2,7 @@ main:
   - title: "Data donation"
     url: /data-donation/
   - title: "D3I"
-    url: /d3i/project-d3i
- 
+    url: /d3i/team
   - title: "Prepare a study"
     url: /prepare-a-study/software
   - title: "Completed projects"
@@ -12,10 +11,10 @@ main:
     url: /community/newsletter
 
 d3i:
-  - title: D3I
-    url: /d3i/project-d3i
   - title: Team
     url: /d3i/team
+  - title: D3I
+    url: /d3i/project-d3i
 
 
 prepare-a-study:
