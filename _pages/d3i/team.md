@@ -19,6 +19,11 @@ feature_row_1:
     title: "Dr. N.C. (Niek) de Schipper"
     excerpt: "Research Engineer"
     url: "https://www.uva.nl/en/profile/s/c/n.c.deschipper/n.c.de-schipper.html"
+  - image_path: /assets/images/people/heleen.jpeg
+    alt: "placeholder image 2"
+    title: "Dr. mr. H.L. (Heleen) Janssen"
+    excerpt: "Legal expert"
+    url: "https://www.uva.nl/en/profile/j/a/h.l.janssen/h.l.janssen.html"
   - image_path: /assets/images/people/bella.jpg
     alt: "Job title"
     title: "Dr. B. (Bella) Struminskaya"
