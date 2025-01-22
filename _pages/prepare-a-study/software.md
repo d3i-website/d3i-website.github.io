@@ -21,7 +21,7 @@ As Next is available [open source](https://github.com/eyra/mono), we offer resea
 
 # The donate task
 Crucial in a data donation participant flow is the `donate task`. The part where participants are going to donate their data.
-You can create a donate task with Python yourself using our [documentation](https://d3i-infra.github.io/data-donation-task/). We can offer you the following support: 
+You can create a donate task with Python yourself using our [documentation](https://github.com/d3i-infra/data-donation-task). We can offer you the following support: 
 -	Help when you have questions or run into issues when developing your script. 
 -	You can join our Slack community with other Python script developers.
 -   We can help and assist you in creating your own data donation task.
