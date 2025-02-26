@@ -8,16 +8,17 @@ sidebar:
   nav: "prepare-a-study"
 ---
 
-## Next and Port
+## Port
 
-In order to do data donation studies you can make use of the [Next](https://next.eyra.co/) platform. The Next platform is a collection of research tools one of those tools being Port.
-Port is a research tool specially developed for researcher to administer data donation studies to participants.
+Port is a research tool specially developed for researchers to administer data donation studies to participants.
 
 With Port you can:
 
 * Configure your study; choose branding, host privacy policy, get consent from participants, invite participants to your study
 * Create a data donation flow; steps the participant should follow in order to complete the donation
 * Track the progress of your study
+
+Port is part of the next plafrom [Next](https://next.eyra.co/) platform which is a collection of research tools.
 
 Below you can find a diagram explaining Next and Port;
 
@@ -36,7 +37,7 @@ In order to use Port you need access to Next. You can use Next in 3 ways;
 * Next on Surf Research Cloud
 * Host Next yourself
 
-It can be difficult to choose which one to use, in order to help you make a decision you can find a decision tree below;
+It can be difficult to choose which one to use, in order to help you make a decision you can find a decision tree below:
 
 <div style="text-align: center; width: 100%; margin: 0 auto;">
   <div class="svg-container"> 
@@ -47,11 +48,11 @@ It can be difficult to choose which one to use, in order to help you make a deci
 
 ## The donate task
 
-With Port you can create a data donation flow. The most crucial part in a data donation flow is the `donate task`; the part where participants are going to donate their data.
+With Port you can create a data donation flow. The most crucial part in a data donation flow is the "donate task"; the part where participants are going to donate their data.
 
-The donate task is an application you can create yourself. Interested? Check out the [documentation](https://d3i-infra.github.io/data-donation-task/). 
+The donate task is an application you can create yourself. Check out the [documentation](https://d3i-infra.github.io/data-donation-task/) for more information.
 
-We can offer you the following support: 
+Interested? We can offer you the following support: 
 
 -	Help when you have questions or run into issues when developing the data donation task. 
 -	You can join our Slack community with other developers.
