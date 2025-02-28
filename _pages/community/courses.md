@@ -8,9 +8,40 @@ sidebar:
   nav: "community"
 ---
 
+We regularly organize short course about topics such as how to prepare a data 
+donation study, methodological challenges around data donation studies, or how to 
+program your own data donation task. Below you can find more information about
+upcoming courses. 
 
-- A short course on how to prepare a data donation study at the **The Radboud university** in **Nijmegen, Netherlands** on **Februari 18**, for more information contact us.
-- A short course on how to prepare a data donation study at the **ESRA** conference in **Utrecht, Netherlands**. Click [**here**](https://www.europeansurveyresearch.org/conference/utrecht-2025/short-courses/) for more information and registration.
-- A short course on how to prepare a data donation study at the **AAPOR** conference in **St. Louis, USA**. Click [**here**](https://aapor.org/short-courses/?_zs=amM3o1&_zl=Xcw1A) for more information and registration.
-- [COMPLETED] A short course on how to use data donation to investigate bottom up initiatives is organized on **September 17** in **Utrecht**. Click [**here**](https://www.uu.nl/en/events/methods-workshop-on-data-donation-by-laura-boeschoten-how-to-collect-digital-trace-data-using-data) for more information and registration.  
-- [COMPLETED] A short course on how to prepare a data donation study at the **IC2S2 conference** in **Philadelphia, USA**. Click [**here**](https://ic2s2-2024.org/) for more information and registration.
+## Upcoming courses 
+
+#### How to prepare a data donation study? 
+- When: May 13 2025, 14:00 - 17:30
+- Where: AAPOR conference, Saint Louis, United States
+- Price: $125 ($100 for AAPOR members)
+- Instructors: Laura Boeschoten, Niek de Schipper
+- More information: [AAPOR website](https://aapor.org/short-courses/?_zs=amM3o1&_zl=Xcw1A)
+
+#### How to prepare a data donation study? 
+- When: July 14 2025, morning
+- Where: ESRA conference, Utrecht, The Netherlands
+- Price: 70 \euro
+- Instructors: Felicia Loecherbach, Niek de Schipper
+- More information: [ESRA website](https://www.europeansurveyresearch.org/conference/utrecht-2025/short-courses/)
+
+
+## Past courses 
+
+#### How to prepare a data donation study? 
+- When: February 18 2024, 14:00 - 17:30
+- Where: Radboud University, Nijmegen, The Netherlands
+- Price: Free
+- Instructors: Laura Boeschoten, Niek de Schipper
+- More information: - 
+
+#### Collecting digital trace data through data donation
+- When: July 16 2024, 09:00 - 12:30 
+- Where: IC2S2 conference, Philadelphia, United States 
+- Price: $50
+- Instructors: Laura Boeschoten, Niek de Schipper
+- More information: [IC2S2 website](https://ic2s2-2024.org/tutorials)
