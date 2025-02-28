@@ -23,34 +23,35 @@ Our software for data donation is called **Port**. Port consists of a number of
 elements, that together allow you to configure a data donation study according to 
 the workflow explained [here](/data-donation/).
 
-Port is a research tool specially developed for researchers to administer data donation studies to participants.
-
-With Port you can:
-
-* Configure your study; choose branding, host privacy policy, get consent from participants, invite participants to your study
-* Create a data donation flow; steps the participant should follow in order to complete the donation
-* Track the progress of your study
-
-Port is part of the next plafrom [Next](https://next.eyra.co/) platform which is a collection of research tools.
-
-Below you can find a diagram explaining Next and Port;
-
 <div style="text-align: center; width: 100%; margin: 0 auto;">
   <div class="svg-container"> 
     <img src="/assets/images/port.svg" alt="Architecture diagram"> 
   </div>
 </div>
 
+## The data donation task
 
-## Use Port for your data donation study
+The most important part of a study that follows the data donation workflow is 
+the "data donation task". This is the step that facilitates that participants 
+can actually donate their data.
 
-In order to use Port you need access to Next. You can use Next in 3 ways;
+Since every study is interested in different platforms to collect data from, or 
+in different parts of the data of a platform, the "data donation task" is an 
+application that you can create yourself using a Python script. [Here](https://github.com/d3i-infra/data-donation-task) you can 
+find the Github repository of the Data Donation Task. Read [this](https://d3i-infra.github.io/data-donation-task/) documentation to
+get started with the Data Donation Task.
 
-* Next as a Software-as-a-service product by Eyra
-* Next on Surf Research Cloud
-* Host Next yourself
+## The Next platform 
 
-It can be difficult to choose which one to use, in order to help you make a decision you can find a decision tree below:
+Port is available as a software service on the open-source [Next](https://next.eyra.co/) platform.
+So in order to use Port, you need access to Next. There are multiple ways you can access Next:
+
+* Purchase a Software-as-a-Service license at [Eyra](https://www.eyra.co/projects/data-donation).
+* Use Next on Surf Research Cloud through a [SURF e-infra grant](https://www.surf.nl/en/access-to-compute-services), 
+contact [Laura Boeschoten](https://www.uu.nl/medewerkers/LBoeschoten) for more information.
+* Host Next yourself.
+
+Look at the decision tree to decide which option fits your project best. 
 
 <div style="text-align: center; width: 100%; margin: 0 auto;">
   <div class="svg-container"> 
@@ -59,22 +60,16 @@ It can be difficult to choose which one to use, in order to help you make a deci
 </div>
 
 
-## The donate task
+## Support 
 
-With Port you can create a data donation flow. The most crucial part in a data donation flow is the "donate task"; the part where participants are going to donate their data.
+Are you interested in doing a data donation study? We can help you! 
 
-The donate task is an application you can create yourself. Check out the [documentation](https://d3i-infra.github.io/data-donation-task/) for more information.
+We: 
+- Prepare the Data Donation Task for your study.
+- Offer support if you create your own Data Donation Task. 
+- Have a community of developers that you can join on Basecamp and Slack. 
 
-Interested? We can offer you the following support: 
-
--	Help when you have questions or run into issues when developing the data donation task. 
--	You can join our Slack community with other developers.
--   We can help and assist you in creating your own data donation task.
-
-
-## More information
-
-Interested in using Next and Port or looking for support with the donate task? Please reach out to l.boeschoten@uu.nl.
+Email [Laura Boeschoten](https://www.uu.nl/medewerkers/LBoeschoten) in case you are interested. 
 
 
 
