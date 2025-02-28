@@ -8,7 +8,20 @@ sidebar:
   nav: "prepare-a-study"
 ---
 
-## Port
+<div class="notice--info">
+  <h4>If you use our software for your research, please cite:</h4>
+  <p> Boeschoten, L., De Schipper, N.C., Mendrik, A.M., Van der Veen, E., 
+  Struminskaya, B., Janssen, H. and Araujo, T. (2023). Port: A software tool for 
+  digital data donation. *Journal of Open Source Software*, 8(90), 5596, 
+  <a href="https://doi.org/10.21105/joss.05596">https://doi.org/10.21105/joss.05596</a></p>
+</div>
+
+
+## How does our data donation software work?
+
+Our software for data donation is called **Port**. Port consists of a number of 
+elements, that together allow you to configure a data donation study according to 
+the workflow explained [here](/data-donation/).
 
 Port is a research tool specially developed for researchers to administer data donation studies to participants.
 
@@ -64,12 +77,4 @@ Interested? We can offer you the following support:
 Interested in using Next and Port or looking for support with the donate task? Please reach out to l.boeschoten@uu.nl.
 
 
-## Cite
-
-If you make use of Port please site the following paper:
-
-<div class="notice--info">
-  <h4>If you use our software for your research, cite:</h4>
-  <p> Boeschoten, L., De Schipper, N.C., Mendrik, A.M., Van der Veen, E., Struminskaya, B., Janssen, H. and Araujo, T. (2023). Port: A software tool for digital data donation. Journal of Open Source Software, 8(90), 5596, <a href="https://doi.org/10.21105/joss.05596">https://doi.org/10.21105/joss.05596</a></p>
-</div>
 
