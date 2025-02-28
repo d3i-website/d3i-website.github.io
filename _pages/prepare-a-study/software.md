@@ -12,7 +12,7 @@ sidebar:
   <h4>If you use our software for your research, please cite:</h4>
   <p> Boeschoten, L., De Schipper, N.C., Mendrik, A.M., Van der Veen, E., 
   Struminskaya, B., Janssen, H. and Araujo, T. (2023). Port: A software tool for 
-  digital data donation. *Journal of Open Source Software*, 8(90), 5596, 
+  digital data donation. Journal of Open Source Software, 8(90), 5596, 
   <a href="https://doi.org/10.21105/joss.05596">https://doi.org/10.21105/joss.05596</a></p>
 </div>
 
