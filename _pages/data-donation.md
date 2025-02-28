@@ -33,6 +33,6 @@ Data donation allows researchers to invite participants to share their DDPs. A m
 
 ![Figure 1: An overview of the data donation workflow](/assets/images/about/data_donation_flow.png)
 
-To allow for the local processing step to take place, we developed the [software `Port`](/prepare-a-study/software). Port is open-source and allows for researchers to fully configure their own data donation study. It creates a website that guides participants through the data donation steps. Researchers can tailor this website to their own DDPs of interest and process these in their desired ways. 
+To allow for the local processing step to take place, we developed the [software Port](/prepare-a-study). Port is open-source and allows for researchers to fully configure their own data donation study. It creates a website that guides participants through the data donation steps. Researchers can tailor this website to their own DDPs of interest and process these in their desired ways. 
 
 If you plan to conduct a data donation study for the first time, please see the page [prepare a study](/prepare-a-study/study-design) for useful references.
