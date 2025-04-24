@@ -2,10 +2,6 @@
 layout: single-toc-on-top
 title: "Team members"
 classes: wide
-permalink: /about-the-project/team
-toc: false
-sidebar:
-  nav: "about-the-project"
 
 feature_row_1:
   - image_path: /assets/images/people/theo.jpg
@@ -54,6 +50,10 @@ feature_row_2:
     title: "D. (Danielle) McCool MSc."
     excerpt: "Researcher"
     
+permalink: /about-the-project/team
+toc: false
+sidebar:
+  nav: "about-the-project"
 
 ---
 
