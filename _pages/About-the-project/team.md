@@ -18,7 +18,7 @@ feature_row_lead:
 feature_row_engineers:
   - image_path: /assets/images/people/niek.jpg
     title: "Dr. N.C. (Niek) de Schipper"
-    excerpt: "Research Engineer"
+    excerpt: "Research Engineer, member of [SoDa](https://odissei-soda.nl/)"
     url: "https://www.uva.nl/en/profile/s/c/n.c.deschipper/n.c.de-schipper.html"
   - image_path: /assets/images/people/max.jpg
     title: "Dr. M.B. (Max) Paulus"
@@ -32,7 +32,7 @@ feature_row_methodologists:
     excerpt: "Methodological expert"
     url: "https://www.uu.nl/staff/BStruminskaya"
   - image_path: /assets/images/people/thijs.jpg
-    title: "T.C. (Thijs) Carri`ere MSc."
+    title: "T.C. (Thijs) Carrière MSc."
     excerpt: "PhD student"
     url: "https://www.uu.nl/medewerkers/TCCarriere"
   - image_path: /assets/images/people/jonathan.jpg
