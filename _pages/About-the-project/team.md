@@ -60,7 +60,7 @@ feature_row_affiliated:
     excerpt: "VU Amsterdam affiliate"
     url: "https://research.vu.nl/en/persons/kasper-welbers"
   - image_path: /assets/images/people/felicia.jpg
-    title: "Dr. F. Loecherbach"
+    title: "Dr. F. (Felicia) Loecherbach"
     excerpt: "UvA affiliate and RIGHTS project lead"
     url: "https://www.uva.nl/profiel/l/o/f.loecherbach/f.loecherbach.html"
 

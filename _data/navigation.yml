@@ -35,6 +35,8 @@ community:
     url: /community/courses
   - title: Symposium 2024
     url: /community/symposium-2024
+  - title: Symposium 2025
+    url: /community/symposium-2025
 
 completed-projects:
   - title: 2024 Exploring Netflix via Data Donations
