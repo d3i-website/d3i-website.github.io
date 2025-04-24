@@ -51,10 +51,10 @@ feature_row_1:
 
 
 
-permalink: /About-the-project/team
+permalink: /about-the-project/team
 toc: false
 sidebar:
-  nav: "About-the-project"
+  nav: "about-the-project"
 ---
 
 Meet our team members: 

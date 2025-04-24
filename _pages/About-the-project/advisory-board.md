@@ -1,11 +1,11 @@
 ---
 layout: single-toc-on-top
 classes: wide
-title: "D3I"
-permalink: /About-the-project/Advisory-board
+title: "About the project"
+permalink: /about-the-project/advisory-board
 toc: false
 sidebar:
-  nav: "About-the-project"
+  nav: "about-the-project"
 ---
 
 ## The D3I Project

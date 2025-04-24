@@ -1,17 +1,11 @@
 ---
 layout: single-toc-on-top
-title: "Partners"
 classes: wide
-
-    
-
-
-permalink: /About-the-project/partners
+title: "Partners"
+permalink: /about-the-project/partners
 toc: false
 sidebar:
-  nav: "About-the-project"
+  nav: "about-the-project"
 ---
 
-## Partner organizations
-
-TBD 
+## Partners
