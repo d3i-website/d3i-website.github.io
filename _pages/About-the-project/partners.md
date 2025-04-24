@@ -10,6 +10,8 @@ sidebar:
 
 ## Partners
 
-For the development of Port, we collaborate with Eyra, developers of open-source software for scientific purposes. Please see [their website](https://eyra.co/) for more information.
+For the development of our software "Port", we collaborate with [Eyra](https://eyra.co/). Eyra focuses on the development of open-source software solutions for scientific purposes. 
+
+Data donation and the software "Port" are part of [ODISSEI](https://odissei-data.nl/), the Dutch national research infrastructure for Social Sciences and Economy. 
 
 To make Port available on SURF Research Cloud, we collaborate with [SURF](https://www.surf.nl/).
