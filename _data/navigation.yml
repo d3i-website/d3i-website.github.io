@@ -10,17 +10,15 @@ main:
   - title: "Community"
     url: /community/newsletter
 
-About-the-project:
+about-the-project:
   - title: Team
-    url: /About-the-project/team
+    url: /about-the-project/team
   - title: Advisory board
-    url: /About-the-project/advisory-board
+    url: /about-the-project/advisory-board
   - title: /About-the-project/funding
-    url: /About-the-project/funding
+    url: /about-the-project/funding
   - title: Partner organizations
-    url: /About-the-project/partners
-
-
+    url: /about-the-project/partners
 
 prepare-a-study:
   - title: Software
