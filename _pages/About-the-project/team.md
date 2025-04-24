@@ -3,6 +3,7 @@ layout: single-toc-on-top
 title: "Team members"
 classes: wide
 
+
 feature_row_lead:
   - image_path: /assets/images/people/laura.jpg
     title: "Dr. L. (Laura) Boeschoten"
@@ -12,6 +13,18 @@ feature_row_lead:
     title: "Prof. Dr. T.B. (Theo) Araujo"
     excerpt: "PI D3I and PI RIGHTS"
     url: "https://www.uva.nl/profiel/a/r/t.b.araujo/t.b.araujo.html"
+
+
+feature_row_engineers:
+  - image_path: /assets/images/people/niek.jpg
+    title: "Dr. N.C. (Niek) de Schipper"
+    excerpt: "Research Engineer"
+    url: "https://www.uva.nl/en/profile/s/c/n.c.deschipper/n.c.de-schipper.html"
+  - image_path: /assets/images/people/max.jpg
+    title: "Dr. M.B. (Max) Paulus"
+    excerpt: "Research Engineer"
+    url: "https://www.uva.nl/profiel/p/a/m.paulus/m.paulus.html"
+
 
 permalink: /about-the-project/team
 toc: false
@@ -25,4 +38,8 @@ The materials presented on this website are a result of multiple research projec
 ## Lead researchers 
 
 {% include feature_row id="feature_row_lead" %}
+
+## Research engineers
+
+{% include feature_row id="feature_row_engineers" %}
 
