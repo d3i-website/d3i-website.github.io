@@ -29,5 +29,5 @@ software, [`Port`](/prepare-a-study/software), and an archive of past studies.
 
 You can also subscribe to our [newsletter](/community/newsletter)! 
 
-Enjoy and please reach out to one of our [team](/About-the-project/team) members in case you 
+Enjoy and please reach out to one of our [team](/about-the-project/team) members in case you 
 have any questions or comments!
