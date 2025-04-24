@@ -26,6 +26,23 @@ feature_row_engineers:
     url: "https://www.uva.nl/profiel/p/a/m.paulus/m.paulus.html"
 
 
+feature_row_methodologists:
+  - image_path: /assets/images/people/bella.jpg
+    title: "Dr. B. (Bella) Struminskaya"
+    excerpt: "Methodological expert"
+    url: "https://www.uu.nl/staff/BStruminskaya"
+  - image_path: /assets/images/people/thijs.jpg
+    title: "T.C. (Thijs) Carri`ere MSc."
+    excerpt: "PhD student"
+    url: "https://www.uu.nl/medewerkers/TCCarriere"
+  - image_path: /assets/images/people/jonathan.jpg
+    title: "J. (Jonathan) Koop BSc."
+    excerpt: "Research assistant"
+  - image_path: /assets/images/people/danielle.jpg
+    title: "D. (Danielle) McCool MSc."
+    excerpt: "Methodological expert"
+
+
 permalink: /about-the-project/team
 toc: false
 sidebar:
@@ -42,4 +59,8 @@ The materials presented on this website are a result of multiple research projec
 ## Research engineers
 
 {% include feature_row id="feature_row_engineers" %}
+
+## Methodologists 
+
+{% include feature_row id="feature_row_methodologists" %}
 
