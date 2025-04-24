@@ -2,6 +2,10 @@
 layout: single-toc-on-top
 title: "Team members"
 classes: wide
+permalink: /about-the-project/team
+toc: false
+sidebar:
+  nav: "about-the-project"
 
 feature_row_1:
   - image_path: /assets/images/people/theo.jpg
@@ -14,6 +18,8 @@ feature_row_1:
     title: "Dr. L. (Laura) Boeschoten"
     excerpt: "Project Lead"
     url: "https://www.uu.nl/medewerkers/LBoeschoten"
+
+feature_row_2:
   - image_path: /assets/images/people/niek.jpg
     alt: "placeholder image 2"
     title: "Dr. N.C. (Niek) de Schipper"
@@ -49,14 +55,13 @@ feature_row_1:
     excerpt: "Researcher"
     
 
-
-
-permalink: /about-the-project/team
-toc: false
-sidebar:
-  nav: "about-the-project"
 ---
 
-Meet our team members: 
+The materials presented on this website are a result of multiple research projects and individual researchers involved in data donation. Below you can find more information about the people involved. 
+
+## Lead researchers 
 
 {% include feature_row id="feature_row_1" %}
+
+## Research engineers
+{% include feature_row id="feature_row_2# %}
