@@ -1,8 +1,8 @@
 main:
   - title: "Data donation"
     url: /data-donation/
-  - title: "D3I"
-    url: /d3i/team
+  - title: "About the project"
+    url: /about-the-project/team
   - title: "Prepare a study"
     url: /prepare-a-study/software
   - title: "Completed projects"
