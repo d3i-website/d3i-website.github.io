@@ -43,6 +43,25 @@ feature_row_methodologists:
     excerpt: "Methodological expert"
 
 
+feature_row_legal:
+  - image_path: /assets/images/people/heleen.jpeg
+    title: "Dr. mr. H.L. (Heleen) Janssen"
+    excerpt: "Legal expert"
+    url: "https://www.uva.nl/en/profile/j/a/h.l.janssen/h.l.janssen.html"
+
+
+feature_row_affiliated: 
+  - image_path: /assets/images/people/kasper.jpg
+    title: "Dr. K. (Kasper) Welbers"
+    excerpt: "VU Amsterdam affiliate"
+    url: "https://research.vu.nl/en/persons/kasper-welbers"
+  - image_path: /assets/images/people/felicia.jpg
+    title: "Dr. F. Loecherbach"
+    excerpt: "UvA affiliate and RIGHTS project lead"
+    url: "https://www.uva.nl/profiel/l/o/f.loecherbach/f.loecherbach.html"
+
+
+
 permalink: /about-the-project/team
 toc: false
 sidebar:
@@ -64,3 +83,10 @@ The materials presented on this website are a result of multiple research projec
 
 {% include feature_row id="feature_row_methodologists" %}
 
+## Legal scholars 
+
+{% include feature_row id="feature_row_legal" %}
+
+## Affiliated researchers 
+
+{% include feature_row id="feature_row_affiliated" %}
