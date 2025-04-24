@@ -10,11 +10,16 @@ main:
   - title: "Community"
     url: /community/newsletter
 
-d3i:
+About-the-project:
   - title: Team
-    url: /d3i/team
-  - title: D3I
-    url: /d3i/project-d3i
+    url: /About-the-project/team
+  - title: Advisory board
+    url: /About-the-project/advisory-board
+  - title: /About-the-project/funding
+    url: /About-the-project/funding
+  - title: Partner organizations
+    url: /About-the-project/partners
+
 
 
 prepare-a-study:

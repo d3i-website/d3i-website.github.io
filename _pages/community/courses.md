@@ -16,13 +16,6 @@ upcoming courses.
 ## Upcoming courses 
 
 #### How to prepare a data donation study? 
-- When: May 13 2025, 14:00 - 17:30
-- Where: AAPOR conference, Saint Louis, United States
-- Price: $125 ($100 for AAPOR members)
-- Instructors: Laura Boeschoten, Niek de Schipper
-- More information: [AAPOR website](https://aapor.org/short-courses/?_zs=amM3o1&_zl=Xcw1A)
-
-#### How to prepare a data donation study? 
 - When: July 14 2025, morning
 - Where: ESRA conference, Utrecht, The Netherlands
 - Price: €70
