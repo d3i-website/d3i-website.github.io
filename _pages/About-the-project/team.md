@@ -48,6 +48,10 @@ feature_row_legal:
     title: "Dr. mr. H.L. (Heleen) Janssen"
     excerpt: "Legal expert"
     url: "https://www.uva.nl/en/profile/j/a/h.l.janssen/h.l.janssen.html"
+  - image_path: /assets/images/people/jef.jpg
+    title: "Dr. J. (Jef) Ausloos"
+    excerpt: "Legal expert"
+    url: "https://www.uva.nl/profiel/a/u/j.ausloos/j.ausloos.html"
 
 
 feature_row_affiliated: 
