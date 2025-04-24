@@ -14,8 +14,6 @@ feature_row_1:
     title: "Dr. L. (Laura) Boeschoten"
     excerpt: "Project Lead"
     url: "https://www.uu.nl/medewerkers/LBoeschoten"
-
-feature_row_2:
   - image_path: /assets/images/people/niek.jpg
     alt: "placeholder image 2"
     title: "Dr. N.C. (Niek) de Schipper"
@@ -49,7 +47,7 @@ feature_row_2:
     alt: "Job title"
     title: "D. (Danielle) McCool MSc."
     excerpt: "Researcher"
-    
+
 permalink: /about-the-project/team
 toc: false
 sidebar:
@@ -64,4 +62,3 @@ The materials presented on this website are a result of multiple research projec
 {% include feature_row id="feature_row_1" %}
 
 ## Research engineers
-{% include feature_row id="feature_row_2# %}
