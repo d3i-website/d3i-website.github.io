@@ -28,7 +28,7 @@ software:
   - title: The data donation task
     url: /software/data-donation-task
   - title: Add visualizations
-    url: software/visualizations
+    url: /software/visualizations
   - title: Ready-made scripts 
     url: /software/ready-made-scripts
   - title: Plugins
@@ -36,9 +36,9 @@ software:
   - title: How can I use Port?
     url: /software/next
   - title: Usage
-    url: software/usage 
+    url: /software/usage 
   - title: Need help?
-    url: software/help
+    url: /software/help
     
 
 prepare-a-study:
