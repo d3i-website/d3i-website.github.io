@@ -2,7 +2,7 @@
 layout: single-toc-on-top
 classes: wide
 title: Our software
-permalink: /software/Port/
+permalink: /software/port/
 toc: false
 sidebar:
   nav: "software"
