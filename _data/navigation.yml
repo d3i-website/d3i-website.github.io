@@ -20,6 +20,25 @@ about-the-project:
   - title: Partner organizations
     url: /about-the-project/partners
 
+software:
+  - title: Our software Port
+    url: /software/port
+  - title: The data donation task
+    url: /software/data-donation-task
+  - title: Add visualizations
+    url: software/visualizations
+  - title: Ready-made scripts 
+    url: /software/ready-made-scripts
+  - title: Plugins
+    url: /software/plugins
+  - title: How can I use Port?
+    url: /software/next
+  - title: Usage
+    url: software/usage 
+  - title: Need help?
+    url: software/help
+    
+
 prepare-a-study:
   - title: Software
     url: /prepare-a-study/software 
