@@ -2,7 +2,7 @@
 layout: single-toc-on-top
 classes: wide
 title: Need help?
-permalink: /software/help
+permalink: /software/help/
 toc: false
 sidebar:
   nav: "software"

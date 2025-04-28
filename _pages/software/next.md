@@ -2,7 +2,7 @@
 layout: single-toc-on-top
 classes: wide
 title: How can I use Port?
-permalink: /software/next
+permalink: /software/next/
 toc: false
 sidebar:
   nav: "next"

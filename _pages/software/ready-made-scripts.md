@@ -1,13 +1,13 @@
 ---
 layout: single-toc-on-top
 classes: wide
-title: Usage
-permalink: /software/usage
+title: Ready-made scripts
+permalink: /software/ready-made-scripts/
 toc: false
 sidebar:
   nav: "software"
 ---
 
-## Usage
+## Ready-made scripts
 
 This will be updated soon! 

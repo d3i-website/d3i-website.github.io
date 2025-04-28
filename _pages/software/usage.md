@@ -1,13 +1,13 @@
 ---
 layout: single-toc-on-top
 classes: wide
-title: Plugins
-permalink: /software/plugins
+title: Usage
+permalink: /software/usage/
 toc: false
 sidebar:
   nav: "software"
 ---
 
-## Plugins
+## Usage
 
 This will be updated soon! 

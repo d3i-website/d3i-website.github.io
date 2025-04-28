@@ -2,7 +2,7 @@
 layout: single-toc-on-top
 classes: wide
 title: Visualizations
-permalink: /software/visualizations
+permalink: /software/visualizations/
 toc: false
 sidebar:
   nav: "software"

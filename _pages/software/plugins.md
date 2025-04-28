@@ -1,13 +1,13 @@
 ---
 layout: single-toc-on-top
 classes: wide
-title: Ready-made scripts
-permalink: /software/ready-made-scripts
+title: Plugins
+permalink: /software/plugins/
 toc: false
 sidebar:
   nav: "software"
 ---
 
-## Ready-made scripts
+## Plugins
 
 This will be updated soon! 

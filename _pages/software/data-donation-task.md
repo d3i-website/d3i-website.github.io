@@ -2,7 +2,7 @@
 layout: single-toc-on-top
 classes: wide
 title: The data donation task
-permalink: /software/data-donation-task
+permalink: /software/data-donation-task/
 toc: false
 sidebar:
   nav: "software"
