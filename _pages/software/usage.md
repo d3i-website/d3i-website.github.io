@@ -25,7 +25,7 @@ Port is funded through multiple grants, and for the reporting to these funders, 
 </div>
 
 
-<div style="display: flex; justify-content: center; width: 100%; margin: 0 auto;">
+<div style="display: flex; justify-content: center; width: 100%; margin: 0 auto; margin-bottom: 10px;">
   <div class="svg-container" style="margin: 0 10px;">
     <img src="/assets/images/usage/plot_recruit.png" alt="Architecture diagram" style="max-width: 100%; height: auto;">
   </div>
@@ -34,7 +34,7 @@ Port is funded through multiple grants, and for the reporting to these funders, 
   </div>
 </div>
 
-<div style="text-align: center; width: 100%; margin: 0 auto;">
+<div style="text-align: center; width: 100%; margin: 0 auto; margin-top: 0;">
   <div style="max-width: 800px; margin: 0 auto;">
     <iframe src="/assets/images/usage/wordcloud.html" style="width: 100%; height: 500px; border: none;"></iframe>
     <div style="margin-top: 8px; font-size: 14px; color: #555;">Which platforms are investigated using Port?</div>
