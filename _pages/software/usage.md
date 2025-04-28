@@ -15,8 +15,11 @@ Port is funded through multiple grants, and for the reporting to these funders, 
 
 ## Usage statistics 
 
-<div style="text-align: center; width: 100%; margin: 0 auto;">
-  <div class="svg-container"> 
-    <img src="/assets/images/usage/plot_year.png" alt="Architecture diagram"> 
+<div style="display: flex; justify-content: center; width: 100%; margin: 0 auto;">
+  <div class="svg-container" style="margin: 0 10px;">
+    <img src="/assets/images/usage/plot_year.png" alt="Architecture diagram" style="max-width: 100%; height: auto;">
+  </div>
+  <div class="svg-container" style="margin: 0 10px;">
+    <img src="/assets/images/usage/plot_institution.png" alt="Another diagram" style="max-width: 100%; height: auto;">
   </div>
 </div>
