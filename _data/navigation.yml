@@ -24,7 +24,7 @@ about-the-project:
 
 software:
   - title: Our software
-    url: software/port
+    url: /software/port
   - title: The data donation task
     url: /software/data-donation-task
   - title: Add visualizations
