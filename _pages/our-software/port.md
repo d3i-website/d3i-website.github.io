@@ -2,10 +2,10 @@
 layout: single-toc-on-top
 classes: wide
 title: Our software
-permalink: /software/Port
+permalink: /our-software/Port
 toc: false
 sidebar:
-  nav: "software"
+  nav: "our-software"
 ---
 
 <div class="notice--info">

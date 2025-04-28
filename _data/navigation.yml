@@ -4,7 +4,7 @@ main:
   - title: "About the project"
     url: /about-the-project/team
   - title: "Our software"
-    url: /software/port
+    url: /our-software/port
   - title: "Prepare a study"
     url: /prepare-a-study/software
   - title: "Completed projects"
@@ -24,7 +24,7 @@ about-the-project:
 
 software:
   - title: Our software
-    url: /software/port
+    url: /our-software/port
   - title: The data donation task
     url: /software/data-donation-task
   - title: Add visualizations
