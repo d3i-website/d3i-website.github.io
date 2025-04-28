@@ -1,13 +1,22 @@
 ---
 layout: single-toc-on-top
 classes: wide
-title: Usage
+title: Usage report
 permalink: /software/usage/
 toc: false
 sidebar:
   nav: "software"
 ---
 
-## Usage
+## Have you used Port for your study? 
 
-This will be updated soon! 
+Port is funded through multiple grants, and for the reporting to these funders, it is important that we keep statistics on the usage of Port. Therefore, we kindly request you to fill in this [short questionnaire](https://survey.uu.nl/jfe/form/SV_9XjKNKroOd4Nhrg) once your data donation study goes live on Port. 
+
+
+## Usage statistics 
+
+<div style="text-align: center; width: 100%; margin: 0 auto;">
+  <div class="svg-container"> 
+    <img src="/assets/images/usage/plot_year.png" alt="Architecture diagram"> 
+  </div>
+</div>

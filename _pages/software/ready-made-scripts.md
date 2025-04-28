@@ -1,7 +1,7 @@
 ---
 layout: single-toc-on-top
 classes: wide
-title: Ready-made scripts
+title: Use our Ready-made scripts
 permalink: /software/ready-made-scripts/
 toc: false
 sidebar:

@@ -23,8 +23,7 @@ Port is available as a software service on the open-source [Next](https://next.e
 So in order to use Port, you need access to Next. There are multiple ways you can access Next:
 
 * Purchase a Software-as-a-Service license at [Eyra](https://www.eyra.co/projects/data-donation).
-* Use Next on Surf Research Cloud through a [SURF e-infra grant](https://www.surf.nl/en/access-to-compute-services), 
-contact [Laura Boeschoten](https://www.uu.nl/medewerkers/LBoeschoten) for more information.
+* Use Next on Surf Research Cloud through a [SURF e-infra grant](https://www.surf.nl/en/access-to-compute-services).
 * Host Next yourself.
 
 Look at the decision tree to decide which option fits your project best. 

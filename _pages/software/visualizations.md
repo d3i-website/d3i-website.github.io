@@ -1,7 +1,7 @@
 ---
 layout: single-toc-on-top
 classes: wide
-title: Visualizations
+title: Add visualizations
 permalink: /software/visualizations/
 toc: false
 sidebar:
