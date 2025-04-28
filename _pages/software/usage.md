@@ -36,7 +36,7 @@ Port is funded through multiple grants, and for the reporting to these funders, 
 
 <div style="text-align: center; width: 100%; margin: 0 auto;">
   <div style="max-width: 800px; margin: 0 auto;">
-    <iframe src="/assets/plots/wordcloud.html" style="width: 100%; height: 500px; border: none;"></iframe>
+    <iframe src="/assets/images/usage/wordcloud.html" style="width: 100%; height: 500px; border: none;"></iframe>
     <div style="margin-top: 8px; font-size: 14px; color: #555;">Which platforms are investigated using Port?</div>
   </div>
 </div>
