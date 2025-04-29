@@ -6,9 +6,7 @@ main:
   - title: "Our software"
     url: /software/port
   - title: "Prepare a study"
-    url: /prepare-a-study/software
-  - title: "Completed projects"
-    url: /completed-projects/2024-netflix
+    url: /prepare-a-study/study-design
   - title: "Community"
     url: /community/newsletter
 
@@ -42,12 +40,12 @@ software:
     
 
 prepare-a-study:
-  - title: Software
-    url: /prepare-a-study/software 
   - title: Study design    
     url: /prepare-a-study/study-design
   - title: Privacy and consent
     url: /prepare-a-study/privacy-and-consent
+  - title: Look at completed projects
+    url: /prepare-a-study/completed-projects
 
 community:
   - title: Newsletter
