@@ -10,7 +10,7 @@ toc: false
 
 Data donation is a method for data collection. It allows a researcher to collect digital trace data, by asking their participants to request and share their Data Download Packages (DDPs).
 
-**Watch the video below to understand what data donation is**
+**Watch the video below to understand what data donation is.**
 
 <iframe width="560" height="315" src="https://youtube.com/embed/O_kYejQIaK8" frameborder="0" allowfullscreen></iframe>
 
@@ -25,7 +25,7 @@ An alternative approach to gain access to digital traces is enabled thanks to th
 
 ## How does data donation work?
 
-**Watch this video below to learn how data donation works**
+**Watch this video below to learn how data donation works.**
 
 <iframe width="560" height="315" src="https://youtube.com/embed/FRjtZxjmrCE" frameborder="0" allowfullscreen></iframe>
 
@@ -33,6 +33,6 @@ Data donation allows researchers to invite participants to share their DDPs. A m
 
 ![Figure 1: An overview of the data donation workflow](/assets/images/about/data_donation_flow.png)
 
-To allow for the local processing step to take place, we developed the [software Port](/prepare-a-study/software). Port is open-source and allows for researchers to fully configure their own data donation study. It creates a website that guides participants through the data donation steps. Researchers can tailor this website to their own DDPs of interest and process these in their desired ways. 
+To allow for the local processing step to take place, we developed the [software Port](/software/port/). Port is open-source and allows for researchers to fully configure their own data donation study. It creates a website that guides participants through the data donation steps. Researchers can tailor this website to their own DDPs of interest and process these in their desired ways. 
 
-If you plan to conduct a data donation study for the first time, please see the page [prepare a study](/prepare-a-study/study-design) for useful references.
+If you plan to conduct a data donation study for the first time, please see the page [prepare a study](/prepare-a-study/study-design) for useful references, and see our [help](/software/help/) page if you have any questions! 
