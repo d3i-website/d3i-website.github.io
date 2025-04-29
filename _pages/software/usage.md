@@ -25,7 +25,7 @@ Port is funded through multiple grants, and for the reporting to these funders, 
 </div>
 
 
-<div style="display: flex; justify-content: center; width: 100%; margin: 0 auto; margin-bottom: 10px;">
+<div style="display: flex; justify-content: center; width: 100%; margin: 0 auto;">
   <div class="svg-container" style="margin: 0 10px;">
     <img src="/assets/images/usage/plot_recruit.png" alt="Architecture diagram" style="max-width: 100%; height: auto;">
   </div>

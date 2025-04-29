@@ -26,7 +26,7 @@ So in order to use Port, you need access to Next. There are multiple ways you ca
 * Use Next on Surf Research Cloud through a [SURF e-infra grant](https://www.surf.nl/en/access-to-compute-services).
 * Host Next yourself.
 
-Look at the decision tree to decide which option fits your project best. 
+The decision tree can help you decide which option fits your project best. 
 
 <div style="text-align: center; width: 100%; margin: 0 auto;">
   <div class="svg-container"> 

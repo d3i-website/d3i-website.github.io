@@ -8,8 +8,6 @@ sidebar:
   nav: "software"
 ---
 
-## Need help?
-
 Are you interested in doing a data donation study? Please [email](mailto:l.boeschoten@uu.nl) us! 
 
 We can:
