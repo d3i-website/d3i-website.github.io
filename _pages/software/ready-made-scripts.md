@@ -26,4 +26,25 @@ More information and .zip files of the scripts will be added soon. For now, you 
 | X           | TBA   | TBA   |TBA   |
 | YouTube     | TBA   | TBA   |TBA   |
 
-In addition, a list with links to scripts from previous studies available on GitHub can be found [here](d3i-website.github.io/assets/documents/usage/github_links.pdf).
+In addition, a list with links to scripts from previous studies available on GitHub. Note that these scripts can be outdated 
+and not work properly anymore because either the platform changed its structure or it worked on an older version of Port. 
+
+| GitHub Link | 
+|--------------------|
+|[https://github.com/paulmaxus/dd-videos](https://github.com/paulmaxus/dd-videos)|
+|[https://github.com/trbKnl/port-ru-netflix](https://github.com/trbKnl/port-ru-netflix)|
+|[http://github.com/trbKnl/eur-slack](http://github.com/trbKnl/eur-slack)|
+|[https://github.com/trbKnl/port-lifelines-ru](https://github.com/trbKnl/port-lifelines-ru)| 
+|[https://github.com/trbKnl/port-chatgpt-uu](https://github.com/trbKnl/port-chatgpt-uu)|
+|[https://github.com/trbKnl/dd-tiktok-uva](https://github.com/trbKnl/dd-tiktok-uva)|
+|[https://github.com/trbKnl/port-chatgpt-uva](https://github.com/trbKnl/port-chatgpt-uva)|
+|[https://github.com/trbKnl/dd-socmediaorgs-uva](https://github.com/trbKnl/dd-socmediaorgs-uva)|
+|[https://github.com/eyra/port-cambridge-tiktok](https://github.com/eyra/port-cambridge-tiktok)|
+|[https://github.com/d3i-infra/port-google-home-uva](https://github.com/d3i-infra/port-google-home-uva)| 
+|[https://github.com/d3i-infra/port-pilot-netflix](https://github.com/d3i-infra/port-pilot-netflix)|
+|[https://github.com/d3i-infra/port-vu-pilot](https://github.com/d3i-infra/port-vu-pilot)|
+|[https://github.com/d3i-infra/nko_port](https://github.com/d3i-infra/nko_port)|
+|[https://github.com/d3i-infra/port-news-dynamics](https://github.com/d3i-infra/port-news-dynamics)|
+|[https://github.com/bojan2110/port](https://github.com/bojan2110/port)|
+|[https://github.com/d3i-infra/port-d3i-pilot](https://github.com/d3i-infra/port-d3i-pilot)|
+|[https://github.com/sodascience/port-whatsapp-datadonation](https://github.com/sodascience/port-whatsapp-datadonation)|
