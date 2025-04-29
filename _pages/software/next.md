@@ -5,7 +5,7 @@ title: How can I use Port?
 permalink: /software/next/
 toc: false
 sidebar:
-  nav: "next"
+  nav: "software"
 ---
 
 <div class="notice--info">

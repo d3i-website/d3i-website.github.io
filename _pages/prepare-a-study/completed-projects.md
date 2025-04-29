@@ -1,12 +1,13 @@
 ---
 layout: single-toc-on-top
 classes: wide
-title: Software
+title: Look at completed projects
 permalink: /prepare-a-study/completed-projects/
 toc: false
 sidebar:
   nav: "prepare-a-study"
 ---
+ Below, you can find a selection of projects that have been completed in the last years by making use of Port. 
  
 <div style="text-align: right;">
   <img src="/assets/images/completed-projects/netflix-image.png" alt="alternative text" title="Vecteezy.com" style="display: block; margin: 0 auto;"/>
