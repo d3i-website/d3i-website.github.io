@@ -10,7 +10,6 @@ sidebar:
 
 ## Visualizations
 
-This will be updated soon! 
-
+We will provide more information here soon. For now, please look at the [documentation page](https://d3i-infra.github.io/data-donation-task/getting_started/visualizations.html) on how to present data in visualizations to participants (in addition to tables). 
 
 
