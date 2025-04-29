@@ -26,4 +26,4 @@ More information and .zip files of the scripts will be added soon. For now, you 
 | X           | TBA   | TBA   |TBA   |
 | YouTube     | TBA   | TBA   |TBA   |
 
-In addition, a list with links to scripts from previous studies available on GitHub can be found [here](d3i-website.github.io/assets/documents/usage/github_links.csv).
+In addition, a list with links to scripts from previous studies available on GitHub can be found [here](d3i-website.github.io/assets/documents/usage/github_links.pdf).
