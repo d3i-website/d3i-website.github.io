@@ -12,7 +12,7 @@ Data donation is a method for data collection. It allows a researcher to collect
 
 **Watch the video below to understand what data donation is.**
 
-<iframe width="560" height="315" src="https://youtube.com/embed/O_kYejQIaK8" frameborder="0" allowfullscreen></iframe>
+<iframe width="840" height="473" src="https://video.uu.nl/permalink/v126afc524f05fjhm1dh/iframe/" frameborder="0" allowfullscreen></iframe>
 
 
 ## Why use data donation?
@@ -27,7 +27,7 @@ An alternative approach to gain access to digital traces is enabled thanks to th
 
 **Watch this video below to learn how data donation works.**
 
-<iframe width="560" height="315" src="https://youtube.com/embed/FRjtZxjmrCE" frameborder="0" allowfullscreen></iframe>
+<iframe width="840" height="473" src="https://video.uu.nl/permalink/v126afc524f03vl31yvi/iframe/" frameborder="0" allowfullscreen></iframe>
 
 Data donation allows researchers to invite participants to share their DDPs. A major challenge is however that DDPs potentially contain very sensitive data, and often not all data is needed to answer the specific research question under investigation. To circumvent these challenges, an alternative framework has been developed: First, the research participant requests their personal DDP at the platform of interest. Second, they download it onto their own personal device. Third, by means of local processing, only the features of interest to the researcher are extracted from that DDP. Fourth, the participant inspects the extracted features after which they can consent (or decline) to donate. Only after providing this consent, the donated data is sent to a server which can be accessed by the researcher for further analyses.
 
