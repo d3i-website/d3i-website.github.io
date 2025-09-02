@@ -63,7 +63,10 @@ feature_row_affiliated:
     title: "Dr. F. (Felicia) Loecherbach"
     excerpt: "UvA affiliate and RIGHTS project lead"
     url: "https://www.uva.nl/profiel/l/o/f.loecherbach/f.loecherbach.html"
-
+  - image_path: /assets/images/people/joshua.jpg
+    title: "Joshua Claassen MSc."
+    excerpt: "German Centre for Higher Education Research and Sciences Studies (DZHW); Leibniz University Hannover"
+    url: "https://www.dzhw.eu/en/gmbh/mitarbeiter?m_id=987"
 
 
 permalink: /about-the-project/team
