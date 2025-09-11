@@ -35,9 +35,6 @@ feature_row_methodologists:
     title: "T.C. (Thijs) Carrière MSc."
     excerpt: "PhD student"
     url: "https://www.uu.nl/medewerkers/TCCarriere"
-  - image_path: /assets/images/people/jonathan.jpg
-    title: "J. (Jonathan) Koop BSc."
-    excerpt: "Research assistant"
   - image_path: /assets/images/people/danielle.jpg
     title: "D. (Danielle) McCool MSc."
     excerpt: "Methodological expert"
@@ -69,6 +66,16 @@ feature_row_affiliated:
     url: "https://www.dzhw.eu/en/gmbh/mitarbeiter?m_id=987"
 
 
+feature_row_alumni: 
+  - image_path: /assets/images/people/jonathan.jpg
+    title: "J. (Jonathan) Koop BSc."
+    excerpt: "Research assistant"
+  - image_path: /assets/images/people/pavlos.jpg
+    alt: "Job title"
+    title: "P. (Pavlos) Ferlachidis MSc."
+    excerpt: "Research assistant"
+
+
 permalink: /about-the-project/team
 toc: false
 sidebar:
@@ -97,3 +104,7 @@ The materials presented on this website are a result of multiple research projec
 ## Affiliated researchers 
 
 {% include feature_row id="feature_row_affiliated" %}
+
+## Alumni 
+
+{% include feature_row id="feature_row_alumni" %}
