@@ -4,7 +4,7 @@ classes:
   - landing
   - dark-theme
 title: | 
-    Welcome at Europe's Data Donation Infrastructure
+    Welcome to Europe's Data Donation Infrastructure
 excerpt: "Leveraging the right of data access for research"
 header:
   overlay_image: "assets/images/banner.png"
