@@ -24,6 +24,9 @@ feature_row_engineers:
     title: "Dr. M.B. (Max) Paulus"
     excerpt: "Research Engineer"
     url: "https://www.uva.nl/profiel/p/a/m.paulus/m.paulus.html"
+  - image_path: /assets/images/people/danielle.jpg
+    title: "D. (Danielle) McCool MSc."
+    excerpt: "Research engineer and study design expert"
 
 
 feature_row_methodologists:
@@ -33,11 +36,8 @@ feature_row_methodologists:
     url: "https://www.uu.nl/staff/BStruminskaya"
   - image_path: /assets/images/people/thijs.jpg
     title: "T.C. (Thijs) Carrière MSc."
-    excerpt: "PhD student"
+    excerpt: "PhD researcher"
     url: "https://www.uu.nl/medewerkers/TCCarriere"
-  - image_path: /assets/images/people/danielle.jpg
-    title: "D. (Danielle) McCool MSc."
-    excerpt: "Methodological expert"
 
 
 feature_row_legal:
@@ -62,7 +62,7 @@ feature_row_affiliated:
     url: "https://www.uva.nl/profiel/l/o/f.loecherbach/f.loecherbach.html"
   - image_path: /assets/images/people/joshua.jpg
     title: "Joshua Claassen MSc."
-    excerpt: "German Centre for Higher Education Research and Sciences Studies (DZHW); Leibniz University Hannover"
+    excerpt: "Guest researcher from the German Centre for Higher Education Research and Sciences Studies (DZHW); Leibniz University Hannover"
     url: "https://www.dzhw.eu/en/gmbh/mitarbeiter?m_id=987"
 
 
