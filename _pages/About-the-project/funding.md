@@ -18,7 +18,7 @@ Through permanent funding for the D3I infrastructure from PDI-SSH, facilitated a
 
 ### SSHOC-NL 2024 - 2028
 
-Social Science and Humanities Open Cloud for the Netherlands (SSHOC-NL) is a collaborative effort between ODISSEI (Open Data Infrastructure for Social Science and Economic Innovations) and CLARIAH (Common Lab Research Infrastructure for the Arts and Humanities) to develop cutting-edge infrastructure for social science and humanities research. This initiative aims to open new research avenues of societal importance within these diverse fields. Task 1.2 “Secure Distributed Processing” focuses on integrating the data donation software "Port" in the wider Dutch research infrastructure landscape. Read https://sshoc.nl/ for more information. 
+Social Science and Humanities Open Cloud for the Netherlands (SSHOC-NL) is a collaborative effort between ODISSEI (Open Data Infrastructure for Social Science and Economic Innovations) and CLARIAH (Common Lab Research Infrastructure for the Arts and Humanities) to develop cutting-edge infrastructure for social science and humanities research. This initiative aims to open new research avenues of societal importance within these diverse fields. Task 1.2 “Secure Distributed Processing” focuses on integrating the data donation software "Port" in the wider Dutch research infrastructure landscape. See [their website](https://sshoc.nl/) for more information. 
 
 ### TDCC "RIGHTS": 2025 - 2027
 
