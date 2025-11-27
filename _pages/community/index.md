@@ -44,7 +44,7 @@ Whether you're new to data donation or an experienced researcher, there are many
       {% elsif page %}
         <p>{{ page.content | strip_html | truncatewords:30 }}</p>
       {% endif %}
-      <a href="{{ nav_item.url }}" style="background-color: #008cba; color: white; padding: 8px 16px; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 10px;">Learn More</a>
+      <a href="{{ nav_item.url }}" style="background-color: #008cba; color: white; padding: 8px 16px; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 10px;">Learn More →</a>
     </div>
 
 {% endfor %}
