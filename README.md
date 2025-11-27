@@ -38,11 +38,10 @@ This site uses [jekyll](https://jekyllrb.com/) as static site generator and is h
 In order to develop this site locally:
 
 1. Install [Ruby](https://www.ruby-lang.org/en/)
-2. Install bundler: `gem install bundler -v 2.5.23`
-3. Install jekyll: `gem install jekyll`
-4. Clone this repository and change directory 
-5. Run: `bundle install` to install the necessary gems
-6. Run: `bundle exec jekyll serve` and the site should be hosted at `http://localhost:4000`
+2. Install bundler and jekyll: `gem install bundler jekyll`
+3. Clone this repository and change directory 
+4. Column1. Run: `bundle install` to install the necessary gems
+5. Run: `bundle exec jekyll serve` and the site should be hosted at `http://localhost:4000`
 
 **Theme Minimal mistakes**
 
