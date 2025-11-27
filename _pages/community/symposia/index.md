@@ -9,8 +9,6 @@ sidebar:
   nav: "community"
 ---
 
-## Data Donation Symposia
-
 The Data Donation Symposium brings together applied researchers, methodologists, legal and ethical experts, research engineers, and software developers with an interest in using digital trace data for scientific research purposes.
 
 ---

@@ -54,13 +54,11 @@ community:
     children:
     - title: Open Letter
       url: /community/open-letter
+    - title: Institutional Network
+      url: /community/institutional-network
     - title: Newsletter
       url: /community/newsletter/
     - title: Courses
       url: /community/courses/
     - title: Symposia
       url: /community/symposia/
-    - title: 2026 Symposium
-      url: /community/symposia/symposium-2026
-    - title: Institutional Network
-      url: /community/institutional-network

@@ -31,22 +31,22 @@ Whether you're new to data donation or an experienced researcher, there are many
 
 ### Explore Our Community Resources
 
-{% assign community_nav = site.data.navigation.community | where_exp: "item", "item.url != '/community/'" %}
+{% comment %}Get the children from the first item (Community Overview){% endcomment %}
+{% assign community_overview = site.data.navigation.community | first %}
+{% assign community_children = community_overview.children %}
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 20px 0;">
-{% for nav_item in community_nav %}
+{% for nav_item in community_children %}
   {% assign page = site.pages | where: "url", nav_item.url | first %}
-    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #008cba;">
-
-      <h3 style="margin-top: 0;">{{ page.title }}</h3>
-      {% if page.excerpt %}
-        <p>{{ page.excerpt | strip_html | truncatewords: 30 }}</p>
-      {% elsif page %}
-        <p>{{ page.content | strip_html | truncatewords:30 }}</p>
-      {% endif %}
-      <a href="{{ nav_item.url }}" style="background-color: #008cba; color: white; padding: 8px 16px; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 10px;">Learn More →</a>
-    </div>
-
+  <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #008cba;">
+    <h3 style="margin-top: 0;">{{ nav_item.title }}</h3>
+    {% if page.excerpt %}
+      <p>{{ page.excerpt | strip_html | truncatewords: 30 }}</p>
+    {% elsif page %}
+      <p>{{ page.content | strip_html | truncatewords: 30 }}</p>
+    {% endif %}
+    <a href="{{ nav_item.url }}" style="background-color: #008cba; color: white; padding: 8px 16px; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 10px;">Learn More →</a>
+  </div>
 {% endfor %}
 </div>
 
