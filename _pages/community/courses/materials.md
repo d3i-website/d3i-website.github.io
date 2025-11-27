@@ -2,6 +2,7 @@
 layout: single
 title: A tutorial on collecting digital trace data through data donation
 permalink: /community/courses/materials
+excerpt: "Materials for a short course on data donation."
 toc: false
 ---
 
