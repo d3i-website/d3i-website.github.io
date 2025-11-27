@@ -18,7 +18,7 @@ sidebar:
 
 ### Stay Informed
 
-Subscribe to our [newsletter](/community/newsletter) to receive updates about the symposium, including:
+Subscribe to our [newsletter]({{ site.newsletter_signup_url }}) to receive updates about the symposium, including:
 - Dates and location
 - Call for papers/presentations
 - Registration information

@@ -12,7 +12,7 @@ sidebar:
 Stay informed about the latest news on data donation events and educational courses. Subscribe to our newsletter to receive updates and information. 
 
 <a target="_blank" 
-   href="https://mailings.uu.nl/hp/yGi2REuD3coZozpdzieiGg/subscribe_newsletter_data_donation" 
+   href="{{ site.newsletter_signup_url }}" 
    style="background-color: #008CBA; color: white; padding: 10px 20px; border: none; border-radius: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 10px; cursor: pointer; transition: background-color 0.3s, transform 0.2s;"
    onmouseover="this.style.backgroundColor='#005F8E'"
    onmouseout="this.style.backgroundColor='#008CBA'"

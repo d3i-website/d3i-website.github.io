@@ -53,7 +53,7 @@ Explore materials, presentations, and highlights from our previous symposia:
 
 <div style="margin-top: 30px; padding: 20px; background-color: #fff8e1; border-radius: 8px; border-left: 4px solid #ffc107;">
   <h4 style="margin-top: 0;">📧 Stay Updated</h4>
-  <p>Subscribe to our <a href="/community/newsletter">newsletter</a> to receive announcements about future symposia and other data donation events.</p>
+  <p>Subscribe to our <a href="{{ site.newsletter_signup_url }}">newsletter</a> to receive announcements about future symposia and other data donation events.</p>
 </div>
 
 ---

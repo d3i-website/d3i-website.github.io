@@ -20,13 +20,13 @@ The proposed GDPR Omnibus amendment to Article 12(5) would allow data controller
 
 ### Why This Matters
 
-Data donation research enables crucial studies on:
+Data donation research enables critically important studies on topics such as:
 - Digital well-being of minors
 - Unhealthy or addictive behavior on platforms
 - Content exposure and user behavior on social networks
 - Political polarization
 - Algorithmic systems in gig work platforms
-- And much more...
+
 
 By requiring individuals to exercise their Article 15 GDPR rights to access and voluntarily donate their data, data donation research empowers citizens through participatory knowledge generation. The proposed amendment would give platforms veto power over this independent research.
 
@@ -35,7 +35,7 @@ By requiring individuals to exercise their Article 15 GDPR rights to access and 
 <div style="background-color: #f0f8ff; padding: 25px; border-radius: 8px; border-left: 5px solid #008CBA; margin: 30px 0;">
   <h3 style="margin-top: 0; color: #008CBA;">📝 Sign the Open Letter</h3>
   <p style="font-size: 1.1em;">Join hundreds of researchers in urging EU policymakers to protect data donation research.</p>
-  <a href="https://dsa40collaboratory.eu/open-letter-omnibus/" target="_blank" rel="noopener noreferrer" style="background-color: #008CBA; color: white; padding: 15px 30px; border-radius: 5px; text-decoration: none; display: inline-block; font-size: 1.2em; margin-top: 10px;">Sign the Open Letter →</a>
+  <a href="{{ site.open_letter_url }}" target="_blank" rel="noopener noreferrer" style="background-color: #008CBA; color: white; padding: 15px 30px; border-radius: 5px; text-decoration: none; display: inline-block; font-size: 1.2em; margin-top: 10px;">Sign the Open Letter →</a>
   <p style="margin-top: 15px; font-size: 0.9em; color: #666;"><strong>Deadline:</strong> The letter will be submitted December 15, 2025</p>
 </div>
 
@@ -56,7 +56,7 @@ The open letter, coordinated by the DSA 40 Collaboratory, calls on the European 
 - Valerie Hase, University of Klagenfurt, Austria
 - And many more...
 
-[View the full letter and complete list of signatories](https://dsa40collaboratory.eu/open-letter-omnibus/)
+[View the full letter and complete list of signatories]({{ site.open_letter_url }})
 
 ## Why Data Donation Research Matters
 
@@ -72,7 +72,7 @@ The GDPR Omnibus, as drafted, would transfer that power back to platforms, givin
 ## Learn More
 
 For more information about the proposed amendment and its implications:
-- [Full Open Letter](https://dsa40collaboratory.eu/open-letter-omnibus/)
+- [Full Open Letter]({{ site.open_letter_url }})
 - [DSA 40 Collaboratory](https://dsa40collaboratory.eu/)
 
 ---
