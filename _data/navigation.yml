@@ -52,10 +52,8 @@ community:
   - title: Community Overview
     url: /community/
   - title: Newsletter
-    url: /community/newsletter
+    url: /community/newsletter/
   - title: Courses
-    url: /community/courses
-  - title: Symposium 2024
-    url: /community/symposium-2024
-  - title: Symposium 2025
-    url: /community/symposium-2025
+    url: /community/courses/
+  - title: Symposia
+    url: /community/symposia/

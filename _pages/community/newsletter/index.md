@@ -2,7 +2,7 @@
 layout: single-toc-on-top
 classes: wide
 title: Subscribe to our newsletter
-permalink: /community/newsletter
+permalink: /community/newsletter/
 excerpt: "Stay informed about the latest news on data donation events and educational courses. Subscribe to receive regular updates."
 toc: false
 sidebar:

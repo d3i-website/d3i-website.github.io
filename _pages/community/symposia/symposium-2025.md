@@ -1,8 +1,8 @@
 ---
 layout: single-toc-on-top
 classes: wide
-title: Data Donation Symposium 2025
-permalink: /community/symposium-2025
+title: "Data Donation Symposium 2025"
+permalink: /community/symposia/symposium-2025
 excerpt: Review materials, photos, and presentations from our 2025 Data Donation Symposium held in Munich, Germany on October 9-10, 2025.
 toc: false
 sidebar:

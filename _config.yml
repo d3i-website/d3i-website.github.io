@@ -44,7 +44,7 @@ plugins:
 # Performance optimizations
 incremental: true
 strict_front_matter: false  # Start with false, enable later
-
+relative-permalinks: false
 
 # Custom settings
 minimal_mistakes_skin: "default"
