@@ -51,6 +51,8 @@ prepare-a-study:
 community:
   - title: Community Overview
     url: /community/
+  - title: Open Letter
+    url: /community/open-letter
   - title: Newsletter
     url: /community/newsletter/
   - title: Courses
