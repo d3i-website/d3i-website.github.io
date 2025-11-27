@@ -1,8 +1,9 @@
 ---
 layout: single-toc-on-top
 classes: wide
-title: \[Completed\] Data Donation Symposium 2024
+title: Data Donation Symposium 2024
 permalink: /community/symposium-2024
+excerpt: "Review materials, photos, and presentations from our 2024 Data Donation Symposium held in Amsterdam"
 toc: false
 sidebar:
   nav: "community"

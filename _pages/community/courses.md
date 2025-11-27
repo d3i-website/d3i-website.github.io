@@ -3,6 +3,7 @@ layout: single-toc-on-top
 classes: wide
 title: Courses
 permalink: /community/courses
+excerpt: "Learn how to prepare data donation studies, tackle methodological challenges, and program your own data donation tasks through our hands-on courses."
 toc: false
 sidebar:
   nav: "community"

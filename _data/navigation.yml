@@ -8,7 +8,7 @@ main:
   - title: "Prepare a study"
     url: /prepare-a-study/study-design
   - title: "Community"
-    url: /community/newsletter
+    url: /community/
 
 about-the-project:
   - title: Team
@@ -49,6 +49,8 @@ prepare-a-study:
     url: /prepare-a-study/completed-projects
 
 community:
+  - title: Community Overview
+    url: /community/
   - title: Newsletter
     url: /community/newsletter
   - title: Courses
