@@ -56,6 +56,28 @@ include: ["_pages"]
 atom_feed: # Disables RSS feed in footer
   hide: true
 
+category_archive:
+  type: jekyll-archives
+  path: /categories/
+tag_archive:
+  type: jekyll-archives
+  path: /tags/
+year_archive:
+  type: jekyll-archives
+  path: year
+jekyll-archives:
+  enabled:
+    - categories
+    - tags
+    - year
+  layouts:
+    category: archive-taxonomy
+    tag: archive-taxonomy
+    year: year-archive
+  permalinks:
+    category: /categories/:name/
+    tag: /tags/:name/
+
 # Sass configuration
 sass:
   style: compressed

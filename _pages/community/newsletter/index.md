@@ -1,13 +1,15 @@
 ---
-layout: single-toc-on-top
-classes: wide
-title: Subscribe to our newsletter
+layout: single
+classes: h-entry
+title: Newsletter 
 permalink: /community/newsletter/
 excerpt: "Stay informed about the latest news on data donation events and educational courses. Subscribe to receive regular updates."
-toc: false
+toc: false 
 sidebar:
   nav: "community"
 ---
+
+## Sign up for our newsletter
 
 Stay informed about the latest news on data donation events and educational courses. Subscribe to our newsletter to receive updates and information. The newsletter will be sent out around four times per year. 
 
@@ -24,3 +26,13 @@ Stay informed about the latest news on data donation events and educational cour
 
 <div class="well">
 <strong>Have news?</strong> Do you want to share something with the Data Donation community, for example an interesting conference or a grant opportunity, feel free to send it to <a href="mailto:DataDonation@uu.nl">DataDonation@uu.nl</a> and we will be happy to add it to the next newsletter.</div>
+
+<div class="sidebar__right" markdown="1">
+{: .toc .taxonomy__title}
+**Archive**
+{% for newsletter in site.data.newsletters %}
+  {: .archive__item }
+ **[{{ newsletter.title }}](/assets/documents/newsletters/{{ newsletter.file }})** - {{ newsletter.date | date: "%B %Y" }}
+  {% if newsletter.description %}<br>*{{ newsletter.description }}*{% endif %}
+{% endfor %}
+</div>
