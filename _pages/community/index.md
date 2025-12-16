@@ -8,13 +8,6 @@ sidebar:
   nav: "community"
 ---
 
-<div style="background-color: #d9534f; color: white; padding: 25px; border-radius: 8px; margin-bottom: 40px; border: 3px solid #c9302c;">
-  <h2 style="color: white; margin-top: 0;">⚠️ Urgent Action Needed</h2>
-  <p style="font-size: 1.2em; margin: 15px 0;"><strong>Data donation research is under threat from a proposed EU GDPR amendment.</strong></p>
-  <p style="margin: 15px 0;">Join researchers across Europe in protecting this crucial method for independent platform research. The letter will be sent to the European Commission on <strong>December 15, 2025</strong>.</p>
-  <a href="/community/open-letter" style="background-color: white; color: #d9534f; padding: 12px 24px; border-radius: 5px; text-decoration: none; display: inline-block; font-weight: bold; margin-top: 10px;">Learn More & Sign the Letter →</a>
-</div>
-
 ## Join the Data Donation Community
 
 Welcome to the data donation community! We bring together researchers, methodologists, legal experts, and practitioners interested in using digital trace data for scientific research.

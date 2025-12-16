@@ -3,6 +3,7 @@ layout: single-toc-on-top
 classes: wide
 title: "Community Networks"
 permalink: /community/institutional-network
+excerpt: "Learn more about our institutional network and PhD network"
 toc: true
 sidebar:
   nav: "community"
