@@ -52,8 +52,6 @@ community:
   - title: Community Overview
     url: /community/
     children:
-      - title: Open Letter
-        url: /community/open-letter
       - title: Community Networks
         url: /community/institutional-network
       - title: Newsletter
