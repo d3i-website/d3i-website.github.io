@@ -52,13 +52,13 @@ community:
   - title: Community Overview
     url: /community/
     children:
-    - title: Open Letter
-      url: /community/open-letter
-    - title: Community Networks
-      url: /community/institutional-network
-    - title: Newsletter
-      url: /community/newsletter/
-    - title: Courses
-      url: /community/courses/
-    - title: Symposia
-      url: /community/symposia/
+      - title: Open Letter
+        url: /community/open-letter
+      - title: Community Networks
+        url: /community/institutional-network
+      - title: Newsletter
+        url: /community/newsletter/
+      - title: Courses
+        url: /community/courses/
+      - title: Symposia
+        url: /community/symposia/

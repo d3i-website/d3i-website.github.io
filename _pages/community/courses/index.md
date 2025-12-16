@@ -16,15 +16,17 @@ upcoming courses.
 
 ## Upcoming courses 
 
+
+
+
+## Past courses 
+
 #### How to prepare a data donation study? 
 - When: July 14 2025, morning
 - Where: ESRA conference, Utrecht, The Netherlands
 - Price: €70
 - Instructors: Felicia Loecherbach, Niek de Schipper
 - More information: [ESRA website](https://www.europeansurveyresearch.org/conference/utrecht-2025/short-courses/)
-
-
-## Past courses 
 
 #### How to prepare a data donation study? 
 - When: February 18 2024, 14:00 - 17:30
