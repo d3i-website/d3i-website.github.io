@@ -15,6 +15,7 @@ group :jekyll_plugins do
   gem "jekyll-paginate", "~> 1.1"
   gem "jekyll-gist", "~> 1.5"
   gem "jemoji", "~> 0.13"
+  gem "jekyll-archives"
 end
 
 # Windows and JRuby does not include zoneinfo files
