@@ -29,7 +29,7 @@ The institutional network meets twice yearly to discuss developments in data don
 </div>
 
 <div class="well">
-<strong>Get involved?</strong> If your institution is interested in joining the D3I institutional network, please contact <a href="mailto:d.m.mccool@uu.nl">Danielle McCool</a> for more information about membership and collaboration opportunities.</div>
+<strong>Get involved?</strong> If your institution is interested in joining the D3I institutional network, please contact <a href="mailto:DataDonation@uu.nl?subject=D3I Institutional Network">DataDonation@uu.nl</a> for more information about membership and collaboration opportunities.</div>
 
 
 ### PhD Network
