@@ -11,7 +11,7 @@ sidebar:
 
 ### Institutional Network
 
-The D3I institutional network connects research institutions across Europe that are actively engaged in data donation research. The network facilitates knowledge exchange, collaboration, and the development of best practices in digital data donation methodologies.
+The Data Donation Institutional Network connects research institutions across Europe that are actively engaged in data donation research. The network facilitates knowledge exchange, collaboration, and the development of best practices in digital data donation methodologies.
 
 The institutional network meets twice yearly to discuss developments in data donation research, share experiences, and coordinate collaborative initiatives.
 
