@@ -1,41 +1,39 @@
-name: Deploy to Netlify (Alternative - No Cache)
+name: Deploy Jekyll site to Netlify
 
 on:
+  # Runs on pushes to main branch
   push:
-    branches: [main]
+    branches: ["main"]
+  
+  # Allows manual trigger from Actions tab
   workflow_dispatch:
 
 jobs:
   deploy:
+    name: 'Build and Deploy to Netlify'
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
-      
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1'
-      
-      - name: Install Bundler
-        run: gem install bundler -v 2.5.23
-      
-      - name: Install Dependencies
-        run: bundle install --jobs 4 --retry 3
-      
-      - name: Build Jekyll site
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Build with Jekyll
         run: bundle exec jekyll build
         env:
           JEKYLL_ENV: production
-      
+
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v3.0
+        uses: jsmrcaga/action-netlify-deploy@v2.0.0
         with:
-          publish-dir: './_site'
-          production-deploy: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-        env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        timeout-minutes: 10
+          NETLIFY_DEPLOY_TO_PROD: true
+          build_directory: '_site'
+          install_command: 'echo "Dependencies already installed"'
+          build_command: 'echo "Build already completed"'
+          NETLIFY_DEPLOY_MESSAGE: 'Deployed from GitHub Actions - ${{ github.sha }}'
