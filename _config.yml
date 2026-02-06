@@ -102,6 +102,8 @@ exclude:
   - docs/pre-migration-*
   - "*.backup"
 
+include:
+  - .well-known
 
 # Custom URLs and links
 newsletter_signup_url: "https://mailings.uu.nl/hp/yGi2REuD3coZozpdzieiGg/subscribe_newsletter_data_donation"
