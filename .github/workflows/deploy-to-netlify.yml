@@ -1,27 +1,36 @@
-# .github/workflows/deploy-to-netlify.yml
-name: Deploy to Netlify
+name: Deploy to Netlify (Alternative - No Cache)
 
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v4  # ← Updated
+      - name: Checkout code
+        uses: actions/checkout@v4
       
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.1'
-          bundler-cache: true
       
-      - name: Build
+      - name: Install Bundler
+        run: gem install bundler -v 2.5.23
+      
+      - name: Install Dependencies
+        run: bundle install --jobs 4 --retry 3
+      
+      - name: Build Jekyll site
         run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
       
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v3.0  
+        uses: nwtgck/actions-netlify@v3.0
         with:
           publish-dir: './_site'
           production-deploy: true
@@ -29,3 +38,4 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 10
