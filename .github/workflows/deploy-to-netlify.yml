@@ -22,11 +22,6 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
-      - name: Build with Jekyll
-        run: bundle exec jekyll build
-        env:
-          JEKYLL_ENV: production
-
       - name: Deploy to Netlify
         uses: jsmrcaga/action-netlify-deploy@v2.0.0
         with:
@@ -34,6 +29,6 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_DEPLOY_TO_PROD: true
           build_directory: '_site'
-          install_command: 'echo "Dependencies already installed"'
-          build_command: 'echo "Build already completed"'
+          install_command: 'bundle install'
+          build_command: 'bundle exec jekyll build'
           NETLIFY_DEPLOY_MESSAGE: 'Deployed from GitHub Actions - ${{ github.sha }}'
