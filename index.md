@@ -19,6 +19,10 @@ header:
 ---
 
 
+<div style="background-color: #f0f8ff; padding: 16px 20px; border-radius: 8px; border-left: 4px solid #008cba; margin: 0 auto 20px; max-width: 60%;">
+  <p style="margin: 0;"><strong>Position on the GDPR Omnibus Proposal:</strong> The European Omnibus Act poses a direct risk to fundamental human rights and to data donation as a research method. Read our letter (<a href="/community/omnibus-letter">EN</a>/<a href="/community/omnibus-letter-nl">NL</a>) about our position and use it to call your government to vote against this.</p>
+</div>
+
 Welcome at datadonation.eu, the website of [D3I](/d3i/project-d3i). This website 
 aims to bring together an international community of researchers interested in 
 using data donation for research. 

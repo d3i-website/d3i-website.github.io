@@ -45,10 +45,10 @@ Whether you're new to data donation or an experienced researcher, there are many
 
 For questions or to get involved, please reach out to our [team members](/about-the-project/team).
 
-### Letters & Position Statements
+### Position on the GDPR Omnibus Proposal
 
 <div style="background-color: #f0f8ff; padding: 16px 20px; border-radius: 8px; border-left: 4px solid #008cba; margin-top: 10px;">
-  <p style="margin: 0;">Our researchers have published a position statement on the proposed EU Omnibus Regulation and its threat to the fundamental right of access to personal data. Read the letter in <a href="/community/omnibus-letter">English</a> or <a href="/community/omnibus-letter-nl">Dutch</a>.</p>
+  <p style="margin: 0;">The European Omnibus Act poses a direct risk to fundamental human rights and to data donation as a research method. Read our letter (<a href="/community/omnibus-letter">EN</a>/<a href="/community/omnibus-letter-nl">NL</a>) about our position and use it to call your government to vote against this.</p>
 </div>
 
 
