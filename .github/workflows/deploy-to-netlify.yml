@@ -57,7 +57,7 @@ jobs:
     needs: deploy-staging
     environment:
       name: production
-      url: https://www.datadonation.eu
+      url: https://datadonation.eu
     steps:
       - name: Download site artifact
         uses: actions/download-artifact@v4
