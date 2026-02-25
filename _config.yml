@@ -52,7 +52,6 @@ repository: "d3i-infra/d3i-infra.github.io"
 logo: ""
 masthead_title: |
   datadonation.eu
-include: ["_pages"]
 atom_feed: # Disables RSS feed in footer
   hide: true
 
@@ -103,6 +102,7 @@ exclude:
   - "*.backup"
 
 include:
+  - _pages
   - .well-known
 
 # Custom URLs and links
