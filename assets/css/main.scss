@@ -21,28 +21,24 @@
 // Install a different font
 
 @font-face {
-  font-family: "Montserrat-Regular";
-  src: url("../fonts/Montserrat-Regular.ttf");
+  font-family: "Nunito";
+  src: url("../fonts/Nunito.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: "Finador-Regular";
-  src: url("../fonts/finador-regular.ttf");
+  font-family: "Nunito Sans";
+  src: url("../fonts/NunitoSans-VariableFont_wght.woff2") format("woff2");
+  font-weight: 200 1000;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: "Finador-Black";
-  src: url("../fonts/finador-black.otf");
-}
-
-@font-face {
-  font-family: "Finador-Heavy";
-  src: url("../fonts/finador-heavy.otf");
-}
-
-@font-face {
-  font-family: "Finador-Bold";
-  src: url("../fonts/finador-heavy.otf");
+  font-family: "Nunito Sans";
+  src: url("../fonts/NunitoSans-Italic-VariableFont_wght.woff2") format("woff2");
+  font-weight: 200 1000;
+  font-style: italic;
 }
 
 // ------------------------------------------------------------

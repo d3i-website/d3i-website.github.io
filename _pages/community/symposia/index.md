@@ -19,8 +19,10 @@ The Data Donation Symposium brings together applied researchers, methodologists,
   <h3 style="margin-top: 0; color: #008CBA;">📅 Data Donation Symposium 2026</h3>
   <p style="font-size: 1.1em; margin: 15px 0;"><strong>Date:</strong> 1-2 October, 2026</p>
   <p style="font-size: 1.1em; margin: 15px 0;"><strong>Location:</strong> Weizenbaum Institute, Berlin, Germany</p>
-  <p style="margin: 20px 0;">Call for presentations opening in 2026.</p>
-  <a href="/community/symposia/symposium-2026" style="background-color: #008CBA; color: white; padding: 12px 24px; border-radius: 5px; text-decoration: none; display: inline-block; font-size: 1.1em;">View Details →</a>
+  <p style="font-size: 1.1em; margin: 15px 0;"><strong>Location:</strong> Weizenbaum Institute, Berlin, Germany</p>
+  <p style="margin: 15px 0;"><strong>Abstract submission deadline:</strong> April 30, 2026</p>
+  <a href="https://dds26.platformresearch.eu/call-for-papers" target="_blank" rel="noopener noreferrer" style="background-color: #008CBA; color: white; padding: 12px 24px; border-radius: 5px; text-decoration: none; display: inline-block; font-size: 1.1em; margin-right: 10px;">Submit an Abstract →</a>
+  <a href="/community/symposia/symposium-2026" style="background-color: white; color: #008CBA; padding: 12px 24px; border-radius: 5px; text-decoration: none; display: inline-block; font-size: 1.1em; border: 2px solid #008CBA;">View Details →</a>
 </div>
 
 ---
