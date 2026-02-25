@@ -60,3 +60,5 @@ community:
         url: /community/courses/
       - title: Symposia
         url: /community/symposia/
+  - title: Letters & Positions
+    url: /community/omnibus-letter
