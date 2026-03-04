@@ -33,6 +33,7 @@ theme: minimal-mistakes-jekyll
 url: https://d3i-infra.github.io  # the base hostname and protocol for your site, e.g. http://example.com
 
 plugins:
+  - jekyll-redirect-from
   - jekyll-feed
   - jekyll-include-cache
   - jekyll-sitemap
