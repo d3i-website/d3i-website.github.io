@@ -1,0 +1,264 @@
+// =====================================================================
+// Software hub layout
+// =====================================================================
+// Custom layout for /software/ — hero + numbered movements + contact.
+// Used by _layouts/software-hub.html, driven by frontmatter data.
+// All selectors namespaced under .software-hub to avoid collisions.
+
+.software-hub {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+
+  @media (min-width: $medium) {
+    padding: 3rem 2rem 5rem;
+  }
+
+  @media (min-width: $large) {
+    padding: 4rem 2.5rem 6rem;
+  }
+}
+
+// ---------------------------------------------------------------------
+// Hero
+// ---------------------------------------------------------------------
+
+.software-hub__hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 4rem;
+
+  @media (min-width: $medium-wide) {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 3.5rem;
+    margin-bottom: 6rem;
+  }
+}
+
+.software-hub__hero-image {
+  order: 1;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 32rem;
+    margin: 0 auto;
+    border-radius: 0.75rem;
+  }
+}
+
+.software-hub__hero-text {
+  order: 2;
+}
+
+.software-hub__hero-title {
+  font-family: "Nunito", $sans-serif;
+  font-weight: 900;
+  font-size: 2.25rem;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin: 0 0 1.25rem;
+  color: $text-color;
+
+  @media (min-width: $medium) {
+    font-size: 2.75rem;
+  }
+
+  @media (min-width: $large) {
+    font-size: 3.25rem;
+  }
+}
+
+.software-hub__hero-subhead {
+  font-family: "Nunito", $sans-serif;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  margin: 0;
+  color: $muted-text-color;
+  max-width: 36rem;
+
+  @media (min-width: $medium) {
+    font-size: 1.25rem;
+  }
+}
+
+// ---------------------------------------------------------------------
+// Movements (numbered journey steps)
+// ---------------------------------------------------------------------
+
+.software-hub__movements {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+
+  @media (min-width: $medium-wide) {
+    gap: 6rem;
+  }
+}
+
+.software-hub__movement {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: center;
+
+  @media (min-width: $medium-wide) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 3.5rem;
+  }
+}
+
+// Alternating sides — image on left for odd, right for even.
+// Modifier classes set by Liquid {% cycle %} in the layout.
+.software-hub__movement--left {
+  .software-hub__movement-image  { order: 1; }
+  .software-hub__movement-text   { order: 2; }
+}
+
+.software-hub__movement--right {
+  .software-hub__movement-image  { order: 1; }
+  .software-hub__movement-text   { order: 2; }
+
+  @media (min-width: $medium-wide) {
+    .software-hub__movement-image { order: 2; }
+    .software-hub__movement-text  { order: 1; }
+  }
+}
+
+.software-hub__movement-image {
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 26rem;
+    margin: 0 auto;
+  }
+}
+
+.software-hub__movement-text {
+  // Allow numbered heading to sit close to title
+}
+
+.software-hub__movement-number {
+  display: block;
+  font-family: "Nunito", $sans-serif;
+  font-weight: 900;
+  font-size: 3rem;
+  line-height: 1;
+  color: $accent-secondary;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.02em;
+
+  @media (min-width: $medium) {
+    font-size: 3.75rem;
+  }
+
+  @media (min-width: $large) {
+    font-size: 4.5rem;
+  }
+}
+
+.software-hub__movement-title {
+  font-family: "Nunito", $sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin: 0 0 0.75rem;
+  color: $text-color;
+
+  @media (min-width: $medium) {
+    font-size: 1.875rem;
+  }
+}
+
+.software-hub__movement-body {
+  font-family: "Nunito", $sans-serif;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  margin: 0 0 1.25rem;
+  color: $text-color;
+  max-width: 32rem;
+
+  @media (min-width: $medium) {
+    font-size: 1.125rem;
+  }
+}
+
+.software-hub__movement-link {
+  display: inline-block;
+  font-family: "Nunito", $sans-serif;
+  font-weight: 700;
+  font-size: 1.0625rem;
+  color: $accent-secondary;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 0.125rem;
+  transition: border-color 0.15s ease;
+
+  &:hover,
+  &:focus {
+    border-bottom-color: $accent-secondary;
+    text-decoration: none;
+  }
+}
+
+// ---------------------------------------------------------------------
+// Contact block
+// ---------------------------------------------------------------------
+
+.software-hub__contact {
+  margin-top: 5rem;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  border-top: 1px solid $border-color;
+
+  p {
+    margin: 0 0 0.5rem;
+    font-family: "Nunito", $sans-serif;
+    font-size: 1.0625rem;
+    color: $text-color;
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+
+  a {
+    color: $accent-primary;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.15s ease;
+
+    &:hover,
+    &:focus {
+      border-bottom-color: $accent-primary;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------
+// Attribution footer (small, restrained)
+// ---------------------------------------------------------------------
+
+.software-hub__attribution {
+  margin-top: 2.5rem;
+  text-align: center;
+
+  p {
+    margin: 0;
+    font-family: "Nunito", $sans-serif;
+    font-size: 0.8125rem;
+    color: $muted-text-color;
+  }
+
+  a {
+    color: $muted-text-color;
+    text-decoration: underline;
+  }
+}
