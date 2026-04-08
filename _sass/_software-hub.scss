@@ -360,6 +360,40 @@
 }
 
 // ---------------------------------------------------------------------
+// Software page hero (small spot illustration on inner pages)
+// ---------------------------------------------------------------------
+//
+// Used via the minimal-mistakes `figure` include with
+// class="software-page__hero". A small framed illustration that
+// floats to the right of the body content on wide viewports and
+// stacks above on narrow ones. Same pastel framing as .software-figure
+// for visual continuity.
+
+.software-page__hero {
+  display: block;
+  margin: 0 auto 1.5rem;
+  max-width: 16rem;
+  padding: 1rem;
+  background-color: #f5f7fb;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04),
+              0 6px 18px -10px rgba(66, 114, 239, 0.2);
+
+  // At medium-wide and up, float right so body text wraps alongside.
+  @media (min-width: $medium-wide) {
+    float: right;
+    max-width: 14rem;
+    margin: 0.25rem 0 1.25rem 2rem;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+// ---------------------------------------------------------------------
 // Software figures (screenshots and example images on inner pages)
 // ---------------------------------------------------------------------
 //

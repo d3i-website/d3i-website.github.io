@@ -17,6 +17,11 @@ contact:
   subject: "Question about ready-made data donation scripts"
 ---
 
+{% include figure
+   image_path="/assets/images/hub/phone-instagram.png"
+   alt="A smartphone displaying an Instagram-style feed."
+   class="software-page__hero" %}
+
 We provide ready-made scripts for the most common platforms. They handle the technical details of extracting research-relevant data from each platform's data download package, so you can focus on your study instead of the file format.
 
 ## Available platforms

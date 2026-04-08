@@ -20,6 +20,11 @@ contact:
   subject: "Question about getting started with the data donation software"
 ---
 
+{% include figure
+   image_path="/assets/images/hub/laptop-download.png"
+   alt="A laptop showing a download arrow on a cloud icon."
+   class="software-page__hero" %}
+
 ## What the software does
 
 Our open-source software helps researchers run data donation studies. It creates a secure website that guides participants through requesting their personal data from platforms like Instagram, Netflix, or WhatsApp, processing that data locally on their own device, and sharing only the parts they explicitly consent to donate.
