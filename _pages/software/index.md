@@ -4,6 +4,8 @@ title: Software
 permalink: /software/
 sidebar:
   nav: "software"
+redirect_from:
+  - /software/help/
 hero:
   image: /assets/images/hub/hands-icons.png
   image_alt: "Two cupped hands cradling colorful app icons floating upward against a blue background."
