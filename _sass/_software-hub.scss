@@ -360,6 +360,47 @@
 }
 
 // ---------------------------------------------------------------------
+// Software figures (screenshots and example images on inner pages)
+// ---------------------------------------------------------------------
+//
+// Used via the minimal-mistakes `figure` include with class="software-figure".
+// Frames screenshots in a soft pastel container so they read as
+// intentional examples rather than dropped-in attachments.
+
+.software-figure {
+  margin: 2rem auto;
+  max-width: 42rem;
+  padding: 1.25rem;
+  background-color: #f5f7fb;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04),
+              0 8px 24px -12px rgba(66, 114, 239, 0.18);
+
+  @media (min-width: $medium) {
+    margin: 2.5rem auto;
+    padding: 1.75rem;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+  }
+
+  figcaption {
+    margin-top: 1rem;
+    font-family: "Nunito", $sans-serif;
+    font-size: 0.9375rem;
+    font-style: italic;
+    line-height: 1.5;
+    text-align: center;
+    color: $muted-text-color;
+  }
+}
+
+// ---------------------------------------------------------------------
 // Attribution footer (small, restrained)
 // ---------------------------------------------------------------------
 
