@@ -1,26 +1,34 @@
 ---
-layout: single-toc-on-top
+layout: software-page
 classes: wide
-title: Port in education
+title: "Port in education"
 permalink: /software/port-in-education/
 toc: false
 sidebar:
   nav: "software"
+contact:
+  lead: "Have a question or want to discuss your study?"
+  intro: "We can answer your questions about:"
+  bullets:
+    - "Using the software as a teaching tool"
+    - "Example curricula and student projects"
+    - "Getting set up for a course"
+  email: DataDonation@uu.nl
+  subject: "Question about using the data donation software in education"
 ---
 
-Port can also be used in educational settings, for example in courses on digital literacy or courses that introduce novel methods of data collection. It can be used in three ways: exploring digital footprints, participating in a data donation study, and designing a study.
+The data donation software can also be used in the classroom — for digital literacy courses, methods courses, or any course that introduces students to digital trace data and the challenges of working with it ethically.
 
+## Three ways to use it in a course
 
-## Exploring digital trace data: digital footprint explorer
+**Exploring digital footprints.** Students load their own platform data exports into the [Digital Footprint Explorer](https://d3i-infra.github.io/dd-education/) and see, in their own browser, exactly what platforms know about them. A starting point for discussions about digital traces, privacy, and platform power.
 
+**Participating in a data donation study.** Students contribute data to a real study run on the software, then work with what they've shared to answer research questions as part of the course. A hands-on introduction to data donation as a method.
 
-Using the Port software we have developed the [Digital Footprint Explorer](https://d3i-infra.github.io/dd-education/). Students can use the explorer to load and view their own platform data exports. Processing happens in the browser. It shows what data platforms provide and can be used in digital literacy courses as part of exercises on digital traces. If a platform is missing or out of date, feel free to contact us to request an update. Teachers with specific wishes for classroom use can also reach out to discuss possible adjustments.
+**Designing their own study.** Students set up extraction scripts and configure their own data donation task, learning the full pipeline from research question to data collection.
 
-## Participating in a data donation study
+## Resources for educators
 
-Students can contribute data to a study using Port. A study can be part of a course that introduces new forms of data collection and research participation. After donating, students can work with the data they have shared to answer a research question during the course. Studies can be run on Next in the Surf Research Cloud. Contact us if support is needed for setting up Next on Surf Research Cloud.
+The [Digital Footprint Explorer](https://d3i-infra.github.io/dd-education/) is the easiest entry point — no setup, just point students at the URL. If a platform is missing or out of date for your course, get in touch and we can prioritize an update.
 
-
-## Designing and participating in a data donation study
-
-Students and teachers can also design their own studies using Port. A study can be part of a course where students learn to set up data collection and analysis. By modifying the Port software and writing their own extraction scripts, students can define what data is collected and how it is processed. These studies can also be run on Next in the Surf Research Cloud. Contact us if support is needed for setting up Next on Surf Research Cloud.
+For studies running on infrastructure (rather than just the explorer), studies can be hosted on Next via the Surf Research Cloud. We can help set this up for your course.
