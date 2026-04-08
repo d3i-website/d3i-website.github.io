@@ -35,7 +35,7 @@ movements:
       url: /software/going-further/
       text: "Going further"
 contact:
-  text: "Have a question or want to discuss your study?"
+  lead: "Have a question or want to discuss your study?"
   email: DataDonation@uu.nl
   subject: "Question about the data donation software"
 ---

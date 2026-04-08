@@ -210,23 +210,75 @@
 // ---------------------------------------------------------------------
 // Contact block
 // ---------------------------------------------------------------------
+//
+// Used by both the software hub landing and inner software pages
+// (via _includes/software-contact-cta.html). Bullet list is optional —
+// if page.contact.bullets is absent, only lead + email render.
 
 .software-hub__contact {
-  margin-top: 5rem;
-  padding: 2.5rem 1.5rem;
-  text-align: center;
+  margin-top: 4rem;
+  padding: 2.5rem 1.5rem 0;
   border-top: 1px solid $border-color;
+
+  // Inner software pages have more content above — room to breathe
+  @media (min-width: $medium-wide) {
+    padding: 3rem 1.5rem 0;
+  }
+}
+
+.software-hub__contact-lead {
+  margin: 0 0 1rem;
+  font-family: "Nunito", $sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.3;
+  color: $text-color;
+}
+
+.software-hub__contact-topics {
+  margin: 0 0 1.25rem;
 
   p {
     margin: 0 0 0.5rem;
     font-family: "Nunito", $sans-serif;
-    font-size: 1.0625rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: $text-color;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0 0 0 1.25rem;
+    list-style: none;
+  }
+
+  li {
+    position: relative;
+    margin: 0 0 0.4rem;
+    padding-left: 1rem;
+    font-family: "Nunito", $sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
     color: $text-color;
 
-    &:last-child {
-      margin: 0;
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.6em;
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 50%;
+      background-color: $accent-secondary;
     }
   }
+}
+
+.software-hub__contact-email {
+  margin: 0;
+  font-family: "Nunito", $sans-serif;
+  font-size: 1.0625rem;
+  color: $text-color;
 
   a {
     color: $accent-primary;

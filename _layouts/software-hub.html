@@ -39,16 +39,7 @@ layout: default
     </section>
   {% endif %}
 
-  {% if page.contact %}
-    <section class="software-hub__contact">
-      <p>{{ page.contact.text }}</p>
-      <p>
-        <a href="mailto:{{ page.contact.email }}{% if page.contact.subject %}?subject={{ page.contact.subject | url_encode }}{% endif %}">
-          Email {{ page.contact.email }}
-        </a>
-      </p>
-    </section>
-  {% endif %}
+  {% include software-contact-cta.html %}
 
   <footer class="software-hub__attribution">
     <p>Illustrations sourced from <a href="https://www.vecteezy.com/" rel="noopener">Vecteezy</a>.</p>
