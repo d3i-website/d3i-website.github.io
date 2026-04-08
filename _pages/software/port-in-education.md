@@ -17,7 +17,7 @@ contact:
   subject: "Question about using the data donation software in education"
 ---
 
-The data donation software can also be used in the classroom — for digital literacy courses, methods courses, or any course that introduces students to digital trace data and the challenges of working with it ethically.
+The data donation software can also be used in the classroom, for digital literacy courses, methods courses, or any course that introduces students to digital trace data and the challenges of working with it ethically.
 
 ## Three ways to use it in a course
 
@@ -29,6 +29,6 @@ The data donation software can also be used in the classroom — for digital lit
 
 ## Resources for educators
 
-The [Digital Footprint Explorer](https://d3i-infra.github.io/dd-education/) is the easiest entry point — no setup, just point students at the URL. If a platform is missing or out of date for your course, get in touch and we can prioritize an update.
+The [Digital Footprint Explorer](https://d3i-infra.github.io/dd-education/) is the easiest entry point: no setup, just point students at the URL. If a platform is missing or out of date for your course, get in touch and we can prioritize an update.
 
 For studies running on infrastructure (rather than just the explorer), studies can be hosted on Next via the Surf Research Cloud. We can help set this up for your course.

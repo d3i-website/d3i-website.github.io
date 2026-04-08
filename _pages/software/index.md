@@ -10,7 +10,7 @@ hero:
   image: /assets/images/hub/hands-icons.png
   image_alt: "Two cupped hands cradling colorful app icons floating upward against a blue background."
   title: "Software for running data donation studies"
-  subhead: "Open-source tools that help researchers collect digital data from participants — privately, transparently, and with full consent."
+  subhead: "Open-source tools that help researchers collect digital data from participants, privately, transparently, and with full consent."
 movements:
   - number: "01"
     title: "Get access"
@@ -24,7 +24,7 @@ movements:
     title: "Pick a platform"
     image: /assets/images/hub/phone-instagram.png
     image_alt: "A smartphone displaying an Instagram-style feed with a person in a red shirt."
-    body: "We provide ready-made scripts for the most common platforms — no coding required to use them."
+    body: "We provide ready-made scripts for the most common platforms, with no coding required to use them."
     link:
       url: /software/ready-made-scripts/
       text: "Available platforms"

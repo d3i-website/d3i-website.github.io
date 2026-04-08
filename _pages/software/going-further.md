@@ -27,11 +27,11 @@ contact:
    alt="A person organizing data records next to abstract orbit diagrams."
    class="software-page__hero" %}
 
-The ready-made scripts cover the basics, but you can do quite a bit more once you've got the foundation in place. The features below give you ways to make a study richer, more interactive, or more transparent for participants — and at the end of the page, pointers for going all the way to building your own.
+The ready-made scripts cover the basics, but you can do quite a bit more once you've got the foundation in place. The features below give you ways to make a study richer, more interactive, or more transparent for participants, and at the end of the page, pointers for going all the way to building your own.
 
 ## Visualizations
 
-Show participants what they're about to share. Word clouds of their most-played titles, area graphs of their viewing volume over time, timelines of their messaging activity — visuals turn an abstract spreadsheet into something a participant can actually recognize as theirs.
+Show participants what they're about to share. Word clouds of their most-played titles, area graphs of their viewing volume over time, timelines of their messaging activity. Visuals turn an abstract spreadsheet into something a participant can actually recognize as theirs.
 
 Visualizations make the donation experience more engaging and the consent decision more informed. Participants who can *see* their data feel more in control of what they're sharing, which is often reflected in higher completion rates and richer qualitative feedback.
 
@@ -51,15 +51,15 @@ Two examples from a Netflix donation flow:
 
 ## Interactive features
 
-**Questionnaires that respond to donated data.** Ask participants questions tied directly to the data they're about to share — for example, showing them their most-watched Netflix shows and asking why they enjoy them, or surfacing specific Facebook groups and asking how they joined. This produces qualitative context that's hard to get any other way.
+**Questionnaires that respond to donated data.** Ask participants questions tied directly to the data they're about to share. For example, you can show them their most-watched Netflix shows and ask why they enjoy them, or surface specific Facebook groups and ask how they joined. This produces qualitative context that's hard to get any other way.
 
 {% include figure
    image_path="/assets/images/questionnaire.png"
    alt="A questionnaire shown to participants during the donation flow, with multiple question types and a Continue button."
-   caption="Questions appear inline during the donation flow — participants can answer them right next to the data they're about to share."
+   caption="Questions appear inline during the donation flow, so participants can answer them right next to the data they're about to share."
    class="software-figure" %}
 
-**Multiple file uploads.** Some studies need more than one file from a participant — different time periods, multiple group chats, related platforms. The interface walks them through it without confusion.
+**Multiple file uploads.** Some studies need more than one file from a participant: different time periods, multiple group chats, related platforms. The interface walks them through it without confusion.
 
 ## Custom development
 

@@ -38,4 +38,4 @@ Participants stay in control the whole way through. Raw data never leaves their 
 **Not based in the Netherlands?** You have two alternatives:
 
 - **Eyra**, the platform that powers our software, offers a managed [data donation service](https://eyra.co/projects/data-donation).
-- The software is open source — you can [host it yourself](https://github.com/d3i-infra/data-donation-task) on your own infrastructure.
+- The software is open source, so you can [host it yourself](https://github.com/d3i-infra/data-donation-task) on your own infrastructure.
