@@ -239,6 +239,11 @@
 
 // Two-column row for the bullets variant.
 // Stacks below 600px, side-by-side at $small (600px) and up.
+//
+// On desktop, `align-items: baseline` aligns the first text baseline
+// of the lead with the first text baseline of the topics intro
+// ("We can answer your questions about:") — the intro is otherwise
+// visually higher than the much larger lead.
 .software-hub__contact-row {
   display: grid;
   grid-template-columns: 1fr;
@@ -248,12 +253,14 @@
   @media (min-width: $small) {
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
+    align-items: baseline;
   }
 }
 
 // Lead text. Default size is the centered/hub variant.
-// When inside the row layout (inner pages), it scales up significantly
-// to act as the main visual anchor of the section.
+// When inside the row layout (inner pages), it scales up to act as
+// the visual anchor of the section, but stays restrained enough
+// to share a baseline with the topics intro.
 .software-hub__contact-lead {
   margin: 0;
   font-family: "Nunito", $sans-serif;
@@ -264,16 +271,16 @@
 
   // Inside the two-column row, the lead becomes the headline.
   .software-hub__contact-row & {
-    font-size: 1.75rem;
-    line-height: 1.15;
+    font-size: 1.5rem;
+    line-height: 1.2;
     letter-spacing: -0.01em;
 
     @media (min-width: $medium) {
-      font-size: 2.25rem;
+      font-size: 1.875rem;
     }
 
     @media (min-width: $large) {
-      font-size: 2.5rem;
+      font-size: 2.125rem;
     }
   }
 }
@@ -320,7 +327,7 @@
 }
 
 .software-hub__contact-email {
-  margin: 2rem 0 0;
+  margin: 1.25rem 0 0;
   text-align: center;
   font-family: "Nunito", $sans-serif;
   font-size: 1.0625rem;
