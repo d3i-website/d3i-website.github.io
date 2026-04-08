@@ -129,12 +129,17 @@
   }
 }
 
+// Each movement image renders in a fixed-aspect container so the
+// three illustrations appear at consistent visual size even though
+// their intrinsic aspect ratios differ. object-fit: contain
+// letterboxes each image inside the box without distortion.
 .software-hub__movement-image {
   img {
     display: block;
     width: 100%;
-    height: auto;
-    max-width: 26rem;
+    max-width: 20rem;
+    aspect-ratio: 5 / 4;
+    object-fit: contain;
     margin: 0 auto;
   }
 }
