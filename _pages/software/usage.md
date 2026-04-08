@@ -1,34 +1,54 @@
 ---
-layout: software-page
+layout: single-toc-on-top
 classes: wide
-title: "Port in education"
-permalink: /software/port-in-education/
+title: Usage report
+permalink: /software/usage/
 toc: false
 sidebar:
   nav: "software"
-contact:
-  lead: "Have a question or want to discuss your study?"
-  intro: "We can answer your questions about:"
-  bullets:
-    - "Using the software as a teaching tool"
-    - "Example curricula and student projects"
-    - "Getting set up for a course"
-  email: DataDonation@uu.nl
-  subject: "Question about using the data donation software in education"
 ---
 
-The data donation software can also be used in the classroom — for digital literacy courses, methods courses, or any course that introduces students to digital trace data and the challenges of working with it ethically.
+## Have you used Port for your study? 
 
-## Three ways to use it in a course
+Port is funded through multiple grants, and for the reporting to these funders, it is important that we keep statistics on the usage of Port. Therefore, we kindly request you to fill in a short questionnaire once your data donation study goes live on Port. 
 
-**Exploring digital footprints.** Students load their own platform data exports into the [Digital Footprint Explorer](https://d3i-infra.github.io/dd-education/) and see, in their own browser, exactly what platforms know about them. A starting point for discussions about digital traces, privacy, and platform power.
+Click here to fill in the short questionnaire:
 
-**Participating in a data donation study.** Students contribute data to a real study run on the software, then work with what they've shared to answer research questions as part of the course. A hands-on introduction to data donation as a method.
+<button style="background-color: #007bff;
+               color: white;
+               padding: 10px 20px;
+               border: none;
+               border-radius: 5px;
+               cursor: pointer;
+               font-size: 16px;
+               transition: background-color 0.3s ease;"
+        onclick="window.location.href='https://survey.uu.nl/jfe/form/SV_9XjKNKroOd4Nhrg'">
+  Begin Questionnaire
+</button>
 
-**Designing their own study.** Students set up extraction scripts and configure their own data donation task, learning the full pipeline from research question to data collection.
+## Usage statistics 
 
-## Resources for educators
+<div style="display: flex; justify-content: center; width: 100%; margin: 0 auto;">
+  <div>
+    <img src="/assets/images/usage/plot_year.png" alt="Architecture diagram" style="max-width: 100%; height: auto; display: block;">
+  </div>
+  <div>
+    <img src="/assets/images/usage/plot_institution.png" alt="Another diagram" style="max-width: 100%; height: auto; display: block;">
+  </div>
+</div>
 
-The [Digital Footprint Explorer](https://d3i-infra.github.io/dd-education/) is the easiest entry point — no setup, just point students at the URL. If a platform is missing or out of date for your course, get in touch and we can prioritize an update.
+<div style="display: flex; justify-content: center; width: 100%; margin: 0 auto;">
+  <div>
+    <img src="/assets/images/usage/plot_recruit.png" alt="Architecture diagram" style="max-width: 100%; height: auto; display: block;">
+  </div>
+  <div>
+    <img src="/assets/images/usage/plot_host.png" alt="Another diagram" style="max-width: 100%; height: auto; display: block;">
+  </div>
+</div>
 
-For studies running on infrastructure (rather than just the explorer), studies can be hosted on Next via the Surf Research Cloud. We can help set this up for your course.
+<div style="text-align: center; width: 100%;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <iframe src="/assets/images/usage/wordcloud.html" style="width: 100%; height: 500px; border: none;"></iframe>
+    <div style="font-size: 14px; color: #555;">Which platforms are investigated using Port?</div>
+  </div>
+</div>
