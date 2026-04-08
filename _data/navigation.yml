@@ -21,27 +21,19 @@ about-the-project:
     url: /about-the-project/partners
 
 software:
-  - title: Software Overview
+  - title: Software
     url: /software/
     children:
-      - title: Getting Started
+      - title: Getting started
         url: /software/getting-started/
-      - title: Ready-Made Scripts
+      - title: Ready-made scripts
         url: /software/ready-made-scripts/
-      - title: Visualizations
-        url: /software/visualizations/
-      - title: Interactive Features
-        url: /software/plugins/
-      - title: Technical Resources
-        url: /software/technical-resources/
-  - title: Usage & Support
-    children:
-      - title: Usage Report
-        url: /software/usage/
-      - title: Port in Education
+      - title: Going further
+        url: /software/going-further/
+      - title: Port in education
         url: /software/port-in-education/
-      - title: Need Help?
-        url: /software/help/
+      - title: Usage report
+        url: /software/usage/
 
 prepare-a-study:
   - title: Study design
