@@ -1,0 +1,24 @@
+{% comment %}
+  Secondary navigation rendered immediately below the masthead on the
+  software hub page only.
+
+  The hub uses a custom layout with no left-hand sidebar (the inner
+  software pages still have one), so this strip gives visitors a quick
+  way to jump to any inner software page without losing the impact of
+  the hub's hero treatment. Pulled from _data/navigation.yml so the
+  links stay in sync with the sidebar nav on inner pages.
+{% endcomment %}
+{% if page.url == "/software/" %}
+  {% assign software_section = site.data.navigation.software | first %}
+  <nav class="software-hub-subnav" aria-label="Software section">
+    <div class="software-hub-subnav__inner">
+      <ul>
+        {% for child in software_section.children %}
+          <li>
+            <a href="{{ child.url | relative_url }}">{{ child.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </nav>
+{% endif %}

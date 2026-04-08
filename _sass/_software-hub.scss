@@ -1,4 +1,65 @@
 // =====================================================================
+// Software hub sub-navigation
+// =====================================================================
+//
+// A small horizontal strip rendered below the masthead on /software/
+// only (the hub page has no left-hand sidebar, unlike inner software
+// pages, so this gives visitors quick access to the inner pages
+// without sacrificing the hub's full-bleed visual treatment).
+//
+// Visually distinguished from the main nav by:
+//   - smaller font size and lighter weight
+//   - muted text color, coral hover state
+//   - very subtle brand-blue tinted background
+//   - thin bottom border to seal the strip below the masthead
+//
+// Implemented in _includes/software-hub-subnav.html, conditionally
+// injected from _layouts/default.html so it sits between the masthead
+// and the page content.
+
+.software-hub-subnav {
+  background-color: rgba(66, 114, 239, 0.04);
+  border-bottom: 1px solid rgba(66, 114, 239, 0.1);
+}
+
+.software-hub-subnav__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.4rem 1rem;
+  text-align: center;
+
+  ul {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    margin: 0;
+  }
+
+  a {
+    display: block;
+    padding: 0.4rem 1.25rem;
+    font-family: $sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: $muted-text-color;
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    &:hover,
+    &:focus {
+      color: $accent-secondary;
+      text-decoration: none;
+    }
+  }
+}
+
+// =====================================================================
 // Software hub layout
 // =====================================================================
 // Custom layout for /software/ — hero + numbered movements + contact.
