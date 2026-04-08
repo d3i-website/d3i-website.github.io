@@ -4,7 +4,7 @@ main:
   - title: "About the project"
     url: /about-the-project/team
   - title: "Our software"
-    url: /software/port
+    url: /software/
   - title: "Prepare a study"
     url: /prepare-a-study/study-design
   - title: "Community"
@@ -21,27 +21,22 @@ about-the-project:
     url: /about-the-project/partners
 
 software:
-  - title: Our software Port
-    url: /software/port
-  - title: The data donation task
-    url: /software/data-donation-task
-  - title: Add visualizations
-    url: /software/visualizations
-  - title: Use our ready-made scripts 
-    url: /software/ready-made-scripts
-  - title: Use our plugins
-    url: /software/plugins
-  - title: How can I use Port?
-    url: /software/next
-  - title: Usage report
-    url: /software/usage 
-  - title: Port in education
-    url: /software/port-in-education 
-  - title: Need help?
-    url: /software/help
-    
+  - title: Software
+    url: /software/
+    children:
+      - title: Getting started
+        url: /software/getting-started/
+      - title: Ready-made scripts
+        url: /software/ready-made-scripts/
+      - title: Going further
+        url: /software/going-further/
+      - title: Port in education
+        url: /software/port-in-education/
+      - title: Usage report
+        url: /software/usage/
+
 prepare-a-study:
-  - title: Study design    
+  - title: Study design
     url: /prepare-a-study/study-design
   - title: Privacy and consent
     url: /prepare-a-study/privacy-and-consent

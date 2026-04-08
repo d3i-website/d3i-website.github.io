@@ -1,0 +1,47 @@
+---
+layout: default
+---
+
+<article class="software-hub" itemscope itemtype="https://schema.org/CreativeWork">
+  {% if page.hero %}
+    <section class="software-hub__hero">
+      <div class="software-hub__hero-image">
+        <img src="{{ page.hero.image | relative_url }}" alt="{{ page.hero.image_alt | default: '' }}">
+      </div>
+      <div class="software-hub__hero-text">
+        <h1 class="software-hub__hero-title">{{ page.hero.title }}</h1>
+        {% if page.hero.subhead %}
+          <p class="software-hub__hero-subhead">{{ page.hero.subhead }}</p>
+        {% endif %}
+      </div>
+    </section>
+  {% endif %}
+
+  {% if page.movements %}
+    <section class="software-hub__movements">
+      {% for movement in page.movements %}
+        <article class="software-hub__movement software-hub__movement--{% cycle 'left', 'right' %}">
+          <div class="software-hub__movement-image">
+            <img src="{{ movement.image | relative_url }}" alt="{{ movement.image_alt | default: '' }}">
+          </div>
+          <div class="software-hub__movement-text">
+            <span class="software-hub__movement-number" aria-hidden="true">{{ movement.number }}</span>
+            <h2 class="software-hub__movement-title">{{ movement.title }}</h2>
+            <p class="software-hub__movement-body">{{ movement.body }}</p>
+            {% if movement.link %}
+              <a class="software-hub__movement-link" href="{{ movement.link.url | relative_url }}">
+                {{ movement.link.text }} <span aria-hidden="true">→</span>
+              </a>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </section>
+  {% endif %}
+
+  {% include software-contact-cta.html %}
+
+  <footer class="software-hub__attribution">
+    <p>Illustrations sourced from <a href="https://www.vecteezy.com/" rel="noopener">Vecteezy</a>.</p>
+  </footer>
+</article>

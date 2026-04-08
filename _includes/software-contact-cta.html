@@ -1,0 +1,54 @@
+{% comment %}
+  Contact call-to-action rendered at the bottom of software pages.
+
+  Reads `page.contact` with this shape:
+    lead:    (string, optional) lead text — e.g. "Have a question or want to discuss your study?"
+    intro:   (string, optional) bullets intro — e.g. "We can answer your questions about:"
+    bullets: (list, optional)   topic strings relevant to the current page
+    email:   (string) contact email address
+    subject: (string, optional) email subject line
+
+  Two visual variants:
+    - With bullets (inner pages):  larger lead in a two-column row, bullets to the right.
+    - Without bullets (hub):        smaller lead, centered, with email below.
+
+  Used by _layouts/software-hub.html (landing) and _layouts/software-page.html (inner pages).
+{% endcomment %}
+{% if page.contact %}
+  {% assign has_bullets = page.contact.bullets and page.contact.bullets.size > 0 %}
+  <section class="software-hub__contact{% unless has_bullets %} software-hub__contact--centered{% endunless %}">
+    {% if has_bullets %}
+      <div class="software-hub__contact-row">
+        <div class="software-hub__contact-left">
+          {% if page.contact.lead %}
+            <p class="software-hub__contact-lead">{{ page.contact.lead }}</p>
+          {% endif %}
+          <p class="software-hub__contact-email">
+            <a href="mailto:{{ page.contact.email }}{% if page.contact.subject %}?subject={{ page.contact.subject | url_encode }}{% endif %}">
+              Email {{ page.contact.email }}
+            </a>
+          </p>
+        </div>
+        <div class="software-hub__contact-topics">
+          {% if page.contact.intro %}
+            <p class="software-hub__contact-intro">{{ page.contact.intro }}</p>
+          {% endif %}
+          <ul>
+            {% for bullet in page.contact.bullets %}
+              <li>{{ bullet }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% else %}
+      {% if page.contact.lead %}
+        <p class="software-hub__contact-lead">{{ page.contact.lead }}</p>
+      {% endif %}
+      <p class="software-hub__contact-email">
+        <a href="mailto:{{ page.contact.email }}{% if page.contact.subject %}?subject={{ page.contact.subject | url_encode }}{% endif %}">
+          Email {{ page.contact.email }}
+        </a>
+      </p>
+    {% endif %}
+  </section>
+{% endif %}
