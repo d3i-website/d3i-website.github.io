@@ -333,6 +333,17 @@
   font-size: 1.0625rem;
   color: $text-color;
 
+  // When the email sits inside the left column under the lead
+  // (inner page row layout), align it left to match the lead.
+  .software-hub__contact-left & {
+    text-align: left;
+    margin-top: 1rem;
+
+    @media (min-width: $medium) {
+      margin-top: 1.25rem;
+    }
+  }
+
   a {
     color: $accent-primary;
     font-weight: 700;
