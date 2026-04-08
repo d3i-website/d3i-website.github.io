@@ -18,8 +18,8 @@ contact:
 ---
 
 {% include figure
-   image_path="/assets/images/hub/phone-instagram.png"
-   alt="A smartphone displaying an Instagram-style feed."
+   image_path="/assets/images/hub/social-media.svg"
+   alt="A person surrounded by floating social media and messaging app icons."
    class="software-page__hero" %}
 
 We provide ready-made scripts for the most common platforms. They handle the technical details of extracting research-relevant data from each platform's data download package, so you can focus on your study instead of the file format.

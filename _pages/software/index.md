@@ -14,24 +14,24 @@ hero:
 movements:
   - number: "01"
     title: "Get access"
-    image: /assets/images/hub/laptop-download.png
-    image_alt: "A red laptop showing a download icon on its screen."
+    image: /assets/images/hub/cloud-files.svg
+    image_alt: "A stylized cloud and files on a screen, with a person approaching."
     body: "Pick the option that fits your project. Dutch researchers can use it for free through Utrecht University."
     link:
       url: /software/getting-started/
       text: "How to get started"
   - number: "02"
     title: "Pick a platform"
-    image: /assets/images/hub/phone-instagram.png
-    image_alt: "A smartphone displaying an Instagram-style feed with a person in a red shirt."
+    image: /assets/images/hub/social-media.svg
+    image_alt: "A person surrounded by floating social media and messaging app icons."
     body: "We provide ready-made scripts for the most common platforms, with no coding required to use them."
     link:
       url: /software/ready-made-scripts/
       text: "Available platforms"
   - number: "03"
     title: "Go further (optional)"
-    image: /assets/images/hub/woman-data.png
-    image_alt: "A person organizing data records next to abstract orbit diagrams."
+    image: /assets/images/hub/data-trends.svg
+    image_alt: "A person reviewing a dashboard of charts and data trends."
     body: "Add visualizations or interactive elements to give participants a richer experience."
     link:
       url: /software/going-further/

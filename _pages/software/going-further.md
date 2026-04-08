@@ -23,8 +23,8 @@ contact:
 ---
 
 {% include figure
-   image_path="/assets/images/hub/woman-data.png"
-   alt="A person organizing data records next to abstract orbit diagrams."
+   image_path="/assets/images/hub/data-trends.svg"
+   alt="A person reviewing a dashboard of charts and data trends."
    class="software-page__hero" %}
 
 The ready-made scripts cover the basics, but you can do quite a bit more once you've got the foundation in place. The features below give you ways to make a study richer, more interactive, or more transparent for participants, and at the end of the page, pointers for going all the way to building your own.
