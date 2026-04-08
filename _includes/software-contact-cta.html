@@ -8,26 +8,35 @@
     email:   (string) contact email address
     subject: (string, optional) email subject line
 
-  If `bullets` is omitted, only the lead + email are rendered.
+  Two visual variants:
+    - With bullets (inner pages):  larger lead in a two-column row, bullets to the right.
+    - Without bullets (hub):        smaller lead, centered, with email below.
+
   Used by _layouts/software-hub.html (landing) and _layouts/software-page.html (inner pages).
 {% endcomment %}
 {% if page.contact %}
-  <section class="software-hub__contact">
-    {% if page.contact.lead %}
-      <p class="software-hub__contact-lead">{{ page.contact.lead }}</p>
-    {% endif %}
-
-    {% if page.contact.bullets %}
-      <div class="software-hub__contact-topics">
-        {% if page.contact.intro %}
-          <p class="software-hub__contact-intro">{{ page.contact.intro }}</p>
+  {% assign has_bullets = page.contact.bullets and page.contact.bullets.size > 0 %}
+  <section class="software-hub__contact{% unless has_bullets %} software-hub__contact--centered{% endunless %}">
+    {% if has_bullets %}
+      <div class="software-hub__contact-row">
+        {% if page.contact.lead %}
+          <p class="software-hub__contact-lead">{{ page.contact.lead }}</p>
         {% endif %}
-        <ul>
-          {% for bullet in page.contact.bullets %}
-            <li>{{ bullet }}</li>
-          {% endfor %}
-        </ul>
+        <div class="software-hub__contact-topics">
+          {% if page.contact.intro %}
+            <p class="software-hub__contact-intro">{{ page.contact.intro }}</p>
+          {% endif %}
+          <ul>
+            {% for bullet in page.contact.bullets %}
+              <li>{{ bullet }}</li>
+            {% endfor %}
+          </ul>
+        </div>
       </div>
+    {% else %}
+      {% if page.contact.lead %}
+        <p class="software-hub__contact-lead">{{ page.contact.lead }}</p>
+      {% endif %}
     {% endif %}
 
     <p class="software-hub__contact-email">
