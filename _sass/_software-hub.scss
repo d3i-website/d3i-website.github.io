@@ -23,9 +23,21 @@
 // and the page content.
 
 // Shared neutral grey used by the subnav background AND the active
-// "Our software" item in the main nav — kept as a single variable so
-// they always match.
-$software-nav-tint: rgba(0, 0, 0, 0.035);
+// item in the main nav — kept as a single variable so they always
+// match. This is the tab-tint that visually bridges the two bars.
+$software-nav-tint: rgba(0, 0, 0, 0.02);
+
+// Tighten the masthead's bottom padding and vertically align the
+// nav contents to the end of the masthead height. Combined with the
+// matching grey on the active main nav item, this makes the active
+// tab and the subnav read as a single continuous band.
+.masthead__inner-wrap {
+  padding: 1em 1em 0;
+}
+
+.greedy-nav {
+  align-items: end;
+}
 
 .software-hub-subnav {
   background-color: $software-nav-tint;
@@ -56,7 +68,7 @@ $software-nav-tint: rgba(0, 0, 0, 0.035);
     font-family: $sans-serif;
     font-size: 0.8125rem;
     font-weight: 400;
-    color: $muted-text-color;
+    color: #6a6a6a;
     text-decoration: none;
     transition: color 0.15s ease;
 
@@ -69,9 +81,9 @@ $software-nav-tint: rgba(0, 0, 0, 0.035);
 }
 
 // Active main nav item — same grey as the subnav background so the
-// subnav reads as a tab extending from "Our software". Applied by the
-// local masthead override when the current page sits under a main
-// nav link's URL prefix.
+// subnav reads as a tab extending from the active main nav item.
+// Applied by the local masthead override when the current page sits
+// under a main nav link's URL prefix.
 .masthead__menu-item--active {
   background-color: $software-nav-tint;
 }
