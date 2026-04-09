@@ -21,8 +21,8 @@ contact:
 ---
 
 {% include figure
-   image_path="/assets/images/hub/cloud-files.svg"
-   alt="A stylized cloud and files on a screen, with a person approaching."
+   image_path="/assets/images/hub/laptop-download.png"
+   alt="A red laptop showing a download icon on its screen."
    class="software-page__hero" %}
 
 ## What the software does

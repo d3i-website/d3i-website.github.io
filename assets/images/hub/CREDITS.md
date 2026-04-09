@@ -10,8 +10,7 @@ brand palette.
 
 | File | Source |
 |------|--------|
-| `cloud-files.svg` | undraw.co |
-| `social-media.svg` | undraw.co (re-tinted to brand palette) |
+| `social-ideas.svg` | undraw.co (re-tinted to brand palette) |
 | `data-trends.svg` | undraw.co (re-tinted to brand palette) |
 
 ## [Vecteezy](https://www.vecteezy.com/) — Free License
@@ -22,7 +21,8 @@ Vecteezy assets used in the software section.
 
 | File | Source |
 |------|--------|
-| `hands-icons.png` | Vecteezy.com (temporary — to be replaced with SVG later) |
+| `hands-icons.png` | Vecteezy.com (to be replaced with SVG later) |
+| `laptop-download.png` | Vecteezy.com (to be replaced with SVG later) |
 
 If you replace, add, or remove illustrations in this directory, please keep this
 credit file in sync and update the on-page attribution footer if the source mix

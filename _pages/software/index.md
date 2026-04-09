@@ -14,16 +14,16 @@ hero:
 movements:
   - number: "01"
     title: "Get access"
-    image: /assets/images/hub/cloud-files.svg
-    image_alt: "A stylized cloud and files on a screen, with a person approaching."
+    image: /assets/images/hub/laptop-download.png
+    image_alt: "A red laptop showing a download icon on its screen."
     body: "Pick the option that fits your project. Dutch researchers can use it for free through Utrecht University."
     link:
       url: /software/getting-started/
       text: "How to get started"
   - number: "02"
     title: "Pick a platform"
-    image: /assets/images/hub/social-media.svg
-    image_alt: "A person surrounded by floating social media and messaging app icons."
+    image: /assets/images/hub/social-ideas.svg
+    image_alt: "A person presenting a board of ideas with colorful notes and a lightbulb."
     body: "We provide ready-made scripts for the most common platforms, with no coding required to use them."
     link:
       url: /software/ready-made-scripts/

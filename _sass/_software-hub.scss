@@ -7,25 +7,34 @@
 // pages, so this gives visitors quick access to the inner pages
 // without sacrificing the hub's full-bleed visual treatment).
 //
-// Visually distinguished from the main nav by:
-//   - smaller font size and lighter weight
+// Visually kept subtle:
+//   - smaller font size and lighter weight than main nav
 //   - muted text color, coral hover state
-//   - very subtle brand-blue tinted background
-//   - thin bottom border to seal the strip below the masthead
+//   - very light neutral grey background
+//   - no border — the grey itself reads as a soft section
+//
+// Tied visually to the main nav via a matching grey behind "Our
+// software" in the masthead (see `.masthead__menu-item--active`
+// below), so the sub-nav reads as an extension of the active
+// main-nav tab rather than a floating strip.
 //
 // Implemented in _includes/software-hub-subnav.html, conditionally
 // injected from _layouts/default.html so it sits between the masthead
 // and the page content.
 
+// Shared neutral grey used by the subnav background AND the active
+// "Our software" item in the main nav — kept as a single variable so
+// they always match.
+$software-nav-tint: rgba(0, 0, 0, 0.035);
+
 .software-hub-subnav {
-  background-color: rgba(66, 114, 239, 0.04);
-  border-bottom: 1px solid rgba(66, 114, 239, 0.1);
+  background-color: $software-nav-tint;
 }
 
 .software-hub-subnav__inner {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0.4rem 1rem;
+  padding: 0.35rem 1rem;
   text-align: center;
 
   ul {
@@ -43,9 +52,9 @@
 
   a {
     display: block;
-    padding: 0.4rem 1.25rem;
+    padding: 0.35rem 1rem;
     font-family: $sans-serif;
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 400;
     color: $muted-text-color;
     text-decoration: none;
@@ -57,6 +66,14 @@
       text-decoration: none;
     }
   }
+}
+
+// Active main nav item — same grey as the subnav background so the
+// subnav reads as a tab extending from "Our software". Applied by the
+// local masthead override when the current page sits under a main
+// nav link's URL prefix.
+.masthead__menu-item--active {
+  background-color: $software-nav-tint;
 }
 
 // =====================================================================
