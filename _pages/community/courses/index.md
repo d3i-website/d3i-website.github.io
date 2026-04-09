@@ -14,10 +14,16 @@ donation study, methodological challenges around data donation studies, or how t
 program your own data donation task. Below you can find more information about
 upcoming courses. 
 
-## Upcoming courses 
+## Upcoming courses
 
+#### A practical guide to collecting digital trace data using data donation
+- When: July 13 2026, 09:00 - 12:30
+- Where: IPDLN Conference, Erasmus University Rotterdam, The Netherlands
+- Instructors: Laura Boeschoten, Danielle McCool (Utrecht University)
+- More information: [IPDLN 2026 program](https://virtual.oxfordabstracts.com/event/76116/program)
+- Registration: [ipdln.org/registration](https://ipdln.org/registration/)
 
-
+This workshop introduces data donation as a privacy-preserving approach for collecting digital trace data. Participants learn how digital traces can be processed locally on participants' devices so that only relevant, consented data are shared with researchers. Hands-on exercises guide attendees through designing a complete study using Port, including configuring donate tasks with Python scripts, selecting platforms, recruiting participants, and linking trace data with survey or population data.
 
 ## Past courses 
 
