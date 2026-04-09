@@ -1,36 +1,44 @@
 // =====================================================================
-// Software hub sub-navigation
+// Hub sub-navigation
 // =====================================================================
 //
-// A small horizontal strip rendered below the masthead on /software/
-// only (the hub page has no left-hand sidebar, unlike inner software
-// pages, so this gives visitors quick access to the inner pages
+// A small horizontal strip rendered below the masthead on hub pages
+// only (hubs use a custom layout with no left-hand sidebar, so this
+// strip gives visitors quick access to the section's inner pages
 // without sacrificing the hub's full-bleed visual treatment).
 //
 // Visually kept subtle:
 //   - smaller font size and lighter weight than main nav
-//   - muted text color, coral hover state
+//   - grounded #6a6a6a non-hover color, coral hover state
 //   - very light neutral grey background
 //   - no border — the grey itself reads as a soft section
 //
-// Tied visually to the main nav via a matching grey behind "Our
-// software" in the masthead (see `.masthead__menu-item--active`
-// below), so the sub-nav reads as an extension of the active
-// main-nav tab rather than a floating strip.
+// Tied visually to the main nav via a matching grey behind the
+// active main nav item (see `.masthead__menu-item--active` below),
+// so the sub-nav reads as an extension of the active main-nav tab
+// rather than a floating strip.
 //
-// Implemented in _includes/software-hub-subnav.html, conditionally
-// injected from _layouts/default.html so it sits between the masthead
-// and the page content.
+// Implemented in _includes/hub-subnav.html, conditionally injected
+// from _layouts/default.html using `page.hub_section` — any hub page
+// opts in by declaring `hub_section: <name>` in its frontmatter.
 
-// Shared neutral grey used by the subnav background AND the active
-// item in the main nav — kept as a single variable so they always
-// match. This is the tab-tint that visually bridges the two bars.
-$software-nav-tint: rgba(0, 0, 0, 0.02);
+// Shared neutral grey used by the hub-subnav background AND the
+// active item in the main nav — kept as a single variable so they
+// always match. This is the tab-tint that visually bridges the two.
+$hub-nav-tint: rgba(0, 0, 0, 0.02);
 
 // Tighten the masthead's bottom padding and vertically align the
 // nav contents to the end of the masthead height. Combined with the
 // matching grey on the active main nav item, this makes the active
 // tab and the subnav read as a single continuous band.
+//
+// The border-bottom override removes the thin grey hairline
+// minimal-mistakes draws under the masthead so the active tab and
+// subnav background are visually adjacent with nothing between them.
+.masthead {
+  border-bottom: none;
+}
+
 .masthead__inner-wrap {
   padding: 1em 1em 0;
 }
@@ -39,11 +47,11 @@ $software-nav-tint: rgba(0, 0, 0, 0.02);
   align-items: end;
 }
 
-.software-hub-subnav {
-  background-color: $software-nav-tint;
+.hub-subnav {
+  background-color: $hub-nav-tint;
 }
 
-.software-hub-subnav__inner {
+.hub-subnav__inner {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0.35rem 1rem;
@@ -85,7 +93,7 @@ $software-nav-tint: rgba(0, 0, 0, 0.02);
 // Applied by the local masthead override when the current page sits
 // under a main nav link's URL prefix.
 .masthead__menu-item--active {
-  background-color: $software-nav-tint;
+  background-color: $hub-nav-tint;
 }
 
 // =====================================================================

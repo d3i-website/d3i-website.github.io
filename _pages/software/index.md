@@ -2,6 +2,7 @@
 layout: software-hub
 title: Software
 permalink: /software/
+hub_section: software
 sidebar:
   nav: "software"
 redirect_from:
