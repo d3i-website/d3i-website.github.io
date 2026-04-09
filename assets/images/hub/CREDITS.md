@@ -1,12 +1,29 @@
 # Hub illustration credits
 
-The illustrations in this directory are from [Vecteezy](https://www.vecteezy.com/) and are used under their free license, which requires attribution.
+The illustrations in this directory come from two sources:
+
+## [undraw.co](https://undraw.co) — MIT License
+
+Open-source illustrations by Katerina Limpitsouni. Attribution is appreciated but
+not required by the MIT license. Several have been re-tinted to match the D3I
+brand palette.
 
 | File | Source |
 |------|--------|
-| `hands-icons.png` | Vecteezy.com |
-| `laptop-download.png` | Vecteezy.com |
-| `phone-instagram.png` | Vecteezy.com |
-| `woman-data.png` | Vecteezy.com |
+| `social-ideas.svg` | undraw.co (re-tinted to brand palette) |
+| `data-trends.svg` | undraw.co (re-tinted to brand palette) |
 
-If you replace, add, or remove illustrations in this directory, please keep this credit file in sync.
+## [Vecteezy](https://www.vecteezy.com/) — Free License
+
+Used under the Vecteezy free license, which **requires attribution**. The on-page
+attribution in `_layouts/software-hub.html` fulfills this requirement for all
+Vecteezy assets used in the software section.
+
+| File | Source |
+|------|--------|
+| `hands-icons.png` | Vecteezy.com (to be replaced with SVG later) |
+| `laptop-download.png` | Vecteezy.com (to be replaced with SVG later) |
+
+If you replace, add, or remove illustrations in this directory, please keep this
+credit file in sync and update the on-page attribution footer if the source mix
+changes.

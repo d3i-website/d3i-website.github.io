@@ -43,7 +43,10 @@ plugins:
   - jemoji
   
 # Performance optimizations
-incremental: true
+# incremental: true disabled — produces stale/empty output when layouts,
+# includes, or data files change without source pages being touched.
+# Full rebuilds on this site take ~1 second so the trade-off isn't worth it.
+incremental: false
 strict_front_matter: false  # Start with false, enable later
 relative-permalinks: false
 

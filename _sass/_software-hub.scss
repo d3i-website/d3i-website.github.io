@@ -1,4 +1,102 @@
 // =====================================================================
+// Hub sub-navigation
+// =====================================================================
+//
+// A small horizontal strip rendered below the masthead on hub pages
+// only (hubs use a custom layout with no left-hand sidebar, so this
+// strip gives visitors quick access to the section's inner pages
+// without sacrificing the hub's full-bleed visual treatment).
+//
+// Visually kept subtle:
+//   - smaller font size and lighter weight than main nav
+//   - grounded #6a6a6a non-hover color, coral hover state
+//   - very light neutral grey background
+//   - no border — the grey itself reads as a soft section
+//
+// Tied visually to the main nav via a matching grey behind the
+// active main nav item (see `.masthead__menu-item--active` below),
+// so the sub-nav reads as an extension of the active main-nav tab
+// rather than a floating strip.
+//
+// Implemented in _includes/hub-subnav.html, conditionally injected
+// from _layouts/default.html using `page.hub_section` — any hub page
+// opts in by declaring `hub_section: <name>` in its frontmatter.
+
+// Shared neutral grey used by the hub-subnav background AND the
+// active item in the main nav — kept as a single variable so they
+// always match. This is the tab-tint that visually bridges the two.
+$hub-nav-tint: rgba(0, 0, 0, 0.02);
+
+// Tighten the masthead's bottom padding and vertically align the
+// nav contents to the end of the masthead height. Combined with the
+// matching grey on the active main nav item, this makes the active
+// tab and the subnav read as a single continuous band.
+//
+// The border-bottom override removes the thin grey hairline
+// minimal-mistakes draws under the masthead so the active tab and
+// subnav background are visually adjacent with nothing between them.
+.masthead {
+  border-bottom: none;
+}
+
+.masthead__inner-wrap {
+  padding: 1em 1em 0;
+}
+
+.greedy-nav {
+  align-items: end;
+}
+
+.hub-subnav {
+  background-color: $hub-nav-tint;
+}
+
+.hub-subnav__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.35rem 1rem;
+  text-align: center;
+
+  ul {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    margin: 0;
+  }
+
+  a {
+    display: block;
+    padding: 0.35rem 1rem;
+    font-family: $sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: #6a6a6a;
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    &:hover,
+    &:focus {
+      color: $accent-secondary;
+      text-decoration: none;
+    }
+  }
+}
+
+// Active main nav item — same grey as the subnav background so the
+// subnav reads as a tab extending from the active main nav item.
+// Applied by the local masthead override when the current page sits
+// under a main nav link's URL prefix.
+.masthead__menu-item--active {
+  background-color: $hub-nav-tint;
+}
+
+// =====================================================================
 // Software hub layout
 // =====================================================================
 // Custom layout for /software/ — hero + numbered movements + contact.
@@ -129,12 +227,17 @@
   }
 }
 
+// Each movement image renders in a fixed-aspect container so the
+// three illustrations appear at consistent visual size even though
+// their intrinsic aspect ratios differ. object-fit: contain
+// letterboxes each image inside the box without distortion.
 .software-hub__movement-image {
   img {
     display: block;
     width: 100%;
-    height: auto;
-    max-width: 26rem;
+    max-width: 20rem;
+    aspect-ratio: 5 / 4;
+    object-fit: contain;
     margin: 0 auto;
   }
 }
@@ -270,10 +373,15 @@
   color: $text-color;
 
   // Inside the two-column row, the lead becomes the headline.
+  // `margin-block-end: auto` pulls the email that follows up tight
+  // against the lead — in this grid-item context it behaves
+  // differently from the plain-block default of 0 and closes the
+  // gap between the lead and email visually.
   .software-hub__contact-row & {
     font-size: 1.5rem;
     line-height: 1.2;
     letter-spacing: -0.01em;
+    margin-block-end: auto;
 
     @media (min-width: $medium) {
       font-size: 1.875rem;
@@ -335,6 +443,9 @@
 
   // When the email sits inside the left column under the lead
   // (inner page row layout), align it left to match the lead.
+  // The lead's `margin-block-end: auto` already pulls the email
+  // up tight, so a small top margin here is enough to keep them
+  // from crashing into each other.
   .software-hub__contact-left & {
     text-align: left;
     margin-top: 1rem;
@@ -356,6 +467,40 @@
       border-bottom-color: $accent-primary;
       text-decoration: none;
     }
+  }
+}
+
+// ---------------------------------------------------------------------
+// Software page hero (small spot illustration on inner pages)
+// ---------------------------------------------------------------------
+//
+// Used via the minimal-mistakes `figure` include with
+// class="software-page__hero". A small framed illustration that
+// floats to the right of the body content on wide viewports and
+// stacks above on narrow ones. Same pastel framing as .software-figure
+// for visual continuity.
+
+.software-page__hero {
+  display: block;
+  margin: 0 auto 1.5rem;
+  max-width: 16rem;
+  padding: 1rem;
+  background-color: #f5f7fb;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04),
+              0 6px 18px -10px rgba(66, 114, 239, 0.2);
+
+  // At medium-wide and up, float right so body text wraps alongside.
+  @media (min-width: $medium-wide) {
+    float: right;
+    max-width: 14rem;
+    margin: 0.25rem 0 1.25rem 2rem;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 }
 
