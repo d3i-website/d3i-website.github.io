@@ -16,7 +16,7 @@ movements:
     title: "Get access"
     image: /assets/images/hub/laptop-download.png
     image_alt: "A red laptop showing a download icon on its screen."
-    body: "Pick the option that fits your project. Dutch researchers can use it for free through Utrecht University."
+    body: "Pick the option that fits your project. Dutch researchers can use it for free with support from the D3I project."
     link:
       url: /software/getting-started/
       text: "How to get started"

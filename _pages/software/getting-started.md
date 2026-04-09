@@ -33,7 +33,7 @@ Participants stay in control the whole way through. Raw data never leaves their 
 
 ## How to get access
 
-**Are you a Dutch researcher?** You can use the software for free through Utrecht University. Get in touch with [Laura Boeschoten](mailto:l.boeschoten@uu.nl?subject=Data%20donation%20software%20access%20request) to get started.
+**Are you a Dutch researcher?** You can use the software for free with support from the D3I project. Get in touch with [Laura Boeschoten](mailto:l.boeschoten@uu.nl?subject=Data%20donation%20software%20access%20request) to get started.
 
 **Not based in the Netherlands?** You have two alternatives:
 
