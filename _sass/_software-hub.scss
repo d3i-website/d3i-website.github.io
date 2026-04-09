@@ -442,14 +442,16 @@ $hub-nav-tint: rgba(0, 0, 0, 0.02);
   color: $text-color;
 
   // When the email sits inside the left column under the lead
-  // (inner page row layout), align it left to match the lead and
-  // hug the lead more tightly — they read as a single stacked unit.
+  // (inner page row layout), align it left to match the lead.
+  // The lead's `margin-block-end: auto` already pulls the email
+  // up tight, so a small top margin here is enough to keep them
+  // from crashing into each other.
   .software-hub__contact-left & {
     text-align: left;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
 
     @media (min-width: $medium) {
-      margin-top: 0.75rem;
+      margin-top: 1.25rem;
     }
   }
 
