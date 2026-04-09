@@ -31,4 +31,4 @@ The data donation software can also be used in the classroom, for digital litera
 
 The [Digital Footprint Explorer](https://d3i-infra.github.io/dd-education/) is the easiest entry point: no setup, just point students at the URL. If a platform is missing or out of date for your course, get in touch and we can prioritize an update.
 
-For studies running on infrastructure (rather than just the explorer), studies can be hosted on Next via the Surf Research Cloud. We can help set this up for your course.
+Do you want or need something more involved for your course? We can help you consider the infrastructure options available to you. Educators at Dutch institutions may also be able to use the Next platform for hosting for free.
