@@ -14,6 +14,7 @@ The multiple research projects regularly seek advice from the advisory board. Th
 
 - [Prof. Dr. M.L. (Marjolijn) Antheunis](https://www.eur.nl/people/marjolijn-antheunis)
 - [Prof. Dr. W. (Wouter) van Atteveldt](https://research.vu.nl/en/persons/wouter-van-atteveldt)
+- [Dr. N. (Nadine) Bol](https://www.tilburguniversity.edu/staff/nadine-bol)
 - [Prof. Dr. H.H.J. (Enny) Das](https://www.ru.nl/en/people/das-h)
 - [Dr. K.F. (Karin) van Es](https://www.uu.nl/medewerkers/KFvanEs)
 - [prof. Dr. M.L. (Marieke) Franssen](https://www.ru.nl/personen/fransen-m)
