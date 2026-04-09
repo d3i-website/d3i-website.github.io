@@ -373,10 +373,15 @@ $hub-nav-tint: rgba(0, 0, 0, 0.02);
   color: $text-color;
 
   // Inside the two-column row, the lead becomes the headline.
+  // `margin-block-end: auto` pulls the email that follows up tight
+  // against the lead — in this grid-item context it behaves
+  // differently from the plain-block default of 0 and closes the
+  // gap between the lead and email visually.
   .software-hub__contact-row & {
     font-size: 1.5rem;
     line-height: 1.2;
     letter-spacing: -0.01em;
+    margin-block-end: auto;
 
     @media (min-width: $medium) {
       font-size: 1.875rem;
