@@ -1,0 +1,5 @@
+{% if page.hero %}
+<figure class="page-hero">
+  <img src="{{ page.hero.image | relative_url }}" alt="{{ page.hero.image_alt | default: '' }}">
+</figure>
+{% endif %}

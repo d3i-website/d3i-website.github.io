@@ -1,0 +1,21 @@
+{% assign items = site.data[include.data] %}
+<div class="funding-list">
+  {% for item in items %}
+    <div class="funding-list__item">
+      <h3 class="funding-list__title">{{ item.title }}</h3>
+      {% if item.period or item.funder %}
+        <p class="funding-list__meta">
+          {% if item.funder %}{{ item.funder }}{% endif %}
+          {% if item.period and item.funder %} &middot; {% endif %}
+          {% if item.period %}{{ item.period }}{% endif %}
+        </p>
+      {% endif %}
+      {% if item.description %}
+        <div class="funding-list__description">{{ item.description | markdownify }}</div>
+      {% endif %}
+      {% if item.url %}
+        <p><a class="section-cta" href="{{ item.url }}">Learn more <span aria-hidden="true">&rarr;</span></a></p>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>

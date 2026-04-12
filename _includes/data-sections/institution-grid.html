@@ -1,0 +1,17 @@
+{% assign items = site.data[include.data] %}
+<div class="institution-grid">
+  {% for item in items %}
+    <div class="institution-grid__card">
+      <h3 class="institution-grid__name">{{ item.institution }}</h3>
+      <p class="institution-grid__affiliate">
+        {% if item.affiliate_url %}<a href="{{ item.affiliate_url }}">{{ item.affiliate_name }}</a>{% else %}{{ item.affiliate_name }}{% endif %}
+      </p>
+      {% if item.department %}
+        <p class="institution-grid__dept">{{ item.department }}</p>
+      {% endif %}
+      {% if item.country %}
+        <p class="institution-grid__country">{{ item.country }}</p>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>

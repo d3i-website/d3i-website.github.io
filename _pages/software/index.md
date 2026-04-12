@@ -1,5 +1,5 @@
 ---
-layout: hub-story
+layout: hub-journey
 title: Software
 permalink: /software/
 hub_section: software

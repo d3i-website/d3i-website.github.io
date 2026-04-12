@@ -1,0 +1,8 @@
+{% assign items = site.data[include.data] %}
+<ul class="link-list">
+  {% for item in items %}
+    <li>
+      {% if item.url %}<a href="{{ item.url }}">{{ item.name }}</a>{% else %}{{ item.name }}{% endif %}
+    </li>
+  {% endfor %}
+</ul>

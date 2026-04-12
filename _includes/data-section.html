@@ -1,0 +1,16 @@
+{% if page.data_section %}
+  {% assign ds_type = page.data_section.type %}
+  {% assign ds_data = page.data_section.data %}
+  {% case ds_type %}
+    {% when 'people-grid' %}
+      {% include data-sections/people-grid.html data=ds_data %}
+    {% when 'link-list' %}
+      {% include data-sections/link-list.html data=ds_data %}
+    {% when 'info-list' %}
+      {% include data-sections/info-list.html data=ds_data %}
+    {% when 'funding-list' %}
+      {% include data-sections/funding-list.html data=ds_data %}
+    {% when 'institution-grid' %}
+      {% include data-sections/institution-grid.html data=ds_data %}
+  {% endcase %}
+{% endif %}
