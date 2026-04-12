@@ -1,0 +1,69 @@
+// =====================================================================
+// Data section renderers
+// =====================================================================
+
+// ---------------------------------------------------------------------
+// Institution grid
+// ---------------------------------------------------------------------
+
+.institution-grid {
+  max-width: 44rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.institution-card {
+  min-width: 0;
+  padding: 1.15rem 1.2rem;
+  background: #ffffff;
+  border: 1px solid rgba(37, 42, 52, 0.1);
+  border-radius: 0.9rem;
+}
+
+.institution-card__title {
+  margin: 0 0 0.9rem;
+  font-family: "Nunito", $sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.institution-card__affiliate,
+.institution-card__department {
+  margin: 0;
+  color: $text-color;
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.institution-card__department {
+  margin-top: 0.85rem;
+  color: $muted-text-color;
+}
+
+.institution-card__label {
+  display: block;
+  margin-bottom: 0.15rem;
+  font-family: "Nunito", $sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: $muted-text-color;
+}
+
+.institution-card a {
+  color: $text-color;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(37, 42, 52, 0.18);
+
+  &:hover,
+  &:focus {
+    color: $accent-secondary;
+    border-bottom-color: $accent-secondary;
+    text-decoration: none;
+  }
+}

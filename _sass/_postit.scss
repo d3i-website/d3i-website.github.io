@@ -1,0 +1,83 @@
+// ---------------------------------------------------------------------
+// Post-it callout — cream sticky-note for timely updates
+// ---------------------------------------------------------------------
+//
+// Base rendering is static/inline (the --inline modifier).
+// Hub-directory adds absolute positioning via an override
+// in _hub-directory.scss.
+
+.postit {
+  position: relative;
+  width: 14rem;
+  padding: 1rem 1.125rem;
+  background: #fff6d6;
+  border-radius: 2px;
+  transform: rotate(-1.5deg);
+  z-index: 10;
+  font-family: "Nunito", sans-serif;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    0 12px 28px -12px rgba(120, 90, 0, 0.22),
+    0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.postit::before {
+  content: "";
+  position: absolute;
+  top: -0.5rem;
+  left: 50%;
+  width: 3rem;
+  height: 1rem;
+  background: rgba(255, 207, 96, 0.45);
+  transform: translateX(-50%) rotate(-2deg);
+  border-radius: 1px;
+}
+
+.postit__eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.6875rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #FF5E5E;
+}
+
+.postit__title {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #252a34;
+}
+
+.postit__body {
+  margin: 0 0 0.6rem;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: #6a6a6a;
+}
+
+.postit__link {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #6a6a6a;
+  text-decoration: none;
+  border-bottom: 1.5px solid rgba(106, 106, 106, 0.4);
+  padding-bottom: 0.05rem;
+}
+
+.postit__link:hover {
+  border-bottom-color: #6a6a6a;
+}
+
+.postit--inline {
+  position: static;
+  width: auto;
+  max-width: 18rem;
+  margin: 0 0 2rem;
+  transform: none;
+}
+
+.postit--inline::before {
+  display: none;
+}

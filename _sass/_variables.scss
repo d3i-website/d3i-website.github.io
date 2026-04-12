@@ -1,0 +1,23 @@
+// =====================================================================
+// Design tokens
+// =====================================================================
+
+// Colors
+$accent-primary: #4272EF;
+$accent-secondary: #FF5E5E;
+$accent-tertiary: #FFCF60;
+
+$text-color: #999999;
+$muted-text-color: mix(#fff, $text-color, 20%);
+$border-color: #e6e6e6;
+
+// Typography
+$sans-serif: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
+$sans-serif-title: "Nunito", -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
+$monospace: Monaco, Consolas, "Lucida Console", monospace;
+
+// Breakpoints
+$small: 600px;
+$medium: 768px;
+$medium-wide: 900px;
+$large: 1024px;
