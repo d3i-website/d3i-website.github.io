@@ -57,4 +57,4 @@ We can also adapt an existing script for your study or build a new one for a pla
 
 ## Examples from previous studies
 
-The [ODISSEI Code Library](https://odissei-data.github.io/ODISSEI-code-library/) archives scripts and code from previous data donation studies. They're useful as reference if you're designing something custom or want to see how other researchers approached a particular platform or research question.
+The <a href="https://odissei-data.github.io/ODISSEI-code-library/" target="_blank" rel="noopener">ODISSEI Code Library</a> archives scripts and code from previous data donation studies. They're useful as reference if you're designing something custom or want to see how other researchers approached a particular platform or research question.

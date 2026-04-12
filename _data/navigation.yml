@@ -1,14 +1,14 @@
 main:
   - title: "Data donation"
     url: /data-donation/
-  - title: "About D3I"
-    url: /about-d3i/
+  - title: "Prepare a study"
+    url: /prepare-a-study/
   - title: "Software"
     url: /software/
-  - title: "Prepare a study"
-    url: /prepare-a-study/study-design
   - title: "Community"
     url: /community/
+  - title: "About D3I"
+    url: /about-d3i/
 
 about-d3i:
   - title: About D3I
@@ -40,7 +40,7 @@ software:
 
 prepare-a-study:
   - title: Prepare a study
-    url: /prepare-a-study/study-design
+    url: /prepare-a-study/
     children:
       - title: Study design
         url: /prepare-a-study/study-design

@@ -17,7 +17,7 @@ $tab-tint: rgba(0, 0, 0, 0.02);
 }
 
 .site-header__inner {
-  max-width: 78rem;
+  max-width: $site-width;
   margin: 0 auto;
   padding: 1rem 1rem 0;
   display: flex;
@@ -31,6 +31,12 @@ $tab-tint: rgba(0, 0, 0, 0.02);
 .site-header__brand {
   color: $text-color;
   text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: $accent-primary;
+    text-decoration: underline;
+  }
 }
 
 .site-header__name {
@@ -64,21 +70,37 @@ $tab-tint: rgba(0, 0, 0, 0.02);
 }
 
 .site-nav__item a {
-  display: inline-block;
+  display: block;
+  position: relative;
   padding: 0.8rem 1.35rem;
-  border-radius: 0.35rem 0.35rem 0 0;
   color: #6a6a6a;
   font-family: "Nunito", $sans-serif;
   font-size: 0.95rem;
   font-weight: 500;
   line-height: 1;
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: color 0.2s ease-in-out;
+
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0.4rem;
+    left: 1.35rem;
+    right: 1.35rem;
+    height: 4px;
+    background: $accent-primary;
+    transform: scaleX(0);
+    transition: transform 0.2s ease-in-out;
+  }
 
   &:hover,
   &:focus {
-    color: $accent-secondary;
+    color: $accent-primary;
     text-decoration: none;
+
+    &::before {
+      transform: scaleX(1);
+    }
   }
 
   &:visited {
@@ -100,7 +122,7 @@ $tab-tint: rgba(0, 0, 0, 0.02);
 }
 
 .section-subnav__inner {
-  max-width: 78rem;
+  max-width: $site-width;
   margin: 0 auto;
   padding: 0.35rem 1rem;
   text-align: center;
@@ -151,7 +173,7 @@ $tab-tint: rgba(0, 0, 0, 0.02);
 }
 
 .site-footer__inner {
-  max-width: 72rem;
+  max-width: $site-width;
   margin: 0 auto;
   display: grid;
   gap: 1rem;

@@ -4,6 +4,10 @@ title: Study design
 permalink: /prepare-a-study/study-design
 sidebar:
   nav: "prepare-a-study"
+contact:
+  lead: "Need help designing your study?"
+  email: DataDonation@uu.nl
+  subject: "Question about study design"
 ---
 ## Study Design
 

@@ -7,7 +7,7 @@
 // ---------------------------------------------------------------------
 
 .content-page {
-  max-width: 78rem;
+  max-width: $site-width;
   margin: 0 auto;
   padding-top: 1.5rem;
 
@@ -69,7 +69,7 @@
 // ---------------------------------------------------------------------
 
 .content-page__intro {
-  max-width: 44rem;
+  max-width: $content-width;
   margin-bottom: 0.9rem;
   display: flow-root;
 
@@ -87,18 +87,18 @@
 .content-page__title {
   margin: 0;
   font-family: "Nunito", $sans-serif;
-  font-size: 2.15rem;
+  font-size: 2rem;
   font-weight: 800;
   line-height: 1.08;
   letter-spacing: -0.015em;
 
   @media (min-width: $medium) {
-    font-size: 2.6rem;
+    font-size: 2.4rem;
   }
 }
 
 .content-page__excerpt {
-  max-width: 44rem;
+  max-width: $content-width;
   margin: 0.7rem 0 0;
   font-size: 1rem;
   line-height: 1.6;
@@ -268,7 +268,7 @@
 // ---------------------------------------------------------------------
 
 .content-page__toc {
-  max-width: 44rem;
+  max-width: $content-width;
   margin-bottom: 1.5rem;
   padding: 1rem 1.1rem;
   background: #fafbfd;
@@ -314,7 +314,8 @@
 // ---------------------------------------------------------------------
 
 .prose {
-  max-width: 44rem;
+  max-width: $content-width;
+  margin-bottom: 1em;
 
   h2,
   h3,
@@ -373,12 +374,12 @@
 }
 
 .archive-page__intro {
-  max-width: 44rem;
+  max-width: $content-width;
   margin-bottom: 2.5rem;
 }
 
 .archive-page__section-header {
-  max-width: 44rem;
+  max-width: $content-width;
   margin-bottom: 1rem;
 }
 
@@ -390,7 +391,7 @@
 }
 
 .archive-page__list {
-  max-width: 44rem;
+  max-width: $content-width;
   display: grid;
   gap: 1rem;
 }
@@ -403,11 +404,6 @@
   border: 1px solid rgba(37, 42, 52, 0.1);
   border-radius: 1rem;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
-
-  @media (min-width: $medium) {
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: end;
-  }
 }
 
 .archive-card--featured {
@@ -455,10 +451,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.9rem;
-
-  @media (min-width: $medium) {
-    justify-content: flex-end;
-  }
 }
 
 // ---------------------------------------------------------------------
@@ -466,7 +458,7 @@
 // ---------------------------------------------------------------------
 
 .page-sections {
-  max-width: 66rem;
+  max-width: $site-width;
 }
 
 .page-section-block + .page-section-block {
@@ -474,7 +466,7 @@
 }
 
 .page-section {
-  max-width: 44rem;
+  max-width: $content-width;
 }
 
 .page-section__body {
@@ -492,7 +484,7 @@
 }
 
 .page-section__prose {
-  max-width: 44rem;
+  max-width: $content-width;
 
   p:last-child {
     margin-bottom: 0;
@@ -545,7 +537,7 @@
 }
 
 .page-section__component-title {
-  max-width: 44rem;
+  max-width: $content-width;
   margin: 2rem 0 1rem;
   font-family: "Nunito", $sans-serif;
   font-size: 1.2rem;

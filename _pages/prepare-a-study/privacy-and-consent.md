@@ -4,6 +4,10 @@ title:  Privacy and consent
 permalink: /prepare-a-study/privacy-and-consent
 sidebar:
   nav: "prepare-a-study"
+contact:
+  lead: "Questions about privacy or consent?"
+  email: DataDonation@uu.nl
+  subject: "Question about privacy and consent"
 ---
 
 [Dr. mr. Heleen Janssen](https://www.uva.nl/en/profile/j/a/h.l.janssen/h.l.janssen.html) has compiled a [collection of documents](https://osf.io/dmk2p/) to help you navigate through important legal and ethical considerations when performing a data donation study. 

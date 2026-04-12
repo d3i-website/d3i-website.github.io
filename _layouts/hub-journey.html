@@ -24,7 +24,7 @@ layout: site-shell
           <img src="{{ movement.image | relative_url }}" alt="{{ movement.image_alt | default: '' }}">
         </div>
         <div class="hub__movement-text">
-          <span class="hub__movement-number" aria-hidden="true">{{ movement.number }}</span>
+          {% if movement.number %}<span class="hub__movement-number" aria-hidden="true">{{ movement.number }}</span>{% endif %}
           <h2 class="hub__movement-title">{{ movement.title }}</h2>
           <p class="hub__movement-body">{{ movement.body }}</p>
           {% if movement.link %}

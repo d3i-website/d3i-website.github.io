@@ -1,0 +1,63 @@
+{% assign items = site.data[include.data] %}
+<div class="data-list project-list">
+  {% for project in items %}
+    <article class="project-card">
+      <h3 class="project-card__title">{{ project.title }}</h3>
+      {% if project.image %}
+        <img class="project-card__image" src="{{ project.image | relative_url }}" alt="">
+      {% endif %}
+      <p class="project-card__investigators">{{ project.investigators | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+      <p class="project-card__summary">{{ project.summary }}</p>
+
+      <dl class="project-card__details">
+        {% if project.collection_period %}
+          <dt>Data collection</dt>
+          <dd>{{ project.collection_period }}</dd>
+        {% endif %}
+        {% if project.recruitment %}
+          <dt>Recruitment</dt>
+          <dd>{{ project.recruitment | markdownify | remove: '<p>' | remove: '</p>' }}</dd>
+        {% endif %}
+        {% if project.instructions %}
+          <dt>Instructions</dt>
+          <dd>{{ project.instructions | markdownify | remove: '<p>' | remove: '</p>' }}</dd>
+        {% endif %}
+        {% if project.ethical_review %}
+          <dt>Ethics</dt>
+          <dd>{{ project.ethical_review | markdownify | remove: '<p>' | remove: '</p>' }}</dd>
+        {% endif %}
+        {% if project.software %}
+          <dt>Software</dt>
+          <dd>{{ project.software }}</dd>
+        {% endif %}
+        {% if project.local_processing %}
+          <dt>Processing</dt>
+          <dd>{{ project.local_processing | markdownify | remove: '<p>' | remove: '</p>' }}</dd>
+        {% endif %}
+        {% if project.data %}
+          <dt>Data</dt>
+          <dd>{{ project.data | markdownify | remove: '<p>' | remove: '</p>' }}</dd>
+        {% endif %}
+        {% if project.acknowledgements %}
+          <dt>Funded by</dt>
+          <dd>{{ project.acknowledgements | markdownify | remove: '<p>' | remove: '</p>' }}</dd>
+        {% endif %}
+      </dl>
+
+      {% if project.references %}
+        <details class="project-card__refs">
+          <summary>References</summary>
+          <ul>
+            {% for ref in project.references %}
+              <li>{{ ref | markdownify | remove: '<p>' | remove: '</p>' }}</li>
+            {% endfor %}
+          </ul>
+        </details>
+      {% endif %}
+    </article>
+  {% endfor %}
+</div>
+
+<footer class="project-list__attribution">
+  <p>Illustrations by <a href="https://www.freepik.com/" rel="noopener">Freepik</a> and <a href="https://www.vecteezy.com/" rel="noopener">Vecteezy</a>.</p>
+</footer>

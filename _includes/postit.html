@@ -1,5 +1,5 @@
 {% if page.postit %}
-<aside class="postit{% unless page.layout == 'hub-directory' %} postit--inline{% endunless %}">
+<aside class="postit{% unless page.layout == 'hub-directory' or page.layout == 'homepage' %} postit--inline{% endunless %}">
   <p class="postit__eyebrow">{{ page.postit.eyebrow | default: "Updates" }}</p>
   <h3 class="postit__title">{{ page.postit.title }}</h3>
   <p class="postit__body">{{ page.postit.body }}</p>

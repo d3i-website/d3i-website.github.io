@@ -2,7 +2,7 @@
 {% for group in site.team_groups %}
   {% assign members = items | where: "group", group.key %}
   {% if members.size > 0 %}
-    <h2>{{ group.label }}</h2>
+    <h2 class="people-grid__heading">{{ group.label }}</h2>
     <div class="people-grid">
       {% for person in members %}
         <div class="people-grid__card">

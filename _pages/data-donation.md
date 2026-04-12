@@ -2,6 +2,10 @@
 layout: page
 title: Data donation
 permalink: /data-donation/
+contact:
+  lead: "Interested in data donation for your research?"
+  email: DataDonation@uu.nl
+  subject: "Question about data donation"
 ---
 
 ## What is data donation?

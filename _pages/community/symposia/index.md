@@ -13,6 +13,14 @@ archive:
   source: symposia
   featured_heading: "Upcoming symposium"
   heading: "Previous symposia"
+contact:
+  lead: "Questions about the symposium?"
+  intro: "Get in touch:"
+  bullets:
+    - Questions about upcoming or past symposia
+    - Let us know about data donation events to post on the site
+  email: DataDonation@uu.nl
+  subject: "Question about the data donation symposium"
 ---
 
 The Data Donation Symposium brings together applied researchers, methodologists, legal and ethical experts, research engineers, and software developers with an interest in using digital trace data for scientific research purposes.

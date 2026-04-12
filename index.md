@@ -1,37 +1,35 @@
 ---
-layout: splash
-classes:
-  - landing
-  - dark-theme
-title: | 
-    Welcome to Europe's Data Donation Infrastructure
+layout: homepage
+title: "Welcome to Europe's Data Donation Infrastructure"
 excerpt: "Leveraging the right of data access for research"
-header:
-  overlay_image: "assets/images/banner.png"
-  #overlay_color: "#333"
-  #overlay_filter: 0.7 # same as adding an opacity of 0.5 to a black background
-  #caption: 
-    
-  #actions:
-  #  - label: "Download Port"
-  #    url: "https://unsplash.com"
-  #    btn_class: "btn--inverse"
+hero_image: assets/images/banner.png
+postit:
+  eyebrow: "Position"
+  title: "GDPR Omnibus Proposal"
+  body: "The European Omnibus Act poses a direct risk to fundamental human rights and to data donation as a research method."
+  link_url: /community/omnibus-letter
+  link_text: "Read our letter →"
+movements:
+  - image: /assets/images/illustrations/social-media-profile.svg
+    image_alt: "A person viewing a social media profile on a screen"
+    body: "Data donation lets people share their personal digital data for research by exercising their legal right of data access. Participants request their data from platforms like Google, Instagram, or TikTok, then donate it to a study."
+    link:
+      url: /data-donation/
+      text: "Learn about data donation"
+  - image: /assets/images/illustrations/experts.svg
+    image_alt: "Researchers collaborating around a search interface"
+    body: "From study design and ethics approval to participant recruitment and data collection, we provide guidance for every stage of preparing a data donation study."
+    link:
+      url: /prepare-a-study/study-design
+      text: "How to run a study"
+  - image: /assets/images/illustrations/group-project.svg
+    image_alt: "A team working together on a project"
+    body: "Port is free, open-source software for collecting donated data. It comes with ready-made scripts for common platforms, runs entirely in the participant's browser, and keeps raw data private."
+    link:
+      url: /software/
+      text: "Explore the software"
 ---
 
-
-<div style="background-color: #f0f8ff; padding: 16px 20px; border-radius: 8px; border-left: 4px solid #008cba; margin: 0 auto 20px; max-width: 60%;">
-  <p style="margin: 0;"><strong>Position on the GDPR Omnibus Proposal:</strong> The European Omnibus Act poses a direct risk to fundamental human rights and to data donation as a research method. Read our letter (<a href="/community/omnibus-letter">EN</a>/<a href="/community/omnibus-letter-nl">NL</a>) about our position and use it to call your government to vote against this.</p>
-</div>
-
-Welcome at datadonation.eu, the website of [D3I](/d3i/project-d3i). This website 
-aims to bring together an international community of researchers interested in 
-using data donation for research. 
-
-You can find out more about [data donation](/data-donation/), how to 
-[prepare a data donation study](/prepare-a-study/study-design), our data donation 
-software, [`Port`](/prepare-a-study/software), and an archive of past studies.
-
-You can also subscribe to our [newsletter](/community/newsletter)! 
-
-Enjoy and please reach out to one of our [team](/about-the-project/team) members in case you 
-have any questions or comments!
+You can also subscribe to our [newsletter](/community/newsletter/) or
+reach out to one of our [team](/about-d3i/team) members if you have any
+questions!

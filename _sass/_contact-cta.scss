@@ -14,7 +14,8 @@
 }
 
 .contact-cta--constrained {
-  max-width: 44rem;
+  max-width: 42rem;
+  justify-self: center;
 }
 
 .contact-cta--centered {
@@ -28,8 +29,8 @@
   align-items: start;
 
   @media (min-width: $small) {
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    grid-template-columns: 2fr 3fr;
+    gap: 2rem;
     align-items: baseline;
   }
 }
@@ -49,11 +50,11 @@
     margin-block-end: auto;
 
     @media (min-width: $medium) {
-      font-size: 1.875rem;
+      font-size: 1.75rem;
     }
 
     @media (min-width: $large) {
-      font-size: 2.125rem;
+      font-size: 2rem;
     }
   }
 }
@@ -100,7 +101,6 @@
 }
 
 .contact-cta__email {
-  margin: 1.25rem 0 0;
   text-align: center;
   font-family: "Nunito", $sans-serif;
   font-size: 1.0625rem;
@@ -108,11 +108,6 @@
 
   .contact-cta__left & {
     text-align: left;
-    margin-top: 1rem;
-
-    @media (min-width: $medium) {
-      margin-top: 1.25rem;
-    }
   }
 
   a {

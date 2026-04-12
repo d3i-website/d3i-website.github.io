@@ -17,18 +17,27 @@ contact:
   subject: "Port usage report"
 ---
 
-## Have you used Port for your study?
+Port is being used by a growing number of researchers across Europe. Since
+its first deployment in 2022, adoption has accelerated each year as more
+institutions discover data donation as a research method.
 
-Port is funded through multiple grants, and for the reporting to these funders, it is important that we keep statistics on the usage of Port. Therefore, we kindly request you to fill in a short questionnaire once your data donation study goes live on Port.
+<div class="media-grid">
+
+{% include figure image_path="/assets/images/usage/plot_year.png" caption="Number of studies per year" %}
+
+{% include figure image_path="/assets/images/usage/plot_host.png" caption="How researchers host their studies" %}
+
+{% include figure image_path="/assets/images/usage/plot_institution.png" caption="Studies by institution" %}
+
+{% include figure image_path="/assets/images/usage/plot_recruit.png" caption="Recruitment methods used" %}
+
+</div>
+
+## Help us track adoption
+
+Port is funded through multiple grants, and for reporting to these funders
+it is important that we keep statistics on usage. If you have used Port for
+your study, we kindly request you to fill in a short questionnaire once
+your data donation study goes live.
 
 [Begin questionnaire →](https://survey.uu.nl/jfe/form/SV_9XjKNKroOd4Nhrg){: .section-cta}
-
-## Usage statistics
-
-![Studies by year](/assets/images/usage/plot_year.png)
-
-![Studies by institution](/assets/images/usage/plot_institution.png)
-
-![Recruitment methods](/assets/images/usage/plot_recruit.png)
-
-![Hosting platforms](/assets/images/usage/plot_host.png)

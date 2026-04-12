@@ -6,8 +6,8 @@ hub_section: about-d3i
 sidebar:
   nav: "about-d3i"
 hero:
-  image: /assets/images/hub/undraw_newsletter-subscriber_plsr.svg
-  image_alt: "Illustration of the D3I project"
+  image: /assets/images/hub/undraw_global-team_8jok.svg
+  image_alt: "A global team collaborating across locations"
   title: "About D3I"
   subhead: "Europe's data donation infrastructure, maintained by an interdisciplinary team of researchers, engineers, and legal experts."
 destinations:

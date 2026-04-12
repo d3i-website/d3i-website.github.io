@@ -23,6 +23,76 @@
   font-style: italic;
 }
 
+// ---------------------------------------------------------------------
+// Base typography and element styling
+// ---------------------------------------------------------------------
+
+body {
+  font-family: $sans-serif;
+  font-size: 1rem;
+  color: $text-color;
+  background: #ffffff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $sans-serif-title;
+  line-height: 1.2;
+  color: #252a34;
+}
+
+p {
+  padding: 0.5em 0;
+}
+
+a {
+  color: $accent-primary;
+  text-decoration-skip-ink: auto;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid $border-color;
+  margin: 2rem 0;
+}
+
+th, td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid $border-color;
+}
+
+code {
+  font-family: $monospace;
+  font-size: 0.875em;
+  background: #f5f7fb;
+  padding: 0.15em 0.35em;
+  border-radius: 0.25rem;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 1rem;
+  background: #f5f7fb;
+  border-radius: 0.5rem;
+
+  code {
+    background: none;
+    padding: 0;
+  }
+}
+
+blockquote {
+  margin: 1.5rem 0;
+  padding: 0.75rem 1.25rem;
+  border-left: 3px solid $accent-primary;
+  color: $muted-text-color;
+  font-style: italic;
+}
+
+// ---------------------------------------------------------------------
+// Site shell
+// ---------------------------------------------------------------------
+
 .site-shell {
   background: #ffffff;
   color: $text-color;
@@ -104,7 +174,7 @@
 // Content figures
 .section-figure {
   margin: 2rem auto;
-  max-width: 42rem;
+  max-width: $content-width;
   padding: 1.25rem;
   background-color: #f5f7fb;
   border-radius: 0.75rem;
@@ -152,6 +222,138 @@
   height: auto;
   border-radius: 0.9rem;
   background: #f6f8fc;
+}
+
+// ---------------------------------------------------------------------
+// Homepage hero
+// ---------------------------------------------------------------------
+
+// Override site-main padding for homepage — hero is full-bleed
+.layout--homepage .site-main {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.homepage-hero {
+  position: relative;
+  padding: 0.5rem 2rem 12.5rem;
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+
+.homepage-hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: fit-content;
+  margin: 0 auto;
+}
+
+.homepage-hero__title {
+  font-family: "Nunito", $sans-serif;
+  font-weight: 900;
+  font-size: 1.95em;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: #252a34;
+  margin: 0 0 0.5rem;
+
+  @media (min-width: $small) {
+    font-size: 2.44em;
+  }
+}
+
+.homepage-hero__subtitle {
+  font-family: "Nunito Sans", $sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: $muted-text-color;
+  margin: 0;
+  max-width: 48rem;
+}
+
+// Homepage body
+.homepage-body {
+  position: relative;
+  z-index: 1;
+  max-width: $content-width;
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+  font-family: "Nunito Sans", $sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: $text-color;
+
+  p + p {
+    margin-top: 1rem;
+  }
+
+  a {
+    color: $accent-primary;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease;
+
+    &:hover, &:focus {
+      border-bottom-color: $accent-primary;
+    }
+  }
+}
+
+// Prose blocks with floated illustrations
+.homepage-block {
+  display: flow-root;
+  margin-bottom: 1.25rem;
+}
+
+.homepage-block__image {
+  max-width: 7rem;
+  height: auto;
+
+  .homepage-block--right & {
+    float: right;
+    margin: 0.15rem 0 0.75rem 1.5rem;
+  }
+
+  .homepage-block--left & {
+    float: left;
+    margin: 0.15rem 1.5rem 0.75rem 0;
+  }
+}
+
+.homepage-block__text {
+  p {
+    margin: 0;
+  }
+}
+
+.homepage-block__link {
+  font-family: "Nunito", $sans-serif;
+  font-weight: 700;
+  color: $accent-secondary;
+  text-decoration: none;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color 0.15s ease;
+  white-space: nowrap;
+
+  &:hover {
+    border-bottom-color: $accent-secondary;
+  }
+}
+
+// Callout box (notification banner)
+.callout {
+  background-color: #f0f8ff;
+  padding: 1rem 1.25rem;
+  border-radius: 0.5rem;
+  border-left: 4px solid $accent-primary;
+  margin-bottom: 1.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+
+  p {
+    margin: 0;
+  }
 }
 
 // Embed panel (iframes)

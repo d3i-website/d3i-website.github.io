@@ -72,12 +72,30 @@
 
 .postit--inline {
   position: static;
-  width: auto;
-  max-width: 18rem;
-  margin: 0 0 2rem;
-  transform: none;
+  max-width: 15rem;
+  margin: 0 0 1.5rem;
+
+  @media (min-width: $medium) {
+    float: right;
+    margin: 0 0 1rem 2rem;
+  }
 }
 
 .postit--inline::before {
   display: none;
+}
+
+// Homepage: absolute top-right of the hero area
+.homepage-hero .postit {
+  position: absolute;
+  top: 4.5rem;
+  right: 1.5rem;
+
+  @media (max-width: $medium) {
+    position: static;
+    margin: 0 0 1.5rem;
+    transform: none;
+
+    &::before { display: none; }
+  }
 }

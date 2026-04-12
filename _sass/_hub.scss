@@ -52,7 +52,7 @@ $hub-nav-tint: rgba(0, 0, 0, 0.02);
 }
 
 .hub-subnav__inner {
-  max-width: 1280px;
+  max-width: $site-width;
   margin: 0 auto;
   padding: 0.35rem 1rem;
   text-align: center;
@@ -119,7 +119,7 @@ $hub-nav-tint: rgba(0, 0, 0, 0.02);
 
 .hub {
   position: relative;              // anchors the absolute post-it in directory mode
-  max-width: 72rem;
+  max-width: $site-width;
   margin: 0 auto;
   font-family: "Nunito", sans-serif;
 }
@@ -357,6 +357,7 @@ $hub-nav-tint: rgba(0, 0, 0, 0.02);
 //     coral (#FF5E5E) or brand blue
 
 .hub--directory {
+  max-width: $content-width;
   padding: 2.5rem 2rem 0;
 }
 
@@ -409,16 +410,16 @@ $hub-nav-tint: rgba(0, 0, 0, 0.02);
 .hub--directory .hub__directory {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 1.5rem;
   margin-bottom: 4rem;
 }
 
 .hub--directory .hub__entry {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 2rem;
+  gap: 1.5rem;
   align-items: baseline;
-  padding-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
@@ -427,14 +428,6 @@ $hub-nav-tint: rgba(0, 0, 0, 0.02);
   padding-bottom: 0;
 }
 
-.hub--directory .hub__entry-title {
-  font-family: "Nunito", sans-serif;
-  font-weight: 800;
-  font-size: 1.75rem;
-  line-height: 1.15;
-  margin: 0 0 0.5rem;
-  color: #252a34;
-}
 
 .hub--directory .hub__entry-body {
   font-family: "Nunito", sans-serif;
@@ -442,7 +435,7 @@ $hub-nav-tint: rgba(0, 0, 0, 0.02);
   line-height: 1.55;
   color: #444;
   margin: 0;
-  max-width: 42rem;
+  max-width: $content-width;
 }
 
 .hub--directory .hub__entry-link {

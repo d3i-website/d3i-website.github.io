@@ -1,0 +1,32 @@
+---
+layout: site-shell
+---
+
+<div class="homepage-hero" style="background-image: url('{{ page.hero_image | relative_url }}');">
+  {% include postit.html %}
+  <div class="homepage-hero__inner">
+    <h1 class="homepage-hero__title">{{ page.title }}</h1>
+    {% if page.excerpt %}
+      <p class="homepage-hero__subtitle">{{ page.excerpt | markdownify | remove: '<p>' | remove: '</p>' | strip }}</p>
+    {% endif %}
+  </div>
+</div>
+
+<article class="homepage-body">
+  {% if page.movements %}
+    {% for movement in page.movements %}
+      <div class="homepage-block homepage-block--{% cycle 'right', 'left' %}">
+        <img class="homepage-block__image" src="{{ movement.image | relative_url }}" alt="{{ movement.image_alt | default: '' }}">
+        <div class="homepage-block__text">
+          <p>{{ movement.body }}
+            {% if movement.link %}
+              <a class="homepage-block__link" href="{{ movement.link.url | relative_url }}">{{ movement.link.text }} →</a>
+            {% endif %}
+          </p>
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  {{ content }}
+</article>

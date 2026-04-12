@@ -19,10 +19,6 @@ html {
 body {
   min-height: 100vh;
   line-height: 1.6;
-  font-family: $sans-serif;
-  font-size: 1rem;
-  color: $text-color;
-  background: #ffffff;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -39,62 +35,11 @@ p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: $sans-serif-title;
-  line-height: 1.2;
-  color: #252a34;
-}
-
-a {
-  color: $accent-primary;
-  text-decoration-skip-ink: auto;
-}
-
 ul, ol {
   padding-left: 1.5rem;
-}
-
-hr {
-  border: 0;
-  border-top: 1px solid $border-color;
-  margin: 2rem 0;
 }
 
 table {
   border-collapse: collapse;
   width: 100%;
-}
-
-th, td {
-  padding: 0.5rem 0.75rem;
-  text-align: left;
-  border-bottom: 1px solid $border-color;
-}
-
-code {
-  font-family: $monospace;
-  font-size: 0.875em;
-  background: #f5f7fb;
-  padding: 0.15em 0.35em;
-  border-radius: 0.25rem;
-}
-
-pre {
-  overflow-x: auto;
-  padding: 1rem;
-  background: #f5f7fb;
-  border-radius: 0.5rem;
-
-  code {
-    background: none;
-    padding: 0;
-  }
-}
-
-blockquote {
-  margin: 1.5rem 0;
-  padding: 0.75rem 1.25rem;
-  border-left: 3px solid $accent-primary;
-  color: $muted-text-color;
-  font-style: italic;
 }
