@@ -24,6 +24,7 @@ $tab-tint: rgba(0, 0, 0, 0.02);
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
+  line-height: 1;
   gap: 1rem 2rem;
 }
 
@@ -70,6 +71,7 @@ $tab-tint: rgba(0, 0, 0, 0.02);
   font-family: "Nunito", $sans-serif;
   font-size: 0.95rem;
   font-weight: 500;
+  line-height: 1;
   text-decoration: none;
   transition: color 0.15s ease;
 
