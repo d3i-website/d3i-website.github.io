@@ -1,9 +1,7 @@
 ---
-layout: single-toc-on-top
-classes: wide
+layout: page
 title: Study design
 permalink: /prepare-a-study/study-design
-toc: false
 sidebar:
   nav: "prepare-a-study"
 ---

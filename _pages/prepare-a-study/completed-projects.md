@@ -1,9 +1,7 @@
 ---
-layout: single-toc-on-top
-classes: wide
+layout: page
 title: Look at completed projects
 permalink: /prepare-a-study/completed-projects/
-toc: false
 sidebar:
   nav: "prepare-a-study"
 ---

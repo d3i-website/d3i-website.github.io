@@ -1,9 +1,7 @@
 ---
-layout: single
-classes: wide_center_content
+layout: page
 title: Data donation
 permalink: /data-donation/
-toc: false
 ---
 
 ## What is data donation?

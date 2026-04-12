@@ -1,9 +1,7 @@
 ---
-layout: single-toc-on-top
-classes: wide
+layout: page
 title:  Privacy and consent
 permalink: /prepare-a-study/privacy-and-consent
-toc: false
 sidebar:
   nav: "prepare-a-study"
 ---
