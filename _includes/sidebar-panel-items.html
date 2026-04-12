@@ -1,0 +1,19 @@
+{% assign items = include.items %}
+
+{% for item in items %}
+  {% assign meta_text = item.date_label %}
+  {% if meta_text == nil and item.date %}
+    {% assign meta_text = item.date | date: "%B %Y" %}
+  {% endif %}
+  <article class="sidebar-panel__item">
+    <h3 class="sidebar-panel__item-title">
+      <a class="sidebar-panel__link" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+    </h3>
+    {% if meta_text %}
+      <p class="sidebar-panel__meta">{{ meta_text }}</p>
+    {% endif %}
+    {% if item.summary %}
+      <p class="sidebar-panel__summary">{{ item.summary }}</p>
+    {% endif %}
+  </article>
+{% endfor %}

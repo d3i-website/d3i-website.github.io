@@ -1,0 +1,60 @@
+main:
+  - title: "Data donation"
+    url: /data-donation/
+  - title: "About the project"
+    url: /about-the-project/team
+  - title: "Our software"
+    url: /software/
+  - title: "Prepare a study"
+    url: /prepare-a-study/study-design
+  - title: "Community"
+    url: /community/
+
+about-the-project:
+  - title: Team
+    url: /about-the-project/team
+  - title: Advisory board
+    url: /about-the-project/advisory-board
+  - title: Funding
+    url: /about-the-project/funding
+  - title: Partner organizations
+    url: /about-the-project/partners
+
+software:
+  - title: Software
+    url: /software/
+    children:
+      - title: Getting started
+        url: /software/getting-started/
+      - title: Ready-made scripts
+        url: /software/ready-made-scripts/
+      - title: Going further
+        url: /software/going-further/
+      - title: Port in education
+        url: /software/port-in-education/
+      - title: Usage report
+        url: /software/usage/
+
+prepare-a-study:
+  - title: Study design
+    url: /prepare-a-study/study-design
+  - title: Privacy and consent
+    url: /prepare-a-study/privacy-and-consent
+  - title: Look at completed projects
+    url: /prepare-a-study/completed-projects
+
+community:
+  - title: Community
+    url: /community/
+    children:
+      - title: Networks
+        url: /community/institutional-network
+        show_sections: true
+      - title: Newsletter
+        url: /community/newsletter/
+      - title: Courses
+        url: /community/courses/
+      - title: Symposia
+        url: /community/symposia/
+      - title: Letters & positions
+        url: /community/omnibus-letter

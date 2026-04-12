@@ -1,0 +1,41 @@
+{% assign navigation = site.data.navigation[include.nav] %}
+{% assign section_links = include.section_links %}
+{% assign section_parent = include.section_parent | default: page.url %}
+
+{% if navigation %}
+  <nav class="section-nav sidebar-panel" aria-label="{{ include.nav | replace: '-', ' ' | capitalize }}">
+    <ul class="section-nav__list">
+      {% for item in navigation %}
+        {% if item.children %}
+          <li class="section-nav__item section-nav__item--parent">
+            <a class="section-nav__heading sidebar-panel__title{% if item.url == page.url %} is-active{% endif %}" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+            <div class="sidebar-panel__body">
+              <ul class="section-nav__children">
+                {% for child in item.children %}
+                  {% assign child_base_url = child.url | split: '#' | first %}
+                  <li class="section-nav__child">
+                    <a class="section-nav__link sidebar-panel__link{% if child_base_url == page.url %} is-active{% endif %}" href="{{ child.url | relative_url }}">{{ child.title }}</a>
+                    {% if child.show_sections and child_base_url == section_parent and section_links %}
+                      <ul class="section-nav__grandchildren">
+                        {% for section in section_links %}
+                          {% assign section_id = section.id | default: section.title | slugify %}
+                          <li class="section-nav__grandchild">
+                            <a class="section-nav__sublink" href="{{ child_base_url | relative_url }}#{{ section_id }}">{{ section.title }}</a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </li>
+        {% else %}
+          <li class="section-nav__item">
+            <a class="section-nav__link{% if item.url == page.url %} is-active{% endif %}" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </nav>
+{% endif %}

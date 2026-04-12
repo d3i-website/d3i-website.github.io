@@ -1,0 +1,61 @@
+{% assign item = include.item %}
+{% assign is_featured = include.featured %}
+
+<article class="archive-card{% if is_featured %} archive-card--featured{% endif %}">
+  <div class="archive-card__content">
+    <h3 class="archive-card__title">{{ item.title }}</h3>
+
+    {% assign meta_text = item.date_label %}
+    {% if meta_text == nil and item.date %}
+      {% assign meta_text = item.date | date: "%B %Y" %}
+    {% endif %}
+    {% if item.location %}
+      {% if meta_text %}
+        {% assign meta_text = meta_text | append: " · " | append: item.location %}
+      {% else %}
+        {% assign meta_text = item.location %}
+      {% endif %}
+    {% endif %}
+    {% if meta_text %}
+      <p class="archive-card__meta">{{ meta_text }}</p>
+    {% endif %}
+
+    {% if item.summary %}
+      <p class="archive-card__summary">{{ item.summary }}</p>
+    {% endif %}
+
+    {% if item.details %}
+      <dl class="archive-card__details">
+        {% for detail in item.details %}
+          <div class="archive-card__detail">
+            <dt>{{ detail.label }}</dt>
+            <dd>
+              {% if detail.markdown %}
+                {{ detail.value | markdownify | remove: '<p>' | remove: '</p>' }}
+              {% else %}
+                {{ detail.value }}
+              {% endif %}
+            </dd>
+          </div>
+        {% endfor %}
+      </dl>
+    {% endif %}
+  </div>
+
+  {% if item.actions or item.url %}
+    <div class="archive-card__actions">
+      {% if item.actions %}
+        {% for action in item.actions %}
+          {% if action.external %}
+            {% assign action_href = action.url %}
+          {% else %}
+            {% assign action_href = action.url | relative_url %}
+          {% endif %}
+          <a class="section-cta" href="{{ action_href }}"{% if action.external %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ action.label }} <span aria-hidden="true">→</span></a>
+        {% endfor %}
+      {% elsif item.url %}
+        <a class="section-cta" href="{{ item.url | relative_url }}">{% if item.link_text %}{{ item.link_text }}{% else %}Read more{% endif %} <span aria-hidden="true">→</span></a>
+      {% endif %}
+    </div>
+  {% endif %}
+</article>

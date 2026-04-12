@@ -1,0 +1,49 @@
+---
+layout: site-shell
+---
+
+<article class="hub hub--directory" itemscope itemtype="https://schema.org/CreativeWork">
+  {% if page.hero %}
+    <section class="hub__hero">
+      <div class="hub__hero-image">
+        <img src="{{ page.hero.image | relative_url }}" alt="{{ page.hero.image_alt | default: '' }}">
+      </div>
+      <div class="hub__hero-text">
+        <h1 class="hub__hero-title">{{ page.hero.title }}</h1>
+        {% if page.hero.subhead %}
+          <p class="hub__hero-subhead">{{ page.hero.subhead }}</p>
+        {% endif %}
+      </div>
+      <div></div>
+    </section>
+  {% endif %}
+
+  {% if page.postit %}
+    <aside class="hub__postit">
+      <p class="hub__postit-eyebrow">{{ page.postit.eyebrow | default: "Updates" }}</p>
+      <h3 class="hub__postit-title">{{ page.postit.title }}</h3>
+      <p class="hub__postit-body">{{ page.postit.body }}</p>
+      <a class="hub__postit-link" href="{{ page.postit.link_url | relative_url }}">{{ page.postit.link_text }}</a>
+    </aside>
+  {% endif %}
+
+  <hr class="hub__divider">
+
+  <div class="hub__directory">
+    {% for destination in page.destinations %}
+      <article class="hub__entry">
+        <div>
+          <h2 class="hub__entry-title">{{ destination.title }}</h2>
+          <p class="hub__entry-body">{{ destination.body }}</p>
+        </div>
+        <a class="hub__entry-link" href="{{ destination.link_url | relative_url }}">{{ destination.link_text }}</a>
+      </article>
+    {% endfor %}
+  </div>
+
+  {% include contact-cta.html %}
+
+  <footer class="hub__attribution">
+    <p>Illustrations by <a href="https://undraw.co/" rel="noopener">unDraw</a> and <a href="https://www.vecteezy.com/" rel="noopener">Vecteezy</a>.</p>
+  </footer>
+</article>

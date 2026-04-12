@@ -1,0 +1,66 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+@charset "utf-8";
+
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
+@import "minimal-mistakes"; // main partials
+@import "site-foundation"; // custom shell, navigation, page, and archive layouts
+@import "hub"; // section hub layout (journey + directory modes)
+
+.site-logo img {
+   max-height:4rem
+}
+
+// ------------------------------------------------------------
+// This is all custom css by Niek
+// All custom classes start with niek so its clear 
+// the css is not part of the main theme
+
+
+// ------------------------------------------------------------
+// Install a different font
+
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito Sans";
+  src: url("../fonts/NunitoSans-VariableFont_wght.woff2") format("woff2");
+  font-weight: 200 1000;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito Sans";
+  src: url("../fonts/NunitoSans-Italic-VariableFont_wght.woff2") format("woff2");
+  font-weight: 200 1000;
+  font-style: italic;
+}
+
+// ------------------------------------------------------------
+// Class to resize image in splash screen
+
+@media only screen and (max-width: 500px) { 
+    .niek-image-width {
+        width: 100%
+    }
+}
+
+@media only screen and (min-width: 500px) {
+    .niek-image-width {
+        width: 75%
+    }
+}
+
+// ------------------------------------------------------------
+// Footnote readability
+
+.footnotes {
+  color: $text-color;
+}

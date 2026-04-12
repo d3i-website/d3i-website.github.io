@@ -1,0 +1,62 @@
+---
+layout: site-shell
+---
+
+{% assign nav_key = page.sidebar.nav %}
+{% assign archive_items = site.data[page.archive.source] %}
+{% assign featured_items = archive_items | where: "featured", true %}
+{% assign archived_items = archive_items | where_exp: "item", "item.featured != true" %}
+{% assign stripped_content = content | strip %}
+
+<article class="content-page">
+  <div class="content-page__grid{% unless nav_key %} content-page__grid--full{% endunless %}">
+    {% if nav_key %}
+      <aside class="content-page__sidebar">
+        {% include section-nav.html nav=nav_key %}
+      </aside>
+    {% endif %}
+
+    <div class="content-page__main">
+      {% include content-page-intro.html %}
+
+      <div class="archive-page archive-page--stacked">
+        <div class="archive-page__intro">
+          <div class="prose">
+            {% include content-page-hero.html %}
+            {% if stripped_content != '' %}
+              {{ content }}
+            {% endif %}
+          </div>
+        </div>
+
+        {% if featured_items.size > 0 %}
+          <section class="archive-page__section archive-page__section--featured">
+            <div class="archive-page__section-header">
+              <h2 class="archive-page__heading">{{ page.archive.featured_heading | default: "Featured" }}</h2>
+            </div>
+            <div class="archive-page__list">
+              {% for item in featured_items %}
+                {% include archive-card.html item=item featured=true %}
+              {% endfor %}
+            </div>
+          </section>
+        {% endif %}
+
+        {% if archived_items.size > 0 %}
+          <section class="archive-page__section">
+            <div class="archive-page__section-header">
+              <h2 class="archive-page__heading">{{ page.archive.heading | default: "Archive" }}</h2>
+            </div>
+            <div class="archive-page__list">
+              {% for item in archived_items %}
+                {% include archive-card.html item=item %}
+              {% endfor %}
+            </div>
+          </section>
+        {% endif %}
+      </div>
+
+      {% include contact-cta.html constrained=true %}
+    </div>
+  </div>
+</article>

@@ -1,0 +1,34 @@
+---
+layout: site-shell
+---
+
+{% assign nav_key = page.sidebar.nav %}
+{% assign stripped_content = content | strip %}
+
+<article class="content-page">
+  <div class="content-page__grid{% unless nav_key %} content-page__grid--full{% endunless %}">
+    {% if nav_key %}
+      <aside class="content-page__sidebar">
+        {% include section-nav.html nav=nav_key section_links=page.sections section_parent=page.url %}
+      </aside>
+    {% endif %}
+
+    <div class="content-page__main">
+      {% include content-page-intro.html %}
+
+      {% if stripped_content != '' %}
+        <div class="prose">
+          {% include content-page-hero.html %}
+          {{ content }}
+        </div>
+      {% elsif page.hero %}
+        <div class="prose">
+          {% include content-page-hero.html %}
+        </div>
+      {% endif %}
+
+      {% include page-sections.html %}
+      {% include contact-cta.html constrained=true %}
+    </div>
+  </div>
+</article>

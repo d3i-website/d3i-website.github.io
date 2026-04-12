@@ -1,0 +1,41 @@
+{% comment %}
+  Secondary navigation rendered immediately below the masthead on hub
+  pages — a small horizontal strip of links to the section's inner
+  pages. Hub pages use a custom layout with no left-hand sidebar, so
+  this strip gives visitors quick access to the inner pages without
+  sacrificing the hub's full-bleed visual treatment. Inner pages
+  don't render this strip; they keep their sidebar instead.
+
+  Usage:
+    {% include hub-subnav.html section=page.hub_section %}
+
+  The `section` parameter is a key in site.data.navigation (e.g.
+  "software", "community"). The include reads the first item of that
+  section and renders its `children` list as the subnav links. If
+  `section` is empty or doesn't exist, the include renders nothing.
+
+  Hub pages declare themselves by setting `hub_section: <name>` in
+  their frontmatter. _layouts/default.html passes that through
+  unconditionally, so the single include call in default.html covers
+  every hub in the site.
+
+  Visual styling lives in _sass/_hub.scss under `.hub-subnav`,
+  with the same grey tint as `.masthead__menu-item--active` so the
+  strip reads as a tab extending from the active main nav item.
+{% endcomment %}
+{% if include.section %}
+  {% assign section_data = site.data.navigation[include.section] | first %}
+  {% if section_data %}
+    <nav class="hub-subnav" aria-label="{{ section_data.title | default: include.section }}">
+      <div class="hub-subnav__inner">
+        <ul>
+          {% for child in section_data.children %}
+            <li>
+              <a href="{{ child.url | relative_url }}">{{ child.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </nav>
+  {% endif %}
+{% endif %}

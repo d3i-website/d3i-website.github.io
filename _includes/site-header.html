@@ -1,0 +1,29 @@
+{% assign main_nav = site.data.navigation.main %}
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="{{ '/' | relative_url }}">
+      <span class="site-header__name">{{ site.masthead_title | default: site.title | escape_once | strip }}</span>
+      {% if site.subtitle %}
+        <span class="site-header__subtitle">{{ site.subtitle | escape_once | strip }}</span>
+      {% endif %}
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <ul class="site-nav__list">
+        {% for link in main_nav %}
+          {% assign is_active = false %}
+          {% if link.url == page.url %}
+            {% assign is_active = true %}
+          {% elsif link.url != "/" and page.url contains link.url %}
+            {% assign is_active = true %}
+          {% endif %}
+
+          <li class="site-nav__item{% if is_active %} is-active{% endif %}">
+            <a href="{{ link.url | relative_url }}">{{ link.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+</header>

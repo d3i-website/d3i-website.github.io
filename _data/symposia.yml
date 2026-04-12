@@ -1,0 +1,44 @@
+- featured: true
+  title: "Data Donation Symposium 2026"
+  summary: "The 2026 symposium brings together applied researchers, methodologists, legal and ethical experts, research engineers, and software developers working with digital trace data."
+  details:
+    - label: "Date"
+      value: "October 1-2, 2026"
+    - label: "Location"
+      value: "Weizenbaum Institute, Berlin, Germany"
+    - label: "Submission"
+      value: "Abstracts due April 30, 2026"
+  actions:
+    - label: "Submit an abstract"
+      url: "https://dds26.platformresearch.eu/call-for-papers"
+      external: true
+    - label: "View details"
+      url: "/community/symposia/symposium-2026"
+- title: "Data Donation Symposium 2025"
+  date_label: "October 9-10, 2025"
+  location: "Munich, Germany"
+  summary: "Hosted by our colleagues at the Bavarian Academy of Sciences and Humanities."
+  actions:
+    - label: "View details"
+      url: "/community/symposia/symposium-2025"
+- title: "Data Donation Symposium 2024"
+  date_label: "May 30-31, 2024"
+  location: "Amsterdam, The Netherlands"
+  summary: "Photos, program, and materials from our Amsterdam event."
+  actions:
+    - label: "View details"
+      url: "/community/symposia/symposium-2024"
+- title: "Data Donation Symposium 2023"
+  location: "University of Zurich"
+  summary: "Program and materials from the Zurich edition."
+  actions:
+    - label: "View details"
+      url: "https://datadonation.uzh.ch/en/symposium-2023/"
+      external: true
+- title: "Data Donation Day 2022"
+  location: "Utrecht University"
+  summary: "The earlier Utrecht event that helped shape the current symposium series."
+  actions:
+    - label: "View details"
+      url: "https://hds.sites.uu.nl/2022/01/15/data-donation-day/"
+      external: true

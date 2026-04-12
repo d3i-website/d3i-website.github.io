@@ -1,0 +1,45 @@
+---
+layout: site-shell
+---
+
+<article class="hub hub--journey" itemscope itemtype="https://schema.org/CreativeWork">
+  {% if page.hero %}
+    <section class="hub__hero">
+      <div class="hub__hero-image">
+        <img src="{{ page.hero.image | relative_url }}" alt="{{ page.hero.image_alt | default: '' }}">
+      </div>
+      <div class="hub__hero-text">
+        <h1 class="hub__hero-title">{{ page.hero.title }}</h1>
+        {% if page.hero.subhead %}
+          <p class="hub__hero-subhead">{{ page.hero.subhead }}</p>
+        {% endif %}
+      </div>
+    </section>
+  {% endif %}
+
+  <section class="hub__movements">
+    {% for movement in page.movements %}
+      <article class="hub__movement hub__movement--{% cycle 'left', 'right' %}">
+        <div class="hub__movement-image">
+          <img src="{{ movement.image | relative_url }}" alt="{{ movement.image_alt | default: '' }}">
+        </div>
+        <div class="hub__movement-text">
+          <span class="hub__movement-number" aria-hidden="true">{{ movement.number }}</span>
+          <h2 class="hub__movement-title">{{ movement.title }}</h2>
+          <p class="hub__movement-body">{{ movement.body }}</p>
+          {% if movement.link %}
+            <a class="hub__movement-link" href="{{ movement.link.url | relative_url }}">
+              {{ movement.link.text }} <span aria-hidden="true">→</span>
+            </a>
+          {% endif %}
+        </div>
+      </article>
+    {% endfor %}
+  </section>
+
+  {% include contact-cta.html %}
+
+  <footer class="hub__attribution">
+    <p>Illustrations by <a href="https://undraw.co/" rel="noopener">unDraw</a> and <a href="https://www.vecteezy.com/" rel="noopener">Vecteezy</a>.</p>
+  </footer>
+</article>

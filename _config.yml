@@ -1,0 +1,116 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+#
+# If you need help with YAML syntax, here are some quick references for you:
+# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
+# https://learnxinyminutes.com/docs/yaml/
+#
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+
+title: "D3I: A digital data donation infrastructure"
+email: your-email@example.com
+description: >- # this means to ignore newlines until "baseurl:"
+  Europe's data donation infrastructure
+  
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://datadonation.eu" # the base hostname & protocol for your site, e.g. http://example.com
+
+# Build settings
+theme: minimal-mistakes-jekyll
+
+plugins:
+  - jekyll-redirect-from
+  - jekyll-feed
+  - jekyll-include-cache
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-paginate
+  - jekyll-gist
+  - jemoji
+  
+# Performance optimizations
+# incremental: true disabled — produces stale/empty output when layouts,
+# includes, or data files change without source pages being touched.
+# Full rebuilds on this site take ~1 second so the trade-off isn't worth it.
+incremental: false
+strict_front_matter: false  # Start with false, enable later
+relative-permalinks: false
+
+# Custom settings
+minimal_mistakes_skin: "default"
+logo: ""
+masthead_title: |
+  datadonation.eu
+footer_scripts:
+  - /assets/js/site-main.min.js
+atom_feed: # Disables RSS feed in footer
+  hide: true
+
+category_archive:
+  type: jekyll-archives
+  path: /categories/
+tag_archive:
+  type: jekyll-archives
+  path: /tags/
+year_archive:
+  type: jekyll-archives
+  path: year
+jekyll-archives:
+  enabled:
+    - categories
+    - tags
+    - year
+  layouts:
+    category: archive-taxonomy
+    tag: archive-taxonomy
+    year: year-archive
+  permalinks:
+    category: /categories/:name/
+    tag: /tags/:name/
+
+# Sass configuration
+sass:
+  style: compressed
+  sourcemap: never
+  
+# Improved exclude list
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - .github/
+  - README.md
+  - LICENSE
+  - migration-backup/
+  - docs/pre-migration-*
+  - "*.backup"
+
+include:
+  - _pages
+  - .well-known
+
+# Custom URLs and links
+newsletter_signup_url: "https://mailings.uu.nl/hp/yGi2REuD3coZozpdzieiGg/subscribe_newsletter_data_donation"
+open_letter_url: "https://dsa40collaboratory.eu/open-letter-omnibus/"
+phd_network_signup_url: "https://mailings.uu.nl/hp/BsTM1OxHcH5nTdpEqXAkMg/subscribe_newsletter_data_donation_network"
+
+
+

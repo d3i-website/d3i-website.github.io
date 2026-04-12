@@ -1,0 +1,23 @@
+---
+---
+
+<!doctype html>
+<html lang="{{ site.locale | slice: 0,2 | default: "en" }}" class="no-js">
+  <head>
+    {% include head.html %}
+    {% include head/custom.html %}
+  </head>
+
+  <body class="site-shell layout--{{ page.layout }}">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    {% include site-header.html %}
+    {% include section-subnav.html section=page.hub_section %}
+
+    <main id="main-content" class="site-main">
+      {{ content }}
+    </main>
+
+    {% include site-footer.html %}
+    {% include scripts.html %}
+  </body>
+</html>

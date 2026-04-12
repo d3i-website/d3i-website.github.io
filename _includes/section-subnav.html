@@ -1,0 +1,16 @@
+{% if include.section %}
+  {% assign section_data = site.data.navigation[include.section] | first %}
+  {% if section_data and section_data.children %}
+    <nav class="section-subnav" aria-label="{{ section_data.title | default: include.section }}">
+      <div class="section-subnav__inner">
+        <ul class="section-subnav__list">
+          {% for child in section_data.children %}
+            <li class="section-subnav__item{% if child.url == page.url %} is-active{% endif %}">
+              <a href="{{ child.url | relative_url }}">{{ child.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </nav>
+  {% endif %}
+{% endif %}

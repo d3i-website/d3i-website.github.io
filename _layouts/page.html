@@ -1,0 +1,44 @@
+---
+layout: site-shell
+---
+
+{% assign nav_key = page.sidebar.nav %}
+{% assign stripped_content = content | strip %}
+
+<article class="content-page">
+  <div class="content-page__grid{% unless nav_key %} content-page__grid--full{% endunless %}">
+    {% if nav_key %}
+      <aside class="content-page__sidebar">
+        {% include section-nav.html nav=nav_key %}
+      </aside>
+    {% endif %}
+
+    <div class="content-page__main">
+      {% include content-page-intro.html %}
+
+      {% if page.toc %}
+        <nav class="content-page__toc" aria-label="{{ page.toc_label | default: 'Contents' }}">
+          <p class="content-page__toc-title">{{ page.toc_label | default: "Contents" }}</p>
+          {% include toc.html sanitize=true html=content h_min=1 h_max=6 class="toc__menu" skip_no_ids=true %}
+        </nav>
+      {% endif %}
+
+      {% if stripped_content != '' %}
+        {% if page.prose == false %}
+          {{ content }}
+        {% else %}
+          <div class="prose">
+            {% include content-page-hero.html %}
+            {{ content }}
+          </div>
+        {% endif %}
+      {% elsif page.hero %}
+        <div class="prose">
+          {% include content-page-hero.html %}
+        </div>
+      {% endif %}
+
+      {% include contact-cta.html constrained=true %}
+    </div>
+  </div>
+</article>

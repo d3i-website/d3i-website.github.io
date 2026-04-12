@@ -1,0 +1,45 @@
+---
+layout: site-shell
+---
+
+{% assign nav_key = page.sidebar.nav %}
+{% assign archive_items = site.data[page.archive.source] %}
+{% assign stripped_content = content | strip %}
+
+<article class="content-page">
+  <div class="content-page__grid{% unless nav_key %} content-page__grid--full{% endunless %}">
+    {% if nav_key %}
+      <aside class="content-page__sidebar">
+        {% include section-nav.html nav=nav_key %}
+      </aside>
+    {% endif %}
+
+    <div class="content-page__main">
+      {% include content-page-intro.html %}
+
+      <div class="archive-page archive-page--sidebar">
+        <div class="archive-page__intro">
+          <div class="prose">
+            {% include content-page-hero.html %}
+            {% if stripped_content != '' %}
+              {{ content }}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      {% include contact-cta.html constrained=true %}
+    </div>
+
+    {% if archive_items.size > 0 %}
+      <aside class="content-page__sidebar-secondary">
+        <div class="sidebar-panel">
+          <h2 class="sidebar-panel__title">{{ page.archive.heading | default: "Archive" }}</h2>
+          <div class="sidebar-panel__body">
+            {% include sidebar-panel-items.html items=archive_items %}
+          </div>
+        </div>
+      </aside>
+    {% endif %}
+  </div>
+</article>

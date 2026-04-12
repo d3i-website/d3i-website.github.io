@@ -1,0 +1,33 @@
+{% if page.sections %}
+  <div class="page-sections">
+    {% for section in page.sections %}
+      {% assign section_id = section.id | default: section.title | slugify %}
+      {% assign image_side = section.image_side | default: 'right' %}
+      <div id="{{ section_id }}" class="page-section-block">
+        <section class="page-section{% if section.image %} page-section--with-image page-section--image-{{ image_side }}{% endif %}">
+          <div class="page-section__body">
+          <h2 class="page-section__title">{{ section.title }}</h2>
+          {% if section.image %}
+            <figure class="page-section__figure page-section__figure--{{ image_side }}">
+              <img src="{{ section.image | relative_url }}" alt="{{ section.image_alt | default: '' }}">
+            </figure>
+          {% endif %}
+          {% if section.body %}
+            <div class="page-section__prose">{{ section.body | markdownify }}</div>
+          {% endif %}
+
+          </div>
+        </section>
+
+        {% if section.component %}
+          {% if section.component_title %}
+            <h3 class="page-section__component-title">{{ section.component_title }}</h3>
+          {% endif %}
+          {% if section.component == 'institutions-grid' %}
+            {% include institutions-grid.html %}
+          {% endif %}
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
