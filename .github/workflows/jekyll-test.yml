@@ -1,0 +1,38 @@
+name: Test Jekyll Build
+
+on:
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Check Jekyll configuration
+        run: bundle exec jekyll doctor
+
+      - name: Build site
+        run: bundle exec jekyll build --verbose
+        env:
+          JEKYLL_ENV: test
+
+      - name: Check for build artifacts
+        run: |
+          if [ ! -d "_site" ]; then
+            echo "Error: _site directory not created"
+            exit 1
+          fi
+          echo "Build successful - _site directory exists"
+          
+      - name: List generated pages
+        run: find _site -name "*.html" | head -20
