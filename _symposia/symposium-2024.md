@@ -3,12 +3,15 @@ title: "Data Donation Symposium 2024"
 date: 2024-05-30
 end_date: 2024-05-31
 location: "University of Amsterdam, The Netherlands"
-description: "Photos, programme, keynote by Melinda Mills, and materials from the Amsterdam event."
+summary: "Photos, programme, keynote by Melinda Mills, and materials from the Amsterdam event."
+# Optional venue/event photo — reserved for a future card/detail-page treatment.
+# image:
+#   src: /assets/images/symposia/2024-amsterdam.jpg
+#   alt: ""
+#   credit: ""
 layout: page
 sidebar:
   nav: "community"
-redirect_from:
-  - /community/symposia/symposium-2024
 ---
 
 At Data Donation Symposium 2024 we bring together applied researchers, methodologists, legal and ethical experts, research engineers and software developers with an interest in using digital trace data for scientific research purposes.

@@ -56,6 +56,9 @@ collections:
     output: true
     permalink: /community/symposia/:path/
 
+# Publish collection documents dated in the future (e.g. upcoming symposia)
+future: true
+
 # Custom URLs
 newsletter_signup_url: "https://mailings.uu.nl/hp/yGi2REuD3coZozpdzieiGg/subscribe_newsletter_data_donation"
 open_letter_url: "https://dsa40collaboratory.eu/open-letter-omnibus/"

@@ -1,13 +1,42 @@
 {% assign item = include.item %}
 {% assign is_featured = include.featured %}
 
+{% comment %}
+  Resolve the default "details" link. Hosted collection items have their own
+  D3I page (item.url) and should link there; external-only archive entries
+  fall through to external_url. This ordering preserves the pre-refactor
+  behavior where "View details" on hosted events pointed at the D3I page.
+{% endcomment %}
+{% assign fallback_href = nil %}
+{% assign fallback_external = false %}
+{% if item.url %}
+  {% assign fallback_href = item.url | relative_url %}
+{% elsif item.external_url %}
+  {% assign fallback_href = item.external_url %}
+  {% assign fallback_external = true %}
+{% endif %}
+
 <article class="archive-card{% if is_featured %} archive-card--featured{% endif %}">
   <div class="archive-card__content">
     <h3 class="archive-card__title">{{ item.title }}</h3>
 
     {% assign meta_text = item.date_label %}
     {% if meta_text == nil and item.date %}
-      {% assign meta_text = item.date | date: "%B %Y" %}
+      {% assign start_month = item.date | date: "%B" %}
+      {% assign start_day = item.date | date: "%-d" %}
+      {% assign start_year = item.date | date: "%Y" %}
+      {% if item.end_date %}
+        {% assign end_month = item.end_date | date: "%B" %}
+        {% assign end_day = item.end_date | date: "%-d" %}
+        {% assign end_year = item.end_date | date: "%Y" %}
+        {% if start_month == end_month and start_year == end_year %}
+          {% assign meta_text = start_month | append: " " | append: start_day | append: "-" | append: end_day | append: ", " | append: start_year %}
+        {% else %}
+          {% assign meta_text = start_month | append: " " | append: start_day | append: " - " | append: end_month | append: " " | append: end_day | append: ", " | append: end_year %}
+        {% endif %}
+      {% else %}
+        {% assign meta_text = start_month | append: " " | append: start_day | append: ", " | append: start_year %}
+      {% endif %}
     {% endif %}
     {% if item.location %}
       {% if meta_text %}
@@ -42,7 +71,7 @@
     {% endif %}
   </div>
 
-  {% if item.actions or item.url %}
+  {% if item.actions or fallback_href %}
     <div class="archive-card__actions">
       {% if item.actions %}
         {% for action in item.actions %}
@@ -51,10 +80,11 @@
           {% else %}
             {% assign action_href = action.url | relative_url %}
           {% endif %}
-          <a class="section-cta" href="{{ action_href }}"{% if action.external %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ action.label }} <span aria-hidden="true">→</span></a>
+          <a class="cta-link" href="{{ action_href }}"{% if action.external %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ action.label }} <span aria-hidden="true">→</span></a>
         {% endfor %}
-      {% elsif item.url %}
-        <a class="section-cta" href="{{ item.url | relative_url }}">{% if item.link_text %}{{ item.link_text }}{% else %}Read more{% endif %} <span aria-hidden="true">→</span></a>
+      {% endif %}
+      {% if fallback_href %}
+        <a class="cta-link" href="{{ fallback_href }}"{% if fallback_external %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ item.link_text | default: "View details" }} <span aria-hidden="true">→</span></a>
       {% endif %}
     </div>
   {% endif %}

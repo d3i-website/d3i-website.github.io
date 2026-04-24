@@ -3,13 +3,16 @@ title: "Data Donation Symposium 2025"
 date: 2025-10-09
 end_date: 2025-10-10
 location: "Bavarian Academy of Sciences and Humanities, Munich, Germany"
-description: "Hosted by colleagues at the Bavarian Academy of Sciences and Humanities."
+summary: "Hosted by colleagues at the Bavarian Academy of Sciences and Humanities."
 external_url: https://data-donation-symposium.ifkw.lmu.de/
+# Optional venue/event photo — reserved for a future card/detail-page treatment.
+# image:
+#   src: /assets/images/symposia/2025-munich.jpg
+#   alt: ""
+#   credit: ""
 layout: page
 sidebar:
   nav: "community"
-redirect_from:
-  - /community/symposia/symposium-2025
 ---
 
 ## Data Donation Symposium 2025
