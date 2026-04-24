@@ -3,9 +3,26 @@ layout: site-shell
 ---
 
 {% assign nav_key = page.sidebar.nav %}
-{% assign archive_items = site.data[page.archive.source] %}
+
+{% comment %}
+  An archive page can source its items from either a data file
+  (page.archive.source) or a Jekyll collection (page.archive.collection).
+  Collection items are sorted by date descending so upcoming/recent events
+  appear first. page.archive.external_source optionally appends a data-file
+  list of link-only entries (e.g. past events we didn't host) after the
+  main archive list.
+{% endcomment %}
+{% if page.archive.collection %}
+  {% assign archive_items = site[page.archive.collection] | sort: "date" | reverse %}
+{% else %}
+  {% assign archive_items = site.data[page.archive.source] %}
+{% endif %}
 {% assign featured_items = archive_items | where: "featured", true %}
 {% assign archived_items = archive_items | where_exp: "item", "item.featured != true" %}
+{% if page.archive.external_source %}
+  {% assign external_items = site.data[page.archive.external_source] %}
+  {% assign archived_items = archived_items | concat: external_items %}
+{% endif %}
 {% assign stripped_content = content | strip %}
 
 <article class="content-page">

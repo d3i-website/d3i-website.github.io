@@ -3,14 +3,28 @@ title: "Data Donation Symposium 2026"
 date: 2026-10-01
 end_date: 2026-10-02
 location: "Weizenbaum Institute, Berlin, Germany"
-description: "Annual gathering of researchers, methodologists, legal experts, and engineers. Abstracts due April 30."
+summary: "The 2026 symposium brings together applied researchers, methodologists, legal and ethical experts, research engineers, and software developers working with digital trace data."
 external_url: https://dds26.platformresearch.eu/
 featured: true
+# Optional venue/event photo — reserved for a future card/detail-page treatment.
+# image:
+#   src: /assets/images/symposia/2026-weizenbaum.jpg
+#   alt: ""
+#   credit: ""
+details:
+  - label: "Date"
+    value: "October 1-2, 2026"
+  - label: "Location"
+    value: "Weizenbaum Institute, Berlin, Germany"
+  - label: "Submission"
+    value: "Abstracts due April 30, 2026"
+actions:
+  - label: "Submit an abstract"
+    url: "https://dds26.platformresearch.eu/call-for-papers"
+    external: true
 layout: page
 sidebar:
   nav: "community"
-redirect_from:
-  - /community/symposia/symposium-2026
 ---
 
 **Date:** October 1-2, 2026
