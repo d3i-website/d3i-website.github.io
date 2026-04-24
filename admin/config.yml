@@ -1,0 +1,37 @@
+backend:
+  name: github
+  repo: d3i-website/d3i-website.github.io
+  branch: main
+
+media_folder: assets/images/people
+public_folder: /assets/images/people
+
+collections:
+  - name: team
+    label: "Team"
+    files:
+      - file: _data/team.yml
+        name: members
+        label: "Team members"
+        description: "People listed on the Team page, grouped by role."
+        fields:
+          - name: members
+            label: "Members"
+            label_singular: "Member"
+            widget: list
+            summary: "{{fields.name}} — {{fields.role}}"
+            fields:
+              - { name: name, label: "Name", widget: string }
+              - { name: role, label: "Role / title", widget: string }
+              - name: group
+                label: "Group"
+                widget: select
+                options:
+                  - { label: "Lead researchers", value: lead }
+                  - { label: "Research engineers", value: engineer }
+                  - { label: "Methodologists", value: methodologist }
+                  - { label: "Legal scholars", value: legal }
+                  - { label: "Affiliated researchers", value: affiliated }
+                  - { label: "Alumni", value: alumni }
+              - { name: image, label: "Photo", widget: image }
+              - { name: url, label: "Profile URL", widget: string, required: false }
