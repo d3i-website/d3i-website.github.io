@@ -2,9 +2,18 @@ backend:
   name: github
   repo: d3i-website/d3i-website.github.io
   branch: main
+  auth_type: implicit
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
 
-media_folder: assets/images/people
-public_folder: /assets/images/people
+publish_mode: editorial_workflow
+
+site_url: https://datadonation.eu
+display_url: https://datadonation.eu
+logo_url: https://datadonation.eu/assets/images/datadonation-eu-logo.svg
+
+media_folder: assets/images
+public_folder: /assets/images
 
 collections:
   - name: team
@@ -33,5 +42,11 @@ collections:
                   - { label: "Legal scholars", value: legal }
                   - { label: "Affiliated researchers", value: affiliated }
                   - { label: "Alumni", value: alumni }
-              - { name: image, label: "Photo", widget: image }
+              - name: image
+                label: "Photo"
+                widget: image
+                media_folder: /assets/images/people
+                public_folder: /assets/images/people
+                choose_url: false
+                max_file_size: 2097152
               - { name: url, label: "Profile URL", widget: string, required: false }
