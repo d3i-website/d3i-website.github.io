@@ -84,3 +84,24 @@ collections:
             fields:
               - { name: name, label: "Name", widget: string }
               - { name: url, label: "Profile URL", widget: string, required: false }
+
+  - name: funding
+    label: "Funding"
+    files:
+      - file: _data/funding.yml
+        name: funding
+        label: "Funding sources"
+        description: "Grants and funders on the Funding page."
+        format: yml
+        fields:
+          - name: funding
+            label: "Funding entries"
+            label_singular: "Funding entry"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "Title", widget: string }
+              - { name: period, label: "Period (e.g. 2024 – 2028, or 'permanent')", widget: string, required: false }
+              - { name: funder, label: "Funder", widget: string }
+              - { name: url, label: "Link (optional)", widget: string, required: false }
+              - { name: description, label: "Description", widget: text }
