@@ -95,15 +95,15 @@ After publishing, Danielle takes care of resetting `cms-staging` so the next ses
 
 After you publish (squash-merge the PR), the site takes about 1-2 minutes to rebuild.
 
-- **Live URL**: https://d3i-website.github.io/
+- **Staging URL**: https://d3i-website.github.io/
 - **Build status page**: https://github.com/d3i-website/d3i-website.github.io/actions
 
-Green check = built successfully, your change is live.
+Green check = built successfully, your change is live on staging.
 Red X = build failed. Email Danielle with a screenshot.
 
 ## Production (datadonation.eu)
 
-Danielle promotes the GitHub Pages staging site to production (datadonation.eu) when you tell her you're ready.
+After staging looks good, Danielle approves the production deployment to push your changes to datadonation.eu. The deploy workflow waits for her approval — until she clicks Approve in GitHub Actions, datadonation.eu shows the previous version. Tell her when you're ready.
 
 ## Three things to know
 
