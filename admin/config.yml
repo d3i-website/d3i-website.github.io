@@ -66,3 +66,21 @@ collections:
               - { name: affiliate_url, label: "Affiliate profile URL", widget: string, required: false }
               - { name: department, label: "Department", widget: string, required: false }
               - { name: country, label: "Country", widget: string }
+
+  - name: advisors
+    label: "Advisory Board"
+    files:
+      - file: _data/advisors.yml
+        name: advisors
+        label: "Advisors"
+        description: "Members of the advisory board."
+        format: yml
+        fields:
+          - name: advisors
+            label: "Advisors"
+            label_singular: "Advisor"
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: "Name", widget: string }
+              - { name: url, label: "Profile URL", widget: string, required: false }
