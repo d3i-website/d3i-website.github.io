@@ -162,3 +162,46 @@ collections:
                   - { name: label, label: "Button label", widget: string }
                   - { name: url, label: "URL", widget: string }
                   - { name: external, label: "External link?", widget: boolean, required: false, default: false }
+
+  - name: completed_projects
+    label: "Completed projects"
+    files:
+      - file: _data/completed-projects.yml
+        name: completed_projects
+        label: "Completed projects"
+        description: "Finished studies shown on the Completed projects page."
+        format: yml
+        fields:
+          - name: completed_projects
+            label: "Projects"
+            label_singular: "Project"
+            widget: list
+            summary: "{{fields.title}} ({{fields.year}})"
+            fields:
+              - { name: title, label: "Title", widget: string }
+              - { name: year, label: "Year", widget: number, value_type: int, min: 2000, max: 2100 }
+              - name: image
+                label: "Cover image"
+                widget: image
+                required: false
+                media_folder: /assets/images/completed-projects
+                public_folder: /assets/images/completed-projects
+                choose_url: false
+                max_file_size: 2097152
+              - { name: image_credit, label: "Image credit (text)", widget: string, required: false }
+              - { name: image_credit_url, label: "Image credit URL", widget: string, required: false }
+              - { name: investigators, label: "Investigators (markdown)", widget: text }
+              - { name: summary, label: "Summary (markdown)", widget: text }
+              - { name: collection_period, label: "Data collection period", widget: string, required: false }
+              - { name: recruitment, label: "Recruitment (markdown)", widget: text, required: false }
+              - { name: instructions, label: "Instructions (markdown)", widget: text, required: false }
+              - { name: ethical_review, label: "Ethical review (markdown)", widget: text, required: false }
+              - { name: software, label: "Software used", widget: string, required: false }
+              - { name: local_processing, label: "Local processing link (markdown)", widget: text, required: false }
+              - { name: data, label: "Data availability (markdown)", widget: text, required: false }
+              - { name: acknowledgements, label: "Acknowledgements (markdown)", widget: text, required: false }
+              - name: references
+                label: "References"
+                widget: list
+                required: false
+                field: { name: reference, label: "Reference (markdown)", widget: text }
