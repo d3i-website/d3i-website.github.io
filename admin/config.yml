@@ -205,3 +205,24 @@ collections:
                 widget: list
                 required: false
                 field: { name: reference, label: "Reference (markdown)", widget: text }
+
+  - name: newsletters
+    label: "Newsletters"
+    files:
+      - file: _data/newsletters.yml
+        name: newsletters
+        label: "Newsletters"
+        description: "Newsletter issues linked from the Newsletter page."
+        format: yml
+        fields:
+          - name: newsletters
+            label: "Newsletters"
+            label_singular: "Newsletter"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "Title", widget: string }
+              - { name: date, label: "Date", widget: date }
+              - { name: url, label: "URL (site-relative or absolute)", widget: string }
+              - { name: summary, label: "Summary", widget: text }
+              - { name: link_text, label: "Link text (e.g. 'Open newsletter')", widget: string, required: false }
