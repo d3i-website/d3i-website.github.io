@@ -125,3 +125,40 @@ collections:
               - { name: url, label: "Website", widget: string, required: false }
               - { name: role, label: "Role / relationship", widget: string, required: false }
               - { name: description, label: "Description", widget: text }
+
+  - name: courses
+    label: "Courses"
+    files:
+      - file: _data/courses.yml
+        name: courses
+        label: "Courses"
+        description: "Workshops and courses listed on the Courses page."
+        format: yml
+        fields:
+          - name: courses
+            label: "Courses"
+            label_singular: "Course"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: featured, label: "Featured (show prominently)", widget: boolean, required: false, default: false }
+              - { name: title, label: "Title", widget: string }
+              - { name: summary, label: "Summary", widget: text }
+              - { name: date_label, label: "Date label (e.g. 'July 2025') — use for past courses", widget: string, required: false }
+              - { name: location, label: "Location (for past courses)", widget: string, required: false }
+              - name: details
+                label: "Details (label/value pairs; for featured courses)"
+                widget: list
+                required: false
+                fields:
+                  - { name: label, label: "Label (e.g. 'When', 'Where')", widget: string }
+                  - { name: value, label: "Value", widget: string }
+                  - { name: markdown, label: "Value contains markdown?", widget: boolean, required: false, default: false }
+              - name: actions
+                label: "Actions (buttons)"
+                widget: list
+                required: false
+                fields:
+                  - { name: label, label: "Button label", widget: string }
+                  - { name: url, label: "URL", widget: string }
+                  - { name: external, label: "External link?", widget: boolean, required: false, default: false }
