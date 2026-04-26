@@ -247,3 +247,26 @@ collections:
               - { name: location, label: "Location", widget: string }
               - { name: summary, label: "Summary", widget: text }
               - { name: external_url, label: "External URL (the event's own site)", widget: string }
+
+  - name: pages
+    label: "Pages"
+    files:
+      - file: _pages/about-d3i/team.md
+        name: team_page
+        label: "About → Team"
+        description: "The Team page intro prose. Team members themselves are edited via the 'Team' collection."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - { name: permalink, label: "URL path", widget: hidden, default: "/about-d3i/team" }
+          - { name: layout, label: "Layout", widget: hidden, default: "page" }
+          - { name: redirect_from, label: "Redirects", widget: hidden, default: ["/about-the-project/team", "/d3i/team"] }
+          - { name: sidebar, label: "Sidebar config", widget: object, fields: [{ name: nav, label: "Nav key", widget: hidden, default: "about-d3i" }] }
+          - { name: data_section, label: "Data section config", widget: object, fields: [{ name: type, widget: hidden, default: "people-grid" }, { name: data, widget: hidden, default: "team" }] }
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: email, label: "Email address", widget: string }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: body, label: "Intro prose (markdown)", widget: markdown, hint: "Short prose shown above the team grid. Keep it brief — the grid itself is the main content." }
