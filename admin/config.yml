@@ -308,3 +308,50 @@ collections:
                 max_file_size: 2097152
               - { name: caption, label: "Caption (also used as alt text)", widget: string }
           - { name: body, label: "Page body (markdown)", widget: markdown, hint: "Prose for the page. The 'Usage plots' field above is rendered automatically after this body — do not add image includes here." }
+      - file: _pages/community/network.md
+        name: network_page
+        label: "Community → Networks"
+        description: "The Community Networks page, with the institutional and PhD network sections."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - { name: excerpt, label: "SEO excerpt", widget: string }
+          - { name: permalink, widget: hidden, default: "/community/institutional-network" }
+          - { name: layout, widget: hidden, default: "page-sections" }
+          - { name: classes, widget: hidden, default: "wide" }
+          - { name: sidebar, widget: object, fields: [{ name: nav, widget: hidden, default: "community" }] }
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string }
+              - { name: subject, label: "Email subject", widget: string }
+          - name: sections
+            label: "Page sections"
+            widget: list
+            label_singular: "Section"
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "Section title", widget: string }
+              - name: image
+                label: "Illustration"
+                widget: image
+                media_folder: /assets/images/hub
+                public_folder: /assets/images/hub
+                choose_url: false
+                max_file_size: 2097152
+              - { name: image_alt, label: "Image alt text (required)", widget: string }
+              - name: image_side
+                label: "Image side"
+                widget: select
+                options: [left, right]
+                default: right
+              - { name: body, label: "Section body (markdown)", widget: markdown, hint: "Prose for this section. Placeholders like {{ site.phd_network_signup_url }} are templating — leave them exactly as-is." }
+              - { name: component_title, label: "Embedded component heading (optional)", widget: string, required: false }
+              - { name: component, label: "Embedded component ID (e.g. 'institutions-grid')", widget: string, required: false }
