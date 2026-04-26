@@ -1,4 +1,4 @@
-{% assign items = site.data[include.data] %}
+{% assign items = site.data[include.data].members %}
 {% for group in site.team_groups %}
   {% assign members = items | where: "group", group.key %}
   {% if members.size > 0 %}

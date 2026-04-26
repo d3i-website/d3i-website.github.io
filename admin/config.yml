@@ -1,0 +1,52 @@
+backend:
+  name: github
+  repo: d3i-website/d3i-website.github.io
+  branch: main
+  auth_type: implicit
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+
+publish_mode: editorial_workflow
+
+site_url: https://datadonation.eu
+display_url: https://datadonation.eu
+logo_url: https://datadonation.eu/assets/images/datadonation-eu-logo.svg
+
+media_folder: assets/images
+public_folder: /assets/images
+
+collections:
+  - name: team
+    label: "Team"
+    files:
+      - file: _data/team.yml
+        name: members
+        label: "Team members"
+        description: "People listed on the Team page, grouped by role."
+        fields:
+          - name: members
+            label: "Members"
+            label_singular: "Member"
+            widget: list
+            summary: "{{fields.name}} — {{fields.role}}"
+            fields:
+              - { name: name, label: "Name", widget: string }
+              - { name: role, label: "Role / title", widget: string }
+              - name: group
+                label: "Group"
+                widget: select
+                options:
+                  - { label: "Lead researchers", value: lead }
+                  - { label: "Research engineers", value: engineer }
+                  - { label: "Methodologists", value: methodologist }
+                  - { label: "Legal scholars", value: legal }
+                  - { label: "Affiliated researchers", value: affiliated }
+                  - { label: "Alumni", value: alumni }
+              - name: image
+                label: "Photo"
+                widget: image
+                media_folder: /assets/images/people
+                public_folder: /assets/images/people
+                choose_url: false
+                max_file_size: 2097152
+              - { name: url, label: "Profile URL", widget: string, required: false }

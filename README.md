@@ -44,6 +44,14 @@ In order to develop this site locally:
 5. Run: `bundle install` to install the necessary gems
 6. Run: `bundle exec jekyll serve` and the site should be hosted at `http://localhost:4000`
 
+**Content editing (local CMS preview)**
+
+A local-only [Sveltia CMS](https://sveltiacms.app) demo is wired to `_data/team.yml`. It edits your working copy directly via the browser's File System Access API — no proxy, no auth, nothing deploys.
+
+1. Run the site: `bundle exec jekyll serve`
+2. In a Chromium-based browser (Chrome/Edge/Brave), open: `http://localhost:4000/admin/`
+3. When prompted, grant access to this repository's folder. Changes save as regular file edits you can inspect with `git diff`.
+
 **Theme Minimal mistakes**
 
 This site uses [Minimal Mistakes](https://mmistakes.github.io/minimal-mistakes/) as the basis for its theme. 
