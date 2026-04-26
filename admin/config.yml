@@ -270,3 +270,41 @@ collections:
               - { name: email, label: "Email address", widget: string }
               - { name: subject, label: "Email subject", widget: string }
           - { name: body, label: "Intro prose (markdown)", widget: markdown, hint: "Short prose shown above the team grid. Keep it brief — the grid itself is the main content." }
+      - file: _pages/about-d3i/impact-and-adoption.md
+        name: impact_page
+        label: "About → Impact and adoption"
+        description: "The Impact and adoption page, including usage plots and the 'help us track' CTA."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - { name: permalink, widget: hidden, default: "/about-d3i/impact-and-adoption" }
+          - { name: layout, widget: hidden, default: "page" }
+          - { name: redirect_from, widget: hidden, default: ["/software/usage/"] }
+          - { name: sidebar, widget: object, fields: [{ name: nav, widget: hidden, default: "about-d3i" }] }
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points (optional)"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string }
+              - { name: subject, label: "Email subject", widget: string }
+          - name: usage_images
+            label: "Usage plots"
+            widget: list
+            required: false
+            summary: "{{fields.caption}}"
+            fields:
+              - name: image
+                label: "Plot image"
+                widget: image
+                media_folder: /assets/images/usage
+                public_folder: /assets/images/usage
+                choose_url: false
+                max_file_size: 2097152
+              - { name: caption, label: "Caption (also used as alt text)", widget: string }
+          - { name: body, label: "Page body (markdown)", widget: markdown, hint: "Prose for the page. The 'Usage plots' field above is rendered automatically after this body — do not add image includes here." }
