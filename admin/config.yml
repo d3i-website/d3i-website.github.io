@@ -44,6 +44,7 @@ collections:
                 public_folder: /assets/images/people
                 choose_url: false
                 max_file_size: 2097152
+                accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: url, label: "Profile URL", widget: string, required: false }
 
   - name: institutions
@@ -188,6 +189,7 @@ collections:
                 public_folder: /assets/images/completed-projects
                 choose_url: false
                 max_file_size: 2097152
+                accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: image_credit, label: "Image credit (text)", widget: string, required: false }
               - { name: image_credit_url, label: "Image credit URL", widget: string, required: false }
               - { name: investigators, label: "Investigators (markdown)", widget: text }
@@ -306,6 +308,7 @@ collections:
                 public_folder: /assets/images/usage
                 choose_url: false
                 max_file_size: 2097152
+                accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: caption, label: "Caption (also used as alt text)", widget: string }
           - { name: body, label: "Page body (markdown)", widget: markdown, hint: "Prose for the page. The 'Usage plots' field above is rendered automatically after this body — do not add image includes here." }
       - file: _pages/community/network.md
@@ -346,6 +349,7 @@ collections:
                 public_folder: /assets/images/hub
                 choose_url: false
                 max_file_size: 2097152
+                accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: image_alt, label: "Image alt text (required)", widget: string }
               - name: image_side
                 label: "Image side"
