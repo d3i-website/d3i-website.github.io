@@ -3,14 +3,15 @@
 # the two separate prevents the duplication bug this file was created to
 # replace.
 
-- title: "Data Donation Symposium 2023"
-  year: 2023
-  location: "University of Zurich"
-  summary: "Program and materials from the Zurich edition."
-  external_url: "https://datadonation.uzh.ch/en/symposium-2023/"
+past_events:
+  - title: "Data Donation Symposium 2023"
+    year: 2023
+    location: "University of Zurich"
+    summary: "Program and materials from the Zurich edition."
+    external_url: "https://datadonation.uzh.ch/en/symposium-2023/"
 
-- title: "Data Donation Day 2022"
-  year: 2022
-  location: "Utrecht University"
-  summary: "The earlier Utrecht event that helped shape the current symposium series."
-  external_url: "https://hds.sites.uu.nl/2022/01/15/data-donation-day/"
+  - title: "Data Donation Day 2022"
+    year: 2022
+    location: "Utrecht University"
+    summary: "The earlier Utrecht event that helped shape the current symposium series."
+    external_url: "https://hds.sites.uu.nl/2022/01/15/data-donation-day/"
