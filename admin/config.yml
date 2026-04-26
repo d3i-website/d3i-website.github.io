@@ -355,3 +355,40 @@ collections:
               - { name: body, label: "Section body (markdown)", widget: markdown, hint: "Prose for this section. Placeholders like {{ site.phd_network_signup_url }} are templating — leave them exactly as-is." }
               - { name: component_title, label: "Embedded component heading (optional)", widget: string, required: false }
               - { name: component, label: "Embedded component ID (e.g. 'institutions-grid')", widget: string, required: false }
+
+  - name: symposia
+    label: "Symposia (D3I-hosted)"
+    folder: _symposia
+    create: true
+    extension: md
+    format: yaml-frontmatter
+    slug: "symposium-{{year}}"
+    summary: "{{fields.title}} — {{fields.date}}"
+    path: "symposium-{{year}}"
+    fields:
+      - { name: title, label: "Title", widget: string }
+      - { name: date, label: "Start date", widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
+      - { name: end_date, label: "End date", widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, required: false }
+      - { name: location, label: "Location", widget: string }
+      - { name: summary, label: "Short summary (used in cards)", widget: text }
+      - { name: featured, label: "Featured (highlighted on symposia index)", widget: boolean, required: false, default: false }
+      - { name: external_url, label: "External URL (event website)", widget: string, required: false }
+      - name: details
+        label: "Detail rows (shown on the event page)"
+        widget: list
+        required: false
+        fields:
+          - { name: label, label: "Label", widget: string }
+          - { name: value, label: "Value", widget: string }
+          - { name: markdown, label: "Value contains markdown?", widget: boolean, required: false, default: false }
+      - name: actions
+        label: "Action buttons"
+        widget: list
+        required: false
+        fields:
+          - { name: label, label: "Button label", widget: string }
+          - { name: url, label: "URL", widget: string }
+          - { name: external, label: "External link?", widget: boolean, required: false, default: true }
+      - { name: layout, widget: hidden, default: "page" }
+      - { name: sidebar, widget: object, fields: [{ name: nav, widget: hidden, default: "community" }] }
+      - { name: body, label: "Full event page content (markdown)", widget: markdown }
