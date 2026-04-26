@@ -362,13 +362,13 @@ collections:
     create: true
     extension: md
     format: yaml-frontmatter
-    slug: "symposium-{{year}}"
+    slug: "symposium-{{fields.date | date('YYYY')}}"
     summary: "{{fields.title}} — {{fields.date}}"
-    path: "symposium-{{year}}"
+    path: "symposium-{{fields.date | date('YYYY')}}"
     fields:
       - { name: title, label: "Title", widget: string }
-      - { name: date, label: "Start date", widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
-      - { name: end_date, label: "End date", widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, required: false }
+      - { name: date, label: "Start date", widget: datetime, type: date }
+      - { name: end_date, label: "End date", widget: datetime, type: date, required: false }
       - { name: location, label: "Location", widget: string }
       - { name: summary, label: "Short summary (used in cards)", widget: text }
       - { name: featured, label: "Featured (highlighted on symposia index)", widget: boolean, required: false, default: false }
