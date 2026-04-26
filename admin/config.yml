@@ -392,3 +392,147 @@ collections:
       - { name: layout, widget: hidden, default: "page" }
       - { name: sidebar, widget: object, fields: [{ name: nav, widget: hidden, default: "community" }] }
       - { name: body, label: "Full event page content (markdown)", widget: markdown }
+
+  - name: navigation
+    label: "Navigation"
+    files:
+      - file: _data/navigation.yml
+        name: navigation
+        label: "Site navigation"
+        description: "Main menu and sub-menus. Rename/reorder entries freely. Adding new entries: pick a URL from the dropdown."
+        format: yml
+        fields:
+          - name: main
+            label: "Main menu"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "Label", widget: string }
+              - name: url
+                label: "Link"
+                widget: select
+                options:
+                  - { label: "Data donation", value: "/data-donation/" }
+                  - { label: "Prepare a study", value: "/prepare-a-study/" }
+                  - { label: "Software", value: "/software/" }
+                  - { label: "Community", value: "/community/" }
+                  - { label: "About D3I", value: "/about-d3i/" }
+          - name: about-d3i
+            label: "About D3I submenu"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "Label", widget: string }
+              - name: url
+                label: "Link"
+                widget: select
+                options:
+                  - { label: "About D3I (landing)", value: "/about-d3i/" }
+                  - { label: "Team", value: "/about-d3i/team" }
+                  - { label: "Advisory board", value: "/about-d3i/advisory-board" }
+                  - { label: "Funding", value: "/about-d3i/funding" }
+                  - { label: "Partners", value: "/about-d3i/partners" }
+                  - { label: "Impact and adoption", value: "/about-d3i/impact-and-adoption" }
+              - name: children
+                label: "Children (optional)"
+                widget: list
+                required: false
+                fields:
+                  - { name: title, label: "Label", widget: string }
+                  - name: url
+                    label: "Link"
+                    widget: select
+                    options:
+                      - { label: "Team", value: "/about-d3i/team" }
+                      - { label: "Advisory board", value: "/about-d3i/advisory-board" }
+                      - { label: "Funding", value: "/about-d3i/funding" }
+                      - { label: "Partners", value: "/about-d3i/partners" }
+                      - { label: "Impact and adoption", value: "/about-d3i/impact-and-adoption" }
+          - name: software
+            label: "Software submenu"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "Label", widget: string }
+              - name: url
+                label: "Link"
+                widget: select
+                options:
+                  - { label: "Software (landing)", value: "/software/" }
+                  - { label: "Getting started", value: "/software/getting-started/" }
+                  - { label: "Ready-made scripts", value: "/software/ready-made-scripts/" }
+                  - { label: "Going further", value: "/software/going-further/" }
+                  - { label: "Port in education", value: "/software/port-in-education/" }
+              - name: children
+                label: "Children (optional)"
+                widget: list
+                required: false
+                fields:
+                  - { name: title, label: "Label", widget: string }
+                  - name: url
+                    label: "Link"
+                    widget: select
+                    options:
+                      - { label: "Getting started", value: "/software/getting-started/" }
+                      - { label: "Ready-made scripts", value: "/software/ready-made-scripts/" }
+                      - { label: "Going further", value: "/software/going-further/" }
+                      - { label: "Port in education", value: "/software/port-in-education/" }
+          - name: prepare-a-study
+            label: "Prepare a study submenu"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "Label", widget: string }
+              - name: url
+                label: "Link"
+                widget: select
+                options:
+                  - { label: "Prepare a study (landing)", value: "/prepare-a-study/" }
+                  - { label: "Study design", value: "/prepare-a-study/study-design" }
+                  - { label: "Privacy and consent", value: "/prepare-a-study/privacy-and-consent" }
+                  - { label: "Completed projects", value: "/prepare-a-study/completed-projects" }
+              - name: children
+                label: "Children (optional)"
+                widget: list
+                required: false
+                fields:
+                  - { name: title, label: "Label", widget: string }
+                  - name: url
+                    label: "Link"
+                    widget: select
+                    options:
+                      - { label: "Study design", value: "/prepare-a-study/study-design" }
+                      - { label: "Privacy and consent", value: "/prepare-a-study/privacy-and-consent" }
+                      - { label: "Completed projects", value: "/prepare-a-study/completed-projects" }
+          - name: community
+            label: "Community submenu"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "Label", widget: string }
+              - name: url
+                label: "Link"
+                widget: select
+                options:
+                  - { label: "Community (landing)", value: "/community/" }
+                  - { label: "Institutional network", value: "/community/institutional-network" }
+                  - { label: "Newsletter", value: "/community/newsletter/" }
+                  - { label: "Courses", value: "/community/courses/" }
+                  - { label: "Symposia", value: "/community/symposia/" }
+                  - { label: "Letters & positions", value: "/community/omnibus-letter" }
+              - { name: show_sections, label: "Show sub-sections?", widget: boolean, required: false, default: false }
+              - name: children
+                label: "Children (optional)"
+                widget: list
+                required: false
+                fields:
+                  - { name: title, label: "Label", widget: string }
+                  - name: url
+                    label: "Link"
+                    widget: select
+                    options:
+                      - { label: "Institutional network", value: "/community/institutional-network" }
+                      - { label: "Newsletter", value: "/community/newsletter/" }
+                      - { label: "Courses", value: "/community/courses/" }
+                      - { label: "Symposia", value: "/community/symposia/" }
+                      - { label: "Letters & positions", value: "/community/omnibus-letter" }
