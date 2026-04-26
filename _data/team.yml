@@ -1,81 +1,71 @@
 members:
-  - name: "Dr. L. (Laura) Boeschoten"
-    role: "Project Lead D3I and Task Lead SSHOC-NL"
+  - name: Dr. L. (Laura) Boeschoten
+    role: Project Lead D3I and Task Lead SSHOC-NL
     group: lead
     image: /assets/images/people/laura.jpg
     url: https://www.uu.nl/medewerkers/LBoeschoten
-
-  - name: "Prof. Dr. T.B. (Theo) Araujo"
-    role: "PI D3I and PI RIGHTS"
+  - name: Prof. Dr. T.B. (Theo) Araujo
+    role: PI D3I and PI RIGHTS
     group: lead
     image: /assets/images/people/theo.jpg
     url: https://www.uva.nl/profiel/a/r/t.b.araujo/t.b.araujo.html
-
-  - name: "Dr. N.C. (Niek) de Schipper"
-    role: "Research Engineer, member of SoDa"
+  - name: Dr. N.C. (Niek) de Schipper
+    role: Research Engineer, member of SoDa
     group: engineer
     image: /assets/images/people/niek.jpg
     url: https://www.uva.nl/en/profile/s/c/n.c.deschipper/n.c.de-schipper.html
-
-  - name: "Dr. M.B. (Max) Paulus"
-    role: "Research Engineer"
+  - name: Dr. M.B. (Max) Paulus
+    role: Research Engineer
     group: engineer
     image: /assets/images/people/max.jpg
     url: https://www.uva.nl/profiel/p/a/m.paulus/m.paulus.html
-
-  - name: "Dr. D. (Danielle) McCool"
-    role: "Research engineer and study design expert"
+  - name: Dr. D. (Danielle) McCool
+    role: Research engineer and study design expert
     group: engineer
     image: /assets/images/people/danielle.jpg
-
-  - name: "Dr. B. (Bella) Struminskaya"
-    role: "Methodological expert"
+    url: https://www.uu.nl/staff/DMMcCool
+  - name: Dr. B. (Bella) Struminskaya
+    role: Methodological expert
     group: methodologist
     image: /assets/images/people/bella.jpg
     url: https://www.uu.nl/staff/BStruminskaya
-
-  - name: "T.C. (Thijs) Carrière MSc."
-    role: "PhD researcher"
+  - name: T.C. (Thijs) Carrière MSc.
+    role: PhD researcher
     group: methodologist
     image: /assets/images/people/thijs.jpg
     url: https://www.uu.nl/medewerkers/TCCarriere
-
-  - name: "Dr. mr. H.L. (Heleen) Janssen"
-    role: "Legal expert"
+  - name: Dr. mr. H.L. (Heleen) Janssen
+    role: Legal expert
     group: legal
     image: /assets/images/people/heleen.jpeg
     url: https://www.uva.nl/en/profile/j/a/h.l.janssen/h.l.janssen.html
-
-  - name: "Dr. J. (Jef) Ausloos"
-    role: "Legal expert"
+  - name: Dr. J. (Jef) Ausloos
+    role: Legal expert
     group: legal
     image: /assets/images/people/jef.jpg
     url: https://www.uva.nl/profiel/a/u/j.ausloos/j.ausloos.html
-
-  - name: "Dr. K. (Kasper) Welbers"
-    role: "VU Amsterdam affiliate"
+  - name: Dr. K. (Kasper) Welbers
+    role: VU Amsterdam affiliate
     group: affiliated
     image: /assets/images/people/kasper.jpg
     url: https://research.vu.nl/en/persons/kasper-welbers
-
-  - name: "Dr. F. (Felicia) Loecherbach"
-    role: "UvA affiliate and RIGHTS project lead"
+  - name: Dr. F. (Felicia) Loecherbach
+    role: UvA affiliate and RIGHTS project lead
     group: affiliated
     image: /assets/images/people/felicia.jpg
     url: https://www.uva.nl/profiel/l/o/f.loecherbach/f.loecherbach.html
-
-  - name: "Joshua Claassen MSc."
-    role: "Guest researcher from DZHW; Leibniz University Hannover"
+  - name: Joshua Claassen MSc.
+    role: Guest researcher from DZHW; Leibniz University Hannover
     group: affiliated
     image: /assets/images/people/joshua.jpg
     url: https://www.dzhw.eu/en/gmbh/mitarbeiter?m_id=987
-
-  - name: "J. (Jonathan) Koop BSc."
-    role: "Research assistant"
+  - name: J. (Jonathan) Koop BSc.
+    role: Research assistant
     group: alumni
     image: /assets/images/people/jonathan.jpg
-
-  - name: "P. (Pavlos) Ferlachidis MSc."
-    role: "Research assistant"
+    url: ''
+  - name: P. (Pavlos) Ferlachidis MSc.
+    role: Research assistant
     group: alumni
     image: /assets/images/people/pavlos.jpg
+    url: ''
