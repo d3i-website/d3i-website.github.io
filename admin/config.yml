@@ -3,8 +3,6 @@ backend:
   repo: d3i-website/d3i-website.github.io
   branch: cms-staging
 
-publish_mode: editorial_workflow
-
 site_url: https://datadonation.eu
 display_url: https://datadonation.eu
 logo_url: https://datadonation.eu/assets/images/datadonation-eu-logo.svg
