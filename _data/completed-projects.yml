@@ -1,232 +1,233 @@
-- title: "Behind the screens: Exploring Netflix via Data Donations"
-  year: 2024
-  image: /assets/images/completed-projects/netflix-image.png
-  image_credit: vecteezy.com
-  image_credit_url: https://vecteezy.com
-  investigators: >-
-    [Dennis Nguyen](https://www.uu.nl/medewerkers/DNguyen1) and
-    [Karin van Es](https://www.uu.nl/medewerkers/KFvanEs), Utrecht University
-  summary: >-
-    Netflix is often hailed as a disruptor of the traditional media industry,
-    primarily due to its extensive data collection and analysis capabilities, as
-    well as the effectiveness of its recommendation system. This study used data
-    donations to investigate Netflix viewing behaviours, moving beyond the
-    platform's own selective data sharing to gain an independent understanding
-    of streaming habits.
-  collection_period: "January -- February 2024"
-  recruitment: >-
-    Participants were recruited through
-    [Ipsos I&O](https://www.ioresearch.nl/).
-  instructions: >-
-    Instructions to [request data](/assets/documents/Netflix_instructions_request.pdf)
-    and [download data](/assets/documents/Netflix_instructions_download.pdf).
-  ethical_review: >-
-    Reviewed by the Ethical Review Board of the Faculty of Humanities of Utrecht
-    University. See the [invitation letter](/assets/documents/Ethics_1_Invitation_email.pdf),
-    [consent form](/assets/documents/Ethics_2_Consent.pdf), and
-    [privacy policy](/assets/documents/Ethics_3_Privacy_policy.pdf).
-  software: Port
-  local_processing: >-
-    [GitHub](https://github.com/d3i-infra/port-pilot-netflix)
-  data: Contact the PI.
-  acknowledgements: Funded by PDI-SSH D3I.
-  references:
-    - >-
-      Lotz, A. D. (2023). "Netflix Data Dump: Cautions Regarding Gifts of Data."
-      [LinkedIn](https://www.linkedin.com/pulse/netflix-data-dump-cautions-regarding-gifts-amanda-lotz-sa7pf)
-    - >-
-      Van Es, K. (2023). "Netflix, (Re)Claiming Television: Myths and Horseless
-      Carriages." Keynote at ECREA TV Studies Section Conference, Potsdam,
-      Germany, 26 October 2023.
+completed_projects:
+  - title: "Behind the screens: Exploring Netflix via Data Donations"
+    year: 2024
+    image: /assets/images/completed-projects/netflix-image.png
+    image_credit: vecteezy.com
+    image_credit_url: https://vecteezy.com
+    investigators: >-
+      [Dennis Nguyen](https://www.uu.nl/medewerkers/DNguyen1) and
+      [Karin van Es](https://www.uu.nl/medewerkers/KFvanEs), Utrecht University
+    summary: >-
+      Netflix is often hailed as a disruptor of the traditional media industry,
+      primarily due to its extensive data collection and analysis capabilities, as
+      well as the effectiveness of its recommendation system. This study used data
+      donations to investigate Netflix viewing behaviours, moving beyond the
+      platform's own selective data sharing to gain an independent understanding
+      of streaming habits.
+    collection_period: "January -- February 2024"
+    recruitment: >-
+      Participants were recruited through
+      [Ipsos I&O](https://www.ioresearch.nl/).
+    instructions: >-
+      Instructions to [request data](/assets/documents/Netflix_instructions_request.pdf)
+      and [download data](/assets/documents/Netflix_instructions_download.pdf).
+    ethical_review: >-
+      Reviewed by the Ethical Review Board of the Faculty of Humanities of Utrecht
+      University. See the [invitation letter](/assets/documents/Ethics_1_Invitation_email.pdf),
+      [consent form](/assets/documents/Ethics_2_Consent.pdf), and
+      [privacy policy](/assets/documents/Ethics_3_Privacy_policy.pdf).
+    software: Port
+    local_processing: >-
+      [GitHub](https://github.com/d3i-infra/port-pilot-netflix)
+    data: Contact the PI.
+    acknowledgements: Funded by PDI-SSH D3I.
+    references:
+      - >-
+        Lotz, A. D. (2023). "Netflix Data Dump: Cautions Regarding Gifts of Data."
+        [LinkedIn](https://www.linkedin.com/pulse/netflix-data-dump-cautions-regarding-gifts-amanda-lotz-sa7pf)
+      - >-
+        Van Es, K. (2023). "Netflix, (Re)Claiming Television: Myths and Horseless
+        Carriages." Keynote at ECREA TV Studies Section Conference, Potsdam,
+        Germany, 26 October 2023.
 
-- title: "The Google Family Home -- Exploring the Use of Google Assistant in Families via Data Donations"
-  year: 2024
-  image: /assets/images/completed-projects/family-image.png
-  image_credit: rawpixel.com / Freepik
-  image_credit_url: http://www.freepik.com
-  investigators: >-
-    Rebecca Wald, Jessica Piotrowski, Theo Araujo, Johanna M.F. van Oosten,
-    Amsterdam School of Communication Research, University of Amsterdam
-  summary: >-
-    Smart speakers have become increasingly popular in family households. This
-    study investigated how Dutch families with young children use Google
-    Assistant at home, comparing self-reported use with actual registered
-    interactions obtained through data donations.
-  collection_period: "May -- June 2024"
-  recruitment: >-
-    Participants were recruited through
-    [Motivaction](https://www.motivaction.nl/en/).
-  ethical_review: >-
-    Approved by the university's Ethics Review Board (ref: FMG-8809).
-  software: Port
-  local_processing: >-
-    Available on [GitHub](https://osf.io/hy3mj/) upon completion.
-  data: >-
-    Anonymized dataset will be available on [OSF](https://osf.io/hy3mj/).
-  acknowledgements: >-
-    Funded by the [Communication in the Digital Society Initiative](https://www.uva.nl/en/about-the-uva/organisation/faculties/faculty-of-social-and-behavioural-sciences/communication-in-the-digital-society/communication-in-the-digital-society.html).
-  references:
-    - >-
-      Wald, R., Piotrowski, J. T., Araujo, T., & Van Oosten, J. M. F. (2023).
-      Virtual assistants in the family home. *Computers in Human Behavior*, 139.
-      [DOI](https://doi.org/10.1016/j.chb.2022.107526)
-    - >-
-      Wald, R., Piotrowski, J. T., Van Oosten, J. M. F., & Araujo, T. (2024).
-      Who are the (non-)adopters of smart speakers? *Tijdschrift Voor
-      Communicatiewetenschap*, 51.
-      [DOI](https://doi.org/10.5117/TCW2023.X.001.WALD)
-    - >-
-      Wald, R., Van Oosten, J. M. F., Piotrowski, J. T., & Araujo, T. (2024).
-      Smart Speaker Data Donations in Families. In *IDC '24*.
-      [DOI](https://doi.org/10.1145/3628516.3659374)
+  - title: "The Google Family Home -- Exploring the Use of Google Assistant in Families via Data Donations"
+    year: 2024
+    image: /assets/images/completed-projects/family-image.png
+    image_credit: rawpixel.com / Freepik
+    image_credit_url: http://www.freepik.com
+    investigators: >-
+      Rebecca Wald, Jessica Piotrowski, Theo Araujo, Johanna M.F. van Oosten,
+      Amsterdam School of Communication Research, University of Amsterdam
+    summary: >-
+      Smart speakers have become increasingly popular in family households. This
+      study investigated how Dutch families with young children use Google
+      Assistant at home, comparing self-reported use with actual registered
+      interactions obtained through data donations.
+    collection_period: "May -- June 2024"
+    recruitment: >-
+      Participants were recruited through
+      [Motivaction](https://www.motivaction.nl/en/).
+    ethical_review: >-
+      Approved by the university's Ethics Review Board (ref: FMG-8809).
+    software: Port
+    local_processing: >-
+      Available on [GitHub](https://osf.io/hy3mj/) upon completion.
+    data: >-
+      Anonymized dataset will be available on [OSF](https://osf.io/hy3mj/).
+    acknowledgements: >-
+      Funded by the [Communication in the Digital Society Initiative](https://www.uva.nl/en/about-the-uva/organisation/faculties/faculty-of-social-and-behavioural-sciences/communication-in-the-digital-society/communication-in-the-digital-society.html).
+    references:
+      - >-
+        Wald, R., Piotrowski, J. T., Araujo, T., & Van Oosten, J. M. F. (2023).
+        Virtual assistants in the family home. *Computers in Human Behavior*, 139.
+        [DOI](https://doi.org/10.1016/j.chb.2022.107526)
+      - >-
+        Wald, R., Piotrowski, J. T., Van Oosten, J. M. F., & Araujo, T. (2024).
+        Who are the (non-)adopters of smart speakers? *Tijdschrift Voor
+        Communicatiewetenschap*, 51.
+        [DOI](https://doi.org/10.5117/TCW2023.X.001.WALD)
+      - >-
+        Wald, R., Van Oosten, J. M. F., Piotrowski, J. T., & Araujo, T. (2024).
+        Smart Speaker Data Donations in Families. In *IDC '24*.
+        [DOI](https://doi.org/10.1145/3628516.3659374)
 
-- title: "Harnessing digital data to study 21st-century adolescence"
-  year: 2024
-  image: /assets/images/completed-projects/adolescents-image.png
-  image_credit: rawpixel.com / Freepik
-  image_credit_url: http://www.freepik.com
-  investigators: >-
-    Amy Orben (PI), Laura Boeschoten, Daniel Oberski, Sebastian Kurten,
-    Amanda Ferguson, Valerie Yap, Amelia Leyland-Craggs
-  summary: >-
-    Large cohort studies have failed to gather comprehensive digital data about
-    participants' online lives. This project tested the feasibility of deploying
-    the D3I data donation infrastructure in the MRC UK Adolescent Health Study,
-    collecting TikTok and Instagram data from secondary school students.
-  collection_period: "March -- May 2024"
-  recruitment: >-
-    Six secondary schools in the UK were visited in person, identified through
-    Gov.uk and existing partnerships.
-  instructions: >-
-    [TikTok guide](https://www.orben.group/s/tiktok-mobile-data-request-guide.pdf),
-    [Instagram guide](https://www.orben.group/s/instagram-mobile-data-request-guide.pdf).
-  ethical_review: >-
-    Approved by Cambridge Psychology Research Ethics Committee.
-    [Information sheet](https://www.orben.group/s/Participant-info-sheet),
-    [consent form](https://www.orben.group/s/Participant-Consent-form).
-  software: Port
-  local_processing: >-
-    [TikTok](https://github.com/eyra/port-cambridge-tiktok),
-    [Instagram](https://github.com/eyra/port-cambridge-instagram) on GitHub.
-  data: Contact the PI.
-  acknowledgements: Funded by SUAG/091 and SUAH/031.
+  - title: "Harnessing digital data to study 21st-century adolescence"
+    year: 2024
+    image: /assets/images/completed-projects/adolescents-image.png
+    image_credit: rawpixel.com / Freepik
+    image_credit_url: http://www.freepik.com
+    investigators: >-
+      Amy Orben (PI), Laura Boeschoten, Daniel Oberski, Sebastian Kurten,
+      Amanda Ferguson, Valerie Yap, Amelia Leyland-Craggs
+    summary: >-
+      Large cohort studies have failed to gather comprehensive digital data about
+      participants' online lives. This project tested the feasibility of deploying
+      the D3I data donation infrastructure in the MRC UK Adolescent Health Study,
+      collecting TikTok and Instagram data from secondary school students.
+    collection_period: "March -- May 2024"
+    recruitment: >-
+      Six secondary schools in the UK were visited in person, identified through
+      Gov.uk and existing partnerships.
+    instructions: >-
+      [TikTok guide](https://www.orben.group/s/tiktok-mobile-data-request-guide.pdf),
+      [Instagram guide](https://www.orben.group/s/instagram-mobile-data-request-guide.pdf).
+    ethical_review: >-
+      Approved by Cambridge Psychology Research Ethics Committee.
+      [Information sheet](https://www.orben.group/s/Participant-info-sheet),
+      [consent form](https://www.orben.group/s/Participant-Consent-form).
+    software: Port
+    local_processing: >-
+      [TikTok](https://github.com/eyra/port-cambridge-tiktok),
+      [Instagram](https://github.com/eyra/port-cambridge-instagram) on GitHub.
+    data: Contact the PI.
+    acknowledgements: Funded by SUAG/091 and SUAH/031.
 
-- title: "An investigation of Facebook groups dedicated to rare diseases"
-  year: 2024
-  image: /assets/images/completed-projects/facebook-image.png
-  image_credit: rawpixel.com / Freepik
-  image_credit_url: http://www.freepik.com
-  investigators: >-
-    [Annemiek Linn](https://www.uva.nl/en/profile/l/i/a.j.linn/a.j.linn.html)
-    and [Kaiyang Qin](https://www.uva.nl/profiel/q/i/k.qin/k.qin.html),
-    University of Amsterdam
-  summary: >-
-    This study mapped the collective wisdom of a Facebook group dedicated to
-    FOXP1 syndrome, a rare disease. Using data donations of posts and comments,
-    combined with survey data, the study explores how caregivers leverage online
-    platforms for knowledge sharing and community support.
-  collection_period: "January -- February 2024"
-  recruitment: >-
-    Participants were recruited from the Friends and Family of FOXP1 Facebook group.
-  instructions: >-
-    [Procedure](https://github.com/KiayangQ/port-PIPA/blob/main/procedure.pdf)
-  ethical_review: >-
-    Approved by the Ethics Review Board, University of Amsterdam (ref: FMG-4422).
-    [Informed consent](https://github.com/KiayangQ/port-PIPA/blob/main/230910%20-%20informed_consent_PIPA_v2.docx),
-    [privacy policy](https://github.com/KiayangQ/port-PIPA/blob/main/privacy_policy.docx).
-  software: Port
-  local_processing: >-
-    [GitHub](https://github.com/KiayangQ/port-PIPA)
-  data: Contact the PI.
-  acknowledgements: Funded by NWO.
+  - title: "An investigation of Facebook groups dedicated to rare diseases"
+    year: 2024
+    image: /assets/images/completed-projects/facebook-image.png
+    image_credit: rawpixel.com / Freepik
+    image_credit_url: http://www.freepik.com
+    investigators: >-
+      [Annemiek Linn](https://www.uva.nl/en/profile/l/i/a.j.linn/a.j.linn.html)
+      and [Kaiyang Qin](https://www.uva.nl/profiel/q/i/k.qin/k.qin.html),
+      University of Amsterdam
+    summary: >-
+      This study mapped the collective wisdom of a Facebook group dedicated to
+      FOXP1 syndrome, a rare disease. Using data donations of posts and comments,
+      combined with survey data, the study explores how caregivers leverage online
+      platforms for knowledge sharing and community support.
+    collection_period: "January -- February 2024"
+    recruitment: >-
+      Participants were recruited from the Friends and Family of FOXP1 Facebook group.
+    instructions: >-
+      [Procedure](https://github.com/KiayangQ/port-PIPA/blob/main/procedure.pdf)
+    ethical_review: >-
+      Approved by the Ethics Review Board, University of Amsterdam (ref: FMG-4422).
+      [Informed consent](https://github.com/KiayangQ/port-PIPA/blob/main/230910%20-%20informed_consent_PIPA_v2.docx),
+      [privacy policy](https://github.com/KiayangQ/port-PIPA/blob/main/privacy_policy.docx).
+    software: Port
+    local_processing: >-
+      [GitHub](https://github.com/KiayangQ/port-PIPA)
+    data: Contact the PI.
+    acknowledgements: Funded by NWO.
 
-- title: "Social Media Use of Individuals in the Context of Organizational Posts"
-  year: 2024
-  image: /assets/images/completed-projects/organization-image.png
-  image_credit: vecteezy.com
-  image_credit_url: https://vecteezy.com
-  investigators: Sarah Marschlich
-  summary: >-
-    This study investigates how individuals engage with organizational posts on
-    social media and whether their engagement differs depending on the platform.
-    Using data donations from Facebook, Twitter, and Instagram combined with
-    semi-structured interviews, it explores how motivations and perceived
-    platform affordances shape user engagement with organizational content.
-  collection_period: "January -- August 2024"
-  recruitment: >-
-    Participants were recruited from a lab recruitment system from
-    [UvA](http://www.lab.uva.nl).
-  instructions: >-
-    [OSF](https://osf.io/mp548/?view_only=235c79b4ed674b198d0334dd163b4892)
-  ethical_review: >-
-    Approved by the Ethics Review Board, University of Amsterdam (ref: FMG-2664_2023).
-    [Materials](https://osf.io/mp548/?view_only=235c79b4ed674b198d0334dd163b4892).
-  software: Port
-  local_processing: >-
-    [GitHub](https://github.com/KiayangQ/port_yt)
-  data: Contact the PI.
-  acknowledgements: >-
-    Funded by the Digital Communication Methods Lab (digicomlab),
-    University of Amsterdam.
+  - title: "Social Media Use of Individuals in the Context of Organizational Posts"
+    year: 2024
+    image: /assets/images/completed-projects/organization-image.png
+    image_credit: vecteezy.com
+    image_credit_url: https://vecteezy.com
+    investigators: Sarah Marschlich
+    summary: >-
+      This study investigates how individuals engage with organizational posts on
+      social media and whether their engagement differs depending on the platform.
+      Using data donations from Facebook, Twitter, and Instagram combined with
+      semi-structured interviews, it explores how motivations and perceived
+      platform affordances shape user engagement with organizational content.
+    collection_period: "January -- August 2024"
+    recruitment: >-
+      Participants were recruited from a lab recruitment system from
+      [UvA](http://www.lab.uva.nl).
+    instructions: >-
+      [OSF](https://osf.io/mp548/?view_only=235c79b4ed674b198d0334dd163b4892)
+    ethical_review: >-
+      Approved by the Ethics Review Board, University of Amsterdam (ref: FMG-2664_2023).
+      [Materials](https://osf.io/mp548/?view_only=235c79b4ed674b198d0334dd163b4892).
+    software: Port
+    local_processing: >-
+      [GitHub](https://github.com/KiayangQ/port_yt)
+    data: Contact the PI.
+    acknowledgements: >-
+      Funded by the Digital Communication Methods Lab (digicomlab),
+      University of Amsterdam.
 
-- title: "Assessing WhatsApp Networks with Donated Data"
-  year: 2023
-  image: /assets/images/completed-projects/chat-image.png
-  image_credit: Freepik
-  image_credit_url: http://www.freepik.com
-  investigators: >-
-    [Rense Corten](https://www.uu.nl/medewerkers/RCorten)
-  summary: >-
-    Mobile instant messenger services play an increasingly important role in
-    social life, yet we know surprisingly little about these networks. This
-    study used data donations from LISS panel respondents to collect WhatsApp
-    contact and group metadata, producing one of the first datasets on WhatsApp
-    usage from a broad, high-quality sample.
-  collection_period: "February -- April 2023"
-  recruitment: >-
-    Participants were recruited through the
-    [LISS Panel](https://www.lissdata.nl/).
-  instructions: >-
-    [Documentation](https://doi.org/10.57990/ge66-3v89)
-  ethical_review: >-
-    Approved by the Ethical Review Board of the Faculty of Social and
-    Behavioral Sciences of Utrecht University and of the LISS panel.
-  software: Port
-  local_processing: >-
-    [GitHub](https://github.com/sodascience/port-whatsapp-datadonation)
-  data: Contact the LISS panel.
-  acknowledgements: >-
-    Funded by the 2022 ODISSEI-LISS panel grant and NWO VIDI (195.152).
+  - title: "Assessing WhatsApp Networks with Donated Data"
+    year: 2023
+    image: /assets/images/completed-projects/chat-image.png
+    image_credit: Freepik
+    image_credit_url: http://www.freepik.com
+    investigators: >-
+      [Rense Corten](https://www.uu.nl/medewerkers/RCorten)
+    summary: >-
+      Mobile instant messenger services play an increasingly important role in
+      social life, yet we know surprisingly little about these networks. This
+      study used data donations from LISS panel respondents to collect WhatsApp
+      contact and group metadata, producing one of the first datasets on WhatsApp
+      usage from a broad, high-quality sample.
+    collection_period: "February -- April 2023"
+    recruitment: >-
+      Participants were recruited through the
+      [LISS Panel](https://www.lissdata.nl/).
+    instructions: >-
+      [Documentation](https://doi.org/10.57990/ge66-3v89)
+    ethical_review: >-
+      Approved by the Ethical Review Board of the Faculty of Social and
+      Behavioral Sciences of Utrecht University and of the LISS panel.
+    software: Port
+    local_processing: >-
+      [GitHub](https://github.com/sodascience/port-whatsapp-datadonation)
+    data: Contact the LISS panel.
+    acknowledgements: >-
+      Funded by the 2022 ODISSEI-LISS panel grant and NWO VIDI (195.152).
 
-- title: "Mapping the digital food environment using YouTube data"
-  year: 2023
-  image: /assets/images/completed-projects/food-image.png
-  image_credit: Freepik
-  image_credit_url: http://www.freepik.com
-  investigators: >-
-    [Kaiyang Qin](https://www.uva.nl/profiel/q/i/k.qin/k.qin.html),
-    [Saar Mollen](https://www.uva.nl/en/profile/m/o/s.mollen/s.mollen.html),
-    [Wilma Waterlander](https://researchinformation.amsterdamumc.org/en/persons/wilma-e-waterlander),
-    and [Eline Smit](https://www.uva.nl/en/profile/s/m/e.s.smit/e.s.smit.html)
-  summary: >-
-    Social media represents an emerging dimension of the digital food
-    environment. This study used YouTube data donations to map how users
-    interact with food-related content, examining whether people are exposed
-    to more unhealthy than healthy food content and the role of both advertiser
-    targeting and user self-selection.
-  collection_period: "April -- November 2023"
-  recruitment: >-
-    Participants were recruited from Panelinzicht and a lab recruitment system
-    from [UvA](http://www.lab.uva.nl/).
-  instructions: >-
-    [Instructions](https://github.com/KiayangQ/port_yt/blob/master/lang_instruction.pdf)
-  ethical_review: >-
-    Approved by the Ethics Review Board, University of Amsterdam (ref: FMG-472).
-    [Informed consent](https://github.com/KiayangQ/port_yt/blob/master/Informed_consent_NL_V2%20(1).docx),
-    [privacy policy](https://github.com/KiayangQ/port_yt/blob/master/privacy_info.docx).
-  software: Port
-  local_processing: >-
-    [GitHub](https://github.com/KiayangQ/port_yt)
-  data: Contact the PI.
-  acknowledgements: >-
-    Funded by the Healthy Future initiative of the University of Amsterdam.
+  - title: "Mapping the digital food environment using YouTube data"
+    year: 2023
+    image: /assets/images/completed-projects/food-image.png
+    image_credit: Freepik
+    image_credit_url: http://www.freepik.com
+    investigators: >-
+      [Kaiyang Qin](https://www.uva.nl/profiel/q/i/k.qin/k.qin.html),
+      [Saar Mollen](https://www.uva.nl/en/profile/m/o/s.mollen/s.mollen.html),
+      [Wilma Waterlander](https://researchinformation.amsterdamumc.org/en/persons/wilma-e-waterlander),
+      and [Eline Smit](https://www.uva.nl/en/profile/s/m/e.s.smit/e.s.smit.html)
+    summary: >-
+      Social media represents an emerging dimension of the digital food
+      environment. This study used YouTube data donations to map how users
+      interact with food-related content, examining whether people are exposed
+      to more unhealthy than healthy food content and the role of both advertiser
+      targeting and user self-selection.
+    collection_period: "April -- November 2023"
+    recruitment: >-
+      Participants were recruited from Panelinzicht and a lab recruitment system
+      from [UvA](http://www.lab.uva.nl/).
+    instructions: >-
+      [Instructions](https://github.com/KiayangQ/port_yt/blob/master/lang_instruction.pdf)
+    ethical_review: >-
+      Approved by the Ethics Review Board, University of Amsterdam (ref: FMG-472).
+      [Informed consent](https://github.com/KiayangQ/port_yt/blob/master/Informed_consent_NL_V2%20(1).docx),
+      [privacy policy](https://github.com/KiayangQ/port_yt/blob/master/privacy_info.docx).
+    software: Port
+    local_processing: >-
+      [GitHub](https://github.com/KiayangQ/port_yt)
+    data: Contact the PI.
+    acknowledgements: >-
+      Funded by the Healthy Future initiative of the University of Amsterdam.
