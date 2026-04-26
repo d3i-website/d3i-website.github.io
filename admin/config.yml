@@ -105,3 +105,23 @@ collections:
               - { name: funder, label: "Funder", widget: string }
               - { name: url, label: "Link (optional)", widget: string, required: false }
               - { name: description, label: "Description", widget: text }
+
+  - name: partners
+    label: "Partners"
+    files:
+      - file: _data/partners.yml
+        name: partners
+        label: "Partners"
+        description: "Organizations listed on the Partners page."
+        format: yml
+        fields:
+          - name: partners
+            label: "Partners"
+            label_singular: "Partner"
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: "Name", widget: string }
+              - { name: url, label: "Website", widget: string, required: false }
+              - { name: role, label: "Role / relationship", widget: string, required: false }
+              - { name: description, label: "Description", widget: text }
