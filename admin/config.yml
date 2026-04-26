@@ -226,3 +226,24 @@ collections:
               - { name: url, label: "URL (site-relative or absolute)", widget: string }
               - { name: summary, label: "Summary", widget: text }
               - { name: link_text, label: "Link text (e.g. 'Open newsletter')", widget: string, required: false }
+
+  - name: past_events_external
+    label: "Past events (external)"
+    files:
+      - file: _data/past-events-external.yml
+        name: past_events
+        label: "Link-only past events"
+        description: "Past data donation events NOT hosted by D3I (e.g. Utrecht 2022, Zurich 2023). For events we hosted, use the Symposia collection instead."
+        format: yml
+        fields:
+          - name: past_events
+            label: "Events"
+            label_singular: "Event"
+            widget: list
+            summary: "{{fields.title}} ({{fields.year}})"
+            fields:
+              - { name: title, label: "Title", widget: string }
+              - { name: year, label: "Year", widget: number, value_type: int, min: 2000, max: 2100 }
+              - { name: location, label: "Location", widget: string }
+              - { name: summary, label: "Summary", widget: text }
+              - { name: external_url, label: "External URL (the event's own site)", widget: string }
