@@ -15,23 +15,20 @@ contact:
     - Suggestions for improvement
   email: DataDonation@uu.nl
   subject: "Port usage report"
+usage_images:
+  - image: /assets/images/usage/plot_year.png
+    caption: "Number of studies per year"
+  - image: /assets/images/usage/plot_host.png
+    caption: "How researchers host their studies"
+  - image: /assets/images/usage/plot_institution.png
+    caption: "Studies by institution"
+  - image: /assets/images/usage/plot_recruit.png
+    caption: "Recruitment methods used"
 ---
 
 Port is being used by a growing number of researchers across Europe. Since
 its first deployment in 2022, adoption has accelerated each year as more
 institutions discover data donation as a research method.
-
-<div class="media-grid">
-
-{% include figure image_path="/assets/images/usage/plot_year.png" caption="Number of studies per year" %}
-
-{% include figure image_path="/assets/images/usage/plot_host.png" caption="How researchers host their studies" %}
-
-{% include figure image_path="/assets/images/usage/plot_institution.png" caption="Studies by institution" %}
-
-{% include figure image_path="/assets/images/usage/plot_recruit.png" caption="Recruitment methods used" %}
-
-</div>
 
 ## Help us track adoption
 
