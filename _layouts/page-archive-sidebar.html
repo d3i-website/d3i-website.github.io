@@ -3,7 +3,9 @@ layout: site-shell
 ---
 
 {% assign nav_key = page.sidebar.nav %}
-{% assign archive_items = site.data[page.archive.source] %}
+{% assign archive_source = page.archive.source %}
+{% assign archive_key = page.archive.key | default: archive_source | replace: '-', '_' %}
+{% assign archive_items = site.data[archive_source][archive_key] %}
 {% assign stripped_content = content | strip %}
 
 <article class="content-page">

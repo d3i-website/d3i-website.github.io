@@ -12,6 +12,7 @@ hero:
 archive:
   collection: symposia
   external_source: past-events-external
+  external_key: past_events
   featured_heading: "Upcoming symposium"
   heading: "Previous symposia"
 contact:

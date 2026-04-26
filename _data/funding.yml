@@ -1,54 +1,55 @@
-- title: "D3I 2025 — permanent"
-  period: "permanent"
-  funder: "PDI-SSH via ODISSEI"
-  description: |
-    Through permanent funding for the D3I infrastructure from PDI-SSH,
-    facilitated and managed by ODISSEI, we will structurally maintain
-    the research infrastructure, support researchers using it, and allow
-    easy access to data donation for all researchers in the Netherlands.
+funding:
+  - title: "D3I 2025 — permanent"
+    period: "permanent"
+    funder: "PDI-SSH via ODISSEI"
+    description: |
+      Through permanent funding for the D3I infrastructure from PDI-SSH,
+      facilitated and managed by ODISSEI, we will structurally maintain
+      the research infrastructure, support researchers using it, and allow
+      easy access to data donation for all researchers in the Netherlands.
 
-- title: "SSHOC-NL"
-  period: "2024 – 2028"
-  funder: "SSHOC-NL (ODISSEI + CLARIAH)"
-  url: https://sshoc.nl/
-  description: |
-    Social Science and Humanities Open Cloud for the Netherlands is a
-    collaborative effort between ODISSEI and CLARIAH to develop
-    cutting-edge infrastructure for social science and humanities
-    research. Task 1.2 "Secure Distributed Processing" focuses on
-    integrating the data donation software "Port" in the wider Dutch
-    research infrastructure landscape.
+  - title: "SSHOC-NL"
+    period: "2024 – 2028"
+    funder: "SSHOC-NL (ODISSEI + CLARIAH)"
+    url: https://sshoc.nl/
+    description: |
+      Social Science and Humanities Open Cloud for the Netherlands is a
+      collaborative effort between ODISSEI and CLARIAH to develop
+      cutting-edge infrastructure for social science and humanities
+      research. Task 1.2 "Secure Distributed Processing" focuses on
+      integrating the data donation software "Port" in the wider Dutch
+      research infrastructure landscape.
 
-- title: "TDCC RIGHTS"
-  period: "2025 – 2027"
-  funder: "TDCC"
-  description: |
-    The goal of this project is to establish cross-institutional
-    standards for the secure and ethical collection, processing,
-    documentation, reuse, and archiving of individual-level digital
-    trace data.
+  - title: "TDCC RIGHTS"
+    period: "2025 – 2027"
+    funder: "TDCC"
+    description: |
+      The goal of this project is to establish cross-institutional
+      standards for the secure and ethical collection, processing,
+      documentation, reuse, and archiving of individual-level digital
+      trace data.
 
-- title: "PDI-SSH D3I"
-  period: "2022 – 2025"
-  funder: "PDI-SSH"
-  description: |
-    D3I is a project funded by PDI-SSH. The project primarily aims to
-    make data donation available to all social science and humanities
-    researchers in the Netherlands. Under D3I, the software "Port" has
-    been developed to an open source tool that can be used by any
-    researcher.
+  - title: "PDI-SSH D3I"
+    period: "2022 – 2025"
+    funder: "PDI-SSH"
+    description: |
+      D3I is a project funded by PDI-SSH. The project primarily aims to
+      make data donation available to all social science and humanities
+      researchers in the Netherlands. Under D3I, the software "Port" has
+      been developed to an open source tool that can be used by any
+      researcher.
 
-- title: "NWO VIDI"
-  period: "2020 – 2024"
-  funder: "NWO"
-  description: |
-    Under the NWO VIDI project "Valid measures derived from incidental
-    data" awarded to Prof. Dr. D.L. Oberski, the first proof-of-concept
-    version of the software "Port" was developed.
+  - title: "NWO VIDI"
+    period: "2020 – 2024"
+    funder: "NWO"
+    description: |
+      Under the NWO VIDI project "Valid measures derived from incidental
+      data" awarded to Prof. Dr. D.L. Oberski, the first proof-of-concept
+      version of the software "Port" was developed.
 
-- title: "RPA Communication & Digital Communication Methods Lab"
-  funder: "University of Amsterdam"
-  description: |
-    This research priority area provided funding to develop the
-    Open-Source Data Donation Framework (OSD2F). Important features of
-    OSD2F were later integrated into the software "Port".
+  - title: "RPA Communication & Digital Communication Methods Lab"
+    funder: "University of Amsterdam"
+    description: |
+      This research priority area provided funding to develop the
+      Open-Source Data Donation Framework (OSD2F). Important features of
+      OSD2F were later integrated into the software "Port".
