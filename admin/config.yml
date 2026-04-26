@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: d3i-website/d3i-website.github.io
-  branch: main
+  branch: cms-staging
 
 publish_mode: editorial_workflow
 
