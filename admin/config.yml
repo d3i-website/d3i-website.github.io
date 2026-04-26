@@ -520,7 +520,6 @@ collections:
                   - { label: "Courses", value: "/community/courses/" }
                   - { label: "Symposia", value: "/community/symposia/" }
                   - { label: "Letters & positions", value: "/community/omnibus-letter" }
-              - { name: show_sections, label: "Show sub-sections?", widget: boolean, required: false, default: false }
               - name: children
                 label: "Children (optional)"
                 widget: list
@@ -536,3 +535,4 @@ collections:
                       - { label: "Courses", value: "/community/courses/" }
                       - { label: "Symposia", value: "/community/symposia/" }
                       - { label: "Letters & positions", value: "/community/omnibus-letter" }
+                  - { name: show_sections, label: "Show sub-sections (Networks page only)", widget: boolean, required: false, default: false }
