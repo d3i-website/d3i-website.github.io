@@ -45,3 +45,24 @@ collections:
                 choose_url: false
                 max_file_size: 2097152
               - { name: url, label: "Profile URL", widget: string, required: false }
+
+  - name: institutions
+    label: "Institutional Network"
+    files:
+      - file: _data/institutions.yml
+        name: institutions
+        label: "Institutions"
+        description: "Partner institutions shown on the Community Networks page."
+        format: yml
+        fields:
+          - name: institutions
+            label: "Institutions"
+            label_singular: "Institution"
+            widget: list
+            summary: "{{fields.institution}} — {{fields.country}}"
+            fields:
+              - { name: institution, label: "Institution name", widget: string }
+              - { name: affiliate_name, label: "Affiliate name (person)", widget: string }
+              - { name: affiliate_url, label: "Affiliate profile URL", widget: string, required: false }
+              - { name: department, label: "Department", widget: string, required: false }
+              - { name: country, label: "Country", widget: string }
