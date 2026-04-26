@@ -2,9 +2,6 @@ backend:
   name: github
   repo: d3i-website/d3i-website.github.io
   branch: main
-  auth_type: implicit
-  base_url: https://api.netlify.com
-  auth_endpoint: auth
 
 publish_mode: editorial_workflow
 
