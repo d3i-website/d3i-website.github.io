@@ -166,4 +166,4 @@ When `datadonation.eu`'s production hosting moves off Netlify (planned, separate
 
 ## Contact
 
-Danielle McCool — danielle.mccool@gmail.com
+Danielle McCool — DataDonation@uu.nl
