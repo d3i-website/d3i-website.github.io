@@ -69,3 +69,8 @@ members:
     group: alumni
     image: /assets/images/people/pavlos.jpg
     url: ''
+  - name: Megan McEntee
+    role: Student Assistant
+    group: methodologist
+    image: /assets/images/people/megan.jpg
+    url: ''
