@@ -23,6 +23,8 @@ usage_images:
     caption: Studies by institution
   - image: /assets/images/usage/plot_recruit.png
     caption: Recruitment methods used
+  - image: /assets/images/usage/plot_recruit.png
+    caption: Recruitment methods used
 ---
 
 Port is being used by a growing number of researchers across Europe. Since its first deployment in 2022, adoption has accelerated each year as more institutions discover data donation as a research method. In 2025, D3I received structural funding to help support researchers at Dutch institutions in conducting data donation studies with free support and access to infrastructure. 
