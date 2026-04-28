@@ -15,12 +15,14 @@ contact:
   email: DataDonation@uu.nl
   subject: Port usage report
 usage_images:
-  - image: /assets/images/usage/plot_year.png
-    caption: Number of studies per year
   - image: /assets/images/usage/plot_host.png
     caption: How researchers host their studies
+  - image: /assets/images/usage/plot_year.png
+    caption: Number of studies per year
   - image: /assets/images/usage/plot_institution.png
     caption: Studies by institution
+  - image: /assets/images/usage/plot_recruit.png
+    caption: Recruitment methods used
   - image: /assets/images/usage/plot_recruit.png
     caption: Recruitment methods used
 ---
