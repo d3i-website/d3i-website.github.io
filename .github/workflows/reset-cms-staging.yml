@@ -1,0 +1,22 @@
+name: Reset cms-staging to main
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: write
+
+jobs:
+  reset:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Force cms-staging to match main
+        env:
+          REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          main_sha=$(gh api "repos/${REPO}/git/refs/heads/main" --jq .object.sha)
+          gh api -X PATCH "repos/${REPO}/git/refs/heads/cms-staging" \
+            -f sha="$main_sha" \
+            -F force=true
