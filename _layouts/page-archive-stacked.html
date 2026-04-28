@@ -15,13 +15,19 @@ layout: site-shell
 {% if page.archive.collection %}
   {% assign archive_items = site[page.archive.collection] | sort: "date" | reverse %}
 {% else %}
-  {% assign archive_items = site.data[page.archive.source] %}
+  {% assign archive_source = page.archive.source %}
+  {% assign archive_key = page.archive.key | default: archive_source | replace: '-', '_' %}
+  {% assign archive_items = site.data[archive_source][archive_key] %}
 {% endif %}
 {% assign featured_items = archive_items | where: "featured", true %}
 {% assign archived_items = archive_items | where_exp: "item", "item.featured != true" %}
 {% if page.archive.external_source %}
-  {% assign external_items = site.data[page.archive.external_source] %}
-  {% assign archived_items = archived_items | concat: external_items %}
+  {% assign external_source = page.archive.external_source %}
+  {% assign external_key = page.archive.external_key | default: external_source | replace: '-', '_' %}
+  {% assign external_items = site.data[external_source][external_key] %}
+  {% if external_items %}
+    {% assign archived_items = archived_items | concat: external_items %}
+  {% endif %}
 {% endif %}
 {% assign stripped_content = content | strip %}
 

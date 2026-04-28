@@ -38,6 +38,14 @@ layout: site-shell
         </div>
       {% endif %}
 
+      {% if page.usage_images %}
+        <div class="media-grid">
+          {% for img in page.usage_images %}
+            {% include figure image_path=img.image caption=img.caption %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
       {% include data-section.html %}
       {% include contact-cta.html constrained=true %}
     </div>

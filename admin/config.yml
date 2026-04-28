@@ -3,8 +3,6 @@ backend:
   repo: d3i-website/d3i-website.github.io
   branch: cms-staging
 
-publish_mode: editorial_workflow
-
 site_url: https://datadonation.eu
 display_url: https://datadonation.eu
 logo_url: https://datadonation.eu/assets/images/datadonation-eu-logo.svg
@@ -46,4 +44,499 @@ collections:
                 public_folder: /assets/images/people
                 choose_url: false
                 max_file_size: 2097152
+                accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: url, label: "Profile URL", widget: string, required: false }
+
+  - name: institutions
+    label: "Institutional Network"
+    files:
+      - file: _data/institutions.yml
+        name: institutions
+        label: "Institutions"
+        description: "Partner institutions shown on the Community Networks page."
+        format: yml
+        fields:
+          - name: institutions
+            label: "Institutions"
+            label_singular: "Institution"
+            widget: list
+            summary: "{{fields.institution}} — {{fields.country}}"
+            fields:
+              - { name: institution, label: "Institution name", widget: string }
+              - { name: affiliate_name, label: "Affiliate name (person)", widget: string }
+              - { name: affiliate_url, label: "Affiliate profile URL", widget: string, required: false }
+              - { name: department, label: "Department", widget: string, required: false }
+              - { name: country, label: "Country", widget: string }
+
+  - name: advisors
+    label: "Advisory Board"
+    files:
+      - file: _data/advisors.yml
+        name: advisors
+        label: "Advisors"
+        description: "Members of the advisory board."
+        format: yml
+        fields:
+          - name: advisors
+            label: "Advisors"
+            label_singular: "Advisor"
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: "Name", widget: string }
+              - { name: url, label: "Profile URL", widget: string, required: false }
+
+  - name: funding
+    label: "Funding"
+    files:
+      - file: _data/funding.yml
+        name: funding
+        label: "Funding sources"
+        description: "Grants and funders on the Funding page."
+        format: yml
+        fields:
+          - name: funding
+            label: "Funding entries"
+            label_singular: "Funding entry"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "Title", widget: string }
+              - { name: period, label: "Period (e.g. 2024 – 2028, or 'permanent')", widget: string, required: false }
+              - { name: funder, label: "Funder", widget: string }
+              - { name: url, label: "Link (optional)", widget: string, required: false }
+              - { name: description, label: "Description", widget: text }
+
+  - name: partners
+    label: "Partners"
+    files:
+      - file: _data/partners.yml
+        name: partners
+        label: "Partners"
+        description: "Organizations listed on the Partners page."
+        format: yml
+        fields:
+          - name: partners
+            label: "Partners"
+            label_singular: "Partner"
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: "Name", widget: string }
+              - { name: url, label: "Website", widget: string, required: false }
+              - { name: role, label: "Role / relationship", widget: string, required: false }
+              - { name: description, label: "Description", widget: text }
+
+  - name: courses
+    label: "Courses"
+    files:
+      - file: _data/courses.yml
+        name: courses
+        label: "Courses"
+        description: "Workshops and courses listed on the Courses page."
+        format: yml
+        fields:
+          - name: courses
+            label: "Courses"
+            label_singular: "Course"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: featured, label: "Featured (show prominently)", widget: boolean, required: false, default: false }
+              - { name: title, label: "Title", widget: string }
+              - { name: summary, label: "Summary", widget: text }
+              - { name: date_label, label: "Date label (e.g. 'July 2025') — use for past courses", widget: string, required: false }
+              - { name: location, label: "Location (for past courses)", widget: string, required: false }
+              - name: details
+                label: "Details (label/value pairs; for featured courses)"
+                widget: list
+                required: false
+                fields:
+                  - { name: label, label: "Label (e.g. 'When', 'Where')", widget: string }
+                  - { name: value, label: "Value", widget: string }
+                  - { name: markdown, label: "Value contains markdown?", widget: boolean, required: false, default: false }
+              - name: actions
+                label: "Actions (buttons)"
+                widget: list
+                required: false
+                fields:
+                  - { name: label, label: "Button label", widget: string }
+                  - { name: url, label: "URL", widget: string }
+                  - { name: external, label: "External link?", widget: boolean, required: false, default: false }
+
+  - name: completed_projects
+    label: "Completed projects"
+    files:
+      - file: _data/completed-projects.yml
+        name: completed_projects
+        label: "Completed projects"
+        description: "Finished studies shown on the Completed projects page."
+        format: yml
+        fields:
+          - name: completed_projects
+            label: "Projects"
+            label_singular: "Project"
+            widget: list
+            summary: "{{fields.title}} ({{fields.year}})"
+            fields:
+              - { name: title, label: "Title", widget: string }
+              - { name: year, label: "Year", widget: number, value_type: int, min: 2000, max: 2100 }
+              - name: image
+                label: "Cover image"
+                widget: image
+                required: false
+                media_folder: /assets/images/completed-projects
+                public_folder: /assets/images/completed-projects
+                choose_url: false
+                max_file_size: 2097152
+                accept: "image/jpeg,image/png,image/svg+xml,image/webp"
+              - { name: image_credit, label: "Image credit (text)", widget: string, required: false }
+              - { name: image_credit_url, label: "Image credit URL", widget: string, required: false }
+              - { name: investigators, label: "Investigators (markdown)", widget: text }
+              - { name: summary, label: "Summary (markdown)", widget: text }
+              - { name: collection_period, label: "Data collection period", widget: string, required: false }
+              - { name: recruitment, label: "Recruitment (markdown)", widget: text, required: false }
+              - { name: instructions, label: "Instructions (markdown)", widget: text, required: false }
+              - { name: ethical_review, label: "Ethical review (markdown)", widget: text, required: false }
+              - { name: software, label: "Software used", widget: string, required: false }
+              - { name: local_processing, label: "Local processing link (markdown)", widget: text, required: false }
+              - { name: data, label: "Data availability (markdown)", widget: text, required: false }
+              - { name: acknowledgements, label: "Acknowledgements (markdown)", widget: text, required: false }
+              - name: references
+                label: "References"
+                widget: list
+                required: false
+                field: { name: reference, label: "Reference (markdown)", widget: text }
+
+  - name: newsletters
+    label: "Newsletters"
+    files:
+      - file: _data/newsletters.yml
+        name: newsletters
+        label: "Newsletters"
+        description: "Newsletter issues linked from the Newsletter page."
+        format: yml
+        fields:
+          - name: newsletters
+            label: "Newsletters"
+            label_singular: "Newsletter"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "Title", widget: string }
+              - { name: date, label: "Date", widget: datetime, type: date }
+              - { name: url, label: "URL (site-relative or absolute)", widget: string }
+              - { name: summary, label: "Summary", widget: text }
+              - { name: link_text, label: "Link text (e.g. 'Open newsletter')", widget: string, required: false }
+
+  - name: past_events_external
+    label: "Past events (external)"
+    files:
+      - file: _data/past-events-external.yml
+        name: past_events
+        label: "Link-only past events"
+        description: "Past data donation events NOT hosted by D3I (e.g. Utrecht 2022, Zurich 2023). For events we hosted, use the Symposia collection instead."
+        format: yml
+        fields:
+          - name: past_events
+            label: "Events"
+            label_singular: "Event"
+            widget: list
+            summary: "{{fields.title}} ({{fields.year}})"
+            fields:
+              - { name: title, label: "Title", widget: string }
+              - { name: year, label: "Year", widget: number, value_type: int, min: 2000, max: 2100 }
+              - { name: location, label: "Location", widget: string }
+              - { name: summary, label: "Summary", widget: text }
+              - { name: external_url, label: "External URL (the event's own site)", widget: string }
+
+  - name: pages
+    label: "Pages"
+    files:
+      - file: _pages/about-d3i/team.md
+        name: team_page
+        label: "About → Team"
+        description: "The Team page intro prose. Team members themselves are edited via the 'Team' collection."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - { name: permalink, label: "URL path", widget: hidden, default: "/about-d3i/team" }
+          - { name: layout, label: "Layout", widget: hidden, default: "page" }
+          - { name: redirect_from, label: "Redirects", widget: hidden, default: ["/about-the-project/team", "/d3i/team"] }
+          - { name: sidebar, label: "Sidebar config", widget: object, fields: [{ name: nav, label: "Nav key", widget: hidden, default: "about-d3i" }] }
+          - { name: data_section, label: "Data section config", widget: object, fields: [{ name: type, widget: hidden, default: "people-grid" }, { name: data, widget: hidden, default: "team" }] }
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: email, label: "Email address", widget: string }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: body, label: "Intro prose (markdown)", widget: markdown, hint: "Short prose shown above the team grid. Keep it brief — the grid itself is the main content." }
+      - file: _pages/about-d3i/impact-and-adoption.md
+        name: impact_page
+        label: "About → Impact and adoption"
+        description: "The Impact and adoption page, including usage plots and the 'help us track' CTA."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - { name: permalink, widget: hidden, default: "/about-d3i/impact-and-adoption" }
+          - { name: layout, widget: hidden, default: "page" }
+          - { name: redirect_from, widget: hidden, default: ["/software/usage/"] }
+          - { name: sidebar, widget: object, fields: [{ name: nav, widget: hidden, default: "about-d3i" }] }
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points (optional)"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string }
+              - { name: subject, label: "Email subject", widget: string }
+          - name: usage_images
+            label: "Usage plots"
+            widget: list
+            required: false
+            summary: "{{fields.caption}}"
+            fields:
+              - name: image
+                label: "Plot image"
+                widget: image
+                media_folder: /assets/images/usage
+                public_folder: /assets/images/usage
+                choose_url: false
+                max_file_size: 2097152
+                accept: "image/jpeg,image/png,image/svg+xml,image/webp"
+              - { name: caption, label: "Caption (also used as alt text)", widget: string }
+          - { name: body, label: "Page body (markdown)", widget: markdown, hint: "Prose for the page. The 'Usage plots' field above is rendered automatically after this body — do not add image includes here." }
+      - file: _pages/community/network.md
+        name: network_page
+        label: "Community → Networks"
+        description: "The Community Networks page, with the institutional and PhD network sections."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - { name: excerpt, label: "SEO excerpt", widget: string }
+          - { name: permalink, widget: hidden, default: "/community/institutional-network" }
+          - { name: layout, widget: hidden, default: "page-sections" }
+          - { name: classes, widget: hidden, default: "wide" }
+          - { name: sidebar, widget: object, fields: [{ name: nav, widget: hidden, default: "community" }] }
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string }
+              - { name: subject, label: "Email subject", widget: string }
+          - name: sections
+            label: "Page sections"
+            widget: list
+            label_singular: "Section"
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "Section title", widget: string }
+              - name: image
+                label: "Illustration"
+                widget: image
+                media_folder: /assets/images/hub
+                public_folder: /assets/images/hub
+                choose_url: false
+                max_file_size: 2097152
+                accept: "image/jpeg,image/png,image/svg+xml,image/webp"
+              - { name: image_alt, label: "Image alt text (required)", widget: string }
+              - name: image_side
+                label: "Image side"
+                widget: select
+                options: [left, right]
+                default: right
+              - { name: body, label: "Section body (markdown)", widget: markdown, hint: "Prose for this section. Placeholders like {{ site.phd_network_signup_url }} are templating — leave them exactly as-is." }
+              - { name: component_title, label: "Embedded component heading (optional)", widget: string, required: false }
+              - { name: component, label: "Embedded component ID (e.g. 'institutions-grid')", widget: string, required: false }
+
+  - name: symposia
+    label: "Symposia (D3I-hosted)"
+    folder: _symposia
+    create: true
+    extension: md
+    format: yaml-frontmatter
+    slug: "symposium-{{fields.date | date('YYYY')}}"
+    summary: "{{fields.title}} — {{fields.date}}"
+    path: "symposium-{{fields.date | date('YYYY')}}"
+    fields:
+      - { name: title, label: "Title", widget: string }
+      - { name: date, label: "Start date", widget: datetime, type: date }
+      - { name: end_date, label: "End date", widget: datetime, type: date, required: false }
+      - { name: location, label: "Location", widget: string }
+      - { name: summary, label: "Short summary (used in cards)", widget: text }
+      - { name: featured, label: "Featured (highlighted on symposia index)", widget: boolean, required: false, default: false }
+      - { name: external_url, label: "External URL (event website)", widget: string, required: false }
+      - name: details
+        label: "Detail rows (shown on the event page)"
+        widget: list
+        required: false
+        fields:
+          - { name: label, label: "Label", widget: string }
+          - { name: value, label: "Value", widget: string }
+          - { name: markdown, label: "Value contains markdown?", widget: boolean, required: false, default: false }
+      - name: actions
+        label: "Action buttons"
+        widget: list
+        required: false
+        fields:
+          - { name: label, label: "Button label", widget: string }
+          - { name: url, label: "URL", widget: string }
+          - { name: external, label: "External link?", widget: boolean, required: false, default: true }
+      - { name: layout, widget: hidden, default: "page" }
+      - { name: sidebar, widget: object, fields: [{ name: nav, widget: hidden, default: "community" }] }
+      - { name: body, label: "Full event page content (markdown)", widget: markdown }
+
+  - name: navigation
+    label: "Navigation"
+    files:
+      - file: _data/navigation.yml
+        name: navigation
+        label: "Site navigation"
+        description: "Main menu and sub-menus. Rename/reorder entries freely. Adding new entries: pick a URL from the dropdown."
+        format: yml
+        fields:
+          - name: main
+            label: "Main menu"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "Label", widget: string }
+              - name: url
+                label: "Link"
+                widget: select
+                options:
+                  - { label: "Data donation", value: "/data-donation/" }
+                  - { label: "Prepare a study", value: "/prepare-a-study/" }
+                  - { label: "Software", value: "/software/" }
+                  - { label: "Community", value: "/community/" }
+                  - { label: "About D3I", value: "/about-d3i/" }
+          - name: about-d3i
+            label: "About D3I submenu"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "Label", widget: string }
+              - name: url
+                label: "Link"
+                widget: select
+                options:
+                  - { label: "About D3I (landing)", value: "/about-d3i/" }
+                  - { label: "Team", value: "/about-d3i/team" }
+                  - { label: "Advisory board", value: "/about-d3i/advisory-board" }
+                  - { label: "Funding", value: "/about-d3i/funding" }
+                  - { label: "Partners", value: "/about-d3i/partners" }
+                  - { label: "Impact and adoption", value: "/about-d3i/impact-and-adoption" }
+              - name: children
+                label: "Children (optional)"
+                widget: list
+                required: false
+                fields:
+                  - { name: title, label: "Label", widget: string }
+                  - name: url
+                    label: "Link"
+                    widget: select
+                    options:
+                      - { label: "Team", value: "/about-d3i/team" }
+                      - { label: "Advisory board", value: "/about-d3i/advisory-board" }
+                      - { label: "Funding", value: "/about-d3i/funding" }
+                      - { label: "Partners", value: "/about-d3i/partners" }
+                      - { label: "Impact and adoption", value: "/about-d3i/impact-and-adoption" }
+          - name: software
+            label: "Software submenu"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "Label", widget: string }
+              - name: url
+                label: "Link"
+                widget: select
+                options:
+                  - { label: "Software (landing)", value: "/software/" }
+                  - { label: "Getting started", value: "/software/getting-started/" }
+                  - { label: "Ready-made scripts", value: "/software/ready-made-scripts/" }
+                  - { label: "Going further", value: "/software/going-further/" }
+                  - { label: "Port in education", value: "/software/port-in-education/" }
+              - name: children
+                label: "Children (optional)"
+                widget: list
+                required: false
+                fields:
+                  - { name: title, label: "Label", widget: string }
+                  - name: url
+                    label: "Link"
+                    widget: select
+                    options:
+                      - { label: "Getting started", value: "/software/getting-started/" }
+                      - { label: "Ready-made scripts", value: "/software/ready-made-scripts/" }
+                      - { label: "Going further", value: "/software/going-further/" }
+                      - { label: "Port in education", value: "/software/port-in-education/" }
+          - name: prepare-a-study
+            label: "Prepare a study submenu"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "Label", widget: string }
+              - name: url
+                label: "Link"
+                widget: select
+                options:
+                  - { label: "Prepare a study (landing)", value: "/prepare-a-study/" }
+                  - { label: "Study design", value: "/prepare-a-study/study-design" }
+                  - { label: "Privacy and consent", value: "/prepare-a-study/privacy-and-consent" }
+                  - { label: "Completed projects", value: "/prepare-a-study/completed-projects" }
+              - name: children
+                label: "Children (optional)"
+                widget: list
+                required: false
+                fields:
+                  - { name: title, label: "Label", widget: string }
+                  - name: url
+                    label: "Link"
+                    widget: select
+                    options:
+                      - { label: "Study design", value: "/prepare-a-study/study-design" }
+                      - { label: "Privacy and consent", value: "/prepare-a-study/privacy-and-consent" }
+                      - { label: "Completed projects", value: "/prepare-a-study/completed-projects" }
+          - name: community
+            label: "Community submenu"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "Label", widget: string }
+              - name: url
+                label: "Link"
+                widget: select
+                options:
+                  - { label: "Community (landing)", value: "/community/" }
+                  - { label: "Institutional network", value: "/community/institutional-network" }
+                  - { label: "Newsletter", value: "/community/newsletter/" }
+                  - { label: "Courses", value: "/community/courses/" }
+                  - { label: "Symposia", value: "/community/symposia/" }
+                  - { label: "Letters & positions", value: "/community/omnibus-letter" }
+              - name: children
+                label: "Children (optional)"
+                widget: list
+                required: false
+                fields:
+                  - { name: title, label: "Label", widget: string }
+                  - name: url
+                    label: "Link"
+                    widget: select
+                    options:
+                      - { label: "Institutional network", value: "/community/institutional-network" }
+                      - { label: "Newsletter", value: "/community/newsletter/" }
+                      - { label: "Courses", value: "/community/courses/" }
+                      - { label: "Symposia", value: "/community/symposia/" }
+                      - { label: "Letters & positions", value: "/community/omnibus-letter" }
+                  - { name: show_sections, label: "Show sub-sections (Networks page only)", widget: boolean, required: false, default: false }

@@ -1,21 +1,22 @@
-- name: "Eyra"
-  url: https://eyra.co/
-  role: "Software development"
-  description: |
-    Focuses on the development of open-source software solutions for
-    scientific purposes. We collaborate with Eyra on the development of
-    our software "Port".
+partners:
+  - name: "Eyra"
+    url: https://eyra.co/
+    role: "Software development"
+    description: |
+      Focuses on the development of open-source software solutions for
+      scientific purposes. We collaborate with Eyra on the development of
+      our software "Port".
 
-- name: "ODISSEI"
-  url: https://odissei-data.nl/
-  role: "Research infrastructure"
-  description: |
-    The Dutch national research infrastructure for Social Sciences and
-    Economy. Data donation and the software "Port" are part of ODISSEI.
+  - name: "ODISSEI"
+    url: https://odissei-data.nl/
+    role: "Research infrastructure"
+    description: |
+      The Dutch national research infrastructure for Social Sciences and
+      Economy. Data donation and the software "Port" are part of ODISSEI.
 
-- name: "SURF"
-  url: https://www.surf.nl/
-  role: "Cloud infrastructure"
-  description: |
-    Dutch collaborative ICT organisation. We collaborate with SURF to
-    make Port available on SURF Research Cloud.
+  - name: "SURF"
+    url: https://www.surf.nl/
+    role: "Cloud infrastructure"
+    description: |
+      Dutch collaborative ICT organisation. We collaborate with SURF to
+      make Port available on SURF Research Cloud.

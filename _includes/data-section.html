@@ -1,18 +1,27 @@
 {% if page.data_section %}
   {% assign ds_type = page.data_section.type %}
   {% assign ds_data = page.data_section.data %}
+  {% comment %}
+    Each Sveltia-managed data file wraps its records under a top-level key.
+    By convention the wrap key matches the file's basename with hyphens
+    replaced by underscores (e.g. `_data/completed-projects.yml` →
+    `completed_projects:`). Pages can override that with `data_section.key`
+    when the wrap key differs from the file basename.
+  {% endcomment %}
+  {% assign ds_key = page.data_section.key | default: ds_data | replace: '-', '_' %}
+  {% assign ds_items = site.data[ds_data][ds_key] %}
   {% case ds_type %}
     {% when 'people-grid' %}
       {% include data-sections/people-grid.html data=ds_data %}
     {% when 'link-list' %}
-      {% include data-sections/link-list.html data=ds_data %}
+      {% include data-sections/link-list.html items=ds_items %}
     {% when 'info-list' %}
-      {% include data-sections/info-list.html data=ds_data %}
+      {% include data-sections/info-list.html items=ds_items %}
     {% when 'funding-list' %}
-      {% include data-sections/funding-list.html data=ds_data %}
+      {% include data-sections/funding-list.html items=ds_items %}
     {% when 'institution-grid' %}
-      {% include data-sections/institution-grid.html data=ds_data %}
+      {% include data-sections/institution-grid.html items=ds_items %}
     {% when 'project-list' %}
-      {% include data-sections/project-list.html data=ds_data %}
+      {% include data-sections/project-list.html items=ds_items %}
   {% endcase %}
 {% endif %}
