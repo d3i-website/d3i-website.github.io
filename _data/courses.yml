@@ -1,33 +1,42 @@
 courses:
   - featured: true
-    title: "A practical guide to collecting digital trace data using data donation"
-    summary: "This workshop introduces data donation as a privacy-preserving approach for collecting digital trace data, with hands-on exercises covering study design, Port configuration, extraction scripts, recruitment, and linkage with other data."
+    title: A practical guide to collecting digital trace data using data donation
+    summary: This workshop introduces data donation as a privacy-preserving approach for collecting digital trace data, with hands-on exercises covering study design, Port configuration, extraction scripts, recruitment, and linkage with other data.
+    date_label: ''
+    location: ''
     details:
-      - label: "When"
-        value: "July 13, 2026, 09:00 - 12:30"
-      - label: "Where"
-        value: "IPDLN Conference, Erasmus University Rotterdam, The Netherlands"
-      - label: "Instructors"
-        value: "Laura Boeschoten, Danielle McCool (Utrecht University)"
-      - label: "Program"
-        value: "[IPDLN 2026 program](https://virtual.oxfordabstracts.com/event/76116/program)"
+      - label: When
+        value: July 13, 2026, 09:00 - 12:30
+      - label: Where
+        value: IPDLN Conference, Erasmus University Rotterdam, The Netherlands
+      - label: Instructors
+        value: Laura Boeschoten, Danielle McCool (Utrecht University)
+      - label: Program
+        value: '[IPDLN 2026 program](https://virtual.oxfordabstracts.com/event/76116/program)'
         markdown: true
     actions:
-      - label: "Register for this course"
-        url: "https://ipdln.org/registration/"
+      - label: Register for this course
+        url: https://ipdln.org/registration/
         external: true
-  - title: "How to prepare a data donation study?"
-    date_label: "July 2025"
-    location: "ESRA conference, Utrecht"
-    summary: "A hands-on introduction to designing a study and preparing participants for data donation."
-  - title: "Collecting digital trace data through data donation"
-    date_label: "July 2024"
-    location: "IC2S2 conference, Philadelphia"
-    summary: "A practical tutorial on deploying a data donation workflow for computational social science research."
+  - featured: false
+    title: 'Data Donation as a Method for Social Media Research: Workflow, Privacy Considerations, and Practical Challenges'
+    summary: Symposium hands-on workshop that explores the legal and ethical challenges of using social media data in research, from a privacy-first perspective.
+    date_label: March 12, 2026
+    location: University of Twente, DCC Symposium
+    details: []
+    actions: []
+  - title: How to prepare a data donation study?
+    summary: A hands-on introduction to designing a study and preparing participants for data donation.
+    date_label: July 2025
+    location: ESRA conference, Utrecht
+  - title: Collecting digital trace data through data donation
+    summary: A practical tutorial on deploying a data donation workflow for computational social science research.
+    date_label: July 2024
+    location: IC2S2 conference, Philadelphia
     actions:
-      - label: "View course materials"
-        url: "/community/courses/materials"
-  - title: "How to prepare a data donation study?"
-    date_label: "February 2024"
-    location: "Radboud University, Nijmegen"
-    summary: "An introductory short course on study design, ethics, and implementation choices."
+      - label: View course materials
+        url: /community/courses/materials
+  - title: How to prepare a data donation study?
+    summary: An introductory short course on study design, ethics, and implementation choices.
+    date_label: February 2024
+    location: Radboud University, Nijmegen
