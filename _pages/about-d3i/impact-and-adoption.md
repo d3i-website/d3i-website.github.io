@@ -2,6 +2,9 @@
 title: Impact and adoption
 excerpt: "Where and how the data donation software is being used across institutions and research projects."
 permalink: /about-d3i/impact-and-adoption
+cta:
+  label: "Begin questionnaire"
+  url: https://survey.uu.nl/jfe/form/SV_9XjKNKroOd4Nhrg
 layout: page
 redirect_from: /software/usage/
 sidebar:
@@ -34,5 +37,3 @@ Port is funded through multiple grants, and for reporting to these funders
 it is important that we keep statistics on usage. If you have used Port for
 your study, we kindly request you to fill in a short questionnaire once
 your data donation study goes live.
-
-[Begin questionnaire →](https://survey.uu.nl/jfe/form/SV_9XjKNKroOd4Nhrg){: .section-cta}

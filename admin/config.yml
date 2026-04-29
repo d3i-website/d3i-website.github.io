@@ -280,6 +280,16 @@ collections:
             label: "Page body (markdown)"
             widget: markdown
             hint: "Prose for the page. The 'Usage plots' field below is rendered automatically after this body — do not add image includes here."
+          - name: cta
+            label: "Call-to-action button"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{label}}"
+            comment: "Optional styled button rendered immediately after the body, before the bottom contact block. Leave blank if none."
+            fields:
+              - { name: label, label: "Button text", widget: string, comment: "Don't include the arrow — the layout adds it." }
+              - { name: url, label: "URL or mailto link", widget: string, comment: "e.g. https://example.com/form or mailto:foo@bar." }
           - name: usage_images
             label: "Usage plots"
             widget: list
@@ -356,7 +366,17 @@ collections:
               - name: body
                 label: "Section body (markdown)"
                 widget: markdown
-                hint: "Prose for this section. Placeholders like {{ site.phd_network_signup_url }} are templating — leave them exactly as-is."
+                hint: "Prose for this section."
+              - name: cta
+                label: "Section call-to-action button"
+                widget: object
+                required: false
+                collapsed: true
+                summary: "{{label}}"
+                comment: "Optional styled button rendered immediately after this section's prose, before any embedded component."
+                fields:
+                  - { name: label, label: "Button text", widget: string, comment: "Don't include the arrow — the layout adds it." }
+                  - { name: url, label: "URL or mailto link", widget: string, comment: "e.g. https://example.com/form or mailto:foo@bar." }
               - { name: component_title, label: "Embedded component heading (optional)", widget: string, required: false }
               - { name: component, label: "Embedded component ID (e.g. 'institutions-grid')", widget: string, required: false }
           - name: contact
@@ -409,10 +429,19 @@ collections:
           - { name: title, label: "Page title", widget: string }
           - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
           - name: body
-            label: "Intro prose (markdown — raw mode)"
+            label: "Intro prose (markdown)"
             widget: markdown
-            modes: [raw]
-            hint: "This page contains code-like placeholders ({{ site.newsletter_signup_url }} and Kramdown {: .section-cta} attributes). Edit raw markdown only — do not click the formatting toolbar. Placeholders MUST be preserved exactly."
+            hint: "Short prose introducing the newsletter. The Subscribe button is configured below, not in this prose field."
+          - name: cta
+            label: "Call-to-action button"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{label}}"
+            comment: "Optional styled button rendered immediately after the body, before the bottom contact block. Leave blank if none."
+            fields:
+              - { name: label, label: "Button text", widget: string, comment: "Don't include the arrow — the layout adds it." }
+              - { name: url, label: "URL or mailto link", widget: string, comment: "e.g. https://example.com/form or mailto:foo@bar." }
           - name: contact
             label: "Contact CTA"
             widget: object

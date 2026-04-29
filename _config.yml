@@ -60,6 +60,7 @@ collections:
 future: true
 
 # Custom URLs
-newsletter_signup_url: "https://mailings.uu.nl/hp/yGi2REuD3coZozpdzieiGg/subscribe_newsletter_data_donation"
+# newsletter_signup_url and phd_network_signup_url were retired when their
+# CTAs migrated to structured `cta:` frontmatter on the relevant pages.
+# open_letter_url is still consumed by _pages/community/open-letter.md.
 open_letter_url: "https://dsa40collaboratory.eu/open-letter-omnibus/"
-phd_network_signup_url: "https://mailings.uu.nl/hp/BsTM1OxHcH5nTdpEqXAkMg/subscribe_newsletter_data_donation_network"
