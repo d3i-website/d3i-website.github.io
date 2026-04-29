@@ -40,17 +40,21 @@ If login fails: most often, your token has the wrong permissions. Re-generate fo
 
 You'll see a left sidebar listing everything you can edit:
 
-- **Team** — add, edit, or remove people on the Team page.
-- **Institutional Network**, **Advisory Board**, **Funding**, **Partners**, **Courses**, **Completed projects**, **Newsletters**, **Past events (external)** — structured data shown on each matching site page.
-- **Pages** — the intro prose and structured content for About → Team, About → Impact and adoption, and Community → Networks.
-- **Symposia (D3I-hosted)** — create new symposium event pages; edit existing ones.
-- **Navigation** — rename and reorder items in the site menu.
+The sidebar groups everything you can edit by site section:
+
+- **About D3I** — page editors and data lists for `/about-d3i/` (Team, Advisory board, Funding, Partners, Impact and adoption).
+- **Community** — page editors and data lists for `/community/` (Networks, Newsletter, Courses).
+- **Symposia** — create new symposium event pages; edit existing ones. Each entry produces its own page on the site.
+- **Prepare a Study** — page editor and data list for the Completed projects page.
+- **Site Structure** — site-wide configuration (Navigation). Rarely needs editing.
+
+Within each section, page editors are paired with their supporting data list (e.g. "Team page" sits next to "Team members"). Edit the page when you want to change the prose; edit the data list when you want to add, remove, or reorder items shown on the page.
 
 ## Common tasks
 
 ### Add a team member
 
-1. Dashboard → Team → Team members.
+1. Dashboard → About D3I → Team members.
 2. Click the **+** button on the Members list.
 3. Fill in Name, Role / title, Group (dropdown), Photo (upload), and optional Profile URL.
 4. Click **Save** at the top.
@@ -59,16 +63,16 @@ This stores your edit on the `cms-staging` branch — it's saved, but not yet vi
 
 ### Edit the Team page intro
 
-1. Dashboard → Pages → About → Team.
+1. Dashboard → About D3I → Team page.
 2. Edit the **Intro prose** markdown field.
 3. Click **Save**.
 
 ### Add a new symposium
 
-1. Dashboard → Symposia (D3I-hosted).
+1. Dashboard → Symposia.
 2. Click **New Symposium**.
 3. Fill in Title, Start date, End date, Location, Summary, optional External URL and details/actions.
-4. Write the full event page content in the **Full event page content** field.
+4. Write the full event page content in the **Full event page content** field. (For events whose primary page lives elsewhere, the External URL is enough — visitors land on this site's page first and can click through.)
 5. Click **Save**.
 
 ## How "Save" works

@@ -11,8 +11,6 @@ hero:
   alt: "A person presenting at a conference."
 archive:
   collection: symposia
-  external_source: past-events-external
-  external_key: past_events
   featured_heading: "Upcoming symposium"
   heading: "Previous symposia"
 contact:
@@ -27,4 +25,4 @@ contact:
 
 The Data Donation Symposium brings together applied researchers, methodologists, legal and ethical experts, research engineers, and software developers with an interest in using digital trace data for scientific research purposes.
 
-The archive below keeps the current event visible while preserving access to previous editions, materials, and external event pages.
+The archive below keeps the current event visible while preserving access to previous editions and their materials.

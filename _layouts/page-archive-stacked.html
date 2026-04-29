@@ -5,22 +5,70 @@ layout: site-shell
 {% assign nav_key = page.sidebar.nav %}
 
 {% comment %}
-  An archive page can source its items from either a data file
-  (page.archive.source) or a Jekyll collection (page.archive.collection).
-  Collection items are sorted by date descending so upcoming/recent events
-  appear first. page.archive.external_source optionally appends a data-file
-  list of link-only entries (e.g. past events we didn't host) after the
-  main archive list.
+  An archive page can source its items from either a Jekyll collection
+  (page.archive.collection — items are dated and get a date-based
+  upcoming/past split) or a data file (page.archive.source — items use
+  the legacy featured-boolean classification because they may not have
+  real dates). page.archive.external_source optionally appends a
+  data-file list of link-only entries after the main archive list.
 {% endcomment %}
+
+{% assign use_date_filter = false %}
 {% if page.archive.collection %}
   {% assign archive_items = site[page.archive.collection] | sort: "date" | reverse %}
+  {% assign use_date_filter = true %}
 {% else %}
   {% assign archive_source = page.archive.source %}
   {% assign archive_key = page.archive.key | default: archive_source | replace: '-', '_' %}
   {% assign archive_items = site.data[archive_source][archive_key] %}
 {% endif %}
-{% assign featured_items = archive_items | where: "featured", true %}
-{% assign archived_items = archive_items | where_exp: "item", "item.featured != true" %}
+
+{% comment %} Compute spotlight + other_upcoming + archived_items {% endcomment %}
+{% if use_date_filter %}
+  {% assign today = site.time | date: "%Y-%m-%d" %}
+  {% assign upcoming_items = "" | split: "" %}
+  {% assign past_items = "" | split: "" %}
+  {% for item in archive_items %}
+    {% assign cutoff = item.end_date | default: item.date %}
+    {% if cutoff %}
+      {% assign cutoff_str = cutoff | date: "%Y-%m-%d" %}
+      {% if cutoff_str >= today %}
+        {% assign upcoming_items = upcoming_items | push: item %}
+      {% else %}
+        {% assign past_items = past_items | push: item %}
+      {% endif %}
+    {% else %}
+      {% assign past_items = past_items | push: item %}
+    {% endif %}
+  {% endfor %}
+
+  {% comment %} Spotlight: first featured upcoming, else soonest upcoming {% endcomment %}
+  {% assign featured_upcoming = upcoming_items | where: "featured", true %}
+  {% if featured_upcoming.size > 0 %}
+    {% assign spotlight = featured_upcoming | first %}
+  {% elsif upcoming_items.size > 0 %}
+    {% assign upcoming_sorted = upcoming_items | sort: "date" %}
+    {% assign spotlight = upcoming_sorted | first %}
+  {% else %}
+    {% assign spotlight = nil %}
+  {% endif %}
+
+  {% if spotlight %}
+    {% assign featured_items = "" | split: "" | push: spotlight %}
+    {% assign other_upcoming = upcoming_items | where_exp: "item", "item.url != spotlight.url" %}
+  {% else %}
+    {% assign featured_items = "" | split: "" %}
+    {% assign other_upcoming = upcoming_items %}
+  {% endif %}
+
+  {% assign archived_items = past_items %}
+{% else %}
+  {% comment %} Legacy featured-boolean path for data-file archives without real dates {% endcomment %}
+  {% assign featured_items = archive_items | where: "featured", true %}
+  {% assign archived_items = archive_items | where_exp: "item", "item.featured != true" %}
+  {% assign other_upcoming = "" | split: "" %}
+{% endif %}
+
 {% if page.archive.external_source %}
   {% assign external_source = page.archive.external_source %}
   {% assign external_key = page.archive.external_key | default: external_source | replace: '-', '_' %}
@@ -60,6 +108,19 @@ layout: site-shell
             <div class="archive-page__list">
               {% for item in featured_items %}
                 {% include archive-card.html item=item featured=true %}
+              {% endfor %}
+            </div>
+          </section>
+        {% endif %}
+
+        {% if other_upcoming.size > 0 %}
+          <section class="archive-page__section">
+            <div class="archive-page__section-header">
+              <h2 class="archive-page__heading">{{ page.archive.upcoming_heading | default: "Also upcoming" }}</h2>
+            </div>
+            <div class="archive-page__list">
+              {% for item in other_upcoming %}
+                {% include archive-card.html item=item %}
               {% endfor %}
             </div>
           </section>

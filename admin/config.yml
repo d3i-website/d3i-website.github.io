@@ -529,32 +529,14 @@ collections:
                   - { name: url, label: "URL", widget: string }
                   - { name: external, label: "External link?", widget: boolean, required: false, default: false }
 
-      - { divider: true, label: "Past events" }
-      - file: _data/past-events-external.yml
-        name: past_events_data
-        label: "Past events (external)"
-        icon: event_available
-        format: yml
-        description: "Past data donation events NOT hosted by D3I (e.g. Utrecht 2022, Zurich 2023). For events we hosted, use the Symposia collection."
-        fields:
-          - name: past_events
-            label: "Events"
-            label_singular: "Event"
-            widget: list
-            summary: "{{title}} ({{year}})"
-            fields:
-              - { name: title, label: "Title", widget: string }
-              - { name: year, label: "Year", widget: number, value_type: int, min: 2000, max: 2100 }
-              - { name: location, label: "Location", widget: string }
-              - { name: summary, label: "Summary", widget: text }
-              - { name: external_url, label: "External URL (the event's own site)", widget: string }
-
   # ──────────────── Symposia (peer to Community — entry collection) ───────
   # Folder collections cannot nest inside file collections, so Symposia sits
-  # as a sibling to the section collections. The label signals the
-  # connection.
+  # as a sibling to the Community section collection. The deliberate
+  # decision: every event we acknowledge gets a `_symposia/` page (even if
+  # the body is bare and the page mostly links out via external_url). One
+  # collection, one rendering pattern, no separate "link-only" data file.
   - name: symposia
-    label: "Symposia (Community)"
+    label: "Symposia"
     icon: event
     folder: _symposia
     create: true
@@ -563,7 +545,7 @@ collections:
     slug: "symposium-{{fields.date | date('YYYY')}}"
     summary: "{{title}} — {{date}}"
     path: "symposium-{{fields.date | date('YYYY')}}"
-    description: "D3I-hosted symposium event pages. Each entry produces its own page on the site. To add a new symposium: click the '+' button."
+    description: "Event pages for symposia and related events. Each entry produces its own page on this site. For events whose primary page lives elsewhere, fill in the External URL field — the manager can still write a brief frontmatter entry here so the event appears in the symposia archive. Add a new symposium with the '+' button."
     fields:
       - { name: title, label: "Title", widget: string }
       - name: date
@@ -580,11 +562,11 @@ collections:
       - { name: location, label: "Location", widget: string }
       - { name: summary, label: "Short summary (used in cards)", widget: text }
       - name: featured
-        label: "Featured (highlighted on symposia index)"
+        label: "Spotlight this symposium?"
         widget: boolean
         required: false
         default: false
-        comment: "Spotlights this symposium prominently. Note: today, this flag also affects whether the entry is shown as upcoming vs. past — task-08 in the design refinement plan separates those concerns."
+        comment: "Spotlights this symposium in the upcoming-event hero slot on /community/symposia. Only meaningful for upcoming events; past events ignore this flag (the layout uses dates to classify upcoming vs. past automatically)."
       - { name: external_url, label: "External URL (event website)", widget: string, required: false }
       - name: details
         label: "Detail rows (shown on the event page)"
