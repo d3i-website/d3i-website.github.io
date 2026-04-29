@@ -24,6 +24,10 @@ public_folder: /assets/images
 # get visual subsection grouping; if Sveltia ignores their `label:` they
 # still render as separators. If they fail entirely, dividers can be
 # stripped without affecting the schema.
+#
+# Summary template syntax: list and object summaries use `{{fieldname}}`
+# (no `fields.` prefix). Slug/path templates use the `{{fields.X}}` form
+# — different system, different parser.
 # ─────────────────────────────────────────────────────────────────────────────
 collections:
 
@@ -42,10 +46,7 @@ collections:
         description: "The intro prose at /about-d3i/team. Team members themselves are edited in the next entry."
         fields:
           - { name: title, label: "Page title", widget: string }
-          - name: excerpt
-            label: "Page blurb"
-            widget: string
-            comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews."
+          - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
           - name: body
             label: "Intro prose (markdown)"
             widget: markdown
@@ -54,11 +55,17 @@ collections:
             label: "Contact CTA"
             widget: object
             collapsed: true
-            summary: "{{fields.lead}}"
+            summary: "{{lead}}"
             comment: "Renders as the contact CTA block at the bottom of the page."
             fields:
               - { name: lead, label: "Heading", widget: string }
-              - { name: email, label: "Email address", widget: string }
+              - { name: intro, label: "Intro text (optional)", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points (optional)"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
               - { name: subject, label: "Email subject", widget: string }
           - { name: sidebar, widget: hidden, default: { nav: "about-d3i" } }
           - { name: data_section, widget: hidden, default: { type: "people-grid", data: "team" } }
@@ -77,7 +84,7 @@ collections:
             label: "Members"
             label_singular: "Member"
             widget: list
-            summary: "{{fields.name}} — {{fields.role}}"
+            summary: "{{name}} — {{role}}"
             fields:
               - { name: name, label: "Name", widget: string }
               - { name: role, label: "Role / title", widget: string }
@@ -102,6 +109,40 @@ collections:
               - { name: url, label: "Profile URL", widget: string, required: false }
 
       - { divider: true, label: "Advisory board" }
+      - file: _pages/about-d3i/advisory-board.md
+        name: advisory_board_page
+        label: "Advisory board page"
+        icon: supervisor_account
+        description: "The intro prose at /about-d3i/advisory-board. Advisors themselves are edited in the next entry."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
+          - name: body
+            label: "Intro prose (markdown)"
+            widget: markdown
+            hint: "Short prose shown above the advisors list."
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text (optional)", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points (optional)"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: sidebar, widget: hidden, default: { nav: "about-d3i" } }
+          - { name: data_section, widget: hidden, default: { type: "link-list", data: "advisors" } }
+          - { name: permalink, widget: hidden, default: "/about-d3i/advisory-board" }
+          - { name: layout, widget: hidden, default: "page" }
+          - { name: redirect_from, widget: hidden, default: ["/about-the-project/advisory-board"] }
+
       - file: _data/advisors.yml
         name: advisors_data
         label: "Advisors"
@@ -113,12 +154,46 @@ collections:
             label: "Advisors"
             label_singular: "Advisor"
             widget: list
-            summary: "{{fields.name}}"
+            summary: "{{name}}"
             fields:
               - { name: name, label: "Name", widget: string }
               - { name: url, label: "Profile URL", widget: string, required: false }
 
       - { divider: true, label: "Funding" }
+      - file: _pages/about-d3i/funding.md
+        name: funding_page
+        label: "Funding page"
+        icon: paid
+        description: "The intro prose at /about-d3i/funding. Funding entries themselves are edited in the next entry."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
+          - name: body
+            label: "Intro prose (markdown)"
+            widget: markdown
+            hint: "Short prose shown above the funding entries."
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text (optional)", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points (optional)"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: sidebar, widget: hidden, default: { nav: "about-d3i" } }
+          - { name: data_section, widget: hidden, default: { type: "funding-list", data: "funding" } }
+          - { name: permalink, widget: hidden, default: "/about-d3i/funding" }
+          - { name: layout, widget: hidden, default: "page" }
+          - { name: redirect_from, widget: hidden, default: ["/about-the-project/funding"] }
+
       - file: _data/funding.yml
         name: funding_data
         label: "Funding entries"
@@ -130,7 +205,7 @@ collections:
             label: "Funding entries"
             label_singular: "Funding entry"
             widget: list
-            summary: "{{fields.title}}"
+            summary: "{{title}}"
             fields:
               - { name: title, label: "Title", widget: string }
               - { name: period, label: "Period (e.g. 2024 – 2028, or 'permanent')", widget: string, required: false }
@@ -139,6 +214,41 @@ collections:
               - { name: description, label: "Description", widget: text }
 
       - { divider: true, label: "Partners" }
+      - file: _pages/about-d3i/partners.md
+        name: partners_page
+        label: "Partners page"
+        icon: corporate_fare
+        description: "The intro prose at /about-d3i/partners. Partner entries themselves are edited in the next entry."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
+          - name: body
+            label: "Intro prose (markdown — optional)"
+            widget: markdown
+            required: false
+            hint: "Optional intro prose shown above the partners list. Leave blank if none."
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text (optional)", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points (optional)"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: sidebar, widget: hidden, default: { nav: "about-d3i" } }
+          - { name: data_section, widget: hidden, default: { type: "info-list", data: "partners" } }
+          - { name: permalink, widget: hidden, default: "/about-d3i/partners" }
+          - { name: layout, widget: hidden, default: "page" }
+          - { name: redirect_from, widget: hidden, default: ["/about-the-project/partners"] }
+
       - file: _data/partners.yml
         name: partners_data
         label: "Partners"
@@ -150,7 +260,7 @@ collections:
             label: "Partners"
             label_singular: "Partner"
             widget: list
-            summary: "{{fields.name}}"
+            summary: "{{name}}"
             fields:
               - { name: name, label: "Name", widget: string }
               - { name: url, label: "Website", widget: string, required: false }
@@ -165,10 +275,7 @@ collections:
         description: "The Impact and adoption page, including usage plots and the 'help us track' CTA."
         fields:
           - { name: title, label: "Page title", widget: string }
-          - name: excerpt
-            label: "Page blurb"
-            widget: string
-            comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews."
+          - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
           - name: body
             label: "Page body (markdown)"
             widget: markdown
@@ -177,7 +284,7 @@ collections:
             label: "Usage plots"
             widget: list
             required: false
-            summary: "{{fields.caption}}"
+            summary: "{{caption}}"
             fields:
               - name: image
                 label: "Plot image"
@@ -192,7 +299,7 @@ collections:
             label: "Contact CTA"
             widget: object
             collapsed: true
-            summary: "{{fields.lead}}"
+            summary: "{{lead}}"
             comment: "Renders as the contact CTA block at the bottom of the page."
             fields:
               - { name: lead, label: "Heading", widget: string }
@@ -202,7 +309,7 @@ collections:
                 widget: list
                 required: false
                 field: { name: bullet, widget: string }
-              - { name: email, label: "Email address", widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
               - { name: subject, label: "Email subject", widget: string }
           - { name: sidebar, widget: hidden, default: { nav: "about-d3i" } }
           - { name: permalink, widget: hidden, default: "/about-d3i/impact-and-adoption" }
@@ -224,15 +331,12 @@ collections:
         description: "The Community Networks page, with the institutional and PhD network sections."
         fields:
           - { name: title, label: "Page title", widget: string }
-          - name: excerpt
-            label: "Page blurb"
-            widget: string
-            comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews."
+          - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
           - name: sections
             label: "Page sections"
             widget: list
             label_singular: "Section"
-            summary: "{{fields.title}}"
+            summary: "{{title}}"
             fields:
               - { name: title, label: "Section title", widget: string }
               - name: image
@@ -259,7 +363,7 @@ collections:
             label: "Contact CTA"
             widget: object
             collapsed: true
-            summary: "{{fields.lead}}"
+            summary: "{{lead}}"
             comment: "Renders as the contact CTA block at the bottom of the page."
             fields:
               - { name: lead, label: "Heading", widget: string }
@@ -269,7 +373,7 @@ collections:
                 widget: list
                 required: false
                 field: { name: bullet, widget: string }
-              - { name: email, label: "Email address", widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
               - { name: subject, label: "Email subject", widget: string }
           - { name: sidebar, widget: hidden, default: { nav: "community" } }
           - { name: permalink, widget: hidden, default: "/community/institutional-network" }
@@ -287,7 +391,7 @@ collections:
             label: "Institutions"
             label_singular: "Institution"
             widget: list
-            summary: "{{fields.institution}} — {{fields.country}}"
+            summary: "{{institution}} — {{country}}"
             fields:
               - { name: institution, label: "Institution name", widget: string }
               - { name: affiliate_name, label: "Affiliate name (person)", widget: string }
@@ -296,6 +400,43 @@ collections:
               - { name: country, label: "Country", widget: string }
 
       - { divider: true, label: "Newsletter" }
+      - file: _pages/community/newsletter/index.md
+        name: newsletter_page
+        label: "Newsletter page"
+        icon: feed
+        description: "The intro prose at /community/newsletter/. Newsletter issues themselves are edited in the next entry."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
+          - name: body
+            label: "Intro prose (markdown — raw mode)"
+            widget: markdown
+            modes: [raw]
+            hint: "This page contains code-like placeholders ({{ site.newsletter_signup_url }} and Kramdown {: .section-cta} attributes). Edit raw markdown only — do not click the formatting toolbar. Placeholders MUST be preserved exactly."
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text (optional)", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points (optional)"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: sidebar, widget: hidden, default: { nav: "community" } }
+          - { name: hero, widget: hidden, default: { image: "/assets/images/hub/undraw_subscriber_whh0.svg", alt: "A person subscribing to a newsletter." } }
+          - { name: archive, widget: hidden, default: { source: "newsletters", heading: "Archive" } }
+          - { name: classes, widget: hidden, default: "h-entry" }
+          - { name: toc, widget: hidden, default: false }
+          - { name: permalink, widget: hidden, default: "/community/newsletter/" }
+          - { name: layout, widget: hidden, default: "page-archive-sidebar" }
+
       - file: _data/newsletters.yml
         name: newsletters_data
         label: "Newsletter issues"
@@ -307,7 +448,7 @@ collections:
             label: "Newsletters"
             label_singular: "Newsletter"
             widget: list
-            summary: "{{fields.title}}"
+            summary: "{{title}}"
             fields:
               - { name: title, label: "Title", widget: string }
               - { name: date, label: "Date", widget: datetime, type: date }
@@ -316,6 +457,41 @@ collections:
               - { name: link_text, label: "Link text (e.g. 'Open newsletter')", widget: string, required: false }
 
       - { divider: true, label: "Courses" }
+      - file: _pages/community/courses/index.md
+        name: courses_page
+        label: "Courses page"
+        icon: menu_book
+        description: "The intro prose at /community/courses/. Course entries themselves are edited in the next entry."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
+          - name: body
+            label: "Intro prose (markdown)"
+            widget: markdown
+            hint: "Short prose shown above the course archive."
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text (optional)", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points (optional)"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: sidebar, widget: hidden, default: { nav: "community" } }
+          - { name: hero, widget: hidden, default: { image: "/assets/images/hub/undraw_group-project_kow1.svg", alt: "A group of people collaborating on a project together." } }
+          - { name: archive, widget: hidden, default: { source: "courses", featured_heading: "Upcoming course", heading: "Previous courses" } }
+          - { name: toc, widget: hidden, default: false }
+          - { name: permalink, widget: hidden, default: "/community/courses/" }
+          - { name: layout, widget: hidden, default: "page-archive-stacked" }
+
       - file: _data/courses.yml
         name: courses_data
         label: "Course entries"
@@ -327,7 +503,7 @@ collections:
             label: "Courses"
             label_singular: "Course"
             widget: list
-            summary: "{{fields.title}}"
+            summary: "{{title}}"
             fields:
               - { name: featured, label: "Featured (show prominently)", widget: boolean, required: false, default: false }
               - { name: title, label: "Title", widget: string }
@@ -338,7 +514,7 @@ collections:
                 label: "Details (label/value pairs; for featured courses)"
                 widget: list
                 required: false
-                summary: "{{fields.label}}: {{fields.value}}"
+                summary: "{{label}}: {{value}}"
                 fields:
                   - { name: label, label: "Label (e.g. 'When', 'Where')", widget: string }
                   - { name: value, label: "Value", widget: string }
@@ -347,7 +523,7 @@ collections:
                 label: "Actions (buttons)"
                 widget: list
                 required: false
-                summary: "{{fields.label}} → {{fields.url}}"
+                summary: "{{label}} → {{url}}"
                 fields:
                   - { name: label, label: "Button label", widget: string }
                   - { name: url, label: "URL", widget: string }
@@ -365,7 +541,7 @@ collections:
             label: "Events"
             label_singular: "Event"
             widget: list
-            summary: "{{fields.title}} ({{fields.year}})"
+            summary: "{{title}} ({{year}})"
             fields:
               - { name: title, label: "Title", widget: string }
               - { name: year, label: "Year", widget: number, value_type: int, min: 2000, max: 2100 }
@@ -385,7 +561,7 @@ collections:
     extension: md
     format: yaml-frontmatter
     slug: "symposium-{{fields.date | date('YYYY')}}"
-    summary: "{{fields.title}} — {{fields.date}}"
+    summary: "{{title}} — {{date}}"
     path: "symposium-{{fields.date | date('YYYY')}}"
     description: "D3I-hosted symposium event pages. Each entry produces its own page on the site. To add a new symposium: click the '+' button."
     fields:
@@ -414,7 +590,7 @@ collections:
         label: "Detail rows (shown on the event page)"
         widget: list
         required: false
-        summary: "{{fields.label}}: {{fields.value}}"
+        summary: "{{label}}: {{value}}"
         fields:
           - { name: label, label: "Label", widget: string }
           - { name: value, label: "Value", widget: string }
@@ -423,7 +599,7 @@ collections:
         label: "Action buttons"
         widget: list
         required: false
-        summary: "{{fields.label}} → {{fields.url}}"
+        summary: "{{label}} → {{url}}"
         fields:
           - { name: label, label: "Button label", widget: string }
           - { name: url, label: "URL", widget: string }
@@ -440,6 +616,39 @@ collections:
     files:
 
       - { divider: true, label: "Completed projects" }
+      - file: _pages/prepare-a-study/completed-projects.md
+        name: completed_projects_page
+        label: "Completed projects page"
+        icon: task_alt
+        description: "The intro prose at /prepare-a-study/completed-projects/. Project entries themselves are edited in the next entry."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
+          - name: body
+            label: "Intro prose (markdown)"
+            widget: markdown
+            hint: "Short prose shown above the projects list."
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text (optional)", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points (optional)"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: sidebar, widget: hidden, default: { nav: "prepare-a-study" } }
+          - { name: data_section, widget: hidden, default: { type: "project-list", data: "completed-projects" } }
+          - { name: permalink, widget: hidden, default: "/prepare-a-study/completed-projects/" }
+          - { name: layout, widget: hidden, default: "page" }
+
       - file: _data/completed-projects.yml
         name: completed_projects_data
         label: "Completed project entries"
@@ -451,7 +660,7 @@ collections:
             label: "Projects"
             label_singular: "Project"
             widget: list
-            summary: "{{fields.title}} ({{fields.year}})"
+            summary: "{{title}} ({{year}})"
             fields:
               - { name: title, label: "Title", widget: string }
               - { name: year, label: "Year", widget: number, value_type: int, min: 2000, max: 2100 }
@@ -498,7 +707,7 @@ collections:
           - name: main
             label: "Main menu"
             widget: list
-            summary: "{{fields.title}}"
+            summary: "{{title}}"
             fields:
               - { name: title, label: "Label", widget: string }
               - name: url
@@ -513,7 +722,7 @@ collections:
           - name: about-d3i
             label: "About D3I submenu"
             widget: list
-            summary: "{{fields.title}}"
+            summary: "{{title}}"
             fields:
               - { name: title, label: "Label", widget: string }
               - name: url
@@ -544,7 +753,7 @@ collections:
           - name: software
             label: "Software submenu"
             widget: list
-            summary: "{{fields.title}}"
+            summary: "{{title}}"
             fields:
               - { name: title, label: "Label", widget: string }
               - name: url
@@ -573,7 +782,7 @@ collections:
           - name: prepare-a-study
             label: "Prepare a study submenu"
             widget: list
-            summary: "{{fields.title}}"
+            summary: "{{title}}"
             fields:
               - { name: title, label: "Label", widget: string }
               - name: url
@@ -600,7 +809,7 @@ collections:
           - name: community
             label: "Community submenu"
             widget: list
-            summary: "{{fields.title}}"
+            summary: "{{title}}"
             fields:
               - { name: title, label: "Label", widget: string }
               - name: url

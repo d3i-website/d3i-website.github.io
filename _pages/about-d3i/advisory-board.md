@@ -1,6 +1,7 @@
 ---
 layout: page
 title: "Advisory board"
+excerpt: "Senior researchers who provide steering and input across disciplines and institutions."
 permalink: /about-d3i/advisory-board
 sidebar:
   nav: "about-d3i"
