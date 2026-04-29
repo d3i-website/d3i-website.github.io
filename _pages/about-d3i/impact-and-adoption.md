@@ -1,5 +1,6 @@
 ---
 title: Impact and adoption
+excerpt: "Where and how the data donation software is being used across institutions and research projects."
 permalink: /about-d3i/impact-and-adoption
 layout: page
 redirect_from: /software/usage/
