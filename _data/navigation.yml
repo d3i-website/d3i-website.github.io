@@ -1,3 +1,30 @@
+# Site navigation. Developer-owned — intentionally NOT exposed in the CMS.
+#
+# Rationale: navigation here is structural site-architecture data, not
+# editorial content. Adding a menu item requires a corresponding page (which
+# the CMS cannot create). Labels track URL slugs 1:1 in practice.
+# show_sections: true (under community.children) is template-control data,
+# not editorial copy. See docs/superpowers/plans/2026-04-28-cms-design-refinement
+# task-13 for the full reasoning and alternatives considered.
+#
+# Invariants:
+#   - `main`: order of items in the top header navigation.
+#   - Section keys (`about-d3i`, `software`, `prepare-a-study`, `community`):
+#     must match each page's `sidebar.nav` value in its frontmatter.
+#   - Each entry has a `title` (displayed text) and `url` (page permalink).
+#     Titles often differ slightly from the linked page's title (e.g. menu
+#     "Team" vs page "Team members"); that's intentional.
+#   - URLs should be canonical page permalinks, not aliases or redirect_from
+#     entries.
+#   - `show_sections: true` is a flag the section-nav template reads to
+#     decide whether to render in-page section anchors. Currently used only
+#     on the Networks page entry (community.children). Don't add elsewhere
+#     without checking _includes/section-nav.html behavior.
+#
+# To change the menu: edit this file directly. To add a new page to the
+# menu: ensure the page exists with a matching permalink and `sidebar.nav`,
+# then add an entry here.
+
 main:
   - title: "Data donation"
     url: /data-donation/
