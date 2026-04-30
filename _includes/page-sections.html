@@ -15,6 +15,7 @@
           {% if section.body %}
             <div class="page-section__prose">{{ section.body | markdownify }}</div>
           {% endif %}
+          {% include structured-cta.html cta=section.cta %}
 
           </div>
         </section>

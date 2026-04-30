@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Completed projects
+excerpt: "A growing archive of data donation studies that have used Port, with study materials, ethics documentation, and processing code."
 permalink: /prepare-a-study/completed-projects/
 sidebar:
   nav: "prepare-a-study"

@@ -1,6 +1,7 @@
 ---
 layout: page
 title: "Funding"
+excerpt: "The grants and programmes that have supported the development of D3I and the software Port."
 permalink: /about-d3i/funding
 sidebar:
   nav: "about-d3i"

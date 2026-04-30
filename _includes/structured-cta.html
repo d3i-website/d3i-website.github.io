@@ -1,0 +1,16 @@
+{%- comment -%}
+  Renders a structured call-to-action button. Pass either:
+    {% include structured-cta.html cta=page.cta %}
+    {% include structured-cta.html cta=section.cta %}
+
+  Renders only when both `label` and `url` are present. The `→` arrow is
+  added by the template (decorative, aria-hidden) so manager-authored
+  labels don't need to include it.
+{%- endcomment -%}
+{%- if include.cta and include.cta.label and include.cta.url -%}
+<p class="section-cta-wrap">
+  <a href="{{ include.cta.url }}" class="section-cta">
+    {{ include.cta.label }} <span aria-hidden="true">→</span>
+  </a>
+</p>
+{%- endif -%}

@@ -1,6 +1,7 @@
 ---
 layout: page
 title: "Team members"
+excerpt: "The researchers, engineers, methodologists, and legal scholars behind the data donation infrastructure."
 permalink: /about-d3i/team
 sidebar:
   nav: "about-d3i"

@@ -1,6 +1,7 @@
 ---
 layout: page
 title: "Partners"
+excerpt: "The organisations we collaborate with to build, host, and maintain the infrastructure."
 permalink: /about-d3i/partners
 sidebar:
   nav: "about-d3i"

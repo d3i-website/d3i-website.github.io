@@ -4,7 +4,10 @@ classes: h-entry
 title: Newsletter 
 permalink: /community/newsletter/
 excerpt: "Stay informed about the latest news on data donation events and educational courses. Subscribe to receive regular updates."
-toc: false 
+cta:
+  label: "Subscribe to the newsletter"
+  url: "https://mailings.uu.nl/hp/yGi2REuD3coZozpdzieiGg/subscribe_newsletter_data_donation"
+toc: false
 sidebar:
   nav: "community"
 hero:
@@ -25,6 +28,4 @@ contact:
 ---
 
 
-Stay informed about the latest news on data donation events and educational courses. Subscribe to our newsletter to receive updates and information. The newsletter will be sent out around four times per year. 
-
-[Subscribe to the newsletter →]({{ site.newsletter_signup_url }}){: .section-cta}
+Stay informed about the latest news on data donation events and educational courses. Subscribe to our newsletter to receive updates and information. The newsletter will be sent out around four times per year.

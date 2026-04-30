@@ -26,15 +26,18 @@ layout: site-shell
       {% if stripped_content != '' %}
         {% if page.prose == false %}
           {{ content }}
+          {% include structured-cta.html cta=page.cta %}
         {% else %}
           <div class="prose">
             {% include content-page-hero.html %}
             {{ content }}
+            {% include structured-cta.html cta=page.cta %}
           </div>
         {% endif %}
       {% elsif page.hero %}
         <div class="prose">
           {% include content-page-hero.html %}
+          {% include structured-cta.html cta=page.cta %}
         </div>
       {% endif %}
 

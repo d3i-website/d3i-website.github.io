@@ -13,6 +13,15 @@ archive:
   source: courses
   featured_heading: "Upcoming course"
   heading: "Previous courses"
+contact:
+  lead: "Questions about courses or training?"
+  intro: "We can help with:"
+  bullets:
+    - Joining an upcoming course
+    - Materials from previous courses
+    - Suggestions for future course topics
+  email: DataDonation@uu.nl
+  subject: "Question about D3I courses"
 ---
 
 We regularly organize short courses about topics such as how to prepare a data donation study, methodological challenges around data donation studies, or how to program your own data donation task.
