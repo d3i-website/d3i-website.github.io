@@ -3,12 +3,33 @@ backend:
   repo: d3i-website/d3i-website.github.io
   branch: cms-staging
 
-site_url: https://datadonation.eu
-display_url: https://datadonation.eu
-logo_url: https://datadonation.eu/assets/images/datadonation-eu-logo.svg
+# Manager-facing URLs point at staging, not production. The manager's
+# publication flow lands changes on staging via Pages rebuild (~2 min);
+# production deploys to datadonation.eu are a separate gated step. Linking
+# to production from the CMS would show the manager a stale view of "their"
+# live site.
+site_url: https://d3i-website.github.io
+display_url: https://d3i-website.github.io
+logo_url: https://d3i-website.github.io/assets/images/favicon.svg
 
 media_folder: assets/images
 public_folder: /assets/images
+
+# Image optimization — runs in the browser before upload.
+# Raster images (JPEG/PNG) are converted to WebP and capped at 2048x2048.
+# SVGs are minified via SVGO. Existing assets on disk are not retroactively
+# converted; this only affects new uploads through the CMS.
+media_libraries:
+  default:
+    config:
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+          width: 2048
+          height: 2048
+        svg:
+          optimize: true
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Collections — top-level entries mirror the site's IA (About D3I, Community,
@@ -112,7 +133,7 @@ collections:
       - file: _pages/about-d3i/advisory-board.md
         name: advisory_board_page
         label: "Advisory board page"
-        icon: supervisor_account
+        icon: article
         description: "The intro prose at /about-d3i/advisory-board. Advisors themselves are edited in the next entry."
         fields:
           - { name: title, label: "Page title", widget: string }
@@ -163,7 +184,7 @@ collections:
       - file: _pages/about-d3i/funding.md
         name: funding_page
         label: "Funding page"
-        icon: paid
+        icon: article
         description: "The intro prose at /about-d3i/funding. Funding entries themselves are edited in the next entry."
         fields:
           - { name: title, label: "Page title", widget: string }
@@ -217,7 +238,7 @@ collections:
       - file: _pages/about-d3i/partners.md
         name: partners_page
         label: "Partners page"
-        icon: corporate_fare
+        icon: article
         description: "The intro prose at /about-d3i/partners. Partner entries themselves are edited in the next entry."
         fields:
           - { name: title, label: "Page title", widget: string }
@@ -271,7 +292,7 @@ collections:
       - file: _pages/about-d3i/impact-and-adoption.md
         name: impact_page
         label: "Impact and adoption page"
-        icon: trending_up
+        icon: article
         description: "The Impact and adoption page, including usage plots and the 'help us track' CTA."
         fields:
           - { name: title, label: "Page title", widget: string }
@@ -337,11 +358,24 @@ collections:
       - file: _pages/community/network.md
         name: networks_page
         label: "Networks page"
-        icon: hub
+        icon: article
         description: "The Community Networks page, with the institutional and PhD network sections."
         fields:
           - { name: title, label: "Page title", widget: string }
           - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
           - name: sections
             label: "Page sections"
             widget: list
@@ -423,11 +457,24 @@ collections:
       - file: _pages/community/newsletter/index.md
         name: newsletter_page
         label: "Newsletter page"
-        icon: feed
+        icon: article
         description: "The intro prose at /community/newsletter/. Newsletter issues themselves are edited in the next entry."
         fields:
           - { name: title, label: "Page title", widget: string }
           - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
           - name: body
             label: "Intro prose (markdown)"
             widget: markdown
@@ -489,11 +536,24 @@ collections:
       - file: _pages/community/courses/index.md
         name: courses_page
         label: "Courses page"
-        icon: menu_book
+        icon: article
         description: "The intro prose at /community/courses/. Course entries themselves are edited in the next entry."
         fields:
           - { name: title, label: "Page title", widget: string }
           - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
           - name: body
             label: "Intro prose (markdown)"
             widget: markdown
@@ -596,6 +656,19 @@ collections:
         required: false
         default: false
         comment: "Spotlights this symposium in the upcoming-event hero slot on /community/symposia. Only meaningful for upcoming events; past events ignore this flag (the layout uses dates to classify upcoming vs. past automatically)."
+      - name: postit
+        label: "Highlight (optional)"
+        widget: object
+        required: false
+        collapsed: true
+        summary: "{{title}}"
+        comment: "Optional time-sensitive highlight box rendered at the top of this event's page. Useful for things like 'Registration closes Friday' or 'Programme updated'. Leave the checkbox unchecked when not in use."
+        fields:
+          - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+          - { name: title, label: "Heading", widget: string, maxlength: 80 }
+          - { name: body, label: "Body", widget: text, maxlength: 200 }
+          - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+          - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
       - { name: external_url, label: "External URL (event website)", widget: string, required: false }
       - name: details
         label: "Detail rows (shown on the event page)"
@@ -630,7 +703,7 @@ collections:
       - file: _pages/prepare-a-study/completed-projects.md
         name: completed_projects_page
         label: "Completed projects page"
-        icon: task_alt
+        icon: article
         description: "The intro prose at /prepare-a-study/completed-projects/. Project entries themselves are edited in the next entry."
         fields:
           - { name: title, label: "Page title", widget: string }
@@ -701,151 +774,3 @@ collections:
                 widget: list
                 required: false
                 field: { name: reference, label: "Reference (markdown)", widget: text }
-
-  # ──────────────────────── Site Structure ────────────────────────────────
-  - name: site_structure
-    label: "Site Structure"
-    icon: settings
-    description: "Site-wide configuration. Rarely needs editing."
-    files:
-      - file: _data/navigation.yml
-        name: navigation_data
-        label: "Navigation"
-        icon: menu
-        format: yml
-        description: "Site menu structure. Each entry has a 'Label' (displayed text) and a 'Link' (a fixed dropdown of site URLs). Important: this file is rarely useful for editing — the rendered menus aren't shown next to the lists here, so it's hard to tell what you're modifying. If you need to change menu labels or order, ask Danielle."
-        fields:
-          - name: main
-            label: "Main menu"
-            widget: list
-            summary: "{{title}}"
-            fields:
-              - { name: title, label: "Label", widget: string }
-              - name: url
-                label: "Link"
-                widget: select
-                options:
-                  - { label: "Data donation", value: "/data-donation/" }
-                  - { label: "Prepare a study", value: "/prepare-a-study/" }
-                  - { label: "Software", value: "/software/" }
-                  - { label: "Community", value: "/community/" }
-                  - { label: "About D3I", value: "/about-d3i/" }
-          - name: about-d3i
-            label: "About D3I submenu"
-            widget: list
-            summary: "{{title}}"
-            fields:
-              - { name: title, label: "Label", widget: string }
-              - name: url
-                label: "Link"
-                widget: select
-                options:
-                  - { label: "About D3I (landing)", value: "/about-d3i/" }
-                  - { label: "Team", value: "/about-d3i/team" }
-                  - { label: "Advisory board", value: "/about-d3i/advisory-board" }
-                  - { label: "Funding", value: "/about-d3i/funding" }
-                  - { label: "Partners", value: "/about-d3i/partners" }
-                  - { label: "Impact and adoption", value: "/about-d3i/impact-and-adoption" }
-              - name: children
-                label: "Children (optional)"
-                widget: list
-                required: false
-                fields:
-                  - { name: title, label: "Label", widget: string }
-                  - name: url
-                    label: "Link"
-                    widget: select
-                    options:
-                      - { label: "Team", value: "/about-d3i/team" }
-                      - { label: "Advisory board", value: "/about-d3i/advisory-board" }
-                      - { label: "Funding", value: "/about-d3i/funding" }
-                      - { label: "Partners", value: "/about-d3i/partners" }
-                      - { label: "Impact and adoption", value: "/about-d3i/impact-and-adoption" }
-          - name: software
-            label: "Software submenu"
-            widget: list
-            summary: "{{title}}"
-            fields:
-              - { name: title, label: "Label", widget: string }
-              - name: url
-                label: "Link"
-                widget: select
-                options:
-                  - { label: "Software (landing)", value: "/software/" }
-                  - { label: "Getting started", value: "/software/getting-started/" }
-                  - { label: "Ready-made scripts", value: "/software/ready-made-scripts/" }
-                  - { label: "Going further", value: "/software/going-further/" }
-                  - { label: "Port in education", value: "/software/port-in-education/" }
-              - name: children
-                label: "Children (optional)"
-                widget: list
-                required: false
-                fields:
-                  - { name: title, label: "Label", widget: string }
-                  - name: url
-                    label: "Link"
-                    widget: select
-                    options:
-                      - { label: "Getting started", value: "/software/getting-started/" }
-                      - { label: "Ready-made scripts", value: "/software/ready-made-scripts/" }
-                      - { label: "Going further", value: "/software/going-further/" }
-                      - { label: "Port in education", value: "/software/port-in-education/" }
-          - name: prepare-a-study
-            label: "Prepare a study submenu"
-            widget: list
-            summary: "{{title}}"
-            fields:
-              - { name: title, label: "Label", widget: string }
-              - name: url
-                label: "Link"
-                widget: select
-                options:
-                  - { label: "Prepare a study (landing)", value: "/prepare-a-study/" }
-                  - { label: "Study design", value: "/prepare-a-study/study-design" }
-                  - { label: "Privacy and consent", value: "/prepare-a-study/privacy-and-consent" }
-                  - { label: "Completed projects", value: "/prepare-a-study/completed-projects" }
-              - name: children
-                label: "Children (optional)"
-                widget: list
-                required: false
-                fields:
-                  - { name: title, label: "Label", widget: string }
-                  - name: url
-                    label: "Link"
-                    widget: select
-                    options:
-                      - { label: "Study design", value: "/prepare-a-study/study-design" }
-                      - { label: "Privacy and consent", value: "/prepare-a-study/privacy-and-consent" }
-                      - { label: "Completed projects", value: "/prepare-a-study/completed-projects" }
-          - name: community
-            label: "Community submenu"
-            widget: list
-            summary: "{{title}}"
-            fields:
-              - { name: title, label: "Label", widget: string }
-              - name: url
-                label: "Link"
-                widget: select
-                options:
-                  - { label: "Community (landing)", value: "/community/" }
-                  - { label: "Institutional network", value: "/community/institutional-network" }
-                  - { label: "Newsletter", value: "/community/newsletter/" }
-                  - { label: "Courses", value: "/community/courses/" }
-                  - { label: "Symposia", value: "/community/symposia/" }
-                  - { label: "Letters & positions", value: "/community/omnibus-letter" }
-              - name: children
-                label: "Children (optional)"
-                widget: list
-                required: false
-                fields:
-                  - { name: title, label: "Label", widget: string }
-                  - name: url
-                    label: "Link"
-                    widget: select
-                    options:
-                      - { label: "Institutional network", value: "/community/institutional-network" }
-                      - { label: "Newsletter", value: "/community/newsletter/" }
-                      - { label: "Courses", value: "/community/courses/" }
-                      - { label: "Symposia", value: "/community/symposia/" }
-                      - { label: "Letters & positions", value: "/community/omnibus-letter" }
-                  - { name: show_sections, label: "Show sub-sections (Networks page only)", widget: boolean, required: false, default: false }

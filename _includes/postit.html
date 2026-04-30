@@ -3,6 +3,13 @@
   <p class="postit__eyebrow">{{ page.postit.eyebrow | default: "Updates" }}</p>
   <h3 class="postit__title">{{ page.postit.title }}</h3>
   <p class="postit__body">{{ page.postit.body }}</p>
-  <a class="postit__link" href="{{ page.postit.link_url | relative_url }}">{{ page.postit.link_text }}</a>
+  {% if page.postit.link_url and page.postit.link_text %}
+    {% assign postit_url = page.postit.link_url %}
+    {% if postit_url contains "://" or postit_url contains "mailto:" %}
+      <a class="postit__link" href="{{ postit_url }}">{{ page.postit.link_text }}</a>
+    {% else %}
+      <a class="postit__link" href="{{ postit_url | relative_url }}">{{ page.postit.link_text }}</a>
+    {% endif %}
+  {% endif %}
 </aside>
 {% endif %}
