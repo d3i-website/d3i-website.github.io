@@ -2,14 +2,14 @@
 # Use this for known/extended outages.
 available: true
 
-# URL of the script selector. Update when the workspace moves.
+# URL of the script builder. Update when the workspace moves.
 url: "https://sramtest.d3idatadonation.src.surf-hosted.nl/select"
 
 # Shown when build-time `available: false` OR the JS timeout fires.
 fallback:
-  heading: "Script selector unavailable"
+  heading: "Script builder unavailable"
   message: >-
-    The script selector is temporarily offline.
+    The script builder is temporarily offline.
     It's typically back within a few minutes; please try again shortly,
     or contact us if the problem persists.
 
