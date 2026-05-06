@@ -1,16 +1,16 @@
-{%- assign ss = site.data.script_selector -%}
+{%- assign ss = site.data.script_builder -%}
 
 {%- if ss.available -%}
-  <div class="script-selector">
-    <div class="script-selector__frame-wrap"
+  <div class="script-builder">
+    <div class="script-builder__frame-wrap"
          data-fallback-heading="{{ ss.fallback.heading }}"
          data-fallback-message="{{ ss.fallback.message }}"
          data-fallback-url="{{ ss.url }}"
          data-timeout-ms="{{ ss.timeout_seconds | times: 1000 }}">
       <iframe
-        class="script-selector__frame"
+        class="script-builder__frame"
         src="{{ ss.url }}"
-        title="Script selector"
+        title="Script builder"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
         allow="downloads"></iframe>
@@ -20,7 +20,7 @@
   <script>
     (function () {
       var wrap = document.currentScript.previousElementSibling
-                   .querySelector('.script-selector__frame-wrap');
+                   .querySelector('.script-builder__frame-wrap');
       var frame = wrap.querySelector('iframe');
       var timeoutMs = parseInt(wrap.dataset.timeoutMs, 10);
 
@@ -40,7 +40,7 @@
         // but using textContent guards against future changes that
         // might source any of these from less-controlled inputs.
         var fallback = document.createElement('div');
-        fallback.className = 'script-selector__fallback';
+        fallback.className = 'script-builder__fallback';
         fallback.setAttribute('role', 'status');
 
         var heading = document.createElement('h2');
@@ -56,7 +56,7 @@
         link.href = wrap.dataset.fallbackUrl;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
-        link.textContent = 'Open the script selector in a new tab →';
+        link.textContent = 'Open the script builder in a new tab →';
         linkPara.appendChild(link);
         fallback.appendChild(linkPara);
 
@@ -67,12 +67,12 @@
 
 {%- else -%}
 
-  <div class="script-selector__fallback" role="status">
+  <div class="script-builder__fallback" role="status">
     <h2>{{ ss.fallback.heading }}</h2>
     <p>{{ ss.fallback.message }}</p>
     <p>
       <a href="{{ ss.url }}" target="_blank" rel="noopener noreferrer">
-        Open the script selector in a new tab →
+        Open the script builder in a new tab →
       </a>
     </p>
   </div>
