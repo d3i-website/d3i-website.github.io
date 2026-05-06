@@ -1,0 +1,23 @@
+# Toggle the entire embed off (renders fallback at build time).
+# Use this for known/extended outages.
+available: true
+
+# URL of the script selector. Update when the workspace moves.
+url: "https://sramtest.d3idatadonation.src.surf-hosted.nl/select"
+
+# Shown above the iframe. Sets expectations for active development.
+banner: >-
+  Preview — this selector is in active development.
+  If it stops responding, try refreshing the page.
+
+# Shown when build-time `available: false` OR the JS timeout fires.
+fallback:
+  heading: "Script selector unavailable"
+  message: >-
+    The script selector is temporarily offline.
+    It's typically back within a few minutes — please try again shortly,
+    or contact us if the problem persists.
+
+# How long the iframe has to fire `load` before we swap to fallback.
+# 8 seconds covers slow workspace cold-starts; faster than the user gives up.
+timeout_seconds: 8
