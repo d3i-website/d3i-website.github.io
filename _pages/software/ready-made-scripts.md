@@ -53,7 +53,7 @@ X (Twitter)
 
 ## Tailor a script for your study
 
-If you need a subset of a platform's data (say, just Instagram likes and followers), the [script selector](/software/script-selector/) lets you pick which fields you want and packages them as a Python wheel for your study.
+If you need a subset of a platform's data (say, just Instagram likes and followers), the [script builder](/software/script-builder/) lets you pick which fields you want and packages them as a Python wheel for your study.
 
 ## Need a script we don't have?
 
