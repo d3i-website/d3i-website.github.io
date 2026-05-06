@@ -51,6 +51,10 @@ LinkedIn
 X (Twitter)
 : tweets, likes, followers
 
+## Tailor a script for your study
+
+If you need a subset of a platform's data (say, just Instagram likes and followers), the [script selector](/software/script-selector/) lets you pick which fields you want and packages them as a Python wheel for your study.
+
 ## Need a script we don't have?
 
 We can also adapt an existing script for your study or build a new one for a platform we don't yet cover. Email [DataDonation@uu.nl](mailto:DataDonation@uu.nl?subject=Custom%20script%20request) to discuss what you need.

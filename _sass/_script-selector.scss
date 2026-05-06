@@ -1,0 +1,68 @@
+// =====================================================================
+// Script selector embed
+// =====================================================================
+
+.script-selector {
+  margin: 2rem 0 3rem;
+}
+
+.script-selector__frame-wrap {
+  position: relative;
+  width: 100%;
+  // Sized for typical desktop viewports. The embedded LiveView
+  // currently uses h-[calc(100dvh-10rem)], which makes its content
+  // grow with iframe size — so iframes larger than viewport just
+  // grow the inner content too. Inner scroll is therefore expected
+  // until the embedded app adopts postMessage-based height reporting.
+  height: 80vh;
+  min-height: 700px;
+  max-height: 1000px;
+}
+
+.script-selector__frame {
+  width: 100%;
+  height: 100%;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.script-selector__fallback {
+  padding: 2rem;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  background-color: rgba($border-color, 0.15);
+  text-align: center;
+  font-family: "Nunito", $sans-serif;
+
+  h2 {
+    margin: 0 0 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $text-color;
+  }
+
+  p {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: $text-color;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  a {
+    color: $accent-primary;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.15s ease;
+
+    &:hover,
+    &:focus {
+      border-bottom-color: $accent-primary;
+    }
+  }
+}
