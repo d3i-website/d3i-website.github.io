@@ -1,0 +1,82 @@
+// =====================================================================
+// Script selector embed
+// =====================================================================
+
+.script-selector {
+  margin: 2rem 0 3rem;
+}
+
+.script-selector__banner {
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: rgba($accent-secondary, 0.1);
+  border-left: 4px solid $accent-secondary;
+  border-radius: 4px;
+  font-family: "Nunito", $sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: $text-color;
+}
+
+.script-selector__frame-wrap {
+  position: relative;
+  width: 100%;
+  // Fixed responsive height. Adjust here based on visual review.
+  height: 600px;
+
+  @media (min-width: $small) {
+    height: 700px;
+  }
+
+  @media (min-width: $medium) {
+    height: 800px;
+  }
+}
+
+.script-selector__frame {
+  width: 100%;
+  height: 100%;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.script-selector__fallback {
+  padding: 2rem;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  background-color: rgba($border-color, 0.15);
+  text-align: center;
+  font-family: "Nunito", $sans-serif;
+
+  h2 {
+    margin: 0 0 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $text-color;
+  }
+
+  p {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: $text-color;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  a {
+    color: $accent-primary;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.15s ease;
+
+    &:hover,
+    &:focus {
+      border-bottom-color: $accent-primary;
+    }
+  }
+}
