@@ -1,0 +1,84 @@
+{%- assign ss = site.data.script_selector -%}
+
+{%- if ss.available -%}
+  <div class="script-selector">
+    <div class="script-selector__banner" role="note">
+      {{ ss.banner }}
+    </div>
+
+    <div class="script-selector__frame-wrap"
+         data-fallback-heading="{{ ss.fallback.heading }}"
+         data-fallback-message="{{ ss.fallback.message }}"
+         data-fallback-url="{{ ss.url }}"
+         data-timeout-ms="{{ ss.timeout_seconds | times: 1000 }}">
+      <iframe
+        class="script-selector__frame"
+        src="{{ ss.url }}"
+        title="Script selector"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allow="downloads"></iframe>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var wrap = document.currentScript.previousElementSibling
+                   .querySelector('.script-selector__frame-wrap');
+      var frame = wrap.querySelector('iframe');
+      var timeoutMs = parseInt(wrap.dataset.timeoutMs, 10);
+
+      var fired = false;
+      var timer = setTimeout(showFallback, timeoutMs);
+      frame.addEventListener('load', function () {
+        fired = true;
+        clearTimeout(timer);
+      });
+
+      function showFallback() {
+        if (fired) return;
+
+        // Build fallback DOM with safe construction (no innerHTML / no
+        // string concatenation into HTML). Strings come from data-*
+        // attributes set from a developer-controlled YAML data file,
+        // but using textContent guards against future changes that
+        // might source any of these from less-controlled inputs.
+        var fallback = document.createElement('div');
+        fallback.className = 'script-selector__fallback';
+        fallback.setAttribute('role', 'status');
+
+        var heading = document.createElement('h2');
+        heading.textContent = wrap.dataset.fallbackHeading;
+        fallback.appendChild(heading);
+
+        var message = document.createElement('p');
+        message.textContent = wrap.dataset.fallbackMessage;
+        fallback.appendChild(message);
+
+        var linkPara = document.createElement('p');
+        var link = document.createElement('a');
+        link.href = wrap.dataset.fallbackUrl;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = 'Open the script selector in a new tab →';
+        linkPara.appendChild(link);
+        fallback.appendChild(linkPara);
+
+        wrap.replaceChildren(fallback);
+      }
+    })();
+  </script>
+
+{%- else -%}
+
+  <div class="script-selector__fallback" role="status">
+    <h2>{{ ss.fallback.heading }}</h2>
+    <p>{{ ss.fallback.message }}</p>
+    <p>
+      <a href="{{ ss.url }}" target="_blank" rel="noopener noreferrer">
+        Open the script selector in a new tab →
+      </a>
+    </p>
+  </div>
+
+{%- endif -%}
