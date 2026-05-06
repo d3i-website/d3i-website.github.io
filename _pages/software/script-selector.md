@@ -20,7 +20,7 @@ contact:
   subject: "Question about the D3I script selector"
 ---
 
-Pick the data you need from a platform — for example, Instagram likes and connections — and the selector packages a tailored Python script for your study.
+Pick the data you need from a platform — for example, Instagram likes and followers — and the selector packages a tailored Python script for your study.
 
 {% include script-selector-embed.html %}
 
