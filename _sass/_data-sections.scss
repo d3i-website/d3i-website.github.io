@@ -32,18 +32,6 @@
   }
 }
 
-.people-grid__heading {
-  max-width: $content-width;
-  margin: 2rem 0 0;
-  font-family: "Nunito", $sans-serif;
-  font-size: 1.25rem;
-  font-weight: 800;
-  line-height: 1.2;
-  color: #252a34;
-  padding-bottom: 0.6rem;
-  border-bottom: 1px solid rgba(37, 42, 52, 0.08);
-}
-
 .people-grid__card {
   padding: 1.1rem 0.9rem;
   border-radius: 0.85rem;
@@ -95,6 +83,78 @@
   font-size: 0.8125rem;
   line-height: 1.4;
   color: $muted-text-color;
+}
+
+// People grid — filter bar, chips, card tag pills (tag system)
+
+.people-grid__filters {
+  display: none; // shown only when JS adds .is-ready (progressive enhancement)
+  max-width: $content-width;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 0;
+
+  &.is-ready {
+    display: flex;
+  }
+}
+
+.people-grid__chip {
+  font-family: "Nunito", $sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid rgba(37, 42, 52, 0.15);
+  border-radius: 999px;
+  background: #fff;
+  color: #252a34;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+
+  &:hover,
+  &:focus {
+    border-color: $accent-primary;
+    color: $accent-primary;
+  }
+
+  &.is-active {
+    background: $accent-primary;
+    border-color: $accent-primary;
+    color: #fff;
+  }
+}
+
+.people-grid__card--hidden {
+  display: none;
+}
+
+.people-grid__tags {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.people-grid__tag {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  background: #f0f2f5;
+  color: $muted-text-color;
+  cursor: pointer; // mouse-click filters; not keyboard-focusable by design
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background: $accent-primary;
+    color: #fff;
+  }
 }
 
 // ---------------------------------------------------------------------
