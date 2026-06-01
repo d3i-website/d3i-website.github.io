@@ -3,34 +3,38 @@
 
 <div class="people-grid-wrap" data-people-grid>
 
-  {%- comment -%} Filter bar: hidden by CSS until the inline JS adds .is-ready {%- endcomment -%}
-  <div class="people-grid__filters" role="group" aria-label="Filter team members by role">
+  {%- comment -%} Filter bar: hidden by CSS until the inline JS adds .is-ready.
+  Slugs are derived from labels at build time (slugify); the data stores labels. {%- endcomment -%}
+  <div class="people-grid__filters" role="group" aria-label="Filter team members by tag">
     <button type="button" class="people-grid__chip is-active" data-filter="*" aria-pressed="true">All</button>
     {%- for tag in vocab -%}
-      {%- assign tagged = members | where_exp: "m", "m.tags contains tag.slug" -%}
+      {%- assign tagged = members | where_exp: "m", "m.tags contains tag.label" -%}
       {%- if tagged.size > 0 -%}
-        <button type="button" class="people-grid__chip" data-filter="{{ tag.slug }}" aria-pressed="false">{{ tag.label }}</button>
+        {%- assign slug = tag.label | slugify -%}
+        <button type="button" class="people-grid__chip" data-filter="{{ slug }}" aria-pressed="false">{{ tag.label }}</button>
       {%- endif -%}
     {%- endfor -%}
   </div>
 
   <div class="people-grid">
     {%- for person in members -%}
-      <div class="people-grid__card" data-tags="{{ person.tags | join: ' ' }}">
+      {%- assign tagslugs = "" -%}
+      {%- for t in person.tags -%}
+        {%- assign s = t | slugify -%}
+        {%- assign tagslugs = tagslugs | append: ' ' | append: s -%}
+      {%- endfor -%}
+      <div class="people-grid__card" data-tags="{{ tagslugs | strip }}">
         {%- if person.image -%}
           <img class="people-grid__photo" src="{{ person.image | relative_url }}" alt="{{ person.name }}">
         {%- endif -%}
         <h3 class="people-grid__name">
           {%- if person.url -%}<a href="{{ person.url }}">{{ person.name }}</a>{%- else -%}{{ person.name }}{%- endif -%}
         </h3>
-        {%- if person.role -%}<p class="people-grid__role">{{ person.role }}</p>{%- endif -%}
         {%- if person.tags.size > 0 -%}
           <ul class="people-grid__tags">
-            {%- for slug in person.tags -%}
-              {%- assign tag = vocab | where: "slug", slug | first -%}
-              {%- if tag -%}
-                <li><span class="people-grid__tag" data-filter="{{ tag.slug }}">{{ tag.label }}</span></li>
-              {%- endif -%}
+            {%- for t in person.tags -%}
+              {%- assign s = t | slugify -%}
+              <li><span class="people-grid__tag" data-filter="{{ s }}">{{ t }}</span></li>
             {%- endfor -%}
           </ul>
         {%- endif -%}
