@@ -35,21 +35,6 @@ include:
 contact_email: DataDonation@uu.nl
 contact_subject: "Question about D3I"
 
-# Team member group ordering
-team_groups:
-  - key: lead
-    label: "Lead researchers"
-  - key: engineer
-    label: "Research engineers"
-  - key: methodologist
-    label: "Methodologists"
-  - key: legal
-    label: "Legal scholars"
-  - key: affiliated
-    label: "Affiliated researchers"
-  - key: alumni
-    label: "Alumni"
-
 # Collections
 collections:
   symposia:
