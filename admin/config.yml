@@ -99,26 +99,26 @@ collections:
         label: "Team members"
         icon: people
         format: yml
-        description: "People listed on the Team page, grouped by role."
+        description: "People listed on the Team page, tagged by role."
         fields:
           - name: members
             label: "Members"
             label_singular: "Member"
             widget: list
-            summary: "{{name}} — {{role}}"
+            summary: "{{name}}"
             fields:
               - { name: name, label: "Name", widget: string }
-              - { name: role, label: "Role / title", widget: string }
-              - name: group
-                label: "Group"
-                widget: select
-                options:
-                  - { label: "Lead researchers", value: lead }
-                  - { label: "Research engineers", value: engineer }
-                  - { label: "Methodologists", value: methodologist }
-                  - { label: "Legal scholars", value: legal }
-                  - { label: "Affiliated researchers", value: affiliated }
-                  - { label: "Alumni", value: alumni }
+              - name: tags
+                label: "Tags"
+                widget: relation
+                collection: about_d3i
+                file: team_tags
+                value_field: "{{tags.*.label}}"
+                display_fields: ["{{tags.*.label}}"]
+                search_fields: ["{{tags.*.label}}"]
+                multiple: true
+                required: false
+                hint: "This person's roles, projects, and affiliations. These drive the filter chips on the Team page. To add a new tag, edit 'Team tags' first."
               - name: image
                 label: "Photo"
                 widget: image
@@ -128,6 +128,21 @@ collections:
                 max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: url, label: "Profile URL", widget: string, required: false }
+
+      - file: _data/team_tags.yml
+        name: team_tags
+        label: "Team tags"
+        icon: label
+        format: yml
+        description: "The tag vocabulary for the Team page (the filter chips). Add a tag here, then assign it to people in Team members. Order = chip order on the page."
+        fields:
+          - name: tags
+            label: "Tags"
+            label_singular: "Tag"
+            widget: list
+            summary: "{{label}}"
+            fields:
+              - { name: label, label: "Display label", widget: string, hint: "Shown as the filter chip and the badge on each card. The internal id used for filtering is generated automatically." }
 
       - { divider: true, label: "Advisory board" }
       - file: _pages/about-d3i/advisory-board.md

@@ -1,0 +1,21 @@
+# Controlled vocabulary for Team page tags. Order here = chip display order
+# on /about-d3i/team. The manager edits only the display label; the internal
+# slug used for filtering/CSS is derived automatically at build time
+# (Liquid `slugify`). Members in _data/team.yml reference tags by label.
+# Editable in the CMS under About D3I -> Team -> "Team tags".
+tags:
+  - { label: "Lead researcher" }
+  - { label: "Research engineer" }
+  - { label: "Methodologist" }
+  - { label: "Legal scholar" }
+  - { label: "Affiliated researcher" }
+  - { label: "Guest researcher" }
+  - { label: "Community manager" }
+  - { label: "Student assistant" }
+  - { label: "Research assistant" }
+  - { label: "PhD researcher" }
+  - { label: "Alumnus" }
+  - { label: "D3I" }
+  - { label: "SSHOC-NL" }
+  - { label: "RIGHTS" }
+  - { label: "SoDa" }
