@@ -1,0 +1,12 @@
+# Controlled vocabulary for Team page tags. Order here = chip display order
+# on /about-d3i/team. Each member in _data/team.yml references tags by slug.
+# Editable in the CMS under About D3I -> Team -> "Team tags".
+tags:
+  - { slug: lead,              label: "Lead researchers" }
+  - { slug: engineer,          label: "Research engineers" }
+  - { slug: methodologist,     label: "Methodologists" }
+  - { slug: legal,             label: "Legal scholars" }
+  - { slug: affiliated,        label: "Affiliated researchers" }
+  - { slug: community-manager, label: "Community manager" }
+  - { slug: student-assistant, label: "Student assistant" }
+  - { slug: alumni,            label: "Alumni" }
