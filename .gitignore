@@ -2,10 +2,11 @@ _site
 .sass-cache
 .jekyll-cache
 .jekyll-metadata
-vendor
+/vendor/
 .bundle
 .DS_Store
 .Rhistory
 docs/superpowers/
 .codex
 .claude/
+.superpowers/

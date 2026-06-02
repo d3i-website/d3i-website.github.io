@@ -1,0 +1,38 @@
+<div class="usage-figures"
+     data-countries-url="{{ '/assets/data/countries-110m.json' | relative_url }}"
+     data-logo-base="{{ '/assets/images/usage/logos/' | relative_url }}">
+
+  <script type="application/json" id="usage-data">{{ site.data.usage | jsonify }}</script>
+
+  <div class="usage-figure">
+    <h2 class="usage-figure__title">Studies per year</h2>
+    <p class="usage-figure__cap">Tracking the growth of data donation studies using Port since it started in 2022.</p>
+    <div id="usage-year"></div>
+  </div>
+
+  <div class="usage-figure">
+    <h2 class="usage-figure__title">Where D3I studies happen</h2>
+    <p class="usage-figure__cap">Data donation studies making use of D3I's Port are happening worldwide. Explore below which institutions have done data donation studies with the software.</p>
+    <div class="usage-stat-row">
+      <div class="usage-stat"><b id="usage-stat-institutions" style="color:#4272EF">&nbsp;</b><span>institutions</span></div>
+      <div class="usage-stat"><b id="usage-stat-countries" style="color:#FF5E5E">&nbsp;</b><span>countries</span></div>
+    </div>
+    <div class="usage-globe-wrap">
+      <div id="usage-globe"></div>
+      <div class="usage-gctl usage-gctl--back"><button id="usage-back" type="button">&larr; Back to world</button></div>
+      <div class="usage-gctl usage-gctl--zoom"><button id="usage-zin" type="button">+</button><button id="usage-zout" type="button">&minus;</button></div>
+    </div>
+    <p class="usage-hint">Drag to spin &middot; scroll or +/&minus; to zoom &middot; click a country to drill in</p>
+    <div class="usage-names" id="usage-names"></div>
+  </div>
+
+  <div class="usage-figure">
+    <h2 class="usage-figure__title">Platforms investigated</h2>
+    <p class="usage-figure__cap">Which platforms are researchers studying? A wide variety, from social networks, to streaming services.</p>
+    <div id="usage-platforms"></div>
+  </div>
+</div>
+
+<script src="{{ '/assets/js/vendor/d3.v7.min.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/vendor/topojson-client.min.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/usage-figures.js' | relative_url }}"></script>

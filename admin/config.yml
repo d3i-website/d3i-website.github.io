@@ -362,6 +362,47 @@ collections:
           - { name: layout, widget: hidden, default: "page" }
           - { name: redirect_from, widget: hidden, default: ["/software/usage/"] }
 
+      - file: _data/usage.yml
+        name: usage_data
+        label: "Usage figures data"
+        icon: insights
+        format: yml
+        description: "Numbers behind the figures on the Impact & adoption page."
+        fields:
+          - name: studies_per_year
+            label: "Studies per year figure"
+            label_singular: "Year total"
+            widget: list
+            summary: "{{year}}: {{count}}"
+            fields:
+              - { name: year, label: "Year", widget: string }
+              - { name: count, label: "Total studies", widget: number, value_type: int }
+          # Country colours, order, and fallback centroids — maintained by a
+          # developer directly in _data/usage.yml. Hidden (not deleted) so the
+          # CMS preserves it on save instead of dropping it.
+          - { name: countries, label: "Countries", widget: hidden }
+          - name: institutions
+            label: "Institutions"
+            widget: list
+            summary: "{{name}}"
+            fields:
+              - { name: name, label: "Institution name", widget: string }
+              - { name: country, label: "Country", widget: string }
+              # Map coordinates — a developer adds these in _data/usage.yml.
+              # Hidden so a manager's save preserves them rather than wiping them.
+              - { name: lat, widget: hidden }
+              - { name: lng, widget: hidden }
+          - name: platforms
+            label: "Platforms"
+            widget: list
+            summary: "{{name}}"
+            fields:
+              - { name: name, label: "Platform name", widget: string }
+              - name: category
+                label: "Category"
+                widget: select
+                options: ["Social & video", "Professional & messaging", "Streaming & audio", "AI & search", "Google ecosystem", "Health & wearables"]
+
   # ──────────────────────── Community ─────────────────────────────────────
   - name: community
     label: "Community"
