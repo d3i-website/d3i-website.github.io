@@ -18,18 +18,11 @@ contact:
     - Suggestions for improvement
   email: DataDonation@uu.nl
   subject: Port usage report
-usage_images:
-  - image: /assets/images/usage/plot_year.png
-    caption: Number of studies per year
-  - image: /assets/images/usage/plot_host.png
-    caption: How researchers host their studies
-  - image: /assets/images/usage/plot_institution.png
-    caption: Studies by institution
-  - image: /assets/images/usage/plot_recruit.png
-    caption: Recruitment methods used
 ---
 
-Port is being used by a growing number of researchers across Europe. Since its first deployment in 2022, adoption has accelerated each year as more institutions discover data donation as a research method. In 2025, D3I received structural funding to help support researchers at Dutch institutions in conducting data donation studies with free support and access to infrastructure. 
+Port is being used by a growing number of researchers across Europe and beyond. Since its first deployment in 2022, adoption has accelerated each year — across institutions in five countries and three continents, and spanning a wide range of digital platforms. The figures below track that growth, where studies are run, and which platforms researchers have studied. In 2025, D3I received structural funding to support researchers at Dutch institutions with free access to the infrastructure.
+
+{% include usage-figures.html %}
 
 ## Help us track adoption
 
