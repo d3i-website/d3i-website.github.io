@@ -8,6 +8,7 @@
   var LOGO_BASE = root.getAttribute('data-logo-base');
   var INK = '#252a34';
   function tint(hex, a) { var n = parseInt(hex.slice(1), 16); return 'rgba(' + (n>>16&255) + ',' + (n>>8&255) + ',' + (n&255) + ',' + a + ')'; }
+  function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
 
   // ---------- data prep ----------
   var byear = (DATA.studies_per_year || []).map(function (d) { return { y: String(d.year), n: +d.count }; });
@@ -116,7 +117,7 @@
   (DATA.platforms || []).forEach(function (p) { if (!platGroups[p.category]) { platGroups[p.category] = []; platOrder.push(p.category); } platGroups[p.category].push(p); });
   document.getElementById('usage-platforms').innerHTML = platOrder.map(function (g) {
     return '<div class="usage-pg"><h4>' + g + '</h4><div class="usage-plats">' + platGroups[g].map(function (p) {
-      return '<span class="usage-plat"><img src="' + LOGO_BASE + p.icon + '.svg" alt="" onerror="this.style.display=\'none\'">' + p.name + '</span>';
+      return '<span class="usage-plat"><img src="' + LOGO_BASE + slug(p.name) + '.svg" alt="" onerror="this.style.display=\'none\'">' + p.name + '</span>';
     }).join('') + '</div></div>';
   }).join('');
 

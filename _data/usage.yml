@@ -2,10 +2,10 @@
 # About D3I -> "Usage figures data". Order of the `countries` list controls
 # globe colour + name-list order; colours are dev-maintained and stable.
 studies_per_year:
-  - { year: 2022, count: 1 }
-  - { year: 2023, count: 4 }
-  - { year: 2024, count: 18 }
-  - { year: 2025, count: 28 }
+  - { year: "2022", count: 1 }
+  - { year: "2023", count: 4 }
+  - { year: "2024", count: 18 }
+  - { year: "2025", count: 28 }
 
 # DEVELOPER-MAINTAINED: stable per-country colour, order, fallback centroid.
 countries:
@@ -36,21 +36,23 @@ institutions:
   - { name: "University of Cambridge",            country: "United Kingdom", lat: 52.20, lng: 0.12 }
   - { name: "Medical University of Innsbruck",    country: "Austria",        lat: 47.27, lng: 11.39 }
 
-# Manager: name + category + icon (Simple Icons slug; dev vendors the SVG).
+# Manager: name + category. The logo is derived from the name (slugified) and
+# resolved against assets/images/usage/logos/<slug>.svg; a missing logo is
+# simply hidden.
 platforms:
-  - { name: "TikTok",                            category: "Social & video",            icon: "tiktok" }
-  - { name: "Instagram",                         category: "Social & video",            icon: "instagram" }
-  - { name: "YouTube",                           category: "Social & video",            icon: "youtube" }
-  - { name: "Facebook",                          category: "Social & video",            icon: "facebook" }
-  - { name: "Twitter (X)",                       category: "Social & video",            icon: "x" }
-  - { name: "LinkedIn",                          category: "Professional & messaging",  icon: "linkedin" }
-  - { name: "Slack",                             category: "Professional & messaging",  icon: "slack" }
-  - { name: "Spotify",                           category: "Streaming & audio",         icon: "spotify" }
-  - { name: "Netflix",                           category: "Streaming & audio",         icon: "netflix" }
-  - { name: "ChatGPT",                           category: "AI & search",               icon: "openai" }
-  - { name: "Google Search",                     category: "AI & search",               icon: "google" }
-  - { name: "Google Browsing History",           category: "Google ecosystem",          icon: "googlechrome" }
-  - { name: "Google Home",                       category: "Google ecosystem",          icon: "googlehome" }
-  - { name: "Google Semantic Location History",  category: "Google ecosystem",          icon: "googlemaps" }
-  - { name: "Apple Health",                      category: "Health & wearables",        icon: "apple" }
-  - { name: "Samsung Health",                    category: "Health & wearables",        icon: "samsung" }
+  - { name: "TikTok",                            category: "Social & video" }
+  - { name: "Instagram",                         category: "Social & video" }
+  - { name: "YouTube",                           category: "Social & video" }
+  - { name: "Facebook",                          category: "Social & video" }
+  - { name: "Twitter (X)",                       category: "Social & video" }
+  - { name: "LinkedIn",                          category: "Professional & messaging" }
+  - { name: "Slack",                             category: "Professional & messaging" }
+  - { name: "Spotify",                           category: "Streaming & audio" }
+  - { name: "Netflix",                           category: "Streaming & audio" }
+  - { name: "ChatGPT",                           category: "AI & search" }
+  - { name: "Google Search",                     category: "AI & search" }
+  - { name: "Google Browsing History",           category: "Google ecosystem" }
+  - { name: "Google Home",                       category: "Google ecosystem" }
+  - { name: "Google Semantic Location History",  category: "Google ecosystem" }
+  - { name: "Apple Health",                      category: "Health & wearables" }
+  - { name: "Samsung Health",                    category: "Health & wearables" }
