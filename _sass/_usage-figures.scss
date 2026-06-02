@@ -1,0 +1,62 @@
+// =====================================================================
+// Usage figures (Impact & adoption: bar, globe, platform grid)
+// =====================================================================
+
+.usage-figures { max-width: $content-width; }
+
+.usage-figure {
+  border: 1px solid #e9ecf2;
+  border-radius: 0.9rem;
+  padding: 1.4rem 1.5rem 1.6rem;
+  margin: 0 0 1.6rem;
+  box-shadow: 0 1px 2px rgba(37, 42, 52, 0.04);
+}
+.usage-figure__title {
+  font-family: $sans-serif-title;
+  font-weight: 800;
+  color: #252a34;
+  font-size: 1.15rem;
+  margin: 0 0 0.15rem;
+}
+.usage-figure__cap { font-size: 0.85rem; color: $muted-text-color; margin: 0 0 1.1rem; }
+
+.usage-stat-row { display: flex; gap: 1.6rem; margin: 0 0 0.6rem; flex-wrap: wrap; }
+.usage-stat b { display: block; font-size: 1.5rem; font-weight: 800; line-height: 1; font-family: $sans-serif-title; }
+.usage-stat span { font-size: 0.78rem; color: $muted-text-color; }
+
+.usage-globe-wrap { position: relative; width: 100%; max-width: 480px; margin: 0 auto; }
+.usage-globe-wrap svg { width: 100%; height: auto; cursor: grab; touch-action: none; }
+.usage-globe-wrap svg:active { cursor: grabbing; }
+.usage-gctl { position: absolute; display: flex; gap: 4px; }
+.usage-gctl--zoom { right: 6px; bottom: 6px; flex-direction: column; }
+.usage-gctl--back { left: 6px; top: 6px; }
+.usage-gctl button {
+  min-width: 30px; height: 30px; padding: 0 0.55rem;
+  border: 1px solid #d8deea; background: #fff; border-radius: 7px;
+  font-size: 0.9rem; font-weight: 700; color: #252a34; cursor: pointer; line-height: 1;
+}
+#usage-back { display: none; }
+.usage-hint { text-align: center; font-size: 0.74rem; color: $muted-text-color; margin: 0.4rem 0 0; font-style: italic; }
+
+.usage-names { columns: 2; column-gap: 2rem; margin: 1.2rem 0 0; font-size: 0.82rem; }
+.usage-country { break-inside: avoid; margin: 0 0 0.7rem; }
+.usage-country h4 {
+  font-family: $sans-serif-title; font-size: 0.72rem; text-transform: uppercase;
+  letter-spacing: 0.04em; margin: 0 0 0.25rem; display: flex; align-items: center; gap: 0.4rem;
+}
+.usage-country h4::before { content: ""; width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--dot); }
+.usage-names ul { list-style: none; margin: 0; padding: 0; color: #444; }
+
+.usage-pg { margin: 0 0 1.05rem; }
+.usage-pg h4 {
+  font-family: $sans-serif-title; font-size: 0.72rem; text-transform: uppercase;
+  letter-spacing: 0.04em; color: $muted-text-color; margin: 0 0 0.55rem;
+}
+.usage-plats { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.usage-plat {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  font-size: 0.82rem; font-weight: 700; color: #252a34;
+  background: #f7f9fc; border: 1px solid #e4e9f3;
+  padding: 0.35rem 0.7rem 0.35rem 0.55rem; border-radius: 999px;
+}
+.usage-plat img { width: 18px; height: 18px; display: block; }
