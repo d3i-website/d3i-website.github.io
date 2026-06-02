@@ -1,0 +1,56 @@
+# Usage figures for /about-d3i/impact-and-adoption. Edited in the CMS under
+# About D3I -> "Usage figures data". Order of the `countries` list controls
+# globe colour + name-list order; colours are dev-maintained and stable.
+studies_per_year:
+  - { year: 2022, count: 1 }
+  - { year: 2023, count: 4 }
+  - { year: 2024, count: 18 }
+  - { year: 2025, count: 28 }
+
+# DEVELOPER-MAINTAINED: stable per-country colour, order, fallback centroid.
+countries:
+  - { name: "Netherlands",    color: "#4272EF", lat: 52.1, lng: 5.3 }
+  - { name: "Germany",        color: "#FF5E5E", lat: 51.0, lng: 10.4 }
+  - { name: "United States",  color: "#F4A52B", lat: 39.0, lng: -90.0 }
+  - { name: "United Kingdom", color: "#27B3A3", lat: 54.0, lng: -2.0 }
+  - { name: "Austria",        color: "#8B5CF6", lat: 47.6, lng: 14.1 }
+
+# Manager: name + country. Developer: lat/lng.
+institutions:
+  - { name: "University of Amsterdam",            country: "Netherlands",    lat: 52.37, lng: 4.89 }
+  - { name: "Utrecht University",                 country: "Netherlands",    lat: 52.09, lng: 5.12 }
+  - { name: "Radboud University Nijmegen",        country: "Netherlands",    lat: 51.84, lng: 5.86 }
+  - { name: "VU Amsterdam",                       country: "Netherlands",    lat: 52.33, lng: 4.87 }
+  - { name: "Erasmus University Rotterdam",       country: "Netherlands",    lat: 51.92, lng: 4.48 }
+  - { name: "Tilburg University",                 country: "Netherlands",    lat: 51.56, lng: 5.09 }
+  - { name: "TNO",                                country: "Netherlands",    lat: 52.08, lng: 4.31 }
+  - { name: "Weizenbaum Institute",               country: "Germany",        lat: 52.52, lng: 13.40 }
+  - { name: "GESIS Leibniz Institute",            country: "Germany",        lat: 49.49, lng: 8.47 }
+  - { name: "University of Mannheim",             country: "Germany",        lat: 49.49, lng: 8.46 }
+  - { name: "LMU Munich",                         country: "Germany",        lat: 48.14, lng: 11.58 }
+  - { name: "CAIS",                               country: "Germany",        lat: 51.48, lng: 7.22 }
+  - { name: "Cornell University",                 country: "United States",  lat: 42.44, lng: -76.50 }
+  - { name: "Harvard University",                 country: "United States",  lat: 42.37, lng: -71.11 }
+  - { name: "Johns Hopkins University",           country: "United States",  lat: 39.33, lng: -76.62 }
+  - { name: "Brigham Young University",           country: "United States",  lat: 40.25, lng: -111.66 }
+  - { name: "University of Cambridge",            country: "United Kingdom", lat: 52.20, lng: 0.12 }
+  - { name: "Medical University of Innsbruck",    country: "Austria",        lat: 47.27, lng: 11.39 }
+
+# Manager: name + category + icon (Simple Icons slug; dev vendors the SVG).
+platforms:
+  - { name: "TikTok",                            category: "Social & video",            icon: "tiktok" }
+  - { name: "Instagram",                         category: "Social & video",            icon: "instagram" }
+  - { name: "YouTube",                           category: "Social & video",            icon: "youtube" }
+  - { name: "Facebook",                          category: "Social & video",            icon: "facebook" }
+  - { name: "Twitter (X)",                       category: "Social & video",            icon: "x" }
+  - { name: "LinkedIn",                          category: "Professional & messaging",  icon: "linkedin" }
+  - { name: "Slack",                             category: "Professional & messaging",  icon: "slack" }
+  - { name: "Spotify",                           category: "Streaming & audio",         icon: "spotify" }
+  - { name: "Netflix",                           category: "Streaming & audio",         icon: "netflix" }
+  - { name: "ChatGPT",                           category: "AI & search",               icon: "openai" }
+  - { name: "Google Search",                     category: "AI & search",               icon: "google" }
+  - { name: "Google Browsing History",           category: "Google ecosystem",          icon: "googlechrome" }
+  - { name: "Google Home",                       category: "Google ecosystem",          icon: "googlehome" }
+  - { name: "Google Semantic Location History",  category: "Google ecosystem",          icon: "googlemaps" }
+  - { name: "Apple Health",                      category: "Health & wearables",        icon: "apple" }
+  - { name: "Samsung Health",                    category: "Health & wearables",        icon: "samsung" }
