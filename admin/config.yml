@@ -362,6 +362,54 @@ collections:
           - { name: layout, widget: hidden, default: "page" }
           - { name: redirect_from, widget: hidden, default: ["/software/usage/"] }
 
+      - file: _data/usage.yml
+        name: usage_data
+        label: "Usage figures data"
+        icon: insights
+        format: yml
+        description: "Numbers behind the figures on the Impact & adoption page."
+        fields:
+          - name: studies_per_year
+            label: "Studies per year"
+            widget: list
+            summary: "{{year}}: {{count}}"
+            fields:
+              - { name: year, label: "Year", widget: number, value_type: int }
+              - { name: count, label: "Number of studies", widget: number, value_type: int }
+          - name: countries
+            label: "Countries (developer-maintained — colours & order)"
+            widget: list
+            summary: "{{name}}"
+            collapsed: true
+            fields:
+              - { name: name, label: "Country", widget: string }
+              - { name: color, label: "Colour (hex)", widget: string, hint: "e.g. #4272EF" }
+              - { name: lat, label: "Centroid latitude", widget: number, value_type: float }
+              - { name: lng, label: "Centroid longitude", widget: number, value_type: float }
+          - name: institutions
+            label: "Institutions"
+            widget: list
+            summary: "{{name}}"
+            fields:
+              - { name: name, label: "Institution name", widget: string }
+              - name: country
+                label: "Country"
+                widget: select
+                options: ["Netherlands", "Germany", "United States", "United Kingdom", "Austria"]
+              - { name: lat, label: "Latitude (developer adds)", widget: number, value_type: float, required: false }
+              - { name: lng, label: "Longitude (developer adds)", widget: number, value_type: float, required: false }
+          - name: platforms
+            label: "Platforms"
+            widget: list
+            summary: "{{name}}"
+            fields:
+              - { name: name, label: "Platform name", widget: string }
+              - name: category
+                label: "Category"
+                widget: select
+                options: ["Social & video", "Professional & messaging", "Streaming & audio", "AI & search", "Google ecosystem", "Health & wearables"]
+              - { name: icon, label: "Icon slug", widget: string, hint: "Simple Icons slug, e.g. tiktok. New platform? A developer adds the matching logo file." }
+
   # ──────────────────────── Community ─────────────────────────────────────
   - name: community
     label: "Community"
