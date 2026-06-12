@@ -1,5 +1,6 @@
 ---
 title: "Data Donation Symposium 2025"
+event_type: symposium
 date: 2025-10-09
 end_date: 2025-10-10
 location: "Bavarian Academy of Sciences and Humanities, Munich, Germany"
@@ -10,6 +11,7 @@ external_url: https://data-donation-symposium.ifkw.lmu.de/
 #   src: /assets/images/symposia/2025-munich.jpg
 #   alt: ""
 #   credit: ""
+redirect_from: /community/symposia/symposium-2025/
 layout: page
 sidebar:
   nav: "community"

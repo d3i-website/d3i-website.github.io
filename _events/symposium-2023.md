@@ -1,10 +1,12 @@
 ---
 title: "Data Donation Symposium 2023"
+event_type: symposium
 date: 2023-09-11
 end_date: 2023-09-12
 location: "University of Zurich"
 summary: "An international symposium with sessions on empirical studies, legal aspects, bias, tooling, and methodological considerations for data donation."
 external_url: https://datadonation.uzh.ch/en/symposium-2023/
+redirect_from: /community/symposia/symposium-2023/
 layout: page
 sidebar:
   nav: "community"

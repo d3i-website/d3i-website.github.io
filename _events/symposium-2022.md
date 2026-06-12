@@ -1,9 +1,11 @@
 ---
 title: "Data Donation Day 2022"
+event_type: symposium
 date: 2022-03-11
 location: "Boothzaal, Universiteitsbibliotheek, Utrecht University (hybrid via Teams)"
 summary: "The earlier Utrecht event that helped shape the current symposium series."
 external_url: https://hds.sites.uu.nl/2022/01/15/data-donation-day/
+redirect_from: /community/symposia/symposium-2022/
 layout: page
 sidebar:
   nav: "community"

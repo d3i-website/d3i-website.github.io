@@ -593,7 +593,7 @@ collections:
         name: courses_page
         label: "Courses page"
         icon: article
-        description: "The intro prose at /community/courses/. Course entries themselves are edited in the next entry."
+        description: "The intro prose at /community/courses/. Course entries themselves are edited in the Events collection (with event type 'Course')."
         fields:
           - { name: title, label: "Page title", widget: string }
           - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
@@ -632,86 +632,66 @@ collections:
               - { name: subject, label: "Email subject", widget: string }
           - { name: sidebar, widget: hidden, default: { nav: "community" } }
           - { name: hero, widget: hidden, default: { image: "/assets/images/hub/undraw_group-project_kow1.svg", alt: "A group of people collaborating on a project together." } }
-          - { name: archive, widget: hidden, default: { source: "courses", featured_heading: "Upcoming course", heading: "Previous courses" } }
+          - { name: archive, widget: hidden, default: { collection: "events", type: "course", featured_heading: "Upcoming course", upcoming_heading: "Also upcoming", heading: "Previous courses" } }
           - { name: toc, widget: hidden, default: false }
           - { name: permalink, widget: hidden, default: "/community/courses/" }
           - { name: layout, widget: hidden, default: "page-archive-stacked" }
 
-      - file: _data/courses.yml
-        name: courses_data
-        label: "Course entries"
-        icon: school
-        format: yml
-        description: "Workshops and courses listed on the Courses page."
-        fields:
-          - name: courses
-            label: "Courses"
-            label_singular: "Course"
-            widget: list
-            summary: "{{title}}"
-            fields:
-              - { name: featured, label: "Featured (show prominently)", widget: boolean, required: false, default: false }
-              - { name: title, label: "Title", widget: string }
-              - { name: summary, label: "Summary", widget: text }
-              - { name: date_label, label: "Date label (e.g. 'July 2025') — use for past courses", widget: string, required: false }
-              - { name: location, label: "Location (for past courses)", widget: string, required: false }
-              - name: details
-                label: "Details (label/value pairs; for featured courses)"
-                widget: list
-                required: false
-                summary: "{{label}}: {{value}}"
-                fields:
-                  - { name: label, label: "Label (e.g. 'When', 'Where')", widget: string }
-                  - { name: value, label: "Value", widget: string }
-                  - { name: markdown, label: "Value contains markdown?", widget: boolean, required: false, default: false }
-              - name: actions
-                label: "Actions (buttons)"
-                widget: list
-                required: false
-                summary: "{{label}} → {{url}}"
-                fields:
-                  - { name: label, label: "Button label", widget: string }
-                  - { name: url, label: "URL", widget: string }
-                  - { name: external, label: "External link?", widget: boolean, required: false, default: false }
-
-  # ──────────────── Symposia (peer to Community — entry collection) ───────
-  # Folder collections cannot nest inside file collections, so Symposia sits
+  # ──────────────── Events (peer to Community — entry collection) ─────────
+  # Folder collections cannot nest inside file collections, so Events sits
   # as a sibling to the Community section collection. The deliberate
-  # decision: every event we acknowledge gets a `_symposia/` page (even if
+  # decision: every event we acknowledge gets an `_events/` page (even if
   # the body is bare and the page mostly links out via external_url). One
   # collection, one rendering pattern, no separate "link-only" data file.
-  - name: symposia
-    label: "Symposia"
+  # The Courses and Symposia pages are typed views of this collection
+  # (archive.type in their frontmatter); /community/events/ shows everything.
+  - name: events
+    label: "Events"
     icon: event
-    folder: _symposia
+    folder: _events
     create: true
     extension: md
     format: yaml-frontmatter
-    slug: "symposium-{{fields.date | date('YYYY')}}"
+    slug: "{{fields.date | date('YYYY')}}-{{slug}}"
     summary: "{{title}} — {{date}}"
-    path: "symposium-{{fields.date | date('YYYY')}}"
-    description: "Event pages for symposia and related events. Each entry produces its own page on this site. For events whose primary page lives elsewhere, fill in the External URL field — the manager can still write a brief frontmatter entry here so the event appears in the symposia archive. Add a new symposium with the '+' button."
+    path: "{{fields.date | date('YYYY')}}-{{slug}}"
+    description: "Event pages for symposia, courses, workshops, and other events. Each entry produces its own page on this site. For events whose primary page lives elsewhere, fill in the External URL field — the manager can still write a brief frontmatter entry here so the event appears in the events archive. Add a new event with the '+' button."
     fields:
       - { name: title, label: "Title", widget: string }
+      - name: event_type
+        label: "Event type"
+        widget: select
+        options:
+          - { label: "Symposium", value: symposium }
+          - { label: "Course", value: course }
+          - { label: "Workshop", value: workshop }
+          - { label: "Lecture", value: lecture }
+          - { label: "Other", value: other }
+        comment: "Controls which archive pages list this event: the Courses page shows 'Course', the Symposia page shows 'Symposium', and every type appears on /community/events/."
       - name: date
         label: "Start date"
         widget: datetime
         type: date
-        comment: "Used to determine if the symposium is upcoming or past."
+        comment: "Used to determine if the event is upcoming or past."
       - name: end_date
         label: "End date"
         widget: datetime
         type: date
         required: false
         comment: "Optional. If set, used for the upcoming/past decision instead of start date."
+      - name: date_label
+        label: "Date label (optional)"
+        widget: string
+        required: false
+        comment: "Optional display override for the date on cards, e.g. 'July 2025' when the exact day is unknown. The start date above still controls sorting and the upcoming/past split."
       - { name: location, label: "Location", widget: string }
       - { name: summary, label: "Short summary (used in cards)", widget: text }
       - name: featured
-        label: "Spotlight this symposium?"
+        label: "Spotlight this event?"
         widget: boolean
         required: false
         default: false
-        comment: "Spotlights this symposium in the upcoming-event hero slot on /community/symposia. Only meaningful for upcoming events; past events ignore this flag (the layout uses dates to classify upcoming vs. past automatically)."
+        comment: "Spotlights this event in the upcoming-event hero slot on the archive pages that list it. Only meaningful for upcoming events; past events ignore this flag (the layout uses dates to classify upcoming vs. past automatically)."
       - name: postit
         label: "Highlight (optional)"
         widget: object
@@ -744,6 +724,7 @@ collections:
           - { name: label, label: "Button label", widget: string }
           - { name: url, label: "URL", widget: string }
           - { name: external, label: "External link?", widget: boolean, required: false, default: true }
+      - { name: redirect_from, widget: hidden, required: false }
       - { name: layout, widget: hidden, default: "page" }
       - { name: sidebar, widget: hidden, default: { nav: "community" } }
       - { name: body, label: "Full event page content (markdown)", widget: markdown }

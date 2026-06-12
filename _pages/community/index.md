@@ -15,6 +15,10 @@ destinations:
     body: "Connect with research institutions and early-career researchers across Europe working on data donation."
     link_url: /community/institutional-network
     link_text: "View the network →"
+  - title: "Events"
+    body: "Upcoming and previous data donation events: symposia, courses, workshops, and more."
+    link_url: /community/events/
+    link_text: "See all events →"
   - title: "Newsletter"
     body: "Stay informed about the latest developments in data donation research, events, and educational opportunities."
     link_url: /community/newsletter/

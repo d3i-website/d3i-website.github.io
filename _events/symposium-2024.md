@@ -1,5 +1,6 @@
 ---
 title: "Data Donation Symposium 2024"
+event_type: symposium
 date: 2024-05-30
 end_date: 2024-05-31
 location: "University of Amsterdam, The Netherlands"
@@ -9,6 +10,7 @@ summary: "Photos, programme, keynote by Melinda Mills, and materials from the Am
 #   src: /assets/images/symposia/2024-amsterdam.jpg
 #   alt: ""
 #   credit: ""
+redirect_from: /community/symposia/symposium-2024/
 layout: page
 sidebar:
   nav: "community"

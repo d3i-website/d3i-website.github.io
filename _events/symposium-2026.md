@@ -1,5 +1,6 @@
 ---
 title: "Data Donation Symposium 2026"
+event_type: symposium
 date: 2026-10-01
 end_date: 2026-10-02
 location: "Weizenbaum Institute, Berlin, Germany"
@@ -22,6 +23,7 @@ actions:
   - label: "Submit an abstract"
     url: "https://dds26.platformresearch.eu/call-for-papers"
     external: true
+redirect_from: /community/symposia/symposium-2026/
 layout: page
 sidebar:
   nav: "community"

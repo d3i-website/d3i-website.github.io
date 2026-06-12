@@ -32,7 +32,7 @@ main:
     url: /prepare-a-study/
   - title: "Software"
     url: /software/
-  - title: "Community"
+  - title: "Community & Events"
     url: /community/
   - title: "About D3I"
     url: /about-d3i/
@@ -85,11 +85,13 @@ community:
       - title: Networks
         url: /community/institutional-network
         show_sections: true
-      - title: Newsletter
-        url: /community/newsletter/
+      - title: Events
+        url: /community/events/
       - title: Courses
         url: /community/courses/
       - title: Symposia
         url: /community/symposia/
+      - title: Newsletter
+        url: /community/newsletter/
       - title: Letters & positions
         url: /community/omnibus-letter
