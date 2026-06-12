@@ -25,13 +25,26 @@
 
 .news-card__media {
   display: block;
-  aspect-ratio: 16 / 9;
+  height: 8.5rem;
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
+}
+
+// Imageless cards fill the media slot with a D3I accent color
+.news-card__media--accent-0 {
+  background: $accent-primary;
+}
+
+.news-card__media--accent-1 {
+  background: $accent-secondary;
+}
+
+.news-card__media--accent-2 {
+  background: $accent-tertiary;
 }
 
 .news-card__body {
@@ -70,6 +83,32 @@
 .news-card__link {
   margin-top: auto;
   padding-top: 0.85rem;
+}
+
+// Horizontal list variant (/news/): small thumbnail left, content right
+.news-list {
+  max-width: $content-width;
+  display: grid;
+  gap: 1rem;
+}
+
+.news-card--row {
+  flex-direction: row;
+
+  .news-card__media {
+    flex: 0 0 10rem;
+    height: auto;
+    align-self: stretch;
+  }
+
+  @media (max-width: $small) {
+    flex-direction: column;
+
+    .news-card__media {
+      flex: none;
+      height: 8.5rem;
+    }
+  }
 }
 
 .news-page__intro {

@@ -20,9 +20,9 @@ layout: site-shell
         {% endif %}
 
         {% if news_items.size > 0 %}
-          <div class="news-grid">
+          <div class="news-list">
             {% for item in news_items %}
-              {% include news-card.html item=item %}
+              {% include news-card.html item=item variant="row" %}
             {% endfor %}
           </div>
         {% endif %}
