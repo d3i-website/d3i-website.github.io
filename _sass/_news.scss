@@ -34,6 +34,19 @@
   }
 }
 
+// Imageless cards fill the media slot with a D3I accent color
+.news-card__media--accent-0 {
+  background: $accent-primary;
+}
+
+.news-card__media--accent-1 {
+  background: $accent-secondary;
+}
+
+.news-card__media--accent-2 {
+  background: $accent-tertiary;
+}
+
 .news-card__body {
   display: flex;
   flex-direction: column;
