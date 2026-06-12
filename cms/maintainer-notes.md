@@ -13,14 +13,13 @@ Internal reference for the developer(s) maintaining the D3I Jekyll CMS.
 
 ## Branch-sync discipline
 
-The `cms-staging` branch must stay roughly in sync with `main` to avoid merge conflicts and stale-baseline editing.
+The `cms-staging` branch must stay in sync with `main` to avoid merge conflicts and stale-baseline editing.
 
-**After every cms-staging → main publication:** the squash-merge collapses the cms-staging commits into one new main commit. `cms-staging` itself still has the pre-merge history. Two safe options:
+**This is automated**: `.github/workflows/reset-cms-staging.yml` force-resets `cms-staging` to `main` on every push to `main` — after publication squash-merges and after direct edits alike. No manual step needed.
 
-1. **Reset cms-staging to main** (cleanest, recommended): `git push -f origin main:cms-staging`. cms-staging now matches main exactly; future edits start fresh.
-2. **Merge main → cms-staging**: `git checkout cms-staging && git merge main && git push origin cms-staging`. cms-staging keeps history but gets the post-publication main on top.
+**Implication — unpublished CMS edits are wiped by pushes to main.** Because every push to main resets cms-staging, editor work that is saved but not yet published is lost when anything else lands on main. Encourage editors to publish in reasonably short batches, and before merging an unrelated PR to main, glance at https://github.com/d3i-website/d3i-website.github.io/compare/main...cms-staging to confirm nothing unpublished is sitting there.
 
-**After any direct edit to main that touches CMS-managed files** (`_data/*.yml`, `_pages/*.md`, `_events/*.md`, `admin/config.yml`): bring cms-staging up to date with one of the two options above before the editors next save in the CMS. Otherwise their edits will be on a stale baseline and the next publication PR may conflict or revert your direct fix.
+**Manual fallback** (if the workflow is ever disabled or fails): `git push -f origin main:cms-staging`.
 
 **Avoid editing CMS-managed files directly on main.** When possible, route content changes through the CMS (commits to cms-staging, then publish). Reserve direct main edits for non-CMS files (layouts, scripts, configs).
 
@@ -150,7 +149,7 @@ When `datadonation.eu`'s production hosting moves off Netlify (planned, separate
 - [ ] Close stale `cms-staging` → `main` publication PRs that were opened but never merged (older than 14 days). These leave editor work in limbo; either publish or close.
 - [ ] Audit `assets/images/` for orphan uploads (images not referenced by any `_data/*.yml`, `_pages/*.md`, or `_events/*.md`). List candidates with a `grep -r` over all content files; manually prune.
 - [ ] Audit active editors and their PATs: any editors no longer involved should have their tokens revoked (org-side) and access removed from the repo collaborator list.
-- [ ] Verify `cms-staging` is in sync with `main` (especially after any direct edits to CMS-managed files). Reset if drift suspected: `git push -f origin main:cms-staging`.
+- [ ] Verify the `reset-cms-staging.yml` workflow is enabled and its recent runs are green (it keeps `cms-staging` in sync with `main` on every push). If it has been failing, reset manually: `git push -f origin main:cms-staging`.
 - [ ] Verify repo settings haven't drifted from squash-merge-only configuration.
 
 ## Useful commands
