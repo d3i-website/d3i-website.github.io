@@ -38,6 +38,8 @@ How the admin look-and-feel is configured (all in `admin/config.yml` unless note
 - **Sidebar order**: collections are listed in manager-task order — Events and News (entry collections) first, then a top-level `- divider: true`, then the site-section file collections. Folder collections still cannot nest inside file collections, hence Events/News at top level.
 - **Entry-list views (Events)**: `sortable_fields` with a `default` of date-descending; `view_groups` grouping by year (regex `\d{4}` on `date`, `default: year`) to mirror the Bloomreach year-folder mental model; `view_filters` presets per `event_type`. Users can override sort/group/filter per-session via the toolbar; the config only sets defaults.
 - **Entry-list views (News)**: `thumbnail: image` (grid view shows the news image), date-descending default sort, optional year grouping (no default).
+- **"View on Live Site"** (the ⋯ menu in the entry editor): needs `preview_path` on the collection because Sveltia can't infer Jekyll permalinks — set to the permalink pattern with `{{filename}}` standing in for `:path` (see the Events and News collections). Resolves against `site_url`, i.e. staging. Entry collections only; file-collection page editors have no per-file equivalent.
+- **Body-image tidiness**: Events and News set collection-level `media_folder`/`public_folder` so images inserted into entry bodies land in `/assets/images/events` and `/assets/images/news` rather than the global root.
 - **Preview pane**: `admin/index.html` registers `admin/preview.css` via `CMS.registerPreviewStyle()` so entry previews use site typography (self-contained `@font-face` for the self-hosted Nunito fonts plus tokens copied from `_sass/_variables.scss` — keep in sync by hand). Data-list file editors set `editor: { preview: false }` because a preview of a raw YAML list is noise.
 
 ## Why PATs instead of OAuth (background)
@@ -120,9 +122,20 @@ Template for a list-of-records data file:
 For a page with known layout and frontmatter structure:
 
 1. Identify which frontmatter keys the layout reads (title, sidebar, etc.).
-2. Add an entry under the `pages` collection in `admin/config.yml`.
-3. Use `widget: hidden` for all structural keys (layout, permalink, redirect_from, sidebar.nav, etc.).
-4. Expose editable content (title, body, contact blocks) with appropriate widgets.
+2. Add a file entry to the page's section collection in `admin/config.yml` (Community, About D3I, Prepare a Study), under the appropriate divider.
+3. Use `widget: hidden` for all structural keys (layout, permalink, redirect_from, sidebar.nav, etc.), mirroring the file's live frontmatter **exactly** — a no-op save in the CMS must produce no git diff.
+4. Expose editable content (title, body, contact blocks) with appropriate widgets. Only model optional sub-fields the file actually has (e.g. hub contact blocks are lead/email/subject only): modelling absent optional strings makes saves write `key: ''` noise.
+
+## Deliberately not in the CMS
+
+Pages left out on purpose — don't add editors for these without addressing the stated reason:
+
+- **Homepage** (`index.md`): awaiting the external homepage redesign; expose it once the new structure lands. (Its frontmatter is otherwise fully mappable — postit, movements, hero.)
+- **`_pages/data-donation.md`**: the body embeds raw `<iframe>` video embeds, which the CMS rich-text editor can mangle on save.
+- **`_pages/prepare-a-study/study-design.md`**: body uses `notice--warning`/`notice--success` HTML divs — same mangling risk.
+- **`_pages/community/open-letter.md` / `omnibus-letter.md`**: the open letter contains a Liquid variable (`{{ site.open_letter_url }}`) and kramdown attribute syntax; the omnibus letter uses markdown footnotes. Both are signed position documents that shouldn't be casually editable anyway.
+- **Software section** (`_pages/software/*`): developer-owned technical content (script builder, install flows).
+- **Navigation** (`_data/navigation.yml`): developer-owned; URL changes require coordinated permalink/redirect work.
 
 ## Known CMS constraints
 
