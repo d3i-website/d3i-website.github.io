@@ -85,17 +85,5 @@
   display: none;
 }
 
-// Homepage: absolute top-right of the hero area
-.homepage-hero .postit {
-  position: absolute;
-  top: 4.5rem;
-  right: 1.5rem;
-
-  @media (max-width: $medium) {
-    position: static;
-    margin: 0 0 1.5rem;
-    transform: none;
-
-    &::before { display: none; }
-  }
-}
+// Homepage placement (flex item in the hero text row) lives in
+// _homepage.scss.

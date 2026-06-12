@@ -225,109 +225,12 @@ blockquote {
 }
 
 // ---------------------------------------------------------------------
-// Homepage hero
+// Action links — red Nunito arrow links used on cards and section
+// headers ("Read more →", "More news →"). Homepage-specific layout
+// lives in _homepage.scss.
 // ---------------------------------------------------------------------
 
-// Override site-main padding for homepage — hero is full-bleed
-.layout--homepage .site-main {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.homepage-hero {
-  position: relative;
-  padding: 0.5rem 2rem 12.5rem;
-  background-size: cover;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-}
-
-.homepage-hero__inner {
-  position: relative;
-  z-index: 1;
-  max-width: fit-content;
-  margin: 0 auto;
-}
-
-.homepage-hero__title {
-  font-family: "Nunito", $sans-serif;
-  font-weight: 900;
-  font-size: 1.95em;
-  line-height: 1.1;
-  letter-spacing: -0.015em;
-  color: #252a34;
-  margin: 0 0 0.5rem;
-
-  @media (min-width: $small) {
-    font-size: 2.44em;
-  }
-}
-
-.homepage-hero__subtitle {
-  font-family: "Nunito Sans", $sans-serif;
-  font-size: 1.0625rem;
-  line-height: 1.5;
-  color: $muted-text-color;
-  margin: 0;
-  max-width: 48rem;
-}
-
-// Homepage body
-.homepage-body {
-  position: relative;
-  z-index: 1;
-  max-width: $content-width;
-  margin: 0 auto;
-  padding: 0 1.5rem 3rem;
-  font-family: "Nunito Sans", $sans-serif;
-  font-size: 1.0625rem;
-  line-height: 1.7;
-  color: $text-color;
-
-  p + p {
-    margin-top: 1rem;
-  }
-
-  a {
-    color: $accent-primary;
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.15s ease;
-
-    &:hover, &:focus {
-      border-bottom-color: $accent-primary;
-    }
-  }
-}
-
-// Prose blocks with floated illustrations
-.homepage-block {
-  display: flow-root;
-  margin-bottom: 1.25rem;
-}
-
-.homepage-block__image {
-  max-width: 7rem;
-  height: auto;
-
-  .homepage-block--right & {
-    float: right;
-    margin: 0.15rem 0 0.75rem 1.5rem;
-  }
-
-  .homepage-block--left & {
-    float: left;
-    margin: 0.15rem 1.5rem 0.75rem 0;
-  }
-}
-
-.homepage-block__text {
-  p {
-    margin: 0;
-  }
-}
-
-.homepage-block__link {
+.cta-link {
   font-family: "Nunito", $sans-serif;
   font-weight: 700;
   color: $accent-secondary;
@@ -336,7 +239,7 @@ blockquote {
   transition: border-color 0.15s ease;
   white-space: nowrap;
 
-  &:hover {
+  &:hover, &:focus {
     border-bottom-color: $accent-secondary;
   }
 }

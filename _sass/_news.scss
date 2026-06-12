@@ -116,10 +116,22 @@
   margin-bottom: 2rem;
 }
 
+// Full-bleed tinted band — the only card-styled zone on the homepage,
+// visually separated from the prose above.
 .home-news {
+  background: #f5f7fb;
+  border-top: 1px solid rgba(37, 42, 52, 0.06);
+
+  // The homepage strip uses a slightly shorter media slot than /news/.
+  .news-card__media {
+    height: 7.5rem;
+  }
+}
+
+.home-news__inner {
   max-width: $site-width;
   margin: 0 auto;
-  padding: 0 1.5rem 3rem;
+  padding: 2.5rem 1.5rem 3rem;
 }
 
 .home-news__header {

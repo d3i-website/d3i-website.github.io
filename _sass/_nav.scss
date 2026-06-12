@@ -13,7 +13,8 @@ $tab-tint: rgba(0, 0, 0, 0.02);
   top: 0;
   z-index: 40;
   background: rgba(255, 255, 255, 0.96);
-  border-bottom: none;
+  backdrop-filter: blur(4px);
+  border-bottom: 1px solid rgba(37, 42, 52, 0.06);
 }
 
 .site-header__inner {
@@ -22,7 +23,7 @@ $tab-tint: rgba(0, 0, 0, 0.02);
   padding: 1rem 1rem 0;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   line-height: 1;
   gap: 1rem 2rem;

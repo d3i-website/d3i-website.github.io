@@ -1,0 +1,311 @@
+// =====================================================================
+// Homepage: hero composition (sky + road + travelers), route stops,
+// and the closing sentence. Implements the "Front Page v2" design
+// handoff — geometry and colors come from its spec; sprite sizes are
+// fixed pixels by design (travelers must not scale with the viewport,
+// only spread out along the road).
+// =====================================================================
+
+// Hero is full-bleed; the layout removes site-main's side padding
+.layout--homepage .site-main {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// ---------------------------------------------------------------------
+// Hero
+// ---------------------------------------------------------------------
+
+.homepage-hero {
+  position: relative;
+  background: #ffffff;
+  overflow: hidden; // clips the moon at the section's top edge
+}
+
+// Sky layer: decorative, behind the text row
+.homepage-hero__moon {
+  position: absolute;
+  top: -7rem;
+  left: calc(50% - 5rem);
+  width: 26rem;
+  height: 26rem;
+  border-radius: 50%;
+  background: #F4F7FE;
+}
+
+.homepage-hero__clouds {
+  position: absolute;
+  top: 2.2rem;
+  left: calc(50% + 7rem);
+  width: 123px;
+}
+
+.homepage-hero__plane {
+  position: absolute;
+  top: 2rem;
+  left: max(2%, calc(50% - 41rem));
+  width: 95px;
+}
+
+// Text row: headline block left, post-it right
+.homepage-hero__row {
+  position: relative;
+  z-index: 2;
+  max-width: $site-width;
+  margin: 0 auto;
+  padding: 3.25rem 1.5rem 0.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem 3rem;
+}
+
+.homepage-hero__intro {
+  flex: 1 1 28rem;
+  max-width: 36rem;
+}
+
+.homepage-hero__title {
+  font-family: "Nunito", $sans-serif;
+  font-weight: 900;
+  font-size: 2.6rem;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: #252a34;
+  margin: 0 0 0.8rem;
+}
+
+.homepage-hero__subtitle {
+  font-size: 1.125rem;
+  line-height: 1.55;
+  color: $muted-text-color;
+  margin: 0 0 1.4rem;
+}
+
+.homepage-hero__cta {
+  display: inline-block;
+  white-space: nowrap;
+  font-family: "Nunito", $sans-serif;
+  font-weight: 700;
+  font-size: 1.0625rem;
+  color: $accent-secondary;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 0.125rem;
+  transition: border-color 0.15s ease;
+
+  &:hover, &:focus {
+    border-bottom-color: $accent-secondary;
+  }
+}
+
+// Post-it joins the flex row (base look comes from _postit.scss)
+.homepage-hero .postit {
+  flex: 0 0 14rem;
+  margin-top: 0.4rem;
+
+  @media (max-width: $medium) {
+    transform: none;
+
+    &::before { display: none; }
+  }
+}
+
+// Road strip: full-bleed CSS road divides hero from content; travelers
+// are fixed-size sprites spaced along it by percentage. overflow stays
+// visible — the trees intentionally poke above the strip.
+.homepage-road {
+  position: relative;
+  z-index: 1;
+  height: 120px;
+}
+
+.homepage-road__bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 34px;
+  height: 24px;
+  background: #C6D5FA;
+}
+
+.homepage-road__dash {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(46% - 1.5px);
+  height: 3px;
+  background: repeating-linear-gradient(to right, $accent-primary 0 30px, transparent 30px 88px);
+}
+
+.homepage-road__sprite {
+  position: absolute;
+}
+
+// Sprite geometry from the design spec: bottoms tuned so each element
+// sits on the road as in the original banner artwork.
+.homepage-road__sprite--walker    { left: 18%; bottom: 3px;  width: 41px; }
+.homepage-road__sprite--mountains { left: 22%; bottom: 46px; width: 125px; }
+.homepage-road__sprite--trees     { left: 55%; bottom: 55px; width: 88px; }
+.homepage-road__sprite--car       { left: 63%; bottom: 46px; width: 107px; }
+.homepage-road__sprite--cyclist   { left: 72%; bottom: 56px; width: 71px; }
+
+// ---------------------------------------------------------------------
+// Route stops: three numbered stops on a dashed route line that echoes
+// the road above. Deliberately not cards — no borders or backgrounds.
+// ---------------------------------------------------------------------
+
+.homepage-stops {
+  max-width: $site-width;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 0.75rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.homepage-stops__track {
+  position: relative;
+}
+
+.homepage-stops__line {
+  position: absolute;
+  top: 1.25rem;
+  left: 4%;
+  right: 4%;
+  border-top: 3px dashed rgba(66, 114, 239, 0.3);
+}
+
+.homepage-stops__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 3rem;
+}
+
+.homepage-stop {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.homepage-stop__marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: $accent-primary;
+  color: #ffffff;
+  font-family: "Nunito", $sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  box-shadow: 0 0 0 6px #ffffff; // punches a gap in the dashed line
+  margin-bottom: 1.3rem;
+}
+
+.homepage-stop__figure {
+  display: flex;
+  align-items: flex-end;
+  height: 6.5rem;
+  margin-bottom: 1.1rem;
+
+  img {
+    max-height: 6.5rem;
+    max-width: 10rem;
+  }
+}
+
+.homepage-stop__heading {
+  margin: 0 0 0.5rem;
+  font-family: "Nunito", $sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #252a34;
+  line-height: 1.25;
+}
+
+.homepage-stop__body {
+  margin: 0 0 0.9rem;
+  font-size: 0.97rem;
+  line-height: 1.6;
+  color: $text-color;
+}
+
+.homepage-stop__link {
+  margin-top: auto;
+  white-space: nowrap;
+  font-family: "Nunito", $sans-serif;
+  font-weight: 700;
+  font-size: 0.97rem;
+  color: $accent-secondary;
+  text-decoration: none;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color 0.15s ease;
+
+  &:hover, &:focus {
+    border-bottom-color: $accent-secondary;
+  }
+}
+
+// Closing sentence (page body content): newsletter / team links
+.homepage-outro {
+  text-align: center;
+  margin: 0;
+  padding: 2.25rem 0 2.5rem;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: $text-color;
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: $accent-primary;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease;
+
+    &:hover, &:focus {
+      border-bottom-color: $accent-primary;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------
+// Responsive (per the handoff spec; prototype was desktop-first)
+// ---------------------------------------------------------------------
+
+@media (max-width: $medium-wide) {
+  // Hide the sky layer; keep the road and travelers
+  .homepage-hero__moon,
+  .homepage-hero__clouds,
+  .homepage-hero__plane {
+    display: none;
+  }
+
+  // Stops stack vertically; the horizontal route line goes away
+  // (markers keep their white ring so the rhythm still reads)
+  .homepage-stops__line {
+    display: none;
+  }
+
+  .homepage-stops__grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem 0;
+  }
+}
+
+@media (max-width: $small) {
+  // Keep the full-width road bar as the divider, drop the travelers
+  .homepage-road {
+    height: 70px;
+  }
+
+  .homepage-road__sprite {
+    display: none;
+  }
+}

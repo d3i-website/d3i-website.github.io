@@ -18,14 +18,16 @@
 
 {% if recent_news.size > 0 %}
   <section class="home-news" data-news-strip>
-    <div class="home-news__header">
-      <h2 class="home-news__title">Latest news</h2>
-      <a class="cta-link" href="{{ '/news/' | relative_url }}">More news <span aria-hidden="true">→</span></a>
-    </div>
-    <div class="news-grid">
-      {% for item in recent_news %}
-        {% include news-card.html item=item %}
-      {% endfor %}
+    <div class="home-news__inner">
+      <div class="home-news__header">
+        <h2 class="home-news__title">Latest news</h2>
+        <a class="cta-link" href="{{ '/news/' | relative_url }}">More news <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="news-grid">
+        {% for item in recent_news %}
+          {% include news-card.html item=item %}
+        {% endfor %}
+      </div>
     </div>
   </section>
   <script src="{{ '/assets/js/news-freshness.js' | relative_url }}" defer></script>

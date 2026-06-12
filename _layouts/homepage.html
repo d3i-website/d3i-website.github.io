@@ -2,33 +2,73 @@
 layout: site-shell
 ---
 
-<div class="homepage-hero" style="background-image: url('{{ page.hero_image | relative_url }}');">
-  {% include postit.html %}
-  <div class="homepage-hero__inner">
-    <h1 class="homepage-hero__title">{{ page.title }}</h1>
-    {% if page.excerpt %}
-      <p class="homepage-hero__subtitle">{{ page.excerpt | markdownify | remove: '<p>' | remove: '</p>' | strip }}</p>
-    {% endif %}
-  </div>
-</div>
+{% comment %}
+  "Front Page v2" hero: a composition, not a banner image. The sky layer
+  (moon/clouds/plane) sits behind the text row; a full-bleed CSS road
+  divides the hero from the content, with fixed-size sprite travelers
+  spaced along it by percentage so wider screens spread them out without
+  scaling them.
+{% endcomment %}
+<section class="homepage-hero">
+  <div class="homepage-hero__moon" aria-hidden="true"></div>
+  <img class="homepage-hero__clouds" src="{{ '/assets/images/sprites/clouds.png' | relative_url }}" alt="" aria-hidden="true">
+  <img class="homepage-hero__plane" src="{{ '/assets/images/sprites/plane.png' | relative_url }}" alt="" aria-hidden="true">
 
-<article class="homepage-body">
+  <div class="homepage-hero__row">
+    <div class="homepage-hero__intro">
+      <h1 class="homepage-hero__title">{{ page.title }}</h1>
+      {% if page.excerpt %}
+        <p class="homepage-hero__subtitle">{{ page.excerpt | markdownify | remove: '<p>' | remove: '</p>' | strip }}</p>
+      {% endif %}
+      {% if page.cta %}
+        <a class="homepage-hero__cta" href="{{ page.cta.url | relative_url }}">{{ page.cta.label }}&nbsp;→</a>
+      {% endif %}
+    </div>
+    {% include postit.html %}
+  </div>
+
+  <div class="homepage-road" aria-hidden="true">
+    <div class="homepage-road__bar">
+      <div class="homepage-road__dash"></div>
+    </div>
+    <img class="homepage-road__sprite homepage-road__sprite--walker" src="{{ '/assets/images/sprites/walker.png' | relative_url }}" alt="">
+    <img class="homepage-road__sprite homepage-road__sprite--mountains" src="{{ '/assets/images/sprites/mountains.png' | relative_url }}" alt="">
+    <img class="homepage-road__sprite homepage-road__sprite--trees" src="{{ '/assets/images/sprites/trees.png' | relative_url }}" alt="">
+    <img class="homepage-road__sprite homepage-road__sprite--car" src="{{ '/assets/images/sprites/car.png' | relative_url }}" alt="">
+    <img class="homepage-road__sprite homepage-road__sprite--cyclist" src="{{ '/assets/images/sprites/cyclist.png' | relative_url }}" alt="">
+  </div>
+</section>
+
+{% comment %}
+  Route stops: the movements front matter rendered as three numbered
+  stops on a dashed route line that echoes the road above. Deliberately
+  not cards.
+{% endcomment %}
+<section class="homepage-stops">
   {% if page.movements %}
-    {% for movement in page.movements %}
-      <div class="homepage-block homepage-block--{% cycle 'right', 'left' %}">
-        <img class="homepage-block__image" src="{{ movement.image | relative_url }}" alt="{{ movement.image_alt | default: '' }}">
-        <div class="homepage-block__text">
-          <p>{{ movement.body }}
+    <div class="homepage-stops__track">
+      <div class="homepage-stops__line" aria-hidden="true"></div>
+      <div class="homepage-stops__grid">
+        {% for movement in page.movements %}
+          <article class="homepage-stop">
+            <span class="homepage-stop__marker" aria-hidden="true">{{ forloop.index }}</span>
+            <div class="homepage-stop__figure">
+              <img src="{{ movement.image | relative_url }}" alt="{{ movement.image_alt | default: '' }}">
+            </div>
+            <h2 class="homepage-stop__heading">{{ movement.heading }}</h2>
+            <p class="homepage-stop__body">{{ movement.body }}</p>
             {% if movement.link %}
-              <a class="homepage-block__link" href="{{ movement.link.url | relative_url }}">{{ movement.link.text }} →</a>
+              <a class="homepage-stop__link" href="{{ movement.link.url | relative_url }}">{{ movement.link.text }}&nbsp;→</a>
             {% endif %}
-          </p>
-        </div>
+          </article>
+        {% endfor %}
       </div>
-    {% endfor %}
+    </div>
   {% endif %}
 
-  {{ content }}
-</article>
+  <div class="homepage-outro">
+    {{ content }}
+  </div>
+</section>
 
 {% include news-strip.html %}
