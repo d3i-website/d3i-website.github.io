@@ -305,8 +305,8 @@ collections:
               - name: image
                 label: "Illustration"
                 widget: image
-                media_folder: /assets/images/hub
-                public_folder: /assets/images/hub
+                media_folder: /assets/images/undraw
+                public_folder: /assets/images/undraw
                 choose_url: false
                 max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
@@ -550,8 +550,8 @@ collections:
               - name: image
                 label: "Illustration"
                 widget: image
-                media_folder: /assets/images/hub
-                public_folder: /assets/images/hub
+                media_folder: /assets/images/undraw
+                public_folder: /assets/images/undraw
                 choose_url: false
                 max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
@@ -725,8 +725,8 @@ collections:
               - name: image
                 label: "Illustration"
                 widget: image
-                media_folder: /assets/images/hub
-                public_folder: /assets/images/hub
+                media_folder: /assets/images/undraw
+                public_folder: /assets/images/undraw
                 choose_url: false
                 max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
@@ -1220,8 +1220,8 @@ collections:
               - name: image
                 label: "Illustration"
                 widget: image
-                media_folder: /assets/images/hub
-                public_folder: /assets/images/hub
+                media_folder: /assets/images/undraw
+                public_folder: /assets/images/undraw
                 choose_url: false
                 max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
@@ -1239,8 +1239,8 @@ collections:
               - name: image
                 label: "Illustration"
                 widget: image
-                media_folder: /assets/images/hub
-                public_folder: /assets/images/hub
+                media_folder: /assets/images/undraw
+                public_folder: /assets/images/undraw
                 choose_url: false
                 max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
