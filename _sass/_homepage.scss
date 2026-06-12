@@ -6,10 +6,15 @@
 // only spread out along the road).
 // =====================================================================
 
-// Hero is full-bleed; the layout removes site-main's side padding
+// Hero and news band are full-bleed; the layout removes site-main's
+// side padding, and the bottom padding too — the tinted news band is
+// the last content zone and the footer must directly abut it.
 .layout--homepage .site-main {
-  padding-left: 0;
-  padding-right: 0;
+  padding: 0;
+}
+
+.layout--homepage .site-footer {
+  margin-top: 0;
 }
 
 // ---------------------------------------------------------------------
@@ -114,12 +119,14 @@
 }
 
 // Road strip: full-bleed CSS road divides hero from content; travelers
-// are fixed-size sprites spaced along it by percentage. overflow stays
-// visible — the trees intentionally poke above the strip.
+// are fixed-size sprites spaced along it by percentage. The strip is
+// deliberately shorter than the tallest sprites — overflow stays
+// visible and the travelers rise up into the hero's whitespace, which
+// is what keeps the road tight under the text.
 .homepage-road {
   position: relative;
   z-index: 1;
-  height: 120px;
+  height: 80px;
 }
 
 .homepage-road__bar {
@@ -302,7 +309,7 @@
 @media (max-width: $small) {
   // Keep the full-width road bar as the divider, drop the travelers
   .homepage-road {
-    height: 70px;
+    height: 60px;
   }
 
   .homepage-road__sprite {
