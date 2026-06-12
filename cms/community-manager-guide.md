@@ -38,18 +38,15 @@ If login fails: most often, your token has the wrong permissions. Re-generate fo
 
 ## The dashboard
 
-You'll see a left sidebar listing everything you can edit:
+The left sidebar puts your day-to-day work at the top, with the site-section editors below a separator:
 
-The sidebar groups everything you can edit by site section:
-
+- **Events** — create new event pages (symposia, courses, workshops, and more); edit existing ones. The list is grouped by year (like folders), newest first. Use the filter icon above the list to show only one event type. Each entry produces its own page on the site and is listed on `/community/events/`; the Courses and Symposia pages automatically show the entries of the matching type.
+- **News** — create news items, newest first; switch to grid view to see image thumbnails. Each item appears on `/news/` and, while fresh (under ~3 months old), in the homepage "Latest news" strip.
+- **Community** — page editors and data lists for `/community/` (Events page, Courses page, Symposia page, Networks, Newsletter).
 - **About D3I** — page editors and data lists for `/about-d3i/` (Team, Advisory board, Funding, Partners, Impact and adoption).
-- **Community** — page editors and data lists for `/community/` (Networks, Newsletter, Courses).
-- **Events** — create new event pages (symposia, courses, workshops, and more); edit existing ones. Each entry produces its own page on the site and is listed on `/community/events/`; the Courses and Symposia pages automatically show the entries of the matching type.
-- **News** — create news items. Each item appears on `/news/` and, while fresh (under ~3 months old), in the homepage "Latest news" strip.
 - **Prepare a Study** — page editor and data list for the Completed projects page.
-- **Site Structure** — site-wide configuration (Navigation). Rarely needs editing.
 
-Within each section, page editors are paired with their supporting data list (e.g. "Team page" sits next to "Team members"). Edit the page when you want to change the prose; edit the data list when you want to add, remove, or reorder items shown on the page.
+Within each section, page editors are paired with their supporting data list (e.g. "Team page" sits next to "Team members"). Edit the page when you want to change the prose; edit the data list when you want to add, remove, or reorder items shown on the page. The Events, Courses, and Symposia pages are the exception: their intro prose is a page editor under Community, while the events listed on them come from the Events collection at the top of the sidebar.
 
 ## Common tasks
 
@@ -91,15 +88,16 @@ News items appear on the News page immediately after publication. The homepage "
 
 Every time you click **Save**, the CMS commits your edit to a behind-the-scenes branch called `cms-staging`. **The change is recorded but not yet visible on the live site.** This lets you make a series of edits in one sitting without each one immediately going live — useful for typo fixes, preview-and-revise cycles, or batches of related updates.
 
-The CMS doesn't have a separate "Publish" button. To make your accumulated edits visible to the public, you do the publishing step on GitHub (see below).
+To make your accumulated edits visible to the public, use the **Publish Changes** button (see below).
 
 ## Publishing your edits
 
-When you've finished a batch of edits and want them on the live site:
+When you've finished a batch of edits and want them on the live site, click **Publish Changes** in the bar at the top of the CMS. That's it — the publish workflow test-builds the site with your edits, publishes them, and rebuilds the staging site (2-3 min in total). If the build fails, nothing is published; email Danielle.
+
+If the button is ever missing or you want to watch the run, the same workflow can be started (and followed) from GitHub directly:
 
 1. Open https://github.com/d3i-website/d3i-website.github.io/actions/workflows/publish-cms-edits.yml in your browser.
-2. Click **Run workflow** (green button, top right of the list), then **Run workflow** again to confirm.
-3. Done. The workflow test-builds the site with your edits, publishes them, and rebuilds the staging site (2-3 min in total). If the build fails, nothing is published — the run shows a red ✗; email Danielle with a link to it.
+2. Click **Run workflow** (green button, top right of the list), then **Run workflow** again to confirm. Completed runs are listed on that same page — a red ✗ means the build failed and nothing was published; email Danielle with a link to it.
 
 Want to double-check what's going out first? Open https://github.com/d3i-website/d3i-website.github.io/compare/main...cms-staging to see every edit made since the last publication, then run the workflow when satisfied. If anything looks wrong in that diff, **don't publish** — email Danielle and describe what's off. She can help identify the issue or revert problem edits before publishing.
 

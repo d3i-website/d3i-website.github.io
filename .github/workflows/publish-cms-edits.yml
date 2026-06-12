@@ -1,9 +1,11 @@
 name: Publish CMS edits
 
-# Manually triggered by an editor (Actions tab → "Publish CMS edits" →
-# Run workflow) once a batch of CMS edits on cms-staging is ready to go
-# live. Builds the site from cms-staging as a safety check, then
-# squash-merges cms-staging into main.
+# Manually triggered by an editor — either the "Publish Changes" button
+# in the CMS header (which fires a repository_dispatch event of type
+# sveltia-cms-publish; see backend.skip_ci in admin/config.yml) or the
+# Actions tab (→ "Publish CMS edits" → Run workflow) — once a batch of
+# CMS edits on cms-staging is ready to go live. Builds the site from
+# cms-staging as a safety check, then squash-merges cms-staging into main.
 #
 # Merges performed with GITHUB_TOKEN do not fire push-triggered
 # workflows, so the cms-staging reset and the staging deploy that would
@@ -11,6 +13,8 @@ name: Publish CMS edits
 
 on:
   workflow_dispatch:
+  repository_dispatch:
+    types: [sveltia-cms-publish]
 
 permissions:
   contents: write
