@@ -80,6 +80,13 @@ collections:
     slug: "{{fields.date | date('YYYY')}}-{{slug}}"
     summary: "{{title}} — {{date | date('D MMM YYYY')}}"
     thumbnail: false
+    # Powers "View on Live Site" in the editor's ⋯ menu (resolved against
+    # site_url, i.e. staging). :path in the Jekyll permalink is the filename.
+    preview_path: "/community/events/{{filename}}/"
+    # Images inserted into event bodies land here instead of the global
+    # assets/images root.
+    media_folder: /assets/images/events
+    public_folder: /assets/images/events
     sortable_fields:
       fields: [date, title]
       default:
@@ -191,6 +198,13 @@ collections:
     slug: "{{fields.date | date('YYYY-MM-DD')}}-{{slug}}"
     summary: "{{title}} — {{date | date('D MMM YYYY')}}"
     thumbnail: image
+    # Powers "View on Live Site" in the editor's ⋯ menu (resolved against
+    # site_url, i.e. staging). :path in the Jekyll permalink is the filename.
+    preview_path: "/news/{{filename}}/"
+    # Collection-level default so images inserted into news bodies land in
+    # the same folder the Image field already uses.
+    media_folder: /assets/images/news
+    public_folder: /assets/images/news
     sortable_fields:
       fields: [date, title]
       default:
@@ -223,6 +237,46 @@ collections:
       - { name: layout, widget: hidden, default: "page" }
       - { name: body, label: "Full news item content (markdown)", widget: markdown, required: false }
 
+  # ──────────────── News page (file collection) ───────────────────────────
+  # The /news/ page itself — intro prose and contact block. A mini file
+  # collection because a folder collection (News above) cannot also hold
+  # an individual file editor.
+  - name: news_page
+    label: "News page"
+    icon: article
+    description: "The intro prose and contact block at /news/. News items themselves are edited in the News collection above."
+    files:
+      - file: _pages/news/index.md
+        name: news_index
+        label: "News page"
+        icon: article
+        description: "The intro prose at /news/. News items themselves are edited in the News collection."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
+          - name: body
+            label: "Intro prose (markdown)"
+            widget: markdown
+            hint: "Short prose shown above the news list."
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text (optional)", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points (optional)"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: permalink, widget: hidden, default: "/news/" }
+          - { name: layout, widget: hidden, default: "page-news" }
+
   # ───────────── Site sections (page editors + data lists) ────────────────
   - divider: true
 
@@ -232,6 +286,73 @@ collections:
     icon: forum
     description: "Pages and data lists under Community (/community/)."
     files:
+
+      - { divider: true, label: "Section landing page" }
+      - file: _pages/community/index.md
+        name: community_hub
+        label: "Community landing page"
+        icon: home
+        description: "The section landing page at /community/ — hero text, destination cards, optional highlight, and contact block."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - name: hero
+            label: "Hero"
+            widget: object
+            collapsed: true
+            summary: "{{title}}"
+            comment: "The illustration and heading at the top of the landing page."
+            fields:
+              - name: image
+                label: "Illustration"
+                widget: image
+                media_folder: /assets/images/hub
+                public_folder: /assets/images/hub
+                choose_url: false
+                max_file_size: 2097152
+                accept: "image/jpeg,image/png,image/svg+xml,image/webp"
+              - { name: image_alt, label: "Image alt text (required)", widget: string }
+              - { name: title, label: "Hero heading", widget: string }
+              - { name: subhead, label: "Hero subheading", widget: text }
+          - name: destinations
+            label: "Destination cards"
+            label_singular: "Card"
+            widget: list
+            summary: "{{title}}"
+            comment: "The cards linking to the pages of this section. Order here = order on the page."
+            fields:
+              - { name: title, label: "Card title", widget: string }
+              - { name: body, label: "Card text", widget: text }
+              - { name: link_url, label: "Link URL", widget: string, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (e.g. 'See all events →')", widget: string }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
+          # Hub contact blocks are heading + email only — no intro/bullets
+          # in the page frontmatter, so none exposed here (lossless saves).
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: hub_section, widget: hidden, default: "community" }
+          - { name: sidebar, widget: hidden, default: { nav: "community" } }
+          - { name: permalink, widget: hidden, default: "/community/" }
+          - { name: layout, widget: hidden, default: "hub-directory" }
 
       - { divider: true, label: "Events page" }
       - file: _pages/community/events/index.md
@@ -330,6 +451,23 @@ collections:
           - { name: toc, widget: hidden, default: false }
           - { name: permalink, widget: hidden, default: "/community/courses/" }
           - { name: layout, widget: hidden, default: "page-archive-stacked" }
+
+      - file: _pages/community/courses/materials.md
+        name: course_materials_page
+        label: "Course materials page"
+        icon: menu_book
+        description: "The data donation tutorial at /community/courses/materials — organizers, rationale, format, and downloadable materials."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
+          - name: body
+            label: "Page content (markdown)"
+            widget: markdown
+            hint: "The full tutorial page: organizers, topic, rationale, format, and the materials list."
+          - { name: toc, widget: hidden, default: false }
+          - { name: sidebar, widget: hidden, default: { nav: "community" } }
+          - { name: permalink, widget: hidden, default: "/community/courses/materials" }
+          - { name: layout, widget: hidden, default: "page" }
 
       - { divider: true, label: "Symposia" }
       - file: _pages/community/symposia/index.md
@@ -569,6 +707,73 @@ collections:
     description: "Pages and data lists under About D3I (/about-d3i/)."
     files:
 
+      - { divider: true, label: "Section landing page" }
+      - file: _pages/about-d3i/index.md
+        name: about_d3i_hub
+        label: "About D3I landing page"
+        icon: home
+        description: "The section landing page at /about-d3i/ — hero text, destination cards, optional highlight, and contact block."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - name: hero
+            label: "Hero"
+            widget: object
+            collapsed: true
+            summary: "{{title}}"
+            comment: "The illustration and heading at the top of the landing page."
+            fields:
+              - name: image
+                label: "Illustration"
+                widget: image
+                media_folder: /assets/images/hub
+                public_folder: /assets/images/hub
+                choose_url: false
+                max_file_size: 2097152
+                accept: "image/jpeg,image/png,image/svg+xml,image/webp"
+              - { name: image_alt, label: "Image alt text (required)", widget: string }
+              - { name: title, label: "Hero heading", widget: string }
+              - { name: subhead, label: "Hero subheading", widget: text }
+          - name: destinations
+            label: "Destination cards"
+            label_singular: "Card"
+            widget: list
+            summary: "{{title}}"
+            comment: "The cards linking to the pages of this section. Order here = order on the page."
+            fields:
+              - { name: title, label: "Card title", widget: string }
+              - { name: body, label: "Card text", widget: text }
+              - { name: link_url, label: "Link URL", widget: string, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (e.g. 'Meet the team →')", widget: string }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
+          # Hub contact blocks are heading + email only — no intro/bullets
+          # in the page frontmatter, so none exposed here (lossless saves).
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: hub_section, widget: hidden, default: "about-d3i" }
+          - { name: sidebar, widget: hidden, default: { nav: "about-d3i" } }
+          - { name: permalink, widget: hidden, default: "/about-d3i/" }
+          - { name: layout, widget: hidden, default: "hub-directory" }
+
       - { divider: true, label: "Team" }
       - file: _pages/about-d3i/team.md
         name: team_page
@@ -578,6 +783,19 @@ collections:
         fields:
           - { name: title, label: "Page title", widget: string }
           - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
           - name: body
             label: "Intro prose (markdown)"
             widget: markdown
@@ -667,6 +885,19 @@ collections:
         fields:
           - { name: title, label: "Page title", widget: string }
           - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
           - name: body
             label: "Intro prose (markdown)"
             widget: markdown
@@ -720,6 +951,19 @@ collections:
         fields:
           - { name: title, label: "Page title", widget: string }
           - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
           - name: body
             label: "Intro prose (markdown)"
             widget: markdown
@@ -776,6 +1020,19 @@ collections:
         fields:
           - { name: title, label: "Page title", widget: string }
           - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
           - name: body
             label: "Intro prose (markdown — optional)"
             widget: markdown
@@ -832,6 +1089,19 @@ collections:
         fields:
           - { name: title, label: "Page title", widget: string }
           - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
           - name: body
             label: "Page body (markdown)"
             widget: markdown
@@ -932,6 +1202,87 @@ collections:
     description: "Pages and data lists under Prepare a Study (/prepare-a-study/)."
     files:
 
+      - { divider: true, label: "Section landing page" }
+      - file: _pages/prepare-a-study/index.md
+        name: prepare_a_study_hub
+        label: "Prepare a Study landing page"
+        icon: home
+        description: "The section landing page at /prepare-a-study/ — hero text, the three journey steps, optional highlight, and contact block."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - name: hero
+            label: "Hero"
+            widget: object
+            collapsed: true
+            summary: "{{title}}"
+            comment: "The illustration and heading at the top of the landing page."
+            fields:
+              - name: image
+                label: "Illustration"
+                widget: image
+                media_folder: /assets/images/hub
+                public_folder: /assets/images/hub
+                choose_url: false
+                max_file_size: 2097152
+                accept: "image/jpeg,image/png,image/svg+xml,image/webp"
+              - { name: image_alt, label: "Image alt text (required)", widget: string }
+              - { name: title, label: "Hero heading", widget: string }
+              - { name: subhead, label: "Hero subheading", widget: text }
+          - name: movements
+            label: "Journey steps"
+            label_singular: "Step"
+            widget: list
+            summary: "{{title}}"
+            comment: "The image+text step blocks on the landing page. Order here = order on the page."
+            fields:
+              - { name: title, label: "Step title", widget: string }
+              - name: image
+                label: "Illustration"
+                widget: image
+                media_folder: /assets/images/hub
+                public_folder: /assets/images/hub
+                choose_url: false
+                max_file_size: 2097152
+                accept: "image/jpeg,image/png,image/svg+xml,image/webp"
+              - { name: image_alt, label: "Image alt text (required)", widget: string }
+              - { name: body, label: "Step text", widget: text }
+              - name: link
+                label: "Link"
+                widget: object
+                summary: "{{text}}"
+                fields:
+                  - { name: url, label: "URL", widget: string, comment: "Internal path (/...) or external URL (https://...). Both work." }
+                  - { name: text, label: "Link text", widget: string }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
+          # Hub contact blocks are heading + email only — no intro/bullets
+          # in the page frontmatter, so none exposed here (lossless saves).
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: hub_section, widget: hidden, default: "prepare-a-study" }
+          - { name: sidebar, widget: hidden, default: { nav: "prepare-a-study" } }
+          - { name: permalink, widget: hidden, default: "/prepare-a-study/" }
+          - { name: layout, widget: hidden, default: "hub-journey" }
+
       - { divider: true, label: "Completed projects" }
       - file: _pages/prepare-a-study/completed-projects.md
         name: completed_projects_page
@@ -941,6 +1292,19 @@ collections:
         fields:
           - { name: title, label: "Page title", widget: string }
           - { name: excerpt, label: "Page blurb", widget: string, maxlength: 200, comment: "Short one-line description (15-30 words). Used on landing pages that list this page, and in social-sharing previews." }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
           - name: body
             label: "Intro prose (markdown)"
             widget: markdown

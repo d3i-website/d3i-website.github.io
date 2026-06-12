@@ -42,11 +42,17 @@ The left sidebar puts your day-to-day work at the top, with the site-section edi
 
 - **Events** — create new event pages (symposia, courses, workshops, and more); edit existing ones. The list is grouped by year (like folders), newest first. Use the filter icon above the list to show only one event type. Each entry produces its own page on the site and is listed on `/community/events/`; the Courses and Symposia pages automatically show the entries of the matching type.
 - **News** — create news items, newest first; switch to grid view to see image thumbnails. Each item appears on `/news/` and, while fresh (under ~3 months old), in the homepage "Latest news" strip.
-- **Community** — page editors and data lists for `/community/` (Events page, Courses page, Symposia page, Networks, Newsletter).
-- **About D3I** — page editors and data lists for `/about-d3i/` (Team, Advisory board, Funding, Partners, Impact and adoption).
-- **Prepare a Study** — page editor and data list for the Completed projects page.
+- **News page** — the intro text and contact block of the `/news/` page itself.
+- **Community** — page editors and data lists for `/community/` (the section landing page, Events page, Courses page + course materials, Symposia page, Networks, Newsletter).
+- **About D3I** — page editors and data lists for `/about-d3i/` (the section landing page, Team, Advisory board, Funding, Partners, Impact and adoption).
+- **Prepare a Study** — the section landing page and the Completed projects page with its data list.
 
 Within each section, page editors are paired with their supporting data list (e.g. "Team page" sits next to "Team members"). Edit the page when you want to change the prose; edit the data list when you want to add, remove, or reorder items shown on the page. The Events, Courses, and Symposia pages are the exception: their intro prose is a page editor under Community, while the events listed on them come from the Events collection at the top of the sidebar.
+
+Two extras worth knowing:
+
+- **Every page editor has a "Highlight" field** — an optional yellow note box rendered at the top of that page, for time-sensitive things like deadlines or announcements. Tick the checkbox to use it, untick to remove it.
+- **"View on Live Site"** — when editing an event or news item, the ⋯ menu (top right) opens that entry's page on the staging site, so you can see the published version next to your edits.
 
 ## Common tasks
 
@@ -63,6 +69,14 @@ This stores your edit on the `cms-staging` branch — it's saved, but not yet vi
 
 1. Dashboard → About D3I → Team page.
 2. Edit the **Intro prose** markdown field.
+3. Click **Save**.
+
+### Update a section landing page
+
+The landing pages of Community, About D3I, and Prepare a Study (the pages with the big cards) are each the first entry in their section.
+
+1. Dashboard → e.g. Community → **Community landing page**.
+2. Edit the hero text, or open **Destination cards** to change the card texts, links, or their order (drag to reorder).
 3. Click **Save**.
 
 ### Add a new event (symposium, course, workshop, …)
