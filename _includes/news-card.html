@@ -17,7 +17,12 @@
   {% assign card_external = false %}
 {% endif %}
 
-<article class="news-card" data-news-date="{{ item.date | date: '%Y-%m-%d' }}">
+{% comment %}
+  variant="row" renders the horizontal list style (small thumbnail on the
+  left) used on /news/; the default is the vertical tile used in the
+  homepage strip.
+{% endcomment %}
+<article class="news-card{% if include.variant == 'row' %} news-card--row{% endif %}" data-news-date="{{ item.date | date: '%Y-%m-%d' }}">
   {% if item.image and item.image != "" %}
     <a class="news-card__media" href="{{ card_href }}"{% if card_external %} target="_blank" rel="noopener noreferrer"{% endif %} tabindex="-1" aria-hidden="true">
       <img src="{{ item.image | relative_url }}" alt="{{ item.image_alt | default: '' }}" loading="lazy">
