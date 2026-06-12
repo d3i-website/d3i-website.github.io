@@ -10,7 +10,8 @@ hero:
   image: /assets/images/hub/undraw_conference-speaker_kl0d.svg
   alt: "A person presenting at a conference."
 archive:
-  collection: symposia
+  collection: events
+  type: symposium
   featured_heading: "Upcoming symposium"
   heading: "Previous symposia"
 contact:

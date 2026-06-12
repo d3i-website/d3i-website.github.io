@@ -10,8 +10,10 @@ hero:
   image: /assets/images/hub/undraw_group-project_kow1.svg
   alt: "A group of people collaborating on a project together."
 archive:
-  source: courses
+  collection: events
+  type: course
   featured_heading: "Upcoming course"
+  upcoming_heading: "Also upcoming"
   heading: "Previous courses"
 contact:
   lead: "Questions about courses or training?"

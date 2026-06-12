@@ -20,7 +20,7 @@ The `cms-staging` branch must stay roughly in sync with `main` to avoid merge co
 1. **Reset cms-staging to main** (cleanest, recommended): `git push -f origin main:cms-staging`. cms-staging now matches main exactly; future edits start fresh.
 2. **Merge main → cms-staging**: `git checkout cms-staging && git merge main && git push origin cms-staging`. cms-staging keeps history but gets the post-publication main on top.
 
-**After any direct edit to main that touches CMS-managed files** (`_data/*.yml`, `_pages/*.md`, `_symposia/*.md`, `admin/config.yml`): bring cms-staging up to date with one of the two options above before the editors next save in the CMS. Otherwise their edits will be on a stale baseline and the next publication PR may conflict or revert your direct fix.
+**After any direct edit to main that touches CMS-managed files** (`_data/*.yml`, `_pages/*.md`, `_events/*.md`, `admin/config.yml`): bring cms-staging up to date with one of the two options above before the editors next save in the CMS. Otherwise their edits will be on a stale baseline and the next publication PR may conflict or revert your direct fix.
 
 **Avoid editing CMS-managed files directly on main.** When possible, route content changes through the CMS (commits to cms-staging, then publish). Reserve direct main edits for non-CMS files (layouts, scripts, configs).
 
@@ -74,7 +74,7 @@ If these drift, `main` will accumulate noisy multi-commit merges from CMS edits.
 3. For data files that are bare YAML lists, wrap the list inside a field that matches the file's top-level key (or, for bare lists, use the filename-as-key convention — see existing entries for examples).
 4. Commit, push, test via the CMS after rebuild.
 
-Schema templates: see `admin/config.yml` for examples of `files` collections (one file at a time), `folder` collections (e.g., symposia), and hidden-field patterns.
+Schema templates: see `admin/config.yml` for examples of `files` collections (one file at a time), `folder` collections (e.g., events), and hidden-field patterns.
 
 ## Adding a new data file to the CMS
 
@@ -148,7 +148,7 @@ When `datadonation.eu`'s production hosting moves off Netlify (planned, separate
 ## Quarterly janitor checklist
 
 - [ ] Close stale `cms-staging` → `main` publication PRs that were opened but never merged (older than 14 days). These leave editor work in limbo; either publish or close.
-- [ ] Audit `assets/images/` for orphan uploads (images not referenced by any `_data/*.yml`, `_pages/*.md`, or `_symposia/*.md`). List candidates with a `grep -r` over all content files; manually prune.
+- [ ] Audit `assets/images/` for orphan uploads (images not referenced by any `_data/*.yml`, `_pages/*.md`, or `_events/*.md`). List candidates with a `grep -r` over all content files; manually prune.
 - [ ] Audit active editors and their PATs: any editors no longer involved should have their tokens revoked (org-side) and access removed from the repo collaborator list.
 - [ ] Verify `cms-staging` is in sync with `main` (especially after any direct edits to CMS-managed files). Reset if drift suspected: `git push -f origin main:cms-staging`.
 - [ ] Verify repo settings haven't drifted from squash-merge-only configuration.
@@ -160,7 +160,7 @@ When `datadonation.eu`'s production hosting moves off Netlify (planned, separate
   ```
   comm -23 \
     <(find assets/images -type f \( -name '*.jpg' -o -name '*.jpeg' -o -name '*.png' -o -name '*.svg' -o -name '*.webp' \) | sort) \
-    <(grep -rho '/assets/images/[^ "'"'"')]*' _data _pages _symposia _config.yml | sort -u)
+    <(grep -rho '/assets/images/[^ "'"'"')]*' _data _pages _events _config.yml | sort -u)
   ```
   (Lists image files that appear on disk but don't appear in any content file. Review before deleting.)
 

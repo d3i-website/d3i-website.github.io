@@ -37,11 +37,11 @@ contact_subject: "Question about D3I"
 
 # Collections
 collections:
-  symposia:
+  events:
     output: true
-    permalink: /community/symposia/:path/
+    permalink: /community/events/:path/
 
-# Publish collection documents dated in the future (e.g. upcoming symposia)
+# Publish collection documents dated in the future (e.g. upcoming events)
 future: true
 
 # Custom URLs

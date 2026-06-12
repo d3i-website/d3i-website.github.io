@@ -44,7 +44,7 @@ The sidebar groups everything you can edit by site section:
 
 - **About D3I** — page editors and data lists for `/about-d3i/` (Team, Advisory board, Funding, Partners, Impact and adoption).
 - **Community** — page editors and data lists for `/community/` (Networks, Newsletter, Courses).
-- **Symposia** — create new symposium event pages; edit existing ones. Each entry produces its own page on the site.
+- **Events** — create new event pages (symposia, courses, workshops, and more); edit existing ones. Each entry produces its own page on the site and is listed on `/community/events/`; the Courses and Symposia pages automatically show the entries of the matching type.
 - **Prepare a Study** — page editor and data list for the Completed projects page.
 - **Site Structure** — site-wide configuration (Navigation). Rarely needs editing.
 
@@ -67,13 +67,14 @@ This stores your edit on the `cms-staging` branch — it's saved, but not yet vi
 2. Edit the **Intro prose** markdown field.
 3. Click **Save**.
 
-### Add a new symposium
+### Add a new event (symposium, course, workshop, …)
 
-1. Dashboard → Symposia.
-2. Click **New Symposium**.
-3. Fill in Title, Start date, End date, Location, Summary, optional External URL and details/actions.
-4. Write the full event page content in the **Full event page content** field. (For events whose primary page lives elsewhere, the External URL is enough — visitors land on this site's page first and can click through.)
-5. Click **Save**.
+1. Dashboard → Events.
+2. Click **New Event**.
+3. Pick the **Event type**: it controls where the event is listed. Every event appears on the Events page; type "Course" also appears on the Courses page, type "Symposium" also on the Symposia page.
+4. Fill in Title, Start date, End date, Location, Summary, optional External URL and details/actions. For an event people should register for, add an action button (e.g. "Register" pointing at the registration link).
+5. Write the full event page content in the **Full event page content** field. (For events whose primary page lives elsewhere, the External URL is enough — visitors land on this site's page first and can click through.)
+6. Click **Save**.
 
 ## How "Save" works
 
