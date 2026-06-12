@@ -34,6 +34,8 @@ main:
     url: /software/
   - title: "Community & Events"
     url: /community/
+  - title: "News"
+    url: /news/
   - title: "About D3I"
     url: /about-d3i/
 

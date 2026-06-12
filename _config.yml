@@ -9,6 +9,7 @@ plugins:
   - jekyll-redirect-from
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-feed
 
 sass:
   style: compressed
@@ -40,9 +41,19 @@ collections:
   events:
     output: true
     permalink: /community/events/:path/
+  news:
+    output: true
+    permalink: /news/:path/
 
 # Publish collection documents dated in the future (e.g. upcoming events)
 future: true
+
+# Atom feeds (jekyll-feed): /feed/news.xml and /feed/events.xml, for
+# external aggregators (e.g. ODISSEI) to ingest our items.
+feed:
+  collections:
+    - news
+    - events
 
 # Custom URLs
 # newsletter_signup_url and phd_network_signup_url were retired when their
