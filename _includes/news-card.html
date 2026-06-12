@@ -4,8 +4,12 @@
   News cards prefer external_url over the item's own page — deliberately
   the reverse of archive-card.html, because an external-only news item has
   no meaningful local page (its body is typically empty).
+  Optional fields need explicit empty-string checks, not just truthiness:
+  the CMS writes cleared optional fields as '' (empty string), which Liquid
+  treats as truthy. (Liquid 4 has no `blank` literal — it parses as an
+  undefined variable and the comparison silently always passes.)
 {% endcomment %}
-{% if item.external_url %}
+{% if item.external_url and item.external_url != "" %}
   {% assign card_href = item.external_url %}
   {% assign card_external = true %}
 {% else %}
@@ -14,7 +18,7 @@
 {% endif %}
 
 <article class="news-card" data-news-date="{{ item.date | date: '%Y-%m-%d' }}">
-  {% if item.image %}
+  {% if item.image and item.image != "" %}
     <a class="news-card__media" href="{{ card_href }}"{% if card_external %} target="_blank" rel="noopener noreferrer"{% endif %} tabindex="-1" aria-hidden="true">
       <img src="{{ item.image | relative_url }}" alt="{{ item.image_alt | default: '' }}" loading="lazy">
     </a>
@@ -24,7 +28,7 @@
       <a href="{{ card_href }}"{% if card_external %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ item.title }}</a>
     </h3>
     <p class="news-card__date">{{ item.date | date: "%B %-d, %Y" }}</p>
-    {% if item.summary %}
+    {% if item.summary and item.summary != "" %}
       <p class="news-card__summary">{{ item.summary }}</p>
     {% endif %}
     <a class="cta-link news-card__link" href="{{ card_href }}"{% if card_external %} target="_blank" rel="noopener noreferrer"{% endif %}>Read more <span aria-hidden="true">→</span></a>
