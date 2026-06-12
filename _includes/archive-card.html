@@ -20,7 +20,13 @@
   <div class="archive-card__content">
     <h3 class="archive-card__title">{{ item.title }}</h3>
 
+    {% comment %}
+      Empty-string check (not just nil): the CMS writes a cleared date
+      label as '', which must fall through to the computed date like a
+      missing one.
+    {% endcomment %}
     {% assign meta_text = item.date_label %}
+    {% if meta_text == "" %}{% assign meta_text = nil %}{% endif %}
     {% if meta_text == nil and item.date %}
       {% assign start_month = item.date | date: "%B" %}
       {% assign start_day = item.date | date: "%-d" %}
