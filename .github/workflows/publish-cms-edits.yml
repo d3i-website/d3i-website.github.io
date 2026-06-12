@@ -1,0 +1,88 @@
+name: Publish CMS edits
+
+# Manually triggered by an editor (Actions tab → "Publish CMS edits" →
+# Run workflow) once a batch of CMS edits on cms-staging is ready to go
+# live. Builds the site from cms-staging as a safety check, then
+# squash-merges cms-staging into main.
+#
+# Merges performed with GITHUB_TOKEN do not fire push-triggered
+# workflows, so the cms-staging reset and the staging deploy that would
+# normally react to the push to main are done explicitly at the end.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: "publish-cms-edits"
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout cms-staging
+        uses: actions/checkout@v4
+        with:
+          ref: cms-staging
+          fetch-depth: 0
+
+      - name: Check for unpublished edits
+        id: diff
+        run: |
+          git fetch origin main
+          if git diff --quiet origin/main...HEAD; then
+            echo "Nothing to publish — cms-staging has no changes on top of main." >> "$GITHUB_STEP_SUMMARY"
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup Ruby
+        if: steps.diff.outputs.has_changes == 'true'
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Build with Jekyll (safety check)
+        if: steps.diff.outputs.has_changes == 'true'
+        run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+
+      - name: Squash-merge cms-staging into main
+        if: steps.diff.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          existing=$(gh pr list --head cms-staging --base main --state open --json number --jq '.[0].number // empty')
+          if [ -z "$existing" ]; then
+            gh pr create --base main --head cms-staging \
+              --title "Publish CMS edits ($(date -u +%Y-%m-%d))" \
+              --body "Automated publication of CMS edits, triggered via the Publish CMS edits workflow by @${{ github.actor }}."
+          fi
+          gh pr merge cms-staging --squash
+
+      - name: Reset cms-staging to main
+        if: steps.diff.outputs.has_changes == 'true'
+        env:
+          REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          main_sha=$(gh api "repos/${REPO}/git/refs/heads/main" --jq .object.sha)
+          gh api -X PATCH "repos/${REPO}/git/refs/heads/cms-staging" \
+            -f sha="$main_sha" \
+            -F force=true
+
+      - name: Trigger staging deploy
+        if: steps.diff.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run deploy-staging.yml --ref main
+          echo "CMS edits published to main; staging deploy started." >> "$GITHUB_STEP_SUMMARY"

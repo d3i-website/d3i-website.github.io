@@ -97,13 +97,11 @@ The CMS doesn't have a separate "Publish" button. To make your accumulated edits
 
 When you've finished a batch of edits and want them on the live site:
 
-1. Open https://github.com/d3i-website/d3i-website.github.io/compare/main...cms-staging in your browser.
-2. You'll see a list of every edit you (or anyone else editing the CMS) has made since the last publication. Scan it to confirm everything looks right.
-3. Click **Create pull request**. Add a brief title (e.g., "Update Team page and add March symposium") and click Create.
-4. On the new PR page, click **Squash and merge**. Confirm.
-5. Done. The site will rebuild automatically (1-2 min). The cumulative batch lands on `main` as a single clean commit.
+1. Open https://github.com/d3i-website/d3i-website.github.io/actions/workflows/publish-cms-edits.yml in your browser.
+2. Click **Run workflow** (green button, top right of the list), then **Run workflow** again to confirm.
+3. Done. The workflow test-builds the site with your edits, publishes them, and rebuilds the staging site (2-3 min in total). If the build fails, nothing is published — the run shows a red ✗; email Danielle with a link to it.
 
-If anything looks wrong in the diff, **don't merge** — email Danielle and describe what's off. She can help identify the issue or revert problem edits before publishing.
+Want to double-check what's going out first? Open https://github.com/d3i-website/d3i-website.github.io/compare/main...cms-staging to see every edit made since the last publication, then run the workflow when satisfied. If anything looks wrong in that diff, **don't publish** — email Danielle and describe what's off. She can help identify the issue or revert problem edits before publishing.
 
 After publishing, Danielle takes care of resetting `cms-staging` so the next session starts from a fresh baseline. If you ever come back and the compare view shows confusing "X commits ahead" with no real changes, that means the reset hasn't happened yet — email her to nudge.
 
