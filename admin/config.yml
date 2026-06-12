@@ -40,6 +40,20 @@ media_libraries:
         svg:
           optimize: true
 
+# unDraw illustration bank — its own folder in the Asset Library AND a
+# selectable source in every image field's picker (unlike field-level
+# media_folder scoping, which hides a folder from all other fields).
+# Requires Sveltia > v0.166.3: asset collections landed upstream on
+# 2026-06-12 (sveltia-cms#301) but are not yet in a release. Older
+# builds ignore this key, and the bank remains reachable through the
+# global asset pool; we load @sveltia/cms unpinned, so this activates
+# automatically with the next upstream release.
+asset_collections:
+  - name: undraw
+    label: "unDraw illustrations"
+    icon: palette
+    media_folder: /assets/images/undraw
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Collections — ordered around the manager's daily work: Events and News
 # first (the entry collections he creates content in), then — below a
