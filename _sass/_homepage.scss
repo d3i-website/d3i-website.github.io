@@ -79,14 +79,14 @@
   line-height: 1.12;
   letter-spacing: -0.015em;
   color: #252a34;
-  margin: 0 0 0.8rem;
+  margin: 0 0 0.45rem;
 }
 
 .homepage-hero__subtitle {
   font-size: 1.125rem;
   line-height: 1.55;
   color: $muted-text-color;
-  margin: 0 0 1.4rem;
+  margin: 0 0 0.95rem;
 }
 
 .homepage-hero__cta {
@@ -106,10 +106,13 @@
   }
 }
 
-// Post-it joins the flex row (base look comes from _postit.scss)
+// Post-it joins the flex row (base look comes from _postit.scss).
+// Basis is wider than the component's 14rem default: the prototype
+// measured 14rem content-box (padding outside), and the wider note
+// wraps its text into fewer, shorter lines.
 .homepage-hero .postit {
-  flex: 0 0 14rem;
-  margin-top: 0.4rem;
+  flex: 0 0 16.25rem;
+  width: auto;
 
   @media (max-width: $medium) {
     transform: none;
@@ -159,6 +162,16 @@
 .homepage-road__sprite--car       { left: 63%; bottom: 46px; width: 107px; }
 .homepage-road__sprite--cyclist   { left: 72%; bottom: 56px; width: 71px; }
 
+// The percentage spread was tuned for wide viewports, where the left
+// sprites sit beside the centered text column. Below ~1750px they land
+// underneath the CTA — and with the road tucked tight under the text,
+// the tall sprites would collide with it. Drop the mountains and move
+// the walker right of the text column; wide screens keep the full set.
+@media (max-width: 1750px) {
+  .homepage-road__sprite--mountains { display: none; }
+  .homepage-road__sprite--walker    { left: 42%; }
+}
+
 // ---------------------------------------------------------------------
 // Route stops: three numbered stops on a dashed route line that echoes
 // the road above. Deliberately not cards — no borders or backgrounds.
@@ -167,7 +180,7 @@
 .homepage-stops {
   max-width: $site-width;
   margin: 0 auto;
-  padding: 3rem 1.5rem 0.75rem;
+  padding: 3rem 1.5rem 0;
   box-sizing: border-box;
   width: 100%;
 }
@@ -261,7 +274,7 @@
 .homepage-outro {
   text-align: center;
   margin: 0;
-  padding: 2.25rem 0 2.5rem;
+  padding: 2.25rem 0 1.75rem;
   font-size: 1.0625rem;
   line-height: 1.7;
   color: $text-color;

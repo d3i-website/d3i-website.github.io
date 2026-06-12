@@ -8,7 +8,9 @@
 
 .postit {
   position: relative;
-  width: 14rem;
+  // The design specifies a 14rem note with padding OUTSIDE that width
+  // (content-box); under the site's border-box reset that is 16.25rem.
+  width: 16.25rem;
   padding: 1rem 1.125rem;
   background: #fff6d6;
   border-radius: 2px;
@@ -72,7 +74,7 @@
 
 .postit--inline {
   position: static;
-  max-width: 15rem;
+  max-width: 16.25rem;
   margin: 0 0 1.5rem;
 
   @media (min-width: $medium) {

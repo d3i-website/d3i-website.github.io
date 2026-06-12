@@ -114,8 +114,17 @@ blockquote {
   }
 }
 
+// Sticky footer: the body is a full-viewport flex column and main
+// grows, so on short pages (or heavily zoomed-out views) the footer
+// pins to the bottom of the viewport instead of floating mid-page.
+body.site-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .site-main {
-  min-height: 60vh;
+  flex: 1 0 auto;
   padding: 0 1rem 4rem;
 
   @media (min-width: $medium) {
