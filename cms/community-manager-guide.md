@@ -45,6 +45,7 @@ The sidebar groups everything you can edit by site section:
 - **About D3I** — page editors and data lists for `/about-d3i/` (Team, Advisory board, Funding, Partners, Impact and adoption).
 - **Community** — page editors and data lists for `/community/` (Networks, Newsletter, Courses).
 - **Events** — create new event pages (symposia, courses, workshops, and more); edit existing ones. Each entry produces its own page on the site and is listed on `/community/events/`; the Courses and Symposia pages automatically show the entries of the matching type.
+- **News** — create news items. Each item appears on `/news/` and, while fresh (under ~3 months old), in the homepage "Latest news" strip.
 - **Prepare a Study** — page editor and data list for the Completed projects page.
 - **Site Structure** — site-wide configuration (Navigation). Rarely needs editing.
 
@@ -75,6 +76,16 @@ This stores your edit on the `cms-staging` branch — it's saved, but not yet vi
 4. Fill in Title, Start date, End date, Location, Summary, optional External URL and details/actions. For an event people should register for, add an action button (e.g. "Register" pointing at the registration link).
 5. Write the full event page content in the **Full event page content** field. (For events whose primary page lives elsewhere, the External URL is enough — visitors land on this site's page first and can click through.)
 6. Click **Save**.
+
+### Add a news item
+
+1. Dashboard → News.
+2. Click **New News**.
+3. Fill in Title, Date, and Summary; optionally upload an Image (with alt text).
+4. Write the story in the body field — or, for news that lives elsewhere (e.g. an announcement on a partner site), fill in the **External URL** instead and leave the body empty; the news card then links straight there.
+5. Click **Save**.
+
+News items appear on the News page immediately after publication. The homepage "Latest news" strip shows the three most recent items and automatically drops anything older than about 3 months.
 
 ## How "Save" works
 

@@ -1,0 +1,99 @@
+// =====================================================================
+// News: cards (shared by /news/ and the homepage strip), the news page
+// grid, and the homepage "Latest news" strip
+// =====================================================================
+
+.news-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+
+  @media (min-width: $medium) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.news-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid rgba(37, 42, 52, 0.1);
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  overflow: hidden;
+}
+
+.news-card__media {
+  display: block;
+  aspect-ratio: 16 / 9;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.news-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.15rem 1.2rem;
+}
+
+.news-card__title {
+  margin: 0;
+  font-family: "Nunito", $sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover, &:focus {
+      color: $accent-primary;
+    }
+  }
+}
+
+.news-card__date {
+  margin: 0.35rem 0 0;
+  color: $muted-text-color;
+  font-size: 0.95rem;
+}
+
+.news-card__summary {
+  margin: 0.85rem 0 0;
+}
+
+.news-card__link {
+  margin-top: auto;
+  padding-top: 0.85rem;
+}
+
+.news-page__intro {
+  max-width: $content-width;
+  margin-bottom: 2rem;
+}
+
+.home-news {
+  max-width: $site-width;
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+}
+
+.home-news__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.home-news__title {
+  margin: 0;
+  font-family: "Nunito", $sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+}

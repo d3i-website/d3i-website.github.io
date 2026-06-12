@@ -729,6 +729,45 @@ collections:
       - { name: sidebar, widget: hidden, default: { nav: "community" } }
       - { name: body, label: "Full event page content (markdown)", widget: markdown }
 
+  # ──────────────── News (peer to Community — entry collection) ───────────
+  # Folder collection for news items. Each item appears on /news/ and,
+  # while fresh (under ~3 months old), in the homepage "Latest news" strip.
+  # The freshness window is enforced at build time AND client-side
+  # (assets/js/news-freshness.js), so old items drop off the homepage even
+  # when the site isn't rebuilt for months.
+  - name: news
+    label: "News"
+    icon: newspaper
+    folder: _news
+    create: true
+    extension: md
+    format: yaml-frontmatter
+    slug: "{{fields.date | date('YYYY-MM-DD')}}-{{slug}}"
+    summary: "{{title}} — {{date}}"
+    path: "{{fields.date | date('YYYY-MM-DD')}}-{{slug}}"
+    description: "News items shown on /news/ and, while fresh (under ~3 months old), in the homepage 'Latest news' strip. For a story that lives elsewhere (e.g. a partner site), fill in the External URL field — cards then link straight there and the body may stay empty. Add a new item with the '+' button."
+    fields:
+      - { name: title, label: "Title", widget: string }
+      - name: date
+        label: "Date"
+        widget: datetime
+        type: date
+        comment: "Publication date. Newest items appear first; items older than ~3 months drop off the homepage strip automatically (they stay on /news/)."
+      - { name: summary, label: "Short summary (used in cards)", widget: text }
+      - name: image
+        label: "Image (optional)"
+        widget: image
+        required: false
+        media_folder: /assets/images/news
+        public_folder: /assets/images/news
+        choose_url: false
+        max_file_size: 2097152
+        accept: "image/jpeg,image/png,image/svg+xml,image/webp"
+      - { name: image_alt, label: "Image alt text", widget: string, required: false, comment: "Describe the image for screen readers. Fill in whenever an image is set." }
+      - { name: external_url, label: "External URL (optional)", widget: string, required: false, comment: "If the story lives elsewhere, put its URL here — cards link straight out and the body below may stay empty." }
+      - { name: layout, widget: hidden, default: "page" }
+      - { name: body, label: "Full news item content (markdown)", widget: markdown, required: false }
+
   # ──────────────────────── Prepare a Study ───────────────────────────────
   - name: prepare_a_study
     label: "Prepare a Study"

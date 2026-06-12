@@ -1,0 +1,34 @@
+---
+layout: site-shell
+---
+
+{% assign news_items = site.news | sort: "date" | reverse %}
+{% assign stripped_content = content | strip %}
+
+<article class="content-page">
+  <div class="content-page__grid content-page__grid--full">
+    <div class="content-page__main">
+      {% include content-page-intro.html %}
+
+      <div class="news-page">
+        {% if stripped_content != '' %}
+          <div class="news-page__intro">
+            <div class="prose">
+              {{ content }}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if news_items.size > 0 %}
+          <div class="news-grid">
+            {% for item in news_items %}
+              {% include news-card.html item=item %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      {% include contact-cta.html constrained=true %}
+    </div>
+  </div>
+</article>
