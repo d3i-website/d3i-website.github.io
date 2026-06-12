@@ -79,19 +79,21 @@
   line-height: 1.12;
   letter-spacing: -0.015em;
   color: #252a34;
-  margin: 0 0 0.45rem;
+  margin: 0 0 0.8rem;
 }
 
 .homepage-hero__subtitle {
   font-size: 1.125rem;
   line-height: 1.55;
   color: $muted-text-color;
-  margin: 0 0 0.95rem;
+  margin: 0 0 1.4rem;
+  padding: 0; // cancel the site's base `p` padding — not in the design
 }
 
 .homepage-hero__cta {
   display: inline-block;
   white-space: nowrap;
+  line-height: normal; // design relies on the browser default, not the reset's 1.6
   font-family: "Nunito", $sans-serif;
   font-weight: 700;
   font-size: 1.0625rem;
@@ -113,6 +115,7 @@
 .homepage-hero .postit {
   flex: 0 0 16.25rem;
   width: auto;
+  margin-top: 0.4rem;
 
   @media (max-width: $medium) {
     transform: none;
@@ -122,14 +125,14 @@
 }
 
 // Road strip: full-bleed CSS road divides hero from content; travelers
-// are fixed-size sprites spaced along it by percentage. The strip is
-// deliberately shorter than the tallest sprites — overflow stays
-// visible and the travelers rise up into the hero's whitespace, which
-// is what keeps the road tight under the text.
+// are fixed-size sprites spaced along it by percentage. The 120px
+// height is load-bearing: it fully contains every sprite, which is why
+// the design never collides with the text or post-it at any viewport
+// width. Don't shorten it — that pushes sprites up into the hero.
 .homepage-road {
   position: relative;
   z-index: 1;
-  height: 80px;
+  height: 120px;
 }
 
 .homepage-road__bar {
@@ -162,16 +165,6 @@
 .homepage-road__sprite--car       { left: 63%; bottom: 46px; width: 107px; }
 .homepage-road__sprite--cyclist   { left: 72%; bottom: 56px; width: 71px; }
 
-// The percentage spread was tuned for wide viewports, where the left
-// sprites sit beside the centered text column. Below ~1750px they land
-// underneath the CTA — and with the road tucked tight under the text,
-// the tall sprites would collide with it. Drop the mountains and move
-// the walker right of the text column; wide screens keep the full set.
-@media (max-width: 1750px) {
-  .homepage-road__sprite--mountains { display: none; }
-  .homepage-road__sprite--walker    { left: 42%; }
-}
-
 // ---------------------------------------------------------------------
 // Route stops: three numbered stops on a dashed route line that echoes
 // the road above. Deliberately not cards — no borders or backgrounds.
@@ -180,7 +173,7 @@
 .homepage-stops {
   max-width: $site-width;
   margin: 0 auto;
-  padding: 3rem 1.5rem 0;
+  padding: 3rem 1.5rem 0.75rem;
   box-sizing: border-box;
   width: 100%;
 }
@@ -249,6 +242,7 @@
 
 .homepage-stop__body {
   margin: 0 0 0.9rem;
+  padding: 0; // cancel the site's base `p` padding — not in the design
   font-size: 0.97rem;
   line-height: 1.6;
   color: $text-color;
@@ -274,13 +268,14 @@
 .homepage-outro {
   text-align: center;
   margin: 0;
-  padding: 2.25rem 0 1.75rem;
+  padding: 2.25rem 0 2.5rem;
   font-size: 1.0625rem;
   line-height: 1.7;
   color: $text-color;
 
   p {
     margin: 0;
+    padding: 0; // cancel the site's base `p` padding — not in the design
   }
 
   a {
