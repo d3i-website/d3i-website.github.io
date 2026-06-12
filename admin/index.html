@@ -4,9 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Content Manager</title>
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <title>datadonation.eu admin</title>
 </head>
 <body>
   <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+  <script>
+    // Make the entry preview pane read like the site (fonts, colors,
+    // measure). The stylesheet only affects the preview, not the app UI.
+    CMS.registerPreviewStyle('/admin/preview.css');
+  </script>
 </body>
 </html>

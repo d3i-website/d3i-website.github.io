@@ -1,0 +1,83 @@
+/* Preview-pane styles for the CMS (registered in admin/index.html via
+   CMS.registerPreviewStyle). Mirrors the site's typography so the preview
+   reads like datadonation.eu — the preview DOM is generic (not the site's
+   markup), so this stays at the element level: fonts, colors, measure.
+   Tokens come from _sass/_variables.scss; keep the two in sync. */
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/fonts/Nunito.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito Sans";
+  src: url("/assets/fonts/NunitoSans-VariableFont_wght.woff2") format("woff2");
+  font-weight: 200 1000;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito Sans";
+  src: url("/assets/fonts/NunitoSans-Italic-VariableFont_wght.woff2") format("woff2");
+  font-weight: 200 1000;
+  font-style: italic;
+}
+
+body {
+  background: #ffffff;
+  color: #333333;
+  font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 54rem; /* $content-width */
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
+  font-weight: 800;
+  color: #333333;
+  line-height: 1.25;
+}
+
+a {
+  color: #4272EF; /* $accent-primary */
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+blockquote {
+  margin: 1rem 0;
+  padding: 0.25rem 0 0.25rem 1rem;
+  border-left: 4px solid #4272EF;
+  color: #6a6a6a; /* $muted-text-color */
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #e6e6e6; /* $border-color */
+}
+
+code {
+  font-family: Monaco, Consolas, "Lucida Console", monospace;
+  font-size: 0.9em;
+  background: #f5f5f5;
+  padding: 0.1em 0.3em;
+  border-radius: 0.25em;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #e6e6e6;
+  padding: 0.4em 0.7em;
+}

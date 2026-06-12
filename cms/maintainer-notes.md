@@ -7,7 +7,7 @@ Internal reference for the developer(s) maintaining the D3I Jekyll CMS.
 - **CMS engine**: Sveltia CMS (static JS bundle from CDN).
 - **Auth**: per-user GitHub fine-grained Personal Access Tokens (PATs). Each editor pastes their own token into Sveltia's "Sign in with Access Token" field on first use; Sveltia caches it in browser localStorage. No OAuth proxy is in the path.
 - **Backend**: the GitHub repo itself. Every edit is a git commit attributed to the PAT-owner's GitHub user.
-- **Branch model**: **CMS edits commit to `cms-staging`, not `main`.** `admin/config.yml` has `backend.branch: cms-staging`. Editors' Saves accumulate as small commits on `cms-staging`; publishing happens via a manual PR `cms-staging` → `main` (squash-merge) on the GitHub web UI.
+- **Branch model**: **CMS edits commit to `cms-staging`, not `main`.** `admin/config.yml` has `backend.branch: cms-staging`. Editors' Saves accumulate as small commits on `cms-staging`; publishing is the manager-triggered "Publish CMS edits" workflow (squash-merges `cms-staging` → `main`), started either from the **Publish Changes** button in the CMS header or from the Actions tab — see "Publish flow" below.
 - **Why not editorial workflow**: Sveltia's `publish_mode: editorial_workflow` is unimplemented (per their docs, planned for 1.0). The `cms-staging` branch model achieves the same goals (clean main history, batched email cost, review opportunity before publication) at the branch level instead of per-document.
 - **Admin URL**: https://d3i-website.github.io/admin/ (served by GitHub Pages from `admin/index.html`).
 
@@ -22,6 +22,23 @@ The `cms-staging` branch must stay in sync with `main` to avoid merge conflicts 
 **Manual fallback** (if the workflow is ever disabled or fails): `git push -f origin main:cms-staging`.
 
 **Avoid editing CMS-managed files directly on main.** When possible, route content changes through the CMS (commits to cms-staging, then publish). Reserve direct main edits for non-CMS files (layouts, scripts, configs).
+
+## Publish flow (skip_ci + repository_dispatch)
+
+`admin/config.yml` sets `backend.skip_ci: true`. This does two things:
+
+- **It surfaces a "Publish Changes" button in the CMS header.** Clicking it fires a `repository_dispatch` event of type `sveltia-cms-publish` against the default branch, which `.github/workflows/publish-cms-edits.yml` lists as a trigger alongside `workflow_dispatch`. So the manager publishes from inside the CMS; the Actions-tab "Run workflow" path remains as a fallback. Publishing stays fully manual either way — saves never auto-publish.
+- **Save commits to `cms-staging` get a `[skip ci]` message prefix** (deletions are exempted by Sveltia, by design). This is harmless here: no workflow builds off `cms-staging` pushes, and the publication squash-merge to `main` is performed with `GITHUB_TOKEN`, which never fires push-triggered workflows regardless of commit message — the publish workflow already compensates by dispatching the staging deploy and the branch reset explicitly. **Caveat**: if you ever merge `cms-staging` into `main` by hand (web UI or local), the squash commit body may inherit a `[skip ci]` line from a constituent commit and silently suppress push-triggered workflows (`deploy-staging`, `reset-cms-staging`); check for it before merging manually.
+
+## CMS appearance & entry-list views
+
+How the admin look-and-feel is configured (all in `admin/config.yml` unless noted):
+
+- **Branding**: `app_title` (login screen + browser tab) and `logo: { src: ... }` (replaces the deprecated `logo_url`). There is no supported way to theme/CSS the Sveltia app UI itself; light/dark follows each user's OS or their in-CMS Settings choice.
+- **Sidebar order**: collections are listed in manager-task order — Events and News (entry collections) first, then a top-level `- divider: true`, then the site-section file collections. Folder collections still cannot nest inside file collections, hence Events/News at top level.
+- **Entry-list views (Events)**: `sortable_fields` with a `default` of date-descending; `view_groups` grouping by year (regex `\d{4}` on `date`, `default: year`) to mirror the Bloomreach year-folder mental model; `view_filters` presets per `event_type`. Users can override sort/group/filter per-session via the toolbar; the config only sets defaults.
+- **Entry-list views (News)**: `thumbnail: image` (grid view shows the news image), date-descending default sort, optional year grouping (no default).
+- **Preview pane**: `admin/index.html` registers `admin/preview.css` via `CMS.registerPreviewStyle()` so entry previews use site typography (self-contained `@font-face` for the self-hosted Nunito fonts plus tokens copied from `_sass/_variables.scss` — keep in sync by hand). Data-list file editors set `editor: { preview: false }` because a preview of a raw YAML list is noise.
 
 ## Why PATs instead of OAuth (background)
 
@@ -116,7 +133,7 @@ For a page with known layout and frontmatter structure:
 - **Date widget**: Decap's `widget: date` is rejected by Sveltia with a hard error. Use `widget: datetime, type: date` for date-only fields (no time component). For datetime fields, use `widget: datetime` directly (no `type:` needed).
 - **Slugified upload filenames**: not Sveltia's default. Verify the relevant Sveltia option (search the docs for filename/slugification settings) before relying on slugified names landing in `assets/images/`.
 - **Navigation URL select options are hardcoded**: if site URLs change (new permalinks), the `options:` lists in the navigation collection need manual updating.
-- **Local FSA-API mode**: enabled via the Account menu in the deployed admin (`http://localhost:4000/admin/` while running `bundle exec jekyll serve`). Chromium-only. Local mode does NOT exercise PAT auth, the manual `cms-staging` → `main` publication PR, the squash-merge step, or the deploy pipeline — those all need the live admin against the deployed site.
+- **Local FSA-API mode**: enabled via the Account menu in the deployed admin (`http://localhost:4000/admin/` while running `bundle exec jekyll serve`). Chromium-only. Local mode does NOT exercise PAT auth, the "Publish CMS edits" workflow (neither the Publish Changes button's `repository_dispatch` nor the squash-merge), or the deploy pipeline — those all need the live admin against the deployed site.
 
 ## Future enhancements
 
