@@ -8,8 +8,20 @@
 
 .postit {
   position: relative;
-  width: 14rem;
+  // The design specifies a 14rem note with padding OUTSIDE that width
+  // (content-box); under the site's border-box reset that is 16.25rem.
+  width: 16.25rem;
   padding: 1rem 1.125rem;
+  // The design page has no global line-height, so unstyled elements
+  // (eyebrow, link) use the browser default. Our reset sets body 1.6,
+  // which would render the note ~25px taller than designed.
+  line-height: normal;
+
+  // The site's base `p { padding: 0.5em 0 }` (._site.scss) doesn't
+  // exist on the design page and inflates the note by ~24px.
+  p {
+    padding: 0;
+  }
   background: #fff6d6;
   border-radius: 2px;
   transform: rotate(-1.5deg);
@@ -72,7 +84,7 @@
 
 .postit--inline {
   position: static;
-  max-width: 15rem;
+  max-width: 16.25rem;
   margin: 0 0 1.5rem;
 
   @media (min-width: $medium) {
@@ -85,17 +97,5 @@
   display: none;
 }
 
-// Homepage: absolute top-right of the hero area
-.homepage-hero .postit {
-  position: absolute;
-  top: 4.5rem;
-  right: 1.5rem;
-
-  @media (max-width: $medium) {
-    position: static;
-    margin: 0 0 1.5rem;
-    transform: none;
-
-    &::before { display: none; }
-  }
-}
+// Homepage placement (flex item in the hero text row) lives in
+// _homepage.scss.
