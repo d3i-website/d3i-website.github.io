@@ -41,16 +41,12 @@ Two environments, two workflows:
 
 `deploy-production.yml` runs two ways:
 
-- **Manual (`workflow_dispatch`)** — the promote step. Builds the triggering ref (normally `main` HEAD), deploys to production (through the protected `production` environment → waits for the reviewer), then the `record-snapshot` job force-moves the `production` branch to the deployed commit (`gh api … refs/heads/production`, needs `contents: write`). So **Run workflow** both ships `main` → live *and* records the approved snapshot. No new editor step beyond before.
-- **Scheduled (daily cron `7 4 * * *`, 04:07 UTC)** — rebuilds and redeploys the **`production` branch only**, never `main` HEAD, so un-promoted `main` work can never auto-ship. `record-snapshot` is skipped on scheduled runs.
+- **Manual (`workflow_dispatch`)** — the promote step, and the only path that ships new content. The `deploy-manual` job builds the triggering ref (normally `main` HEAD) and deploys to production through the gated `production` environment (→ waits for the reviewer); then the `record-snapshot` job force-moves the `production` branch to the deployed commit (`gh api … refs/heads/production`, needs `contents: write`). So **Run workflow** both ships `main` → live *and* records the approved snapshot. No new editor step beyond before.
+- **Scheduled (daily cron `7 4 * * *`, 04:07 UTC)** — the `deploy-scheduled` job rebuilds and redeploys the **`production` branch only**, never `main` HEAD, so un-promoted `main` work can never auto-ship. `record-snapshot` doesn't run (it `needs: deploy-manual`, which is skipped on schedule).
 
 **Why the daily rebuild exists — scheduled (future-dated) content.** The homepage news strip (`_includes/news-strip.html`) and the News page (`_layouts/page-news.html`) drop items dated after build time; events (`_layouts/page-archive-stacked.html`) already split upcoming/past the same way. A static build only sees the build clock, so a future-dated item stays hidden until *something* rebuilds on/after its date. The cron advances the build clock daily, so a scheduled item surfaces on its due date with no human action.
 
-**Environment split (required setup).** Because the `production` environment requires a reviewer, a scheduled run that used it would block forever waiting for approval. So the workflow selects the environment by trigger: manual → `production` (gated), scheduled → `production-scheduled`. For the cron to actually deploy:
-
-- [ ] Create a **`production-scheduled`** environment (Settings → Environments) with **no required reviewers**.
-- [ ] Ensure `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID` are reachable from it — simplest is **repository-level** secrets (work for every environment); if they're scoped to the `production` environment, add them to `production-scheduled` too.
-- [ ] Optionally restrict `production-scheduled`'s deployment branches to `production`.
+**Why two jobs, not a conditional environment.** The `production` environment requires a reviewer, and a scheduled run that used it would block forever waiting for approval — but an environment's protection is all-or-nothing, and you can't conditionally omit the `environment:` key on one job. So the gate and the auto-path are split into separate jobs: `deploy-manual` uses the gated `production` environment; `deploy-scheduled` uses **no environment** (hence no approval) and authenticates to Netlify with the **repository-level** `NETLIFY_AUTH_TOKEN` / `NETLIFY_SITE_ID` secrets. These are verified repo-level — if they're ever narrowed to environment scope, `deploy-scheduled` loses access and the cron fails to deploy.
 
 **Operating it:**
 
@@ -214,7 +210,7 @@ When `datadonation.eu`'s production hosting moves off Netlify (planned, separate
 - [ ] Audit `assets/images/` for orphan uploads (images not referenced by any `_data/*.yml`, `_pages/*.md`, or `_events/*.md`). List candidates with a `grep -r` over all content files; manually prune.
 - [ ] Audit active editors and their PATs: any editors no longer involved should have their tokens revoked (org-side) and access removed from the repo collaborator list.
 - [ ] Verify the `reset-cms-staging.yml` workflow is enabled and its recent runs are green (it keeps `cms-staging` in sync with `main` on every push). If it has been failing, reset manually: `git push -f origin main:cms-staging`.
-- [ ] Verify the scheduled `deploy-production.yml` cron runs are green (daily, ~04:07 UTC) and not stuck pending approval — if they're blocked, the `production-scheduled` environment is missing or has a required-reviewer rule (see "Deploy environments & the `production` branch"). Confirm `production` still tracks the last approved deploy: `gh api repos/d3i-website/d3i-website.github.io/git/refs/heads/production --jq .object.sha`.
+- [ ] Verify the scheduled `deploy-production.yml` cron runs are green (the `deploy-scheduled` job, daily ~04:07 UTC). If it fails to authenticate to Netlify, check that `NETLIFY_AUTH_TOKEN` / `NETLIFY_SITE_ID` are still **repository-level** secrets (the job uses no environment; see "Deploy environments & the `production` branch"). Confirm `production` still tracks the last approved deploy: `gh api repos/d3i-website/d3i-website.github.io/git/refs/heads/production --jq .object.sha`.
 - [ ] Verify repo settings haven't drifted from squash-merge-only configuration.
 
 ## Useful commands

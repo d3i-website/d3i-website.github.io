@@ -15,17 +15,14 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  # Manual promote: main HEAD → production, gated by the `production`
+  # environment's required reviewer. This is the only path that ships new
+  # content to the live site.
+  deploy-manual:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    # Manual deploys keep the protected `production` environment (required
-    # reviewer). Scheduled rebuilds use the unprotected `production-scheduled`
-    # environment so the daily run isn't blocked waiting for approval — safe
-    # because it only ever redeploys the already-approved `production` branch.
-    # NOTE: `production-scheduled` must exist with NO required reviewers, and
-    # the NETLIFY_* secrets must be reachable from it (repo-level secrets, or
-    # add them to that environment too). See cms/maintainer-notes.md.
     environment:
-      name: ${{ github.event_name == 'schedule' && 'production-scheduled' || 'production' }}
+      name: production
       url: https://datadonation.eu
     outputs:
       sha: ${{ steps.rev.outputs.sha }}
@@ -33,11 +30,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # Scheduled runs redeploy only the last manually-approved snapshot
-          # (the `production` branch); manual runs promote the triggering ref
-          # (main), exactly as before. This keeps un-promoted main work off
-          # production even though the rebuild is now automated.
-          ref: ${{ github.event_name == 'schedule' && 'production' || github.ref }}
+          ref: ${{ github.ref }}
           fetch-depth: 0
 
       - name: Resolve deployed commit
@@ -61,18 +54,18 @@ jobs:
           publish-dir: './_site'
           production-deploy: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: "Deployed from GitHub Actions - ${{ steps.rev.outputs.sha }} (${{ github.event_name }})"
+          deploy-message: "Manual deploy - ${{ steps.rev.outputs.sha }}"
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
-  # A manual production deploy doubles as the "promote" step: record the
-  # commit just shipped on the `production` branch, so the scheduled rebuild
-  # always redeploys this exact approved snapshot. Skipped on scheduled
-  # runs — those introduce no new content to approve.
+  # The manual deploy doubles as the "promote" step: record the commit just
+  # shipped on the `production` branch so the scheduled job below redeploys
+  # exactly this approved snapshot. Separate job so the deploy job keeps its
+  # default token permissions (the Netlify action needs them); only this one
+  # is elevated to write a ref.
   record-snapshot:
-    needs: deploy
-    if: github.event_name == 'workflow_dispatch'
+    needs: deploy-manual
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -80,7 +73,7 @@ jobs:
       - name: Move production branch to the deployed commit
         env:
           REPO: ${{ github.repository }}
-          SHA: ${{ needs.deploy.outputs.sha }}
+          SHA: ${{ needs.deploy-manual.outputs.sha }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if gh api "repos/${REPO}/git/refs/heads/production" >/dev/null 2>&1; then
@@ -88,3 +81,40 @@ jobs:
           else
             gh api -X POST "repos/${REPO}/git/refs" -f ref="refs/heads/production" -f sha="${SHA}"
           fi
+
+  # Scheduled rebuild: redeploys the already-approved `production` branch
+  # (never main HEAD), so it needs no approval — it runs with NO environment
+  # and reads the repository-level NETLIFY_* secrets. This only refreshes the
+  # build clock so future-dated news/events surface on their due date; it
+  # never ships un-promoted main work.
+  deploy-scheduled:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout production branch
+        uses: actions/checkout@v4
+        with:
+          ref: production
+          fetch-depth: 0
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Build with Jekyll
+        run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3.0
+        with:
+          publish-dir: './_site'
+          production-deploy: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Scheduled rebuild - production branch"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
