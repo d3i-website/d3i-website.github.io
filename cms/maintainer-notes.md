@@ -30,6 +30,32 @@ The `cms-staging` branch must stay in sync with `main` to avoid merge conflicts 
 - **It surfaces a "Publish Changes" button in the CMS header.** Clicking it fires a `repository_dispatch` event of type `sveltia-cms-publish` against the default branch, which `.github/workflows/publish-cms-edits.yml` lists as a trigger alongside `workflow_dispatch`. So the manager publishes from inside the CMS; the Actions-tab "Run workflow" path remains as a fallback. Publishing stays fully manual either way — saves never auto-publish.
 - **Save commits to `cms-staging` get a `[skip ci]` message prefix** (deletions are exempted by Sveltia, by design). This is harmless here: no workflow builds off `cms-staging` pushes, and the publication squash-merge to `main` is performed with `GITHUB_TOKEN`, which never fires push-triggered workflows regardless of commit message — the publish workflow already compensates by dispatching the staging deploy and the branch reset explicitly. **Caveat**: if you ever merge `cms-staging` into `main` by hand (web UI or local), the squash commit body may inherit a `[skip ci]` line from a constituent commit and silently suppress push-triggered workflows (`deploy-staging`, `reset-cms-staging`); check for it before merging manually.
 
+## Deploy environments & the `production` branch
+
+Two environments, two workflows:
+
+- **Staging** — GitHub Pages at https://d3i-website.github.io/. `.github/workflows/deploy-staging.yml` auto-deploys on every push to `main` (and `workflow_dispatch`).
+- **Production** — Netlify at https://datadonation.eu/. `.github/workflows/deploy-production.yml`, via the `nwtgck/actions-netlify` action. Production is **gated** — a human triggers it, and the `production` GitHub Environment has a required-reviewer rule (Danielle) on manual runs.
+
+**The `production` branch is the last manually-approved live snapshot.** It's the source of truth for what production deploys, deliberately decoupled from `main` (which can hold staging-approved-but-not-yet-promoted work, including pending CMS publications). It was created at the commit that was live on Netlify at the time (`5895aa2`).
+
+`deploy-production.yml` runs two ways:
+
+- **Manual (`workflow_dispatch`)** — the promote step, and the only path that ships new content. The `deploy-manual` job builds the triggering ref (normally `main` HEAD) and deploys to production through the gated `production` environment (→ waits for the reviewer); then the `record-snapshot` job force-moves the `production` branch to the deployed commit (`gh api … refs/heads/production`, needs `contents: write`). So **Run workflow** both ships `main` → live *and* records the approved snapshot. No new editor step beyond before.
+- **Scheduled (daily cron `7 4 * * *`, 04:07 UTC)** — the `deploy-scheduled` job rebuilds and redeploys the **`production` branch only**, never `main` HEAD, so un-promoted `main` work can never auto-ship. `record-snapshot` doesn't run (it `needs: deploy-manual`, which is skipped on schedule).
+
+**Why the daily rebuild exists — scheduled (future-dated) content.** The homepage news strip (`_includes/news-strip.html`) and the News page (`_layouts/page-news.html`) drop items dated after build time; events (`_layouts/page-archive-stacked.html`) already split upcoming/past the same way. A static build only sees the build clock, so a future-dated item stays hidden until *something* rebuilds on/after its date. The cron advances the build clock daily, so a scheduled item surfaces on its due date with no human action.
+
+**Why two jobs, not a conditional environment.** The `production` environment requires a reviewer, and a scheduled run that used it would block forever waiting for approval — but an environment's protection is all-or-nothing, and you can't conditionally omit the `environment:` key on one job. So the gate and the auto-path are split into separate jobs: `deploy-manual` uses the gated `production` environment; `deploy-scheduled` uses **no environment** (hence no approval) and authenticates to Netlify with the **repository-level** `NETLIFY_AUTH_TOKEN` / `NETLIFY_SITE_ID` secrets. These are verified repo-level — if they're ever narrowed to environment scope, `deploy-scheduled` loses access and the cron fails to deploy.
+
+**Operating it:**
+
+- *Publish content to production*: run `deploy-production` manually (Publish Changes → staging looks good → trigger production → approve). Unchanged, beyond also advancing `production`.
+- *Schedule a news item*: give it a future `date`, publish to `main`, and run a manual production deploy. It records onto `production` while still hidden; the daily cron reveals it on its date. (It won't preview on staging before its date either — staging applies the same filter.)
+- *Trade-off*: the cron redeploys daily even when nothing is due (minor Netlify deploy-history noise; harmless). If it ever matters, gate the deploy step on "an item became due today."
+- *Independence*: `production` is unrelated to `cms-staging`; `reset-cms-staging.yml` does not touch it.
+- *Host migration*: the branch + cron model is host-agnostic — if production moves off Netlify (see "Production hosting migration" below), only the deploy step changes; the `production`-branch gating and the cron stay.
+
 ## CMS appearance & entry-list views
 
 How the admin look-and-feel is configured (all in `admin/config.yml` unless noted):
@@ -184,6 +210,7 @@ When `datadonation.eu`'s production hosting moves off Netlify (planned, separate
 - [ ] Audit `assets/images/` for orphan uploads (images not referenced by any `_data/*.yml`, `_pages/*.md`, or `_events/*.md`). List candidates with a `grep -r` over all content files; manually prune.
 - [ ] Audit active editors and their PATs: any editors no longer involved should have their tokens revoked (org-side) and access removed from the repo collaborator list.
 - [ ] Verify the `reset-cms-staging.yml` workflow is enabled and its recent runs are green (it keeps `cms-staging` in sync with `main` on every push). If it has been failing, reset manually: `git push -f origin main:cms-staging`.
+- [ ] Verify the scheduled `deploy-production.yml` cron runs are green (the `deploy-scheduled` job, daily ~04:07 UTC). If it fails to authenticate to Netlify, check that `NETLIFY_AUTH_TOKEN` / `NETLIFY_SITE_ID` are still **repository-level** secrets (the job uses no environment; see "Deploy environments & the `production` branch"). Confirm `production` still tracks the last approved deploy: `gh api repos/d3i-website/d3i-website.github.io/git/refs/heads/production --jq .object.sha`.
 - [ ] Verify repo settings haven't drifted from squash-merge-only configuration.
 
 ## Useful commands

@@ -64,6 +64,17 @@
   }
 }
 
+// On full-width pages (no sidebar) the grid is a single column, so the
+// main column must sit in column 1. Without this it inherits `grid-column: 2`
+// above, which spawns an empty implicit column on the left and jams the
+// content into a narrow auto-sized column on the right.
+.content-page__grid--full .content-page__main {
+  @media (min-width: $medium-wide) {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
+
 // ---------------------------------------------------------------------
 // Page intro (title + hero + excerpt)
 // ---------------------------------------------------------------------

@@ -166,8 +166,14 @@
 .homepage-road__sprite--cyclist   { left: 72%; bottom: 56px; width: 71px; }
 
 // ---------------------------------------------------------------------
-// Route stops: three numbered stops on a dashed route line that echoes
-// the road above. Deliberately not cards — no borders or backgrounds.
+// Movements carousel — "Carousel B" (peek cards) from the design handoff.
+// One focused card centred, neighbours peeking behind a white edge-fade,
+// each pairing a tinted illustration panel with accent-coloured text.
+// Rendered as stacked full-width cards without JS; homepage-carousel.js
+// adds `is-enhanced` (peek layout + controls) and toggles `is-compact`
+// from a ResizeObserver, so the layout responds to its container width
+// rather than just the viewport. Per-item accent/tint come from inline
+// styles driven by the movements front matter.
 // ---------------------------------------------------------------------
 
 .homepage-stops {
@@ -178,89 +184,260 @@
   width: 100%;
 }
 
-.homepage-stops__track {
+.movements-carousel {
   position: relative;
+  outline: none;
 }
 
-.homepage-stops__line {
-  position: absolute;
-  top: 1.25rem;
-  left: 4%;
-  right: 4%;
-  border-top: 3px dashed rgba(66, 114, 239, 0.3);
-}
-
-.homepage-stops__grid {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0 3rem;
-}
-
-.homepage-stop {
+.movements-carousel__track {
+  // No-JS fallback: stacked full-width cards with breathing room.
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  gap: 1.5rem;
 }
 
-.homepage-stop__marker {
+.movements-carousel__slide {
+  display: flex; // let the card stretch to the slide height
+  box-sizing: border-box;
+}
+
+.movement-card {
+  flex: 1;
+  min-width: 0;
+  background: #ffffff;
+  border: 1px solid rgba(37, 42, 52, 0.10);
+  border-radius: 22px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 26px 50px -28px rgba(37, 42, 52, 0.30);
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr; // stacked by default; split when enhanced + wide
+  gap: 22px;
+  align-items: center;
+}
+
+.movement-card__figure {
+  border-radius: 16px;
+  min-height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  background: $accent-primary;
-  color: #ffffff;
-  font-family: "Nunito", $sans-serif;
-  font-weight: 800;
-  font-size: 1.05rem;
-  box-shadow: 0 0 0 6px #ffffff; // punches a gap in the dashed line
-  margin-bottom: 1.3rem;
-}
-
-.homepage-stop__figure {
-  display: flex;
-  align-items: flex-end;
-  height: 6.5rem;
-  margin-bottom: 1.1rem;
+  padding: 20px;
+  box-sizing: border-box;
 
   img {
-    max-height: 6.5rem;
-    max-width: 10rem;
+    display: block;
+    width: 100%;
+    max-height: 138px;
+    object-fit: contain;
   }
 }
 
-.homepage-stop__heading {
-  margin: 0 0 0.5rem;
-  font-family: "Nunito", $sans-serif;
-  font-size: 1.2rem;
+.movement-card__eyebrow {
+  display: inline-block;
+  font-family: "Nunito Sans", $sans-serif;
   font-weight: 800;
-  color: #252a34;
-  line-height: 1.25;
+  font-size: 0.72rem;
+  line-height: 1;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
 }
 
-.homepage-stop__body {
-  margin: 0 0 0.9rem;
-  padding: 0; // cancel the site's base `p` padding — not in the design
-  font-size: 0.97rem;
-  line-height: 1.6;
-  color: $text-color;
-}
-
-.homepage-stop__link {
-  margin-top: auto;
-  white-space: nowrap;
+.movement-card__heading {
+  margin: 0 0 14px;
   font-family: "Nunito", $sans-serif;
-  font-weight: 700;
-  font-size: 0.97rem;
-  color: $accent-secondary;
+  font-weight: 800;
+  font-size: 1.7rem;
+  line-height: 1.14;
+  letter-spacing: -0.01em;
+  color: #252a34;
+  text-wrap: balance;
+}
+
+.movement-card__body {
+  margin: 0 0 22px;
+  padding: 0; // cancel the site's base `p` padding — not in the design
+  font-size: 1.04rem;
+  line-height: 1.6;
+  color: #555a63;
+  text-wrap: pretty;
+}
+
+.movement-card__link {
+  font-family: "Nunito", $sans-serif;
+  font-weight: 800;
+  font-size: 1.02rem;
   text-decoration: none;
-  border-bottom: 1.5px solid transparent;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+  white-space: nowrap;
   transition: border-color 0.15s ease;
 
   &:hover, &:focus {
-    border-bottom-color: $accent-secondary;
+    border-bottom-color: currentColor; // matches the item's accent
+  }
+}
+
+// Fades, arrows, and the control bar appear only once JS enhances.
+.movements-carousel__fade,
+.movements-carousel__arrow,
+.movements-carousel__controls {
+  display: none;
+}
+
+// --- Enhanced (JS active): peek-card carousel ------------------------------
+
+.movements-carousel.is-enhanced {
+  .movements-carousel__viewport {
+    overflow: hidden;
+  }
+
+  .movements-carousel__track {
+    flex-direction: row;
+    gap: 0;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  .movements-carousel__slide {
+    flex: 0 0 var(--slide-basis, 72%);
+    padding: 12px 12px 16px;
+  }
+
+  // Wide cards: tinted illustration panel beside the text.
+  .movement-card {
+    grid-template-columns: 40% 1fr;
+    gap: 40px;
+    padding: 36px 42px;
+  }
+
+  .movement-card__figure {
+    min-height: 220px;
+
+    img {
+      max-height: 188px;
+    }
+  }
+
+  .movements-carousel__fade {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: var(--fade-w, 14%);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .movements-carousel__fade--left {
+    left: 0;
+    background: linear-gradient(to right, #ffffff 12%, rgba(255, 255, 255, 0));
+  }
+
+  .movements-carousel__fade--right {
+    right: 0;
+    background: linear-gradient(to left, #ffffff 12%, rgba(255, 255, 255, 0));
+  }
+
+  // Gutter arrows on wide screens.
+  .movements-carousel__arrow--gutter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid rgba(37, 42, 52, 0.08);
+    background: #ffffff;
+    color: $accent-primary;
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 3;
+    box-shadow: 0 8px 22px -8px rgba(37, 42, 52, 0.4);
+    transition: transform 0.15s ease;
+
+    &:hover, &:focus {
+      transform: translateY(-50%) scale(1.08);
+    }
+  }
+
+  .movements-carousel__arrow--gutter.movements-carousel__arrow--prev { left: 0; }
+  .movements-carousel__arrow--gutter.movements-carousel__arrow--next { right: 0; }
+
+  .movements-carousel__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 28px;
+  }
+
+  .movements-carousel__dots {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+  }
+
+  // --- Compact (narrow container): stack the card, arrows join the dots ---
+  &.is-compact {
+    .movement-card {
+      grid-template-columns: 1fr;
+      gap: 22px;
+      padding: 24px;
+    }
+
+    .movement-card__figure {
+      min-height: 150px;
+
+      img {
+        max-height: 138px;
+      }
+    }
+
+    .movements-carousel__arrow--gutter {
+      display: none;
+    }
+
+    .movements-carousel__arrow--compact {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(37, 42, 52, 0.12);
+      background: #ffffff;
+      color: $accent-primary;
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+  }
+}
+
+.movements-carousel__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 6px;
+  border: 0;
+  padding: 0;
+  background: #d4d7dd;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &.is-active {
+    width: 32px; // pill; JS paints it in the active item's accent
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .movements-carousel.is-enhanced .movements-carousel__track {
+    transition: none;
   }
 }
 
@@ -301,17 +478,6 @@
   .homepage-hero__plane {
     display: none;
   }
-
-  // Stops stack vertically; the horizontal route line goes away
-  // (markers keep their white ring so the rhythm still reads)
-  .homepage-stops__line {
-    display: none;
-  }
-
-  .homepage-stops__grid {
-    grid-template-columns: 1fr;
-    gap: 2.5rem 0;
-  }
 }
 
 @media (max-width: $small) {
@@ -323,4 +489,7 @@
   .homepage-road__sprite {
     display: none;
   }
+
+  // The carousel's own compact layout is container-driven (JS toggles
+  // `is-compact`), so it needs no viewport breakpoint here.
 }
