@@ -98,6 +98,8 @@ The landing pages of Community, About D3I, and Prepare a Study (the pages with t
 
 News items appear on the News page immediately after publication. The homepage "Latest news" strip shows the three most recent items and automatically drops anything older than about 3 months.
 
+**Scheduling ahead:** if you give a news item a date in the **future**, it stays hidden until that day and then appears on its own — handy for announcements you want to prepare in advance. Publish it as usual (and let Danielle know it's a scheduled item so she promotes it to production before its date). To preview the wording before then, set today's date while drafting, since future-dated items are hidden on staging too.
+
 ## How "Save" works
 
 Every time you click **Save**, the CMS commits your edit to a behind-the-scenes branch called `cms-staging`. **The change is recorded but not yet visible on the live site.** This lets you make a series of edits in one sitting without each one immediately going live — useful for typo fixes, preview-and-revise cycles, or batches of related updates.
@@ -130,6 +132,8 @@ Red X = build failed. Email Danielle with a screenshot.
 ## Production (datadonation.eu)
 
 After staging looks good, Danielle approves the production deployment to push your changes to datadonation.eu. The deploy workflow waits for her approval — until she clicks Approve in GitHub Actions, datadonation.eu shows the previous version. Tell her when you're ready.
+
+Production also refreshes itself once a day from the last approved version. This never publishes new edits on its own — it only updates the date-sensitive bits, like making a scheduled (future-dated) news item appear on its day, or moving a finished event out of "upcoming." Anything new still waits for Danielle's approval.
 
 ## Three things to know
 
