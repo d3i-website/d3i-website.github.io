@@ -2,6 +2,13 @@ name: Deploy to Netlify (production)
 
 on:
   workflow_dispatch:
+  # Daily rebuild so future-dated ("scheduled") news surfaces on the day
+  # it is due: the build clock (site.time) advances even when no commits
+  # change, and the news filters drop items dated after build time.
+  # Off-the-hour, low-traffic UTC slot — GitHub delays scheduled runs that
+  # land on the start of an hour, so we avoid :00.
+  schedule:
+    - cron: "7 4 * * *"
 
 concurrency:
   group: "deploy-production"
@@ -13,9 +20,22 @@ jobs:
     environment:
       name: production
       url: https://datadonation.eu
+    outputs:
+      sha: ${{ steps.rev.outputs.sha }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Scheduled runs redeploy only the last manually-approved snapshot
+          # (the `production` branch); manual runs promote the triggering ref
+          # (main), exactly as before. This keeps un-promoted main work off
+          # production even though the rebuild is now automated.
+          ref: ${{ github.event_name == 'schedule' && 'production' || github.ref }}
+          fetch-depth: 0
+
+      - name: Resolve deployed commit
+        id: rev
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -34,7 +54,30 @@ jobs:
           publish-dir: './_site'
           production-deploy: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: "Deployed from GitHub Actions - ${{ github.sha }}"
+          deploy-message: "Deployed from GitHub Actions - ${{ steps.rev.outputs.sha }} (${{ github.event_name }})"
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+  # A manual production deploy doubles as the "promote" step: record the
+  # commit just shipped on the `production` branch, so the scheduled rebuild
+  # always redeploys this exact approved snapshot. Skipped on scheduled
+  # runs — those introduce no new content to approve.
+  record-snapshot:
+    needs: deploy
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Move production branch to the deployed commit
+        env:
+          REPO: ${{ github.repository }}
+          SHA: ${{ needs.deploy.outputs.sha }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh api "repos/${REPO}/git/refs/heads/production" >/dev/null 2>&1; then
+            gh api -X PATCH "repos/${REPO}/git/refs/heads/production" -f sha="${SHA}" -F force=true
+          else
+            gh api -X POST "repos/${REPO}/git/refs" -f ref="refs/heads/production" -f sha="${SHA}"
+          fi
