@@ -17,8 +17,15 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # Manual deploys keep the protected `production` environment (required
+    # reviewer). Scheduled rebuilds use the unprotected `production-scheduled`
+    # environment so the daily run isn't blocked waiting for approval — safe
+    # because it only ever redeploys the already-approved `production` branch.
+    # NOTE: `production-scheduled` must exist with NO required reviewers, and
+    # the NETLIFY_* secrets must be reachable from it (repo-level secrets, or
+    # add them to that environment too). See cms/maintainer-notes.md.
     environment:
-      name: production
+      name: ${{ github.event_name == 'schedule' && 'production-scheduled' || 'production' }}
       url: https://datadonation.eu
     outputs:
       sha: ${{ steps.rev.outputs.sha }}
