@@ -166,8 +166,10 @@
 .homepage-road__sprite--cyclist   { left: 72%; bottom: 56px; width: 71px; }
 
 // ---------------------------------------------------------------------
-// Route stops: three numbered stops on a dashed route line that echoes
-// the road above. Deliberately not cards — no borders or backgrounds.
+// Movements carousel: one slide visible at a time, navigated manually
+// (arrows, dots, swipe, arrow keys). Slides are rendered stacked so the
+// section works without JS; homepage-carousel.js adds the `is-enhanced`
+// class that switches to single-slide mode and reveals the controls.
 // ---------------------------------------------------------------------
 
 .homepage-stops {
@@ -178,82 +180,60 @@
   width: 100%;
 }
 
-.homepage-stops__track {
+.homepage-carousel {
   position: relative;
 }
 
-.homepage-stops__line {
-  position: absolute;
-  top: 1.25rem;
-  left: 4%;
-  right: 4%;
-  border-top: 3px dashed rgba(66, 114, 239, 0.3);
-}
-
-.homepage-stops__grid {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0 3rem;
+.homepage-carousel__track {
+  // No-JS fallback: stacked slides with breathing room between them.
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
 }
 
 .homepage-stop {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-}
-
-.homepage-stop__marker {
-  display: flex;
   align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  background: $accent-primary;
-  color: #ffffff;
-  font-family: "Nunito", $sans-serif;
-  font-weight: 800;
-  font-size: 1.05rem;
-  box-shadow: 0 0 0 6px #ffffff; // punches a gap in the dashed line
-  margin-bottom: 1.3rem;
+  text-align: center;
 }
 
 .homepage-stop__figure {
   display: flex;
   align-items: flex-end;
-  height: 6.5rem;
-  margin-bottom: 1.1rem;
+  justify-content: center;
+  height: 15rem;
+  margin-bottom: 1.5rem;
 
   img {
-    max-height: 6.5rem;
-    max-width: 10rem;
+    max-height: 15rem;
+    max-width: 22rem;
   }
 }
 
 .homepage-stop__heading {
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.6rem;
   font-family: "Nunito", $sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: #252a34;
   line-height: 1.25;
 }
 
 .homepage-stop__body {
-  margin: 0 0 0.9rem;
+  margin: 0 0 1.1rem;
   padding: 0; // cancel the site's base `p` padding — not in the design
-  font-size: 0.97rem;
+  max-width: 32rem;
+  font-size: 1.05rem;
   line-height: 1.6;
   color: $text-color;
 }
 
 .homepage-stop__link {
-  margin-top: auto;
   white-space: nowrap;
   font-family: "Nunito", $sans-serif;
   font-weight: 700;
-  font-size: 0.97rem;
+  font-size: 1rem;
   color: $accent-secondary;
   text-decoration: none;
   border-bottom: 1.5px solid transparent;
@@ -261,6 +241,91 @@
 
   &:hover, &:focus {
     border-bottom-color: $accent-secondary;
+  }
+}
+
+// Controls stay hidden until JS enhances the carousel.
+.homepage-carousel__nav,
+.homepage-carousel__dots {
+  display: none;
+}
+
+.homepage-carousel.is-enhanced {
+  .homepage-carousel__viewport {
+    overflow: hidden;
+  }
+
+  .homepage-carousel__track {
+    flex-direction: row;
+    gap: 0;
+    transition: transform 0.4s ease;
+  }
+
+  .homepage-stop {
+    flex: 0 0 100%;
+    min-width: 0;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+  }
+
+  .homepage-carousel__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 7.5rem; // centered on the 15rem figure
+    transform: translateY(-50%);
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: $accent-primary;
+    color: #ffffff;
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: filter 0.15s ease, opacity 0.15s ease;
+
+    &:hover, &:focus {
+      filter: brightness(0.92);
+    }
+  }
+
+  .homepage-carousel__nav--prev { left: 0; }
+  .homepage-carousel__nav--next { right: 0; }
+
+  .homepage-carousel__dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 1.75rem;
+  }
+}
+
+.homepage-carousel__dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(66, 114, 239, 0.3);
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+
+  &:hover, &:focus {
+    background: rgba(66, 114, 239, 0.55);
+  }
+
+  &.is-active {
+    background: $accent-primary;
+    transform: scale(1.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .homepage-carousel.is-enhanced .homepage-carousel__track {
+    transition: none;
   }
 }
 
@@ -301,17 +366,6 @@
   .homepage-hero__plane {
     display: none;
   }
-
-  // Stops stack vertically; the horizontal route line goes away
-  // (markers keep their white ring so the rhythm still reads)
-  .homepage-stops__line {
-    display: none;
-  }
-
-  .homepage-stops__grid {
-    grid-template-columns: 1fr;
-    gap: 2.5rem 0;
-  }
 }
 
 @media (max-width: $small) {
@@ -322,5 +376,20 @@
 
   .homepage-road__sprite {
     display: none;
+  }
+
+  // Smaller illustration on phones; keep the nav arrows centered on it
+  .homepage-stop__figure {
+    height: 10rem;
+    margin-bottom: 1.25rem;
+
+    img {
+      max-height: 10rem;
+      max-width: 16rem;
+    }
+  }
+
+  .homepage-carousel.is-enhanced .homepage-carousel__nav {
+    top: 5rem;
   }
 }

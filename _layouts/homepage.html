@@ -40,30 +40,36 @@ layout: site-shell
 </section>
 
 {% comment %}
-  Route stops: the movements front matter rendered as three numbered
-  stops on a dashed route line that echoes the road above. Deliberately
-  not cards.
+  Movements carousel: the movements front matter rendered as a manual
+  carousel — one slide at a time, navigated by arrows, dots, swipe, or
+  arrow keys. Progressive enhancement: without JS the slides stack and
+  stay readable; homepage-carousel.js adds the `is-enhanced` class that
+  switches the CSS into single-slide mode and wires up the controls.
 {% endcomment %}
 <section class="homepage-stops">
   {% if page.movements %}
-    <div class="homepage-stops__track">
-      <div class="homepage-stops__line" aria-hidden="true"></div>
-      <div class="homepage-stops__grid">
-        {% for movement in page.movements %}
-          <article class="homepage-stop">
-            <span class="homepage-stop__marker" aria-hidden="true">{{ forloop.index }}</span>
-            <div class="homepage-stop__figure">
-              <img src="{{ movement.image | relative_url }}" alt="{{ movement.image_alt | default: '' }}">
-            </div>
-            <h2 class="homepage-stop__heading">{{ movement.heading }}</h2>
-            <p class="homepage-stop__body">{{ movement.body }}</p>
-            {% if movement.link %}
-              <a class="homepage-stop__link" href="{{ movement.link.url | relative_url }}">{{ movement.link.text }}&nbsp;→</a>
-            {% endif %}
-          </article>
-        {% endfor %}
+    <div class="homepage-carousel" data-carousel>
+      <div class="homepage-carousel__viewport">
+        <div class="homepage-carousel__track" data-carousel-track>
+          {% for movement in page.movements %}
+            <article class="homepage-stop" data-carousel-slide>
+              <div class="homepage-stop__figure">
+                <img src="{{ movement.image | relative_url }}" alt="{{ movement.image_alt | default: '' }}">
+              </div>
+              <h2 class="homepage-stop__heading">{{ movement.heading }}</h2>
+              <p class="homepage-stop__body">{{ movement.body }}</p>
+              {% if movement.link %}
+                <a class="homepage-stop__link" href="{{ movement.link.url | relative_url }}">{{ movement.link.text }}&nbsp;→</a>
+              {% endif %}
+            </article>
+          {% endfor %}
+        </div>
       </div>
+      <button class="homepage-carousel__nav homepage-carousel__nav--prev" type="button" data-carousel-prev aria-label="Previous">‹</button>
+      <button class="homepage-carousel__nav homepage-carousel__nav--next" type="button" data-carousel-next aria-label="Next">›</button>
+      <div class="homepage-carousel__dots" data-carousel-dots></div>
     </div>
+    <script src="{{ '/assets/js/homepage-carousel.js' | relative_url }}" defer></script>
   {% endif %}
 
   <div class="homepage-outro">
