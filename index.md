@@ -12,24 +12,33 @@ postit:
   link_url: /community/omnibus-letter
   link_text: "Read our letter →"
 movements:
-  - heading: "What is data donation?"
+  - eyebrow: "The method"
+    heading: "What is data donation?"
     image: /assets/images/illustrations/social-media-profile.svg
     image_alt: "A person viewing a social media profile on a screen"
-    body: "Discover what data donation is all about."
+    body: "Data donation allows researchers to collect digital traces by asking participants to donate their own data. Interested?"
+    accent: "#4272EF"
+    tint: "#EEF3FE"
     link:
       url: /data-donation/
-      text: "How it works"
-  - heading: "Prepare a study"
+      text: "Learn how it works"
+  - eyebrow: "For researchers"
+    heading: "Prepare a study"
     image: /assets/images/illustrations/experts.svg
     image_alt: "Researchers collaborating around a search interface"
-    body: "Guidance for every stage of preparing your data donation study."
+    body: "Guidance for preparing your study from design to ethics to FAIR practices."
+    accent: "#FF5E5E"
+    tint: "#FFEFEF"
     link:
       url: /prepare-a-study/study-design
       text: "How to run a study"
-  - heading: "Free, open-source software"
+  - eyebrow: "Open source"
+    heading: "Free, open-source software"
     image: /assets/images/illustrations/group-project.svg
     image_alt: "A team working together on a project"
-    body: "Free, open-source tools for collecting donated data, right in the browser."
+    body: "Free, open-source tools that collect donated data right in the participant's browser."
+    accent: "#E8B53C"
+    tint: "#FDF4DF"
     link:
       url: /software/
       text: "Explore the software"

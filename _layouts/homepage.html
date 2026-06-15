@@ -40,34 +40,55 @@ layout: site-shell
 </section>
 
 {% comment %}
-  Movements carousel: the movements front matter rendered as a manual
-  carousel — one slide at a time, navigated by arrows, dots, swipe, or
-  arrow keys. Progressive enhancement: without JS the slides stack and
-  stay readable; homepage-carousel.js adds the `is-enhanced` class that
-  switches the CSS into single-slide mode and wires up the controls.
+  Movements carousel ("Carousel B" / peek cards from the design handoff):
+  one focused card centred with neighbours peeking behind a white edge-fade.
+  Each card pairs a tinted illustration panel with text in the item's brand
+  accent. Progressive enhancement — without JS the slides stack into plain
+  full-width cards; homepage-carousel.js adds the `is-enhanced` class that
+  switches on the peek layout, sizing, and controls (arrows/dots/swipe/keys).
 {% endcomment %}
 <section class="homepage-stops">
   {% if page.movements %}
-    <div class="homepage-carousel" data-carousel>
-      <div class="homepage-carousel__viewport">
-        <div class="homepage-carousel__track" data-carousel-track>
+    <div class="movements-carousel" data-carousel tabindex="0"
+         aria-roledescription="carousel" aria-label="Explore datadonation.eu">
+      <div class="movements-carousel__viewport">
+        <div class="movements-carousel__track" data-carousel-track>
           {% for movement in page.movements %}
-            <article class="homepage-stop" data-carousel-slide>
-              <div class="homepage-stop__figure">
-                <img src="{{ movement.image | relative_url }}" alt="{{ movement.image_alt | default: '' }}">
-              </div>
-              <h2 class="homepage-stop__heading">{{ movement.heading }}</h2>
-              <p class="homepage-stop__body">{{ movement.body }}</p>
-              {% if movement.link %}
-                <a class="homepage-stop__link" href="{{ movement.link.url | relative_url }}">{{ movement.link.text }}&nbsp;→</a>
-              {% endif %}
-            </article>
+            <div class="movements-carousel__slide" data-carousel-slide data-accent="{{ movement.accent }}">
+              <article class="movement-card">
+                <div class="movement-card__figure" style="background: {{ movement.tint }};">
+                  <img src="{{ movement.image | relative_url }}" alt="{{ movement.image_alt | default: '' }}">
+                </div>
+                <div class="movement-card__text">
+                  {% if movement.eyebrow %}
+                    <span class="movement-card__eyebrow" style="color: {{ movement.accent }};">{{ movement.eyebrow }}</span>
+                  {% endif %}
+                  <h2 class="movement-card__heading">{{ movement.heading }}</h2>
+                  <p class="movement-card__body">{{ movement.body }}</p>
+                  {% if movement.link %}
+                    <a class="movement-card__link" style="color: {{ movement.accent }};" href="{{ movement.link.url | relative_url }}">{{ movement.link.text }}&nbsp;→</a>
+                  {% endif %}
+                </div>
+              </article>
+            </div>
           {% endfor %}
         </div>
       </div>
-      <button class="homepage-carousel__nav homepage-carousel__nav--prev" type="button" data-carousel-prev aria-label="Previous">‹</button>
-      <button class="homepage-carousel__nav homepage-carousel__nav--next" type="button" data-carousel-next aria-label="Next">›</button>
-      <div class="homepage-carousel__dots" data-carousel-dots></div>
+
+      {% comment %} Edge fades keep focus on the centred card (wide screens). {% endcomment %}
+      <div class="movements-carousel__fade movements-carousel__fade--left" aria-hidden="true"></div>
+      <div class="movements-carousel__fade movements-carousel__fade--right" aria-hidden="true"></div>
+
+      {% comment %} Gutter arrows on wide screens. {% endcomment %}
+      <button class="movements-carousel__arrow movements-carousel__arrow--gutter movements-carousel__arrow--prev" type="button" data-carousel-prev aria-label="Previous">‹</button>
+      <button class="movements-carousel__arrow movements-carousel__arrow--gutter movements-carousel__arrow--next" type="button" data-carousel-next aria-label="Next">›</button>
+
+      {% comment %} Control bar: dots always; arrows flank them on compact screens. {% endcomment %}
+      <div class="movements-carousel__controls">
+        <button class="movements-carousel__arrow movements-carousel__arrow--compact movements-carousel__arrow--prev" type="button" data-carousel-prev aria-label="Previous">‹</button>
+        <div class="movements-carousel__dots" data-carousel-dots></div>
+        <button class="movements-carousel__arrow movements-carousel__arrow--compact movements-carousel__arrow--next" type="button" data-carousel-next aria-label="Next">›</button>
+      </div>
     </div>
     <script src="{{ '/assets/js/homepage-carousel.js' | relative_url }}" defer></script>
   {% endif %}
