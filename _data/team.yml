@@ -1,65 +1,104 @@
 members:
   - name: Dr. L. (Laura) Boeschoten
-    tags: [Lead researcher, D3I, SSHOC-NL]
+    tags:
+      - Lead researcher
+      - D3I
+      - SSHOC-NL
     image: /assets/images/people/laura.jpg
     url: https://www.uu.nl/medewerkers/LBoeschoten
   - name: Prof. Dr. T.B. (Theo) Araujo
-    tags: [Lead researcher, D3I, RIGHTS]
+    tags:
+      - Lead researcher
+      - D3I
+      - RIGHTS
     image: /assets/images/people/theo.jpg
     url: https://www.uva.nl/profiel/a/r/t.b.araujo/t.b.araujo.html
   - name: Dr. N.C. (Niek) de Schipper
-    tags: [Research engineer, SoDa]
+    tags:
+      - Research engineer
+      - SoDa
     image: /assets/images/people/niek.jpg
     url: https://www.uva.nl/en/profile/s/c/n.c.deschipper/n.c.de-schipper.html
   - name: Dr. M.B. (Max) Paulus
-    tags: [Research engineer]
+    tags:
+      - Research engineer
     image: /assets/images/people/max.jpg
     url: https://www.uva.nl/profiel/p/a/m.paulus/m.paulus.html
   - name: Dr. D. (Danielle) McCool
-    tags: [Research engineer, Methodologist]
+    tags:
+      - Research engineer
+      - Methodologist
     image: /assets/images/people/danielle.jpg
     url: https://www.uu.nl/staff/DMMcCool
   - name: Dr. B. (Bella) Struminskaya
-    tags: [Methodologist]
+    tags:
+      - Methodologist
     image: /assets/images/people/bella.jpg
     url: https://www.uu.nl/staff/BStruminskaya
   - name: Dr. mr. H.L. (Heleen) Janssen
-    tags: [Legal scholar, RIGHTS]
+    tags:
+      - Legal scholar
+      - RIGHTS
     image: /assets/images/people/heleen.jpeg
     url: https://www.uva.nl/en/profile/j/a/h.l.janssen/h.l.janssen.html
   - name: Dr. J. (Jef) Ausloos
-    tags: [Legal scholar]
+    tags:
+      - Legal scholar
     image: /assets/images/people/jef.jpg
     url: https://www.uva.nl/profiel/a/u/j.ausloos/j.ausloos.html
   - name: Dr. K. (Kasper) Welbers
-    tags: [Affiliated researcher]
+    tags:
+      - Affiliated researcher
     image: /assets/images/people/kasper.jpg
     url: https://research.vu.nl/en/persons/kasper-welbers
   - name: Dr. F. (Felicia) Loecherbach
-    tags: [Affiliated researcher, RIGHTS]
+    tags:
+      - Affiliated researcher
+      - RIGHTS
     image: /assets/images/people/felicia.jpg
     url: https://www.uva.nl/profiel/l/o/f.loecherbach/f.loecherbach.html
   - name: Joshua Claassen MSc.
-    tags: [Guest researcher]
+    tags:
+      - Guest researcher
     image: /assets/images/people/joshua.jpg
     url: https://www.dzhw.eu/en/gmbh/mitarbeiter?m_id=987
   - name: Dachi Shanidze, MSc
-    tags: [Community manager]
+    tags:
+      - Community manager
     image: /assets/images/people/9x12cm_72dpi_def_2024_aissr_dachi_edited.webp
     url: https://www.uva.nl/en/profile/s/h/d.shanidze/d.shanidze.html
   - name: Megan McEntee
-    tags: [Student assistant]
+    tags:
+      - Student assistant
     image: /assets/images/people/megan.jpg
     url: ''
   - name: T.C. (Thijs) Carrière MSc.
-    tags: [Alumnus, PhD researcher]
+    tags:
+      - Alumnus
+      - PhD researcher
     image: /assets/images/people/thijs.jpg
     url: https://www.uu.nl/medewerkers/TCCarriere
   - name: J. (Jonathan) Koop BSc.
-    tags: [Alumnus, Student assistant]
+    tags:
+      - Alumnus
+      - Student assistant
     image: /assets/images/people/jonathan.jpg
     url: ''
   - name: P. (Pavlos) Ferlachidis MSc.
-    tags: [Alumnus, Research assistant]
+    tags:
+      - Alumnus
+      - Research assistant
     image: /assets/images/people/pavlos.jpg
+    url: ''
+  - name: Erik van Haeringen
+    tags:
+      - Research engineer
+      - D3I
+    image: /assets/images/people/haeringen.webp
+    url: ''
+  - name: Olga Eisele
+    tags:
+      - Affiliated researcher
+      - RIGHTS
+    image: /assets/images/people/Olga Eisele_pp.webp
     url: ''
