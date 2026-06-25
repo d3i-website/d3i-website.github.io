@@ -194,7 +194,7 @@ collections:
       - { name: redirect_from, widget: hidden, required: false }
       - { name: layout, widget: hidden, default: "page" }
       - { name: sidebar, widget: hidden, default: { nav: "community" } }
-      - { name: body, label: "Full event page content (markdown)", widget: markdown }
+      - { name: body, label: "Full event page content (markdown)", widget: markdown, required: false, comment: "Optional when an External URL is set — cards link straight out, so no event page is needed." }
 
   # ──────────────── News (entry collection) ───────────────────────────────
   # Folder collection for news items. Each item appears on /news/ and,

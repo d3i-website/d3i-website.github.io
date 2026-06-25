@@ -1,0 +1,17 @@
+{%- comment -%}
+  Renders a row of CTA-style action buttons from an `actions` array
+  (each item: label, url, external). Shared by archive-card.html and the
+  event page (page.html) so the button markup stays identical in both.
+  External links open in a new tab; the `→` arrow is decorative.
+
+    {% include action-buttons.html actions=item.actions %}
+{%- endcomment -%}
+{%- assign actions = include.actions -%}
+{%- for action in actions -%}
+  {%- if action.external -%}
+    {%- assign action_href = action.url -%}
+  {%- else -%}
+    {%- assign action_href = action.url | relative_url -%}
+  {%- endif -%}
+  <a class="cta-link" href="{{ action_href }}"{% if action.external %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ action.label }} <span aria-hidden="true">→</span></a>
+{%- endfor -%}
