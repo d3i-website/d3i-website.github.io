@@ -1,17 +1,34 @@
 {% comment %}
-  Homepage "Latest news" strip: up to 3 news items no older than 90 days.
-  The same window is re-applied at view time by news-freshness.js, because
-  Liquid only sees the build date and production deploys can be months
-  apart — without the JS, stale items would linger until the next build.
+  Homepage "Latest news" strip: up to 3 cards. Spotlighted (featured)
+  events that haven't happened yet lead the strip as announcements; recent
+  news (no older than 90 days) fills the remaining slots. The 90-day window
+  is re-applied at view time by news-freshness.js, because Liquid only sees
+  the build date and production deploys can be months apart — without the
+  JS, stale items would linger until the next build. (Future-dated event
+  cards survive that prune, which only removes items past the window.)
 {% endcomment %}
 
 {% assign now_epoch = site.time | date: "%s" | plus: 0 %}
+{% assign today = site.time | date: "%Y-%m-%d" %}
 {% assign freshness_cutoff = now_epoch | minus: 7776000 %}
-{% assign sorted_news = site.news | sort: "date" | reverse %}
 {% assign recent_news = "" | split: "" %}
+
+{% comment %} Spotlighted upcoming events lead the strip, soonest first. {% endcomment %}
+{% assign featured_events = site.events | where: "featured", true | sort: "date" %}
+{% for item in featured_events %}
+  {% assign cutoff = item.end_date | default: item.date %}
+  {% if cutoff %}
+    {% assign cutoff_str = cutoff | date: "%Y-%m-%d" %}
+    {% if cutoff_str >= today and recent_news.size < 3 %}
+      {% assign recent_news = recent_news | push: item %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% comment %} Recent news fills the rest: newest first, within 90 days, not future. {% endcomment %}
+{% assign sorted_news = site.news | sort: "date" | reverse %}
 {% for item in sorted_news %}
   {% assign item_epoch = item.date | date: "%s" | plus: 0 %}
-  {% comment %} Skip future-dated items (scheduled news) and anything past the 90-day window. {% endcomment %}
   {% if item_epoch <= now_epoch and item_epoch >= freshness_cutoff and recent_news.size < 3 %}
     {% assign recent_news = recent_news | push: item %}
   {% endif %}
