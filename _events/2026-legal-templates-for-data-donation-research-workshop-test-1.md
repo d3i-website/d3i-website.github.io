@@ -2,12 +2,12 @@
 title: Legal Templates for Data Donation Research Workshop - Test
 event_type: workshop
 date: 2026-09-04
-end_date: ''
+end_date: 2026-09-04
 date_label: ''
 location: UvA Roeterseilandcampus C
 external_url: ''
 summary: We invite privacy experts, data stewards, ethics committee members, and researchers to a workshop on Legal Templates for Data Donation Research, organised as part of the NWO TDCC RIGHTS project. The workshop explores the legal and ethical challenges of data donation research.
-featured: true
+featured: false
 postit: null
 details: []
 actions:
