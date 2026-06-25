@@ -9,7 +9,19 @@ external_url: ''
 summary: We invite privacy experts, data stewards, ethics committee members, and researchers to a workshop on Legal Templates for Data Donation Research, organised as part of the NWO TDCC RIGHTS project. The workshop explores the legal and ethical challenges of data donation research.
 featured: false
 postit: null
-details: []
+details:
+  - label: Date
+    value: 4 September 2026
+    markdown: false
+  - label: Time
+    value: 09:30 -16:00
+    markdown: false
+  - label: Location
+    value: '[Roeterseilandcampus - building B/C/D](https://ascor.uva.nl/shared/locaties/en/roeterseiland/rec-b-c-d-entrance-b-c.html)'
+    markdown: true
+  - label: Room
+    value: C10.20
+    markdown: false
 actions:
   - label: Register here
     url: https://uvaforms.formstack.com/forms/legaltemplatesdatadonation
