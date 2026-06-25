@@ -17,8 +17,20 @@ layout: site-shell
       {% include postit.html %}
       {% include content-page-intro.html %}
 
-      {% if page.details and page.details.size > 0 %}
-        {% include event-details.html details=page.details %}
+      {% comment %}
+        Event intro: the short summary leads, then the metadata box, then the
+        full body (rendered further down). Scoped to the events collection so
+        ordinary pages that happen to carry a summary are unaffected.
+      {% endcomment %}
+      {% if page.collection == 'events' %}
+        {% if page.summary and page.summary != "" %}
+          <div class="content-page__lead prose">
+            <p>{{ page.summary }}</p>
+          </div>
+        {% endif %}
+        {% if page.details and page.details.size > 0 %}
+          {% include event-details.html details=page.details %}
+        {% endif %}
       {% endif %}
 
       {% if page.toc %}
