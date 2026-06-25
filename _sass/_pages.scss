@@ -464,6 +464,53 @@
   gap: 0.9rem;
 }
 
+// Event metadata panel on the event page (see _includes/event-details.html)
+.event-details {
+  max-width: $content-width;
+  margin: 1.75rem 0 2rem;
+  padding: 0.25rem 1.5rem;
+  background: #f5f7fb;
+  border-radius: 0.5rem;
+}
+
+.event-details__row {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid $border-color;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  @media (max-width: $small) {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}
+
+.event-details__label {
+  color: $muted-text-color;
+}
+
+.event-details__value {
+  margin: 0;
+  color: $text-color;
+
+  a {
+    color: $accent-primary;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease;
+
+    &:hover,
+    &:focus {
+      border-bottom-color: $accent-primary;
+    }
+  }
+}
+
 // ---------------------------------------------------------------------
 // Page sections (interleaved prose + data components)
 // ---------------------------------------------------------------------
