@@ -1,0 +1,26 @@
+{%- comment -%}
+  Event metadata panel shown near the top of an event page. Renders the
+  same detail rows (label + value) that archive-card.html shows on the
+  card, but as a standalone box. A value may contain markdown (e.g. a
+  linked location), in which case the wrapping <p> is stripped so it sits
+  inline in the row.
+
+    {% include event-details.html details=page.details %}
+{%- endcomment -%}
+{%- assign details = include.details -%}
+{%- if details and details.size > 0 -%}
+<dl class="event-details">
+  {% for detail in details %}
+    <div class="event-details__row">
+      <dt class="event-details__label">{{ detail.label }}</dt>
+      <dd class="event-details__value">
+        {% if detail.markdown %}
+          {{ detail.value | markdownify | remove: '<p>' | remove: '</p>' }}
+        {% else %}
+          {{ detail.value }}
+        {% endif %}
+      </dd>
+    </div>
+  {% endfor %}
+</dl>
+{%- endif -%}

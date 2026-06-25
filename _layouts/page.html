@@ -17,6 +17,10 @@ layout: site-shell
       {% include postit.html %}
       {% include content-page-intro.html %}
 
+      {% if page.details and page.details.size > 0 %}
+        {% include event-details.html details=page.details %}
+      {% endif %}
+
       {% if page.toc %}
         <nav class="content-page__toc" aria-label="{{ page.toc_label | default: 'Contents' }}">
           <p class="content-page__toc-title">{{ page.toc_label | default: "Contents" }}</p>
