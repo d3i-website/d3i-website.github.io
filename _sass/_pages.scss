@@ -464,6 +464,15 @@
   gap: 0.9rem;
 }
 
+// Short summary that leads an event page, above the metadata panel
+.content-page__lead {
+  margin-bottom: 1.5rem;
+
+  p {
+    margin: 0;
+  }
+}
+
 // Event metadata panel on the event page (see _includes/event-details.html)
 .event-details {
   max-width: $content-width;
