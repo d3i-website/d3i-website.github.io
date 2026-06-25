@@ -1,19 +1,16 @@
 ---
-title: Legal Templates for Data Donation Research Workshop - Test
+title: Legal Templates for Data Donation Research Workshop - Test 2
 event_type: workshop
 date: 2026-09-04
 end_date: 2026-09-04
 date_label: ''
 location: UvA Roeterseilandcampus C
-external_url: ''
+external_url: https://ascor.uva.nl/content/events/2026/09/legal-templates-for-data-donation-research-workshop.html?origin=DD9stPdYQQCS71w3s2Yqmw
 summary: We invite privacy experts, data stewards, ethics committee members, and researchers to a workshop on Legal Templates for Data Donation Research, organised as part of the NWO TDCC RIGHTS project. The workshop explores the legal and ethical challenges of data donation research.
 featured: true
 postit: null
 details: []
-actions:
-  - label: Register here
-    url: https://uvaforms.formstack.com/forms/legaltemplatesdatadonation
-    external: true
+actions: []
 layout: page
 sidebar:
   nav: community
