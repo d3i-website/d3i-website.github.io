@@ -33,7 +33,14 @@
       {% assign start_month = item.date | date: "%B" %}
       {% assign start_day = item.date | date: "%-d" %}
       {% assign start_year = item.date | date: "%Y" %}
-      {% if item.end_date %}
+      {% comment %}
+        Only a genuinely later end date makes a range. A blank end_date (the
+        CMS writes a cleared field as '') or one equal to the start collapses
+        to a single date — otherwise same-day events render as "September 4-4".
+      {% endcomment %}
+      {% assign start_ymd = item.date | date: "%Y-%m-%d" %}
+      {% assign end_ymd = item.end_date | date: "%Y-%m-%d" %}
+      {% if item.end_date and item.end_date != "" and end_ymd != start_ymd %}
         {% assign end_month = item.end_date | date: "%B" %}
         {% assign end_day = item.end_date | date: "%-d" %}
         {% assign end_year = item.end_date | date: "%Y" %}
