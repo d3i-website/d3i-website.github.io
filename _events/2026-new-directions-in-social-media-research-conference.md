@@ -9,13 +9,7 @@ external_url: https://sites.google.com/view/social-media-conf-cambridge/
 summary: A two-day conference bringing together international researchers studying technology-mediated social experiences, to explore new directions in research, emerging methods, and evidence-based policy.
 featured: false
 postit: null
-details:
-  - label: Registration
-    value: 6 July - 30 August
-    markdown: false
-  - label: Submission deadline
-    value: 2 August
-    markdown: false
+details: []
 actions: []
 layout: page
 sidebar:
