@@ -13,8 +13,6 @@ details:
     value: October 1-2, 2026
   - label: Location
     value: Weizenbaum Institute, Berlin, Germany
-  - label: Submission
-    value: Abstracts due April 30, 2026
 actions: []
 redirect_from: /community/symposia/symposium-2026/
 layout: page
