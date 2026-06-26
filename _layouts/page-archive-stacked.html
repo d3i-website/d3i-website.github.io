@@ -48,10 +48,10 @@ layout: site-shell
 
 {% if spotlight %}
   {% assign featured_items = "" | split: "" | push: spotlight %}
-  {% assign other_upcoming = upcoming_items | where_exp: "item", "item.url != spotlight.url" %}
+  {% assign other_upcoming = upcoming_items | where_exp: "item", "item.url != spotlight.url" | sort: "date" %}
 {% else %}
   {% assign featured_items = "" | split: "" %}
-  {% assign other_upcoming = upcoming_items %}
+  {% assign other_upcoming = upcoming_items | sort: "date" %}
 {% endif %}
 
 {% assign archived_items = past_items %}
