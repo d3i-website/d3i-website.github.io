@@ -1,5 +1,5 @@
 ---
-title: Legal Templates for Data Donation Research Workshop - Test
+title: Legal Templates for Data Donation Research Workshop
 event_type: workshop
 date: 2026-09-04
 end_date: 2026-09-04
