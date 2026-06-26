@@ -87,6 +87,11 @@ jobs:
   # and reads the repository-level NETLIFY_* secrets. This only refreshes the
   # build clock so future-dated news/events surface on their due date; it
   # never ships un-promoted main work.
+  #
+  # Because the source commit is frozen, the rendered output is identical
+  # day-to-day EXCEPT on days when a future-dated item crosses the build
+  # clock. To avoid spending a Netlify deploy on those no-op days, we
+  # fingerprint the build output and only deploy when it actually changed.
   deploy-scheduled:
     if: github.event_name == 'schedule'
     runs-on: ubuntu-latest
@@ -108,7 +113,41 @@ jobs:
         env:
           JEKYLL_ENV: production
 
+      # Rolling single-value cache: restore-keys finds the most recent
+      # `deploy-fingerprint-*` entry; each successful deploy saves a fresh
+      # one under the run id (immutable keys can't be overwritten).
+      - name: Restore previous output fingerprint
+        uses: actions/cache/restore@v4
+        with:
+          path: .deploy-fingerprint
+          key: deploy-fingerprint-${{ github.run_id }}
+          restore-keys: |
+            deploy-fingerprint-
+
+      # Hash the rendered site, excluding the Atom feeds and sitemap:
+      # jekyll-feed/jekyll-sitemap stamp those with the build clock
+      # (site.time / file mtimes), so they churn on every build even when no
+      # content surfaced. Real changes are always reflected in the HTML the
+      # hash does cover, so excluding them is safe. sha256sum includes file
+      # paths, so additions/renames change the fingerprint too.
+      - name: Compare output fingerprint
+        id: fp
+        run: |
+          old=""
+          [ -f .deploy-fingerprint ] && old=$(cat .deploy-fingerprint)
+          new=$(find _site -type f ! -path '_site/feed/*' ! -name 'sitemap.xml' -print0 \
+            | LC_ALL=C sort -z | xargs -0 sha256sum | sha256sum | cut -d ' ' -f 1)
+          printf '%s\n' "$new" > .deploy-fingerprint
+          if [ "$new" = "$old" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "✅ No output change since last scheduled deploy (\`$new\`); skipping Netlify deploy." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "🚀 Output changed (was \`${old:-none}\`, now \`$new\`); deploying to Netlify." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - name: Deploy to Netlify
+        if: steps.fp.outputs.changed == 'true'
         uses: nwtgck/actions-netlify@v3.0
         with:
           publish-dir: './_site'
@@ -118,3 +157,12 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      # Record the fingerprint of what is now live, only after a successful
+      # deploy — a failed deploy leaves the old value so the next run retries.
+      - name: Persist output fingerprint
+        if: steps.fp.outputs.changed == 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: .deploy-fingerprint
+          key: deploy-fingerprint-${{ github.run_id }}
