@@ -15,10 +15,7 @@ details:
     value: Weizenbaum Institute, Berlin, Germany
   - label: Submission
     value: Abstracts due April 30, 2026
-actions:
-  - label: Submit an abstract
-    url: https://dds26.platformresearch.eu/call-for-papers
-    external: true
+actions: []
 redirect_from: /community/symposia/symposium-2026/
 layout: page
 sidebar:
