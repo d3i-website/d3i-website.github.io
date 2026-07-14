@@ -130,12 +130,14 @@ jobs:
       # content surfaced. Real changes are always reflected in the HTML the
       # hash does cover, so excluding them is safe. sha256sum includes file
       # paths, so additions/renames change the fingerprint too.
+      # NB: jekyll-feed writes both feed/*.xml AND a top-level feed.xml —
+      # the latter is a file, so the feed/ glob alone misses it.
       - name: Compare output fingerprint
         id: fp
         run: |
           old=""
           [ -f .deploy-fingerprint ] && old=$(cat .deploy-fingerprint)
-          new=$(find _site -type f ! -path '_site/feed/*' ! -name 'sitemap.xml' -print0 \
+          new=$(find _site -type f ! -path '_site/feed/*' ! -path '_site/feed.xml' ! -name 'sitemap.xml' -print0 \
             | LC_ALL=C sort -z | xargs -0 sha256sum | sha256sum | cut -d ' ' -f 1)
           printf '%s\n' "$new" > .deploy-fingerprint
           if [ "$new" = "$old" ]; then
