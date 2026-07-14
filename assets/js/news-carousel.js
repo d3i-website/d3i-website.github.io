@@ -1,7 +1,7 @@
 // Homepage "Latest news" carousel. The strip renders as a plain grid of all
 // eligible cards without JS; this script adds `is-enhanced` to turn the grid
 // into a sliding track showing 3 cards (1 in compact mode), auto-advancing
-// one card every 5 seconds. The loop is seamless: the first cards are cloned
+// one card every 10 seconds. The loop is seamless: the first cards are cloned
 // onto the end of the track, the slide animates into the clones, then snaps
 // back to the real start with the transition suppressed. Autoplay pauses on
 // hover, keyboard focus, and hidden tabs, and is disabled entirely under
@@ -9,7 +9,7 @@
 // after news-freshness.js, so stale cards are pruned before cards are
 // counted here.
 (function () {
-  var INTERVAL_MS = 5000;
+  var INTERVAL_MS = 10000;
   var SWIPE_THRESHOLD = 40; // px of horizontal travel before a swipe counts
   var COMPACT_MAX = 680; // container width (px) below which one card shows
   var CLONES = 3; // lead cards cloned onto the tail; >= max visible cards
