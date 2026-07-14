@@ -34,7 +34,8 @@
   }
 }
 
-// Imageless cards fill the media slot with a D3I accent color
+// Every media slot carries a D3I accent color; on /news/ rows a photo
+// covers it, on the homepage strip it shows as the field behind the avatar
 .news-card__media--accent-0 {
   background: $accent-primary;
 }
@@ -122,9 +123,25 @@
   background: #f5f7fb;
   border-top: 1px solid rgba(37, 42, 52, 0.06);
 
-  // The homepage strip uses a slightly shorter media slot than /news/.
+  // The homepage strip renders photos as circular avatars centered on the
+  // accent field, so portrait and landscape images work equally well —
+  // full-width cover crops turned tight headshots into giant faces.
   .news-card__media {
-    height: 7.5rem;
+    height: 10.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 7.5rem;
+      height: 7.5rem;
+      border-radius: 50%;
+      object-fit: cover;
+      // Headshots keep their subject centered slightly above the middle
+      object-position: center 22%;
+      border: 3px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    }
   }
 }
 
