@@ -2,7 +2,7 @@
 title: 'LISS Panel Grant 2026: One grant reserved for data donation research'
 date: 2026-07-14
 summary: The ODISSEI 2026 LISS Panel Grant call is open until 24 September 2026. Six grants are available, including one for data donation research using the representative LISS panel. Researchers from ODISSEI member organisations can apply for free panel time to collect data or run experiments in 2027.
-image: ''
+image: /assets/images/news/ave-calvar-SNQJ7L1OAIM-unsplash-scaled-e1721828369467.webp
 image_alt: ''
 external_url: https://odissei-data.nl/facility/liss-panel-access/
 layout: page
