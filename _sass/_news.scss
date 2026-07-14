@@ -13,6 +13,61 @@
   }
 }
 
+// Homepage strip carousel: news-carousel.js adds `is-enhanced` and the grid
+// becomes a sliding flex track (3 cards visible, 1 in compact mode) that
+// auto-advances. Without JS the plain grid wraps to extra rows instead.
+.news-carousel.is-enhanced {
+  overflow: hidden;
+
+  .news-grid {
+    display: flex;
+    transition: transform 0.45s ease;
+
+    > .news-card {
+      flex: 0 0 calc((100% - 2.5rem) / 3);
+    }
+  }
+
+  &.is-compact .news-grid > .news-card {
+    flex-basis: 100%;
+  }
+}
+
+.news-carousel__dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 11px;
+  margin-top: 1.5rem;
+
+  // Empty until the script builds the dots — collapse so the un-enhanced
+  // strip doesn't end in a stray margin.
+  &:empty {
+    display: none;
+  }
+}
+
+.news-carousel__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 6px;
+  border: 0;
+  padding: 0;
+  background: #d4d7dd;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &.is-active {
+    width: 32px; // pill; JS paints it in the leading card's accent
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .news-carousel.is-enhanced .news-grid {
+    transition: none;
+  }
+}
+
 .news-card {
   display: flex;
   flex-direction: column;

@@ -1,11 +1,15 @@
 {% comment %}
-  Homepage "Latest news" strip: up to 3 cards. Spotlighted (featured)
+  Homepage "Latest news" strip: all eligible cards. Spotlighted (featured)
   events that haven't happened yet lead the strip as announcements; recent
-  news (no older than 90 days) fills the remaining slots. The 90-day window
-  is re-applied at view time by news-freshness.js, because Liquid only sees
-  the build date and production deploys can be months apart — without the
-  JS, stale items would linger until the next build. (Future-dated event
-  cards survive that prune, which only removes items past the window.)
+  news (no older than 90 days) follows, newest first. news-carousel.js
+  turns the grid into an auto-advancing carousel (3 cards visible) when
+  there are more cards than fit one view; without JS the grid wraps to
+  extra rows. The 90-day window is re-applied at view time by
+  news-freshness.js, because Liquid only sees the build date and production
+  deploys can be months apart — without the JS, stale items would linger
+  until the next build. (Future-dated event cards survive that prune, which
+  only removes items past the window.) Script order matters: freshness
+  prunes before the carousel counts its cards.
 {% endcomment %}
 
 {% assign now_epoch = site.time | date: "%s" | plus: 0 %}
@@ -19,7 +23,7 @@
   {% assign cutoff = item.end_date | default: item.date %}
   {% if cutoff %}
     {% assign cutoff_str = cutoff | date: "%Y-%m-%d" %}
-    {% if cutoff_str >= today and recent_news.size < 3 %}
+    {% if cutoff_str >= today %}
       {% assign recent_news = recent_news | push: item %}
     {% endif %}
   {% endif %}
@@ -29,7 +33,7 @@
 {% assign sorted_news = site.news | sort: "date" | reverse %}
 {% for item in sorted_news %}
   {% assign item_epoch = item.date | date: "%s" | plus: 0 %}
-  {% if item_epoch <= now_epoch and item_epoch >= freshness_cutoff and recent_news.size < 3 %}
+  {% if item_epoch <= now_epoch and item_epoch >= freshness_cutoff %}
     {% assign recent_news = recent_news | push: item %}
   {% endif %}
 {% endfor %}
@@ -41,12 +45,16 @@
         <h2 class="home-news__title">Latest news</h2>
         <a class="cta-link" href="{{ '/news/' | relative_url }}">More news <span aria-hidden="true">→</span></a>
       </div>
-      <div class="news-grid">
-        {% for item in recent_news %}
-          {% include news-card.html item=item %}
-        {% endfor %}
+      <div class="news-carousel" data-news-carousel>
+        <div class="news-grid" data-news-track>
+          {% for item in recent_news %}
+            {% include news-card.html item=item %}
+          {% endfor %}
+        </div>
+        <div class="news-carousel__dots" data-news-dots></div>
       </div>
     </div>
   </section>
   <script src="{{ '/assets/js/news-freshness.js' | relative_url }}" defer></script>
+  <script src="{{ '/assets/js/news-carousel.js' | relative_url }}" defer></script>
 {% endif %}
