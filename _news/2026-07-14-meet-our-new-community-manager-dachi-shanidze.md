@@ -4,7 +4,7 @@ date: 2026-07-14
 summary: Dachi Shanidze joins D3I and TDCC RIGHTS as community manager, supporting project operations, administration, communication, and events.
 image: /assets/images/news/9x12cm_72dpi_def_2024_aissr_dachi_edited.webp
 image_alt: ''
-external_url: https://www.uva.nl/en/profile/s/h/d.shanidze/d.shanidze.html
+external_url: ''
 layout: page
 ---
 
