@@ -2,7 +2,7 @@
 title: Build your data donation study with our new Script Builder
 date: 2026-07-14
 summary: The new Port Script Builder helps researchers quickly create tailored Python scripts for local data processing. Select your platform and the data you want to collect, and generate a study-specific script through an easy-to-use interface.
-image: ''
+image: /assets/images/news/laptop-download.webp
 image_alt: ''
 external_url: https://datadonation.eu/software/script-builder/
 layout: page
