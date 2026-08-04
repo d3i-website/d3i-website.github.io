@@ -11,18 +11,18 @@ The CMS uses a "personal access token" (PAT) from GitHub to identify you. You'll
 3. In the left sidebar, scroll to the bottom: **Developer settings**.
 4. **Personal access tokens** → **Fine-grained tokens** → **Generate new token**.
 5. Fill in:
-   - **Token name**: `D3I CMS` (anything memorable).
-   - **Expiration**: 1 year (the maximum). You'll renew once a year — Danielle will remind you.
+   - **Token name**: `D3I CMS` (anything memorable).   
    - **Resource owner**: `d3i-website` (the GitHub organization that owns the repo).
+   - **Expiration**: 1 year (the maximum). You'll renew once a year — Danielle will remind you.
    - **Repository access**: select **Only select repositories**, then add `d3i-website/d3i-website.github.io`.
    - **Permissions** (under "Repository permissions"):
      - **Contents**: Read and write
      - **Pull requests**: Read and write
      - (Metadata: Read-only is added automatically — leave it.)
      - Leave everything else untouched.
-6. Click **Generate token**.
-7. **Copy the token immediately.** It starts with `github_pat_` and you won't be able to see it again. Store it in your password manager (1Password, Bitwarden, Keychain, etc.).
-8. If GitHub asks for organization approval (because the `d3i-website` org has approval rules): Danielle gets an email and can approve from her side. Wait for approval before continuing.
+7. Click **Generate token**.
+8. **Copy the token immediately.** It starts with `github_pat_` and you won't be able to see it again. Store it in your password manager (1Password, Bitwarden, Keychain, etc.).
+9. If GitHub asks for organization approval (because the `d3i-website` org has approval rules): Danielle gets an email and can approve from her side. Wait for approval before continuing.
 
 ## Logging in
 
