@@ -1,6 +1,6 @@
 ---
 layout: homepage
-title: "Data Donation Infrastructure"
+title: "Open infrastructure for data donation research"
 excerpt: "Leveraging the right of data access for research"
 cta:
   label: "Learn about data donation"
