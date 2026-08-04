@@ -1,32 +1,18 @@
 ---
 title: Community Networks
 excerpt: Learn more about our institutional network and PhD network
-permalink: /community/institutional-network
-layout: page-sections
-classes: wide
-sidebar:
-  nav: community
-contact:
-  lead: Want to join a network or learn more?
-  intro: 'We can help with:'
-  bullets:
-    - Joining the institutional network
-    - Connecting with the PhD network
-    - Finding collaboration partners
-  email: DataDonation@uu.nl
-  subject: Question about the community networks
 sections:
-  - title: Institutional Network
+  - title: Data Donation Network
     image: /assets/images/hub/undraw_online-community_3o0l.svg
     image_alt: A group of people connected through an online community platform.
     image_side: right
     body: |-
-      The Data Donation Institutional Network connects research institutions across Europe that are actively engaged in data donation research. The network facilitates knowledge exchange, collaboration, and the development of best practices in digital data donation methodologies.
+      The Data Donation Network connects researchers across Europe that are actively engaged in data donation research. The network facilitates knowledge exchange, collaboration, and the development of best practices in digital data donation methodologies.
 
-      The institutional network meets twice yearly to discuss developments in data donation research, share experiences, and coordinate collaborative initiatives.
+      The network meets twice yearly to discuss developments in data donation research, share experiences, and coordinate collaborative initiatives.
     cta:
-      label: "Contact us about the institutional network"
-      url: "mailto:DataDonation@uu.nl?subject=Question%20about%20joining%20the%20institutional%20network"
+      label: Contact us about the network
+      url: mailto:DataDonation@uu.nl?subject=Question%20about%20joining%20the%20institutional%20network
     component_title: Network Members
     component: institutions-grid
   - title: PhD Network
@@ -38,8 +24,21 @@ sections:
 
       If you sign up, your contact details will be used to keep you informed and, if you agree, may be shared within the PhD network to support direct peer-to-peer connection.
     cta:
-      label: "Join the PhD network"
-      url: "https://mailings.uu.nl/hp/BsTM1OxHcH5nTdpEqXAkMg/subscribe_newsletter_data_donation_network"
+      label: Join the PhD network
+      url: https://mailings.uu.nl/hp/BsTM1OxHcH5nTdpEqXAkMg/subscribe_newsletter_data_donation_network
     component_title: ''
     component: ''
+contact:
+  lead: Want to join a network or learn more?
+  intro: 'We can help with:'
+  bullets:
+    - Connecting with the PhD network
+    - Finding collaboration partners
+  email: DataDonation@uu.nl
+  subject: Question about the community networks
+permalink: /community/institutional-network
+layout: page-sections
+classes: wide
+sidebar:
+  nav: community
 ---
