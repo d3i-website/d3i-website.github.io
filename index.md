@@ -1,7 +1,7 @@
 ---
 layout: homepage
 title: "Open infrastructure for data donation research"
-excerpt: "Leveraging the right of data access for research"
+excerpt: "Digital trace data, donated by the people it belongs to"
 cta:
   label: "Learn about data donation"
   url: /data-donation/
