@@ -1,6 +1,6 @@
 ---
 layout: homepage
-title: "Welcome to Europe's Data Donation Infrastructure"
+title: "Data Donation Infrastructure"
 excerpt: "Leveraging the right of data access for research"
 cta:
   label: "Learn about data donation"
