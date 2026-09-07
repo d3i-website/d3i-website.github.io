@@ -8,7 +8,11 @@
   <title>datadonation.eu admin</title>
 </head>
 <body>
-  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+  <!-- Pinned on purpose: an unpinned load took the admin down when Sveltia
+       0.202.0 introduced config schema validation. Bump deliberately —
+       cms/maintainer-notes.md "Upgrading Sveltia" — and run
+       `node cms/validate-config.mjs` (also runs in CI) before merging. -->
+  <script src="https://unpkg.com/@sveltia/cms@0.208.0/dist/sveltia-cms.js"></script>
   <script>
     // Make the entry preview pane read like the site (fonts, colors,
     // measure). The stylesheet only affects the preview, not the app UI.

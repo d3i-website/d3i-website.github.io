@@ -1,32 +1,60 @@
+{% comment %}
+  Renders page.sections (frontmatter-authored prose blocks). Each section
+  may carry: title, image/image_alt/image_side, body (markdown), cta,
+  figures (list of image/alt/caption, rendered after the prose), and a
+  component slot rendered after the section. A section with neither title
+  nor body nor figures renders only its component — used to drop an embed
+  between two prose sections.
+{% endcomment %}
 {% if page.sections %}
   <div class="page-sections">
     {% for section in page.sections %}
-      {% assign section_id = section.id | default: section.title | slugify %}
+      {% assign section_id = section.id | default: section.title | default: section.component | slugify %}
       {% assign image_side = section.image_side | default: 'right' %}
+      {% assign has_title = false %}
+      {% if section.title and section.title != "" %}{% assign has_title = true %}{% endif %}
+      {% assign has_body = false %}
+      {% if section.body and section.body != "" %}{% assign has_body = true %}{% endif %}
+      {% assign has_figures = false %}
+      {% if section.figures and section.figures.size > 0 %}{% assign has_figures = true %}{% endif %}
       <div id="{{ section_id }}" class="page-section-block">
+        {% if has_title or has_body or has_figures %}
         <section class="page-section{% if section.image %} page-section--with-image page-section--image-{{ image_side }}{% endif %}">
           <div class="page-section__body">
-          <h2 class="page-section__title">{{ section.title }}</h2>
+          {% if has_title %}
+            <h2 class="page-section__title">{{ section.title | smartify }}</h2>
+          {% endif %}
           {% if section.image %}
             <figure class="page-section__figure page-section__figure--{{ image_side }}">
               <img src="{{ section.image | relative_url }}" alt="{{ section.image_alt | default: '' }}">
             </figure>
           {% endif %}
-          {% if section.body %}
+          {% if has_body %}
             <div class="page-section__prose">{{ section.body | markdownify }}</div>
           {% endif %}
           {% include structured-cta.html cta=section.cta %}
+          {% if has_figures %}
+            {% for fig in section.figures %}
+              {% include figure image_path=fig.image alt=fig.alt caption=fig.caption class="section-figure" %}
+            {% endfor %}
+          {% endif %}
 
           </div>
         </section>
+        {% endif %}
 
-        {% if section.component %}
-          {% if section.component_title %}
+        {% if section.component and section.component != "" %}
+          {% if section.component_title and section.component_title != "" %}
             <h3 class="page-section__component-title">{{ section.component_title }}</h3>
           {% endif %}
-          {% if section.component == 'institutions-grid' %}
-            {% include institutions-grid.html %}
-          {% endif %}
+          {% case section.component %}
+            {% when 'institutions-grid' %}
+              {% include institutions-grid.html %}
+            {% when 'platforms-list' %}
+              {% include data-sections/platforms-list.html items=site.data.platforms.platforms %}
+            {% when 'script-builder' %}
+              {% include script-builder-embed.html %}
+          {% endcase %}
         {% endif %}
       </div>
     {% endfor %}

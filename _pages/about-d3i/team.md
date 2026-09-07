@@ -7,6 +7,7 @@ sidebar:
   nav: "about-d3i"
 redirect_from:
   - /about-the-project/team
+  - /d3i/team
 data_section:
   type: people-grid
   data: team

@@ -46,7 +46,7 @@ In order to develop this site locally:
 
 **Content editing (local CMS preview)**
 
-A local-only [Sveltia CMS](https://sveltiacms.app) demo is wired to `_data/team.yml`. It edits your working copy directly via the browser's File System Access API — no proxy, no auth, nothing deploys.
+The [Sveltia CMS](https://sveltiacms.app) admin can run against your working copy: in local mode it edits files directly via the browser's File System Access API — no proxy, no auth, nothing deploys. Every CMS-managed page and data list is available (see `cms/maintainer-notes.md`).
 
 1. Run the site: `bundle exec jekyll serve`
 2. In a Chromium-based browser (Chrome/Edge/Brave), open: `http://localhost:4000/admin/`

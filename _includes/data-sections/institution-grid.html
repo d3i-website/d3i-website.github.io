@@ -4,12 +4,12 @@
     <div class="institution-grid__card">
       <h3 class="institution-grid__name">{{ item.institution }}</h3>
       <p class="institution-grid__affiliate">
-        {% if item.affiliate_url %}<a href="{{ item.affiliate_url }}">{{ item.affiliate_name }}</a>{% else %}{{ item.affiliate_name }}{% endif %}
+        {% if item.affiliate_url and item.affiliate_url != "" %}<a href="{{ item.affiliate_url }}">{{ item.affiliate_name }}</a>{% else %}{{ item.affiliate_name }}{% endif %}
       </p>
-      {% if item.department %}
+      {% if item.department and item.department != "" %}
         <p class="institution-grid__dept">{{ item.department }}</p>
       {% endif %}
-      {% if item.country %}
+      {% if item.country and item.country != "" %}
         <p class="institution-grid__country">{{ item.country }}</p>
       {% endif %}
     </div>

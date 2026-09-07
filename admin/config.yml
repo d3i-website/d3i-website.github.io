@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
 backend:
   name: github
   repo: d3i-website/d3i-website.github.io
@@ -31,6 +32,8 @@ public_folder: /assets/images
 media_libraries:
   default:
     config:
+      # Upload size cap (2 MB) for every image field. This is a media-library
+      # option in Sveltia; a `max_file_size` on an individual field is ignored.
       transformations:
         raster_image:
           format: webp
@@ -43,11 +46,8 @@ media_libraries:
 # unDraw illustration bank — its own folder in the Asset Library AND a
 # selectable source in every image field's picker (unlike field-level
 # media_folder scoping, which hides a folder from all other fields).
-# Requires Sveltia > v0.166.3: asset collections landed upstream on
-# 2026-06-12 (sveltia-cms#301) but are not yet in a release. Older
-# builds ignore this key, and the bank remains reachable through the
-# global asset pool; we load @sveltia/cms unpinned, so this activates
-# automatically with the next upstream release.
+# Supported since Sveltia's mid-2026 releases (sveltia-cms#301); the
+# pinned version in admin/index.html is well past that.
 asset_collections:
   - name: undraw
     label: "unDraw illustrations"
@@ -58,13 +58,20 @@ asset_collections:
 # Collections — ordered around the manager's daily work: Events and News
 # first (the entry collections he creates content in), then — below a
 # divider — the site-section editors (Community, About D3I, Prepare a
-# Study), each holding that section's page editors AND its supporting data
-# lists, ordered by editor task flow (page first, then its data). Dividers
-# inside each `files:` array group the subsections.
+# Study, Software), each holding that section's page editors AND its supporting data
+# lists, ordered by editor task flow (page first, then its data). A file
+# collection's list is flat: Sveltia has no dividers or group headers
+# inside `files:` (its schema rejects them since v0.202.0), so grouping is
+# carried by adjacency, labels and icons.
 #
 # Sveltia limits: sidebar nesting is two levels (collection → file), and
 # folder collections cannot nest inside file collections — which is why
 # Events and News sit at the top level rather than inside Community.
+#
+# Sveltia validates this file against its JSON schema on every load; a
+# hard error blocks sign-in, an unknown option only warns in the console.
+# The modeline on line 1 gives editors with yaml-language-server the same
+# schema, so mistakes show up before the CMS ever loads the file.
 #
 # Entry-list views: Events groups entries by year by default (mirroring
 # the year-folder organization the manager knows from Bloomreach) with
@@ -191,7 +198,7 @@ collections:
           - { name: label, label: "Button label", widget: string }
           - { name: url, label: "URL", widget: string }
           - { name: external, label: "External link?", widget: boolean, required: false, default: true }
-      - { name: redirect_from, widget: hidden, required: false }
+      - { name: redirect_from, widget: hidden }
       - { name: layout, widget: hidden, default: "page" }
       - { name: sidebar, widget: hidden, default: { nav: "community" } }
       - { name: body, label: "Full event page content (markdown)", widget: markdown, required: false, comment: "Optional when an External URL is set — cards link straight out, so no event page is needed." }
@@ -244,7 +251,6 @@ collections:
         media_folder: /assets/images/news
         public_folder: /assets/images/news
         choose_url: false
-        max_file_size: 2097152
         accept: "image/jpeg,image/png,image/svg+xml,image/webp"
       - { name: image_alt, label: "Image alt text", widget: string, required: false, comment: "Describe the image for screen readers. Fill in whenever an image is set." }
       - { name: external_url, label: "External URL (optional)", widget: string, required: false, comment: "If the story lives elsewhere, put its URL here — cards link straight out and the body below may stay empty." }
@@ -301,7 +307,6 @@ collections:
     description: "Pages and data lists under Community (/community/)."
     files:
 
-      - { divider: true, label: "Section landing page" }
       - file: _pages/community/index.md
         name: community_hub
         label: "Community landing page"
@@ -322,7 +327,6 @@ collections:
                 media_folder: /assets/images/hub
                 public_folder: /assets/images/hub
                 choose_url: false
-                max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: image_alt, label: "Image alt text (required)", widget: string }
               - { name: title, label: "Hero heading", widget: string }
@@ -368,7 +372,6 @@ collections:
           - { name: permalink, widget: hidden, default: "/community/" }
           - { name: layout, widget: hidden, default: "hub-directory" }
 
-      - { divider: true, label: "Events page" }
       - file: _pages/community/events/index.md
         name: events_page
         label: "Events page"
@@ -417,7 +420,6 @@ collections:
           - { name: permalink, widget: hidden, default: "/community/events/" }
           - { name: layout, widget: hidden, default: "page-archive-stacked" }
 
-      - { divider: true, label: "Courses" }
       - file: _pages/community/courses/index.md
         name: courses_page
         label: "Courses page"
@@ -483,7 +485,6 @@ collections:
           - { name: permalink, widget: hidden, default: "/community/courses/materials" }
           - { name: layout, widget: hidden, default: "page" }
 
-      - { divider: true, label: "Symposia" }
       - file: _pages/community/symposia/index.md
         name: symposia_page
         label: "Symposia page"
@@ -532,7 +533,6 @@ collections:
           - { name: permalink, widget: hidden, default: "/community/symposia/" }
           - { name: layout, widget: hidden, default: "page-archive-stacked" }
 
-      - { divider: true, label: "Networks" }
       - file: _pages/community/network.md
         name: networks_page
         label: "Networks page"
@@ -567,7 +567,6 @@ collections:
                 media_folder: /assets/images/hub
                 public_folder: /assets/images/hub
                 choose_url: false
-                max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: image_alt, label: "Image alt text (required)", widget: string }
               - name: image_side
@@ -633,7 +632,6 @@ collections:
               - { name: department, label: "Department", widget: string, required: false }
               - { name: country, label: "Country", widget: string }
 
-      - { divider: true, label: "Newsletter" }
       - file: _pages/community/newsletter/index.md
         name: newsletter_page
         label: "Newsletter page"
@@ -721,7 +719,6 @@ collections:
     description: "Pages and data lists under About D3I (/about-d3i/)."
     files:
 
-      - { divider: true, label: "Section landing page" }
       - file: _pages/about-d3i/index.md
         name: about_d3i_hub
         label: "About D3I landing page"
@@ -742,7 +739,6 @@ collections:
                 media_folder: /assets/images/hub
                 public_folder: /assets/images/hub
                 choose_url: false
-                max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: image_alt, label: "Image alt text (required)", widget: string }
               - { name: title, label: "Hero heading", widget: string }
@@ -788,7 +784,6 @@ collections:
           - { name: permalink, widget: hidden, default: "/about-d3i/" }
           - { name: layout, widget: hidden, default: "hub-directory" }
 
-      - { divider: true, label: "Team" }
       - file: _pages/about-d3i/team.md
         name: team_page
         label: "Team page"
@@ -869,7 +864,6 @@ collections:
                 media_folder: /assets/images/people
                 public_folder: /assets/images/people
                 choose_url: false
-                max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: url, label: "Profile URL", widget: string, required: false }
 
@@ -890,7 +884,6 @@ collections:
             fields:
               - { name: label, label: "Display label", widget: string, hint: "Shown as the filter chip and the badge on each card. The internal id used for filtering is generated automatically." }
 
-      - { divider: true, label: "Advisory board" }
       - file: _pages/about-d3i/advisory-board.md
         name: advisory_board_page
         label: "Advisory board page"
@@ -956,7 +949,6 @@ collections:
               - { name: name, label: "Name", widget: string }
               - { name: url, label: "Profile URL", widget: string, required: false }
 
-      - { divider: true, label: "Funding" }
       - file: _pages/about-d3i/funding.md
         name: funding_page
         label: "Funding page"
@@ -1025,7 +1017,6 @@ collections:
               - { name: url, label: "Link (optional)", widget: string, required: false }
               - { name: description, label: "Description", widget: text }
 
-      - { divider: true, label: "Partners" }
       - file: _pages/about-d3i/partners.md
         name: partners_page
         label: "Partners page"
@@ -1094,7 +1085,6 @@ collections:
               - { name: role, label: "Role / relationship", widget: string, required: false }
               - { name: description, label: "Description", widget: text }
 
-      - { divider: true, label: "Impact and adoption" }
       - file: _pages/about-d3i/impact-and-adoption.md
         name: impact_page
         label: "Impact and adoption page"
@@ -1117,9 +1107,9 @@ collections:
               - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
               - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
           - name: body
-            label: "Page body (markdown)"
+            label: "Intro prose (markdown)"
             widget: markdown
-            hint: "Prose for the page. The 'Usage plots' field below is rendered automatically after this body — do not add image includes here."
+            hint: "Prose shown above the usage figures. The figures themselves are drawn from the 'Usage figures data' entry below."
           - name: cta
             label: "Call-to-action button"
             widget: object
@@ -1130,21 +1120,9 @@ collections:
             fields:
               - { name: label, label: "Button text", widget: string, comment: "Don't include the arrow — the layout adds it." }
               - { name: url, label: "URL or mailto link", widget: string, comment: "e.g. https://example.com/form or mailto:foo@bar." }
-          - name: usage_images
-            label: "Usage plots"
-            widget: list
-            required: false
-            summary: "{{caption}}"
-            fields:
-              - name: image
-                label: "Plot image"
-                widget: image
-                media_folder: /assets/images/usage
-                public_folder: /assets/images/usage
-                choose_url: false
-                max_file_size: 2097152
-                accept: "image/jpeg,image/png,image/svg+xml,image/webp"
-              - { name: caption, label: "Caption (also used as alt text)", widget: string }
+          # The usage figures (studies per year, map, platforms) render after
+          # the body via data_section; the numbers live in _data/usage.yml.
+          - { name: data_section, widget: hidden, default: { type: "usage-figures" } }
           - name: contact
             label: "Contact CTA"
             widget: object
@@ -1216,7 +1194,6 @@ collections:
     description: "Pages and data lists under Prepare a Study (/prepare-a-study/)."
     files:
 
-      - { divider: true, label: "Section landing page" }
       - file: _pages/prepare-a-study/index.md
         name: prepare_a_study_hub
         label: "Prepare a Study landing page"
@@ -1237,7 +1214,6 @@ collections:
                 media_folder: /assets/images/hub
                 public_folder: /assets/images/hub
                 choose_url: false
-                max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: image_alt, label: "Image alt text (required)", widget: string }
               - { name: title, label: "Hero heading", widget: string }
@@ -1256,7 +1232,6 @@ collections:
                 media_folder: /assets/images/hub
                 public_folder: /assets/images/hub
                 choose_url: false
-                max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: image_alt, label: "Image alt text (required)", widget: string }
               - { name: body, label: "Step text", widget: text }
@@ -1297,7 +1272,45 @@ collections:
           - { name: permalink, widget: hidden, default: "/prepare-a-study/" }
           - { name: layout, widget: hidden, default: "hub-journey" }
 
-      - { divider: true, label: "Completed projects" }
+      - file: _pages/prepare-a-study/privacy-and-consent.md
+        name: privacy_and_consent_page
+        label: "Privacy and consent page"
+        icon: verified_user
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
+          - name: body
+            label: "Page content (markdown)"
+            widget: markdown
+            hint: "The legal and ethical resources list: DPIA manuals and templates, consent and privacy-policy templates, GDPR overview."
+          # Contact block here is heading + email only — no intro/bullets
+          # in the page frontmatter, so none exposed here (lossless saves).
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: sidebar, widget: hidden, default: { nav: "prepare-a-study" } }
+          - { name: permalink, widget: hidden, default: "/prepare-a-study/privacy-and-consent" }
+          - { name: layout, widget: hidden, default: "page" }
+
       - file: _pages/prepare-a-study/completed-projects.md
         name: completed_projects_page
         label: "Completed projects page"
@@ -1368,7 +1381,6 @@ collections:
                 media_folder: /assets/images/completed-projects
                 public_folder: /assets/images/completed-projects
                 choose_url: false
-                max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: image_credit, label: "Image credit (text)", widget: string, required: false }
               - { name: image_credit_url, label: "Image credit URL", widget: string, required: false }
@@ -1387,3 +1399,403 @@ collections:
                 widget: list
                 required: false
                 field: { name: reference, label: "Reference (markdown)", widget: text }
+
+  # ──────────────────────── Software ──────────────────────────────────────
+  # Three of these pages (Ready-made scripts, Script builder, Going further)
+  # use the page-sections layout so that their figures and embeds live in
+  # frontmatter rather than as Liquid tags in the markdown body, which the
+  # rich-text editor cannot round-trip. Per-section `component` keys are
+  # hidden (developer-owned) but preserved on save.
+  - name: software
+    label: "Software"
+    icon: code
+    description: "Pages and data lists under Software (/software/)."
+    files:
+
+      - file: _pages/software/index.md
+        name: software_hub
+        label: "Software landing page"
+        icon: home
+        description: "The section landing page at /software/ — hero text, the three journey steps, optional highlight, and contact block."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - name: hero
+            label: "Hero"
+            widget: object
+            collapsed: true
+            summary: "{{title}}"
+            comment: "The illustration and heading at the top of the landing page."
+            fields:
+              - name: image
+                label: "Illustration"
+                widget: image
+                media_folder: /assets/images/hub
+                public_folder: /assets/images/hub
+                choose_url: false
+                accept: "image/jpeg,image/png,image/svg+xml,image/webp"
+              - { name: image_alt, label: "Image alt text (required)", widget: string }
+              - { name: title, label: "Hero heading", widget: string }
+              - { name: subhead, label: "Hero subheading", widget: text }
+          - name: movements
+            label: "Journey steps"
+            label_singular: "Step"
+            widget: list
+            summary: "{{number}} {{title}}"
+            comment: "The image+text step blocks on the landing page. Order here = order on the page."
+            fields:
+              - { name: number, label: "Step number (e.g. 01)", widget: string, comment: "Shown as a large numeral next to the step title. Renumber by hand when reordering." }
+              - { name: title, label: "Step title", widget: string }
+              - name: image
+                label: "Illustration"
+                widget: image
+                media_folder: /assets/images/hub
+                public_folder: /assets/images/hub
+                choose_url: false
+                accept: "image/jpeg,image/png,image/svg+xml,image/webp"
+              - { name: image_alt, label: "Image alt text (required)", widget: string }
+              - { name: body, label: "Step text", widget: text }
+              - name: link
+                label: "Link"
+                widget: object
+                summary: "{{text}}"
+                fields:
+                  - { name: url, label: "URL", widget: string, comment: "Internal path (/...) or external URL (https://...). Both work." }
+                  - { name: text, label: "Link text", widget: string }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
+          # Hub contact blocks are heading + email only — no intro/bullets
+          # in the page frontmatter, so none exposed here (lossless saves).
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: hub_section, widget: hidden, default: "software" }
+          - { name: sidebar, widget: hidden, default: { nav: "software" } }
+          - { name: redirect_from, widget: hidden, default: ["/software/help/"] }
+          - { name: permalink, widget: hidden, default: "/software/" }
+          - { name: layout, widget: hidden, default: "hub-journey" }
+
+      - file: _pages/software/getting-started.md
+        name: getting_started_page
+        label: "Getting started page"
+        icon: article
+        description: "The page at /software/getting-started/ — what the software does and how to get access."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
+          - name: body
+            label: "Page content (markdown)"
+            widget: markdown
+            hint: "The full page: what the software does, and how to get access."
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text (optional)", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points (optional)"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: classes, widget: hidden, default: "wide" }
+          - { name: toc, widget: hidden, default: false }
+          - { name: sidebar, widget: hidden, default: { nav: "software" } }
+          - { name: hero, widget: hidden, default: { image: "/assets/images/hub/laptop-download.png", alt: "A red laptop showing a download icon on its screen." } }
+          - { name: redirect_from, widget: hidden, default: ["/software/port/", "/software/next/"] }
+          - { name: permalink, widget: hidden, default: "/software/getting-started/" }
+          - { name: layout, widget: hidden, default: "page" }
+
+      - file: _pages/software/ready-made-scripts.md
+        name: ready_made_scripts_page
+        label: "Ready-made scripts page"
+        icon: article
+        description: "The page at /software/ready-made-scripts/ — intro prose and the sections around the platform list. The platforms themselves are edited in the next entry."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
+          - name: body
+            label: "Intro prose (markdown)"
+            widget: markdown
+            hint: "Short prose shown above the sections."
+          - name: sections
+            label: "Page sections"
+            label_singular: "Section"
+            widget: list
+            summary: "{{title}}"
+            comment: "Each section renders as a heading with prose. The 'Available platforms' section shows the Supported platforms list (edited in the next entry) in place of prose."
+            fields:
+              - { name: title, label: "Section title", widget: string }
+              - name: body
+                label: "Section body (markdown)"
+                widget: markdown
+                required: false
+                hint: "Prose for this section. Leave empty on the 'Available platforms' section — its content is the platform list."
+              # Developer-owned: names the component rendered after the
+              # section (the platform list). Hidden so saves preserve it.
+              - { name: component, widget: hidden }
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text (optional)", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points (optional)"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: classes, widget: hidden, default: "wide" }
+          - { name: toc, widget: hidden, default: false }
+          - { name: sidebar, widget: hidden, default: { nav: "software" } }
+          - { name: hero, widget: hidden, default: { image: "/assets/images/hub/social-ideas.svg", alt: "A person presenting a board of ideas with colorful notes and a lightbulb." } }
+          - { name: permalink, widget: hidden, default: "/software/ready-made-scripts/" }
+          - { name: layout, widget: hidden, default: "page-sections" }
+
+      - file: _data/platforms.yml
+        name: platforms_data
+        label: "Supported platforms"
+        icon: apps
+        format: yml
+        description: "Platforms with ready-made scripts, listed on the Ready-made scripts page. Order here = order on the page."
+        editor:
+          preview: false
+        fields:
+          - name: platforms
+            label: "Platforms"
+            label_singular: "Platform"
+            widget: list
+            summary: "{{name}} — {{description}}"
+            fields:
+              - { name: name, label: "Platform name", widget: string }
+              - { name: description, label: "What the script extracts", widget: string, comment: "A short comma-separated list, e.g. 'posts, comments, followers'." }
+
+      - file: _pages/software/script-builder.md
+        name: script_builder_page
+        label: "Script builder page"
+        icon: article
+        description: "The page at /software/script-builder/ — the highlight box, intro prose, and the section after the embedded builder. The builder itself is developer-managed."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "The yellow note box rendered at the top of the page. Currently used for the 'In active development' preview notice. Untick the checkbox to remove it."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
+          - name: body
+            label: "Intro prose (markdown)"
+            widget: markdown
+            hint: "Short prose shown above the embedded script builder."
+          - name: sections
+            label: "Page sections"
+            label_singular: "Section"
+            widget: list
+            summary: "{{title}}"
+            comment: "The first, untitled section is the embedded script builder itself — leave it as is. Sections after it render as heading + prose below the builder."
+            fields:
+              - { name: title, label: "Section title", widget: string, required: false, hint: "Leave empty on the embed section." }
+              - name: body
+                label: "Section body (markdown)"
+                widget: markdown
+                required: false
+                hint: "Prose for this section. Leave empty on the embed section."
+              # Developer-owned: names the component rendered after the
+              # section (the script builder embed). Hidden so saves preserve it.
+              - { name: component, widget: hidden }
+          # Contact block here is heading + email only — no intro/bullets
+          # in the page frontmatter, so none exposed here (lossless saves).
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: classes, widget: hidden, default: "wide" }
+          - { name: toc, widget: hidden, default: false }
+          - { name: sidebar, widget: hidden, default: { nav: "software" } }
+          - { name: permalink, widget: hidden, default: "/software/script-builder/" }
+          - { name: layout, widget: hidden, default: "page-sections" }
+
+      - file: _pages/software/going-further.md
+        name: going_further_page
+        label: "Going further page"
+        icon: article
+        description: "The page at /software/going-further/ — visualizations, interactive features, and custom development, with their example figures."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
+          - name: body
+            label: "Intro prose (markdown)"
+            widget: markdown
+            hint: "Short prose shown above the sections."
+          - name: sections
+            label: "Page sections"
+            label_singular: "Section"
+            widget: list
+            summary: "{{title}}"
+            comment: "Each section renders as a heading, prose, and then its example figures (if any)."
+            fields:
+              - { name: title, label: "Section title", widget: string }
+              - name: body
+                label: "Section body (markdown)"
+                widget: markdown
+                hint: "Prose for this section. Figures are added below, not in the prose."
+              - name: figures
+                label: "Example figures (optional)"
+                label_singular: "Figure"
+                widget: list
+                required: false
+                summary: "{{caption}}"
+                comment: "Screenshots shown after this section's prose, each with a caption."
+                fields:
+                  - name: image
+                    label: "Image"
+                    widget: image
+                    choose_url: false
+                    accept: "image/jpeg,image/png,image/svg+xml,image/webp"
+                  - { name: alt, label: "Image alt text (required)", widget: string, comment: "Describe the image for screen readers." }
+                  - { name: caption, label: "Caption", widget: string }
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text (optional)", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points (optional)"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: classes, widget: hidden, default: "wide" }
+          - { name: toc, widget: hidden, default: false }
+          - { name: sidebar, widget: hidden, default: { nav: "software" } }
+          - { name: hero, widget: hidden, default: { image: "/assets/images/hub/data-trends.svg", alt: "A person reviewing a dashboard of charts and data trends." } }
+          - { name: redirect_from, widget: hidden, default: ["/software/visualizations/", "/software/plugins/", "/software/data-donation-task/", "/software/technical-resources/"] }
+          - { name: permalink, widget: hidden, default: "/software/going-further/" }
+          - { name: layout, widget: hidden, default: "page-sections" }
+
+      - file: _pages/software/port-in-education.md
+        name: port_in_education_page
+        label: "Port in education page"
+        icon: school
+        description: "The page at /software/port-in-education/ — using the software in teaching, and resources for educators."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
+          - name: body
+            label: "Page content (markdown)"
+            widget: markdown
+            hint: "The full page: three ways to use the software in a course, and resources for educators."
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text (optional)", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points (optional)"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: classes, widget: hidden, default: "wide" }
+          - { name: toc, widget: hidden, default: false }
+          - { name: sidebar, widget: hidden, default: { nav: "software" } }
+          - { name: permalink, widget: hidden, default: "/software/port-in-education/" }
+          - { name: layout, widget: hidden, default: "page" }

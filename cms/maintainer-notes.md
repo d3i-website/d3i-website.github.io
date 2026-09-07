@@ -66,7 +66,7 @@ How the admin look-and-feel is configured (all in `admin/config.yml` unless note
 - **Entry-list views (News)**: `thumbnail: image` (grid view shows the news image), date-descending default sort, optional year grouping (no default).
 - **"View on Live Site"** (the ⋯ menu in the entry editor): needs `preview_path` on the collection because Sveltia can't infer Jekyll permalinks — set to the permalink pattern with `{{filename}}` standing in for `:path` (see the Events and News collections). Resolves against `site_url`, i.e. staging. Entry collections only; file-collection page editors have no per-file equivalent.
 - **Body-image tidiness**: Events and News set collection-level `media_folder`/`public_folder` so images inserted into entry bodies land in `/assets/images/events` and `/assets/images/news` rather than the global root.
-- **unDraw illustration bank**: `assets/images/undraw/` holds ~320 unDraw SVGs pre-colored in the three brand accents, named `undraw_<title>_<blue|coral|yellow>.svg`. It is declared as an **asset collection** (`asset_collections:` in admin/config.yml), which gives it its own folder in the Asset Library and makes it a selectable source in every image field's picker. Caveats: (1) asset collections landed upstream 2026-06-12 (sveltia-cms#301) and need a Sveltia release newer than v0.166.3 — until then the key is ignored and the bank is simply part of the global pool (search "undraw"); (2) do NOT instead bind the folder to specific fields' `media_folder` — a field-scoped folder is invisible to every *other* field's picker (tried; locked the bank away from news images). To grow the bank: a supporter saves undraw.co gallery pages with the brand color applied, and the inline SVGs are extracted with `fill="currentColor"` replaced by the page's hex (otherwise they render black standalone).
+- **unDraw illustration bank**: `assets/images/undraw/` holds ~320 unDraw SVGs pre-colored in the three brand accents, named `undraw_<title>_<blue|coral|yellow>.svg`. It is declared as an **asset collection** (`asset_collections:` in admin/config.yml), which gives it its own folder in the Asset Library and makes it a selectable source in every image field's picker. Caveats: (1) asset collections landed upstream mid-2026 (sveltia-cms#301) and are in the pinned release; (2) do NOT instead bind the folder to specific fields' `media_folder` — a field-scoped folder is invisible to every *other* field's picker (tried; locked the bank away from news images). To grow the bank: a supporter saves undraw.co gallery pages with the brand color applied, and the inline SVGs are extracted with `fill="currentColor"` replaced by the page's hex (otherwise they render black standalone).
 - **Preview pane**: `admin/index.html` registers `admin/preview.css` via `CMS.registerPreviewStyle()` so entry previews use site typography (self-contained `@font-face` for the self-hosted Nunito fonts plus tokens copied from `_sass/_variables.scss` — keep in sync by hand). Data-list file editors set `editor: { preview: false }` because a preview of a raw YAML list is noise.
 
 ## Why PATs instead of OAuth (background)
@@ -149,9 +149,21 @@ Template for a list-of-records data file:
 For a page with known layout and frontmatter structure:
 
 1. Identify which frontmatter keys the layout reads (title, sidebar, etc.).
-2. Add a file entry to the page's section collection in `admin/config.yml` (Community, About D3I, Prepare a Study), under the appropriate divider.
+2. Add a file entry to the page's section collection in `admin/config.yml` (Community, About D3I, Prepare a Study, Software), next to the data list it belongs with — the file list is flat, so adjacency is the grouping.
 3. Use `widget: hidden` for all structural keys (layout, permalink, redirect_from, sidebar.nav, etc.), mirroring the file's live frontmatter **exactly** — a no-op save in the CMS must produce no git diff.
 4. Expose editable content (title, body, contact blocks) with appropriate widgets. Only model optional sub-fields the file actually has (e.g. hub contact blocks are lead/email/subject only): modelling absent optional strings makes saves write `key: ''` noise.
+
+## Page-sections layout: figures, components, untitled sections
+
+Pages whose bodies need Liquid (figure includes, embeds, data-driven lists) can't go through the rich-text editor, which mangles Liquid tags on save. The pattern is to move the body into frontmatter `sections` on the `page-sections` layout (`_includes/page-sections.html`), where each section is plain markdown plus structured extras the CMS edits as fields:
+
+- **`figures`** — optional list of `image` / `alt` / `caption` per section, rendered after the prose with `_includes/figure` (same markup and `.section-figure` styling as the old inline includes). Used on Going further.
+- **`component`** — a named slot rendered after the section: `institutions-grid` (Networks), `platforms-list` (Ready-made scripts, reads `_data/platforms.yml`), `script-builder` (the embed). Add new components in the `case` block of the include. The key is `widget: hidden` in the CMS so editors can't change it but saves preserve it.
+- **Untitled sections** — a section with no `title`, `body`, or `figures` renders only its component, which is how the Script builder page drops the embed between two prose blocks. Its anchor id falls back to the component name.
+
+Trade-off: sections in one page share one field schema, so a section without a body (the platform list) will pick up `body: ''` on the editor's first save. The include guards against empty strings, so this is cosmetic. `_pages/community/network.md` shows what a round-tripped file looks like.
+
+The intro paragraph above the sections stays in the markdown body; keep it Liquid-free.
 
 ## Deliberately not in the CMS
 
@@ -161,10 +173,13 @@ Pages left out on purpose — don't add editors for these without addressing the
 - **`_pages/data-donation.md`**: the body embeds raw `<iframe>` video embeds, which the CMS rich-text editor can mangle on save.
 - **`_pages/prepare-a-study/study-design.md`**: body uses `notice--warning`/`notice--success` HTML divs — same mangling risk.
 - **`_pages/community/open-letter.md` / `omnibus-letter.md`**: the open letter contains a Liquid variable (`{{ site.open_letter_url }}`) and kramdown attribute syntax; the omnibus letter uses markdown footnotes. Both are signed position documents that shouldn't be casually editable anyway.
-- **Software section** (`_pages/software/*`): developer-owned technical content (script builder, install flows).
+- **Script builder settings** (`_data/script_builder.yml`): the embed URL, availability toggle, and fallback copy. The URL changes when the SURF workspace moves; keep it developer-owned.
 - **Navigation** (`_data/navigation.yml`): developer-owned; URL changes require coordinated permalink/redirect work.
 
 ## Known CMS constraints
+
+- **Config schema validation blocks sign-in on hard errors** (Sveltia ≥ 0.202.0, 2026-08-30). Missing required options and wrong value types are listed on the login screen and nobody can sign in until they're fixed; an option the schema doesn't know only warns in the browser console. Sveltia is therefore **pinned** in `admin/index.html` (see "Upgrading Sveltia"), `cms/validate-config.mjs` runs the same schema check in CI on every PR, and `admin/config.yml` carries a `yaml-language-server` modeline pointing at Sveltia's published schema so an editor flags problems as you type. Options the schema doesn't know are only console warnings — worth a glance after an upgrade.
+- **No dividers inside a file collection's `files:` list.** The config used to carry `{ divider: true, label: … }` entries between subsections. Sveltia's file list never rendered them (it filters them out), and since 0.202.0 the schema rejects them as files missing `name`/`file`/`fields` — which took the admin down. Dividers are only valid at the top level of `collections:` and in `singletons:`. Group by adjacency, labels and icons instead.
 
 - **`auth_type: implicit` is rejected**: Sveltia rejects Decap's `auth_type: implicit` with a hard error. Do **not** add `auth_type`, `base_url`, or `auth_endpoint` under `backend:` unless you've deployed a real OAuth proxy (see Future enhancements). The current PAT-based auth requires no `backend:` keys beyond `name`, `repo`, `branch`.
 - **GitHub OAuth App is dormant but kept**: the "datadonation.eu CMS" OAuth App registered in Task 03 is currently unused (we use PATs, not OAuth). It's left registered so a future OAuth-proxy deploy can reuse the same Client ID + Secret without re-registering. Callback URL is still set to `https://api.netlify.com/auth/done` from the original Netlify-OAuth attempt; this is stale and should be updated when/if you deploy the Worker.
@@ -172,11 +187,28 @@ Pages left out on purpose — don't add editors for these without addressing the
 - **Image format allow-list**: use Sveltia's `accept: "image/jpeg,image/png,..."` (mirrors HTML's `<input accept>`). Decap CMS's `file_types: [...]` is silently ignored — if you see it in the config, replace it.
 - **Date widget**: Decap's `widget: date` is rejected by Sveltia with a hard error. Use `widget: datetime, type: date` for date-only fields (no time component). For datetime fields, use `widget: datetime` directly (no `type:` needed).
 - **Slugified upload filenames**: not Sveltia's default. Verify the relevant Sveltia option (search the docs for filename/slugification settings) before relying on slugified names landing in `assets/images/`.
-- **Cleared optional fields round-trip as `''`, not as a missing key**: when an editor empties an optional field (or never fills it), Sveltia writes `image: ''` / `external_url: ''` / `date_label: ''` to the frontmatter instead of omitting the key. Liquid treats `''` as truthy, so every template that gates rendering on an optional string field needs an explicit empty-string check (`{% if x and x != "" %}`), not a bare truthiness test. This has bitten three times (courses date_label, news images, news external links); see `_includes/news-card.html` and `_includes/archive-card.html` for the pattern.
+- **Cleared optional fields round-trip as `''`, not as a missing key**: when an editor empties an optional field (or never fills it), Sveltia writes `image: ''` / `external_url: ''` / `date_label: ''` to the frontmatter instead of omitting the key. Liquid treats `''` as truthy, so every template that gates rendering on an optional string field needs an explicit empty-string check (`{% if x and x != "" %}`), not a bare truthiness test. This has bitten three times (courses date_label, news images, news external links); see `_includes/news-card.html` and `_includes/archive-card.html` for the pattern. An unchecked optional **object** (e.g. the Highlight box) round-trips as `key: null` instead, which Liquid does treat as false — no guard needed for those.
+- **First save normalizes the file**: keys are reordered into the config's field order, unneeded quotes dropped, `null`/`''` written for absent optional fields, and markdown lightly reformatted (e.g. a blank line before a list). Content is unchanged; the second save is clean. Expect one such diff per page the first time it's edited.
 - **Liquid 4 has no `blank` literal**: `{% if x != blank %}` parses without error but `blank` is just an undefined variable (nil), so the comparison silently always passes. Jekyll bundles Liquid 4 — use explicit `!= ""` checks (see previous bullet). Don't trust Shopify's Liquid docs here; they describe Liquid 5+.
 - **Don't combine `slug` and `path` collection options**: in a `path` template, `{{slug}}` expands to the *full entry slug* (the already-rendered `slug:` pattern), not the slugified title. With `slug: "{{fields.date | date('YYYY-MM-DD')}}-{{slug}}"` and the same `path`, files get doubled dates (`2026-06-12-2026-06-12-title.md`). Set `slug` only; files then land as `<slug>.md` in the collection folder.
 - **Navigation URL select options are hardcoded**: if site URLs change (new permalinks), the `options:` lists in the navigation collection need manual updating.
 - **Local FSA-API mode**: enabled via the Account menu in the deployed admin (`http://localhost:4000/admin/` while running `bundle exec jekyll serve`). Chromium-only. Local mode does NOT exercise PAT auth, the "Publish CMS edits" workflow (neither the Publish Changes button's `repository_dispatch` nor the squash-merge), or the deploy pipeline — those all need the live admin against the deployed site.
+
+## Upgrading Sveltia
+
+`admin/index.html` loads `@sveltia/cms@<version>` from unpkg, pinned. Sveltia releases almost daily and has broken the config once already (0.202.0 added schema validation, which rejected our file-list dividers and blocked sign-in for eight days before anyone noticed). To bump:
+
+1. Change the version in `admin/index.html`. Skim the release notes between the old and new versions: https://github.com/sveltia/sveltia-cms/releases
+2. Run the schema check locally against the new version's schema:
+   ```
+   npm install --no-save --no-package-lock @cfworker/json-schema yaml
+   node cms/validate-config.mjs
+   ```
+   (CI runs the same on the PR.) Hard errors block sign-in and must be fixed before merging.
+3. Open the local admin (`bundle exec jekyll serve`, then `http://localhost:4000/admin/` in Chromium), sign in, and check the browser console for "not defined in the Sveltia CMS configuration schema" warnings — those options are being ignored.
+4. Do a no-op save on one page editor and one data list; `git diff` should be empty.
+
+Known ignored options, kept on purpose: `description` on individual file entries (Sveltia only shows label + icon per file; the text is still useful to whoever reads the config).
 
 ## Future enhancements
 

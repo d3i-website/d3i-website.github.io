@@ -1,19 +1,21 @@
 {% assign items = include.items %}
 <div class="data-list funding-list">
   {% for item in items %}
+    {% assign has_funder = false %}{% if item.funder and item.funder != "" %}{% assign has_funder = true %}{% endif %}
+    {% assign has_period = false %}{% if item.period and item.period != "" %}{% assign has_period = true %}{% endif %}
     <div class="funding-list__item">
       <h3 class="funding-list__title">{{ item.title }}</h3>
-      {% if item.period or item.funder %}
+      {% if has_period or has_funder %}
         <p class="funding-list__meta">
-          {% if item.funder %}{{ item.funder }}{% endif %}
-          {% if item.period and item.funder %} &middot; {% endif %}
-          {% if item.period %}{{ item.period }}{% endif %}
+          {% if has_funder %}{{ item.funder }}{% endif %}
+          {% if has_period and has_funder %} &middot; {% endif %}
+          {% if has_period %}{{ item.period }}{% endif %}
         </p>
       {% endif %}
-      {% if item.description %}
+      {% if item.description and item.description != "" %}
         <div class="funding-list__description">{{ item.description | markdownify }}</div>
       {% endif %}
-      {% if item.url %}
+      {% if item.url and item.url != "" %}
         <p><a class="section-cta" href="{{ item.url }}">Learn more <span aria-hidden="true">&rarr;</span></a></p>
       {% endif %}
     </div>
