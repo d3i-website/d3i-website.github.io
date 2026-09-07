@@ -32,6 +32,8 @@ public_folder: /assets/images
 media_libraries:
   default:
     config:
+      # Upload size cap (2 MB) for every image field. This is a media-library
+      # option in Sveltia; a `max_file_size` on an individual field is ignored.
       transformations:
         raster_image:
           format: webp
@@ -44,11 +46,8 @@ media_libraries:
 # unDraw illustration bank — its own folder in the Asset Library AND a
 # selectable source in every image field's picker (unlike field-level
 # media_folder scoping, which hides a folder from all other fields).
-# Requires Sveltia > v0.166.3: asset collections landed upstream on
-# 2026-06-12 (sveltia-cms#301) but are not yet in a release. Older
-# builds ignore this key, and the bank remains reachable through the
-# global asset pool; we load @sveltia/cms unpinned, so this activates
-# automatically with the next upstream release.
+# Supported since Sveltia's mid-2026 releases (sveltia-cms#301); the
+# pinned version in admin/index.html is well past that.
 asset_collections:
   - name: undraw
     label: "unDraw illustrations"
@@ -199,7 +198,7 @@ collections:
           - { name: label, label: "Button label", widget: string }
           - { name: url, label: "URL", widget: string }
           - { name: external, label: "External link?", widget: boolean, required: false, default: true }
-      - { name: redirect_from, widget: hidden, required: false }
+      - { name: redirect_from, widget: hidden }
       - { name: layout, widget: hidden, default: "page" }
       - { name: sidebar, widget: hidden, default: { nav: "community" } }
       - { name: body, label: "Full event page content (markdown)", widget: markdown, required: false, comment: "Optional when an External URL is set — cards link straight out, so no event page is needed." }
@@ -252,7 +251,6 @@ collections:
         media_folder: /assets/images/news
         public_folder: /assets/images/news
         choose_url: false
-        max_file_size: 2097152
         accept: "image/jpeg,image/png,image/svg+xml,image/webp"
       - { name: image_alt, label: "Image alt text", widget: string, required: false, comment: "Describe the image for screen readers. Fill in whenever an image is set." }
       - { name: external_url, label: "External URL (optional)", widget: string, required: false, comment: "If the story lives elsewhere, put its URL here — cards link straight out and the body below may stay empty." }
@@ -329,7 +327,6 @@ collections:
                 media_folder: /assets/images/hub
                 public_folder: /assets/images/hub
                 choose_url: false
-                max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: image_alt, label: "Image alt text (required)", widget: string }
               - { name: title, label: "Hero heading", widget: string }
@@ -570,7 +567,6 @@ collections:
                 media_folder: /assets/images/hub
                 public_folder: /assets/images/hub
                 choose_url: false
-                max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: image_alt, label: "Image alt text (required)", widget: string }
               - name: image_side
@@ -743,7 +739,6 @@ collections:
                 media_folder: /assets/images/hub
                 public_folder: /assets/images/hub
                 choose_url: false
-                max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: image_alt, label: "Image alt text (required)", widget: string }
               - { name: title, label: "Hero heading", widget: string }
@@ -869,7 +864,6 @@ collections:
                 media_folder: /assets/images/people
                 public_folder: /assets/images/people
                 choose_url: false
-                max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: url, label: "Profile URL", widget: string, required: false }
 
@@ -1113,9 +1107,9 @@ collections:
               - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
               - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
           - name: body
-            label: "Page body (markdown)"
+            label: "Intro prose (markdown)"
             widget: markdown
-            hint: "Prose for the page. The 'Usage plots' field below is rendered automatically after this body — do not add image includes here."
+            hint: "Prose shown above the usage figures. The figures themselves are drawn from the 'Usage figures data' entry below."
           - name: cta
             label: "Call-to-action button"
             widget: object
@@ -1126,21 +1120,9 @@ collections:
             fields:
               - { name: label, label: "Button text", widget: string, comment: "Don't include the arrow — the layout adds it." }
               - { name: url, label: "URL or mailto link", widget: string, comment: "e.g. https://example.com/form or mailto:foo@bar." }
-          - name: usage_images
-            label: "Usage plots"
-            widget: list
-            required: false
-            summary: "{{caption}}"
-            fields:
-              - name: image
-                label: "Plot image"
-                widget: image
-                media_folder: /assets/images/usage
-                public_folder: /assets/images/usage
-                choose_url: false
-                max_file_size: 2097152
-                accept: "image/jpeg,image/png,image/svg+xml,image/webp"
-              - { name: caption, label: "Caption (also used as alt text)", widget: string }
+          # The usage figures (studies per year, map, platforms) render after
+          # the body via data_section; the numbers live in _data/usage.yml.
+          - { name: data_section, widget: hidden, default: { type: "usage-figures" } }
           - name: contact
             label: "Contact CTA"
             widget: object
@@ -1232,7 +1214,6 @@ collections:
                 media_folder: /assets/images/hub
                 public_folder: /assets/images/hub
                 choose_url: false
-                max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: image_alt, label: "Image alt text (required)", widget: string }
               - { name: title, label: "Hero heading", widget: string }
@@ -1251,7 +1232,6 @@ collections:
                 media_folder: /assets/images/hub
                 public_folder: /assets/images/hub
                 choose_url: false
-                max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: image_alt, label: "Image alt text (required)", widget: string }
               - { name: body, label: "Step text", widget: text }
@@ -1291,6 +1271,45 @@ collections:
           - { name: sidebar, widget: hidden, default: { nav: "prepare-a-study" } }
           - { name: permalink, widget: hidden, default: "/prepare-a-study/" }
           - { name: layout, widget: hidden, default: "hub-journey" }
+
+      - file: _pages/prepare-a-study/privacy-and-consent.md
+        name: privacy_and_consent_page
+        label: "Privacy and consent page"
+        icon: verified_user
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
+          - name: body
+            label: "Page content (markdown)"
+            widget: markdown
+            hint: "The legal and ethical resources list: DPIA manuals and templates, consent and privacy-policy templates, GDPR overview."
+          # Contact block here is heading + email only — no intro/bullets
+          # in the page frontmatter, so none exposed here (lossless saves).
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: sidebar, widget: hidden, default: { nav: "prepare-a-study" } }
+          - { name: permalink, widget: hidden, default: "/prepare-a-study/privacy-and-consent" }
+          - { name: layout, widget: hidden, default: "page" }
 
       - file: _pages/prepare-a-study/completed-projects.md
         name: completed_projects_page
@@ -1362,7 +1381,6 @@ collections:
                 media_folder: /assets/images/completed-projects
                 public_folder: /assets/images/completed-projects
                 choose_url: false
-                max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: image_credit, label: "Image credit (text)", widget: string, required: false }
               - { name: image_credit_url, label: "Image credit URL", widget: string, required: false }
@@ -1414,7 +1432,6 @@ collections:
                 media_folder: /assets/images/hub
                 public_folder: /assets/images/hub
                 choose_url: false
-                max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: image_alt, label: "Image alt text (required)", widget: string }
               - { name: title, label: "Hero heading", widget: string }
@@ -1434,7 +1451,6 @@ collections:
                 media_folder: /assets/images/hub
                 public_folder: /assets/images/hub
                 choose_url: false
-                max_file_size: 2097152
                 accept: "image/jpeg,image/png,image/svg+xml,image/webp"
               - { name: image_alt, label: "Image alt text (required)", widget: string }
               - { name: body, label: "Step text", widget: text }
@@ -1711,7 +1727,6 @@ collections:
                     label: "Image"
                     widget: image
                     choose_url: false
-                    max_file_size: 2097152
                     accept: "image/jpeg,image/png,image/svg+xml,image/webp"
                   - { name: alt, label: "Image alt text (required)", widget: string, comment: "Describe the image for screen readers." }
                   - { name: caption, label: "Caption", widget: string }

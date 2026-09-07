@@ -16,7 +16,7 @@
           </p>
         </div>
         <div class="contact-cta__topics">
-          {% if page.contact.intro %}
+          {% if page.contact.intro and page.contact.intro != "" %}
             <p class="contact-cta__intro">{{ page.contact.intro }}</p>
           {% endif %}
           <ul>

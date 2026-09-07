@@ -2,7 +2,7 @@
 <ul class="data-list link-list">
   {% for item in items %}
     <li>
-      {% if item.url %}<a href="{{ item.url }}">{{ item.name }}</a>{% else %}{{ item.name }}{% endif %}
+      {% if item.url and item.url != "" %}<a href="{{ item.url }}">{{ item.name }}</a>{% else %}{{ item.name }}{% endif %}
     </li>
   {% endfor %}
 </ul>

@@ -23,5 +23,7 @@
       {% include data-sections/institution-grid.html items=ds_items %}
     {% when 'project-list' %}
       {% include data-sections/project-list.html items=ds_items %}
+    {% when 'usage-figures' %}
+      {% include usage-figures.html %}
   {% endcase %}
 {% endif %}

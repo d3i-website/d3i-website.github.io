@@ -21,6 +21,18 @@ jobs:
       - name: Check Jekyll configuration
         run: bundle exec jekyll doctor
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # The CMS refuses sign-in on a config that fails its schema. Validate
+      # against the schema of the Sveltia version pinned in admin/index.html.
+      - name: Validate CMS config
+        run: |
+          npm install --no-save --no-package-lock @cfworker/json-schema yaml
+          node cms/validate-config.mjs
+
       - name: Build site
         run: bundle exec jekyll build --verbose
         env:
