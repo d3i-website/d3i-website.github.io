@@ -153,6 +153,18 @@ For a page with known layout and frontmatter structure:
 3. Use `widget: hidden` for all structural keys (layout, permalink, redirect_from, sidebar.nav, etc.), mirroring the file's live frontmatter **exactly** — a no-op save in the CMS must produce no git diff.
 4. Expose editable content (title, body, contact blocks) with appropriate widgets. Only model optional sub-fields the file actually has (e.g. hub contact blocks are lead/email/subject only): modelling absent optional strings makes saves write `key: ''` noise.
 
+## Page-sections layout: figures, components, untitled sections
+
+Pages whose bodies need Liquid (figure includes, embeds, data-driven lists) can't go through the rich-text editor, which mangles Liquid tags on save. The pattern is to move the body into frontmatter `sections` on the `page-sections` layout (`_includes/page-sections.html`), where each section is plain markdown plus structured extras the CMS edits as fields:
+
+- **`figures`** — optional list of `image` / `alt` / `caption` per section, rendered after the prose with `_includes/figure` (same markup and `.section-figure` styling as the old inline includes). Used on Going further.
+- **`component`** — a named slot rendered after the section: `institutions-grid` (Networks), `platforms-list` (Ready-made scripts, reads `_data/platforms.yml`), `script-builder` (the embed). Add new components in the `case` block of the include. The key is `widget: hidden` in the CMS so editors can't change it but saves preserve it.
+- **Untitled sections** — a section with no `title`, `body`, or `figures` renders only its component, which is how the Script builder page drops the embed between two prose blocks. Its anchor id falls back to the component name.
+
+Trade-off: sections in one page share one field schema, so a section without a body (the platform list) will pick up `body: ''` on the editor's first save. The include guards against empty strings, so this is cosmetic. `_pages/community/network.md` shows what a round-tripped file looks like.
+
+The intro paragraph above the sections stays in the markdown body; keep it Liquid-free.
+
 ## Deliberately not in the CMS
 
 Pages left out on purpose — don't add editors for these without addressing the stated reason:
@@ -161,7 +173,7 @@ Pages left out on purpose — don't add editors for these without addressing the
 - **`_pages/data-donation.md`**: the body embeds raw `<iframe>` video embeds, which the CMS rich-text editor can mangle on save.
 - **`_pages/prepare-a-study/study-design.md`**: body uses `notice--warning`/`notice--success` HTML divs — same mangling risk.
 - **`_pages/community/open-letter.md` / `omnibus-letter.md`**: the open letter contains a Liquid variable (`{{ site.open_letter_url }}`) and kramdown attribute syntax; the omnibus letter uses markdown footnotes. Both are signed position documents that shouldn't be casually editable anyway.
-- **Software section** (`_pages/software/*`): developer-owned technical content (script builder, install flows).
+- **Script builder settings** (`_data/script_builder.yml`): the embed URL, availability toggle, and fallback copy. The URL changes when the SURF workspace moves; keep it developer-owned.
 - **Navigation** (`_data/navigation.yml`): developer-owned; URL changes require coordinated permalink/redirect work.
 
 ## Known CMS constraints
