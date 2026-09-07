@@ -58,7 +58,7 @@ asset_collections:
 # Collections — ordered around the manager's daily work: Events and News
 # first (the entry collections he creates content in), then — below a
 # divider — the site-section editors (Community, About D3I, Prepare a
-# Study), each holding that section's page editors AND its supporting data
+# Study, Software), each holding that section's page editors AND its supporting data
 # lists, ordered by editor task flow (page first, then its data). Dividers
 # inside each `files:` array group the subsections.
 #
@@ -1387,3 +1387,412 @@ collections:
                 widget: list
                 required: false
                 field: { name: reference, label: "Reference (markdown)", widget: text }
+
+  # ──────────────────────── Software ──────────────────────────────────────
+  # Three of these pages (Ready-made scripts, Script builder, Going further)
+  # use the page-sections layout so that their figures and embeds live in
+  # frontmatter rather than as Liquid tags in the markdown body, which the
+  # rich-text editor cannot round-trip. Per-section `component` keys are
+  # hidden (developer-owned) but preserved on save.
+  - name: software
+    label: "Software"
+    icon: code
+    description: "Pages and data lists under Software (/software/)."
+    files:
+
+      - { divider: true, label: "Section landing page" }
+      - file: _pages/software/index.md
+        name: software_hub
+        label: "Software landing page"
+        icon: home
+        description: "The section landing page at /software/ — hero text, the three journey steps, optional highlight, and contact block."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - name: hero
+            label: "Hero"
+            widget: object
+            collapsed: true
+            summary: "{{title}}"
+            comment: "The illustration and heading at the top of the landing page."
+            fields:
+              - name: image
+                label: "Illustration"
+                widget: image
+                media_folder: /assets/images/hub
+                public_folder: /assets/images/hub
+                choose_url: false
+                max_file_size: 2097152
+                accept: "image/jpeg,image/png,image/svg+xml,image/webp"
+              - { name: image_alt, label: "Image alt text (required)", widget: string }
+              - { name: title, label: "Hero heading", widget: string }
+              - { name: subhead, label: "Hero subheading", widget: text }
+          - name: movements
+            label: "Journey steps"
+            label_singular: "Step"
+            widget: list
+            summary: "{{number}} {{title}}"
+            comment: "The image+text step blocks on the landing page. Order here = order on the page."
+            fields:
+              - { name: number, label: "Step number (e.g. 01)", widget: string, comment: "Shown as a large numeral next to the step title. Renumber by hand when reordering." }
+              - { name: title, label: "Step title", widget: string }
+              - name: image
+                label: "Illustration"
+                widget: image
+                media_folder: /assets/images/hub
+                public_folder: /assets/images/hub
+                choose_url: false
+                max_file_size: 2097152
+                accept: "image/jpeg,image/png,image/svg+xml,image/webp"
+              - { name: image_alt, label: "Image alt text (required)", widget: string }
+              - { name: body, label: "Step text", widget: text }
+              - name: link
+                label: "Link"
+                widget: object
+                summary: "{{text}}"
+                fields:
+                  - { name: url, label: "URL", widget: string, comment: "Internal path (/...) or external URL (https://...). Both work." }
+                  - { name: text, label: "Link text", widget: string }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
+          # Hub contact blocks are heading + email only — no intro/bullets
+          # in the page frontmatter, so none exposed here (lossless saves).
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: hub_section, widget: hidden, default: "software" }
+          - { name: sidebar, widget: hidden, default: { nav: "software" } }
+          - { name: redirect_from, widget: hidden, default: ["/software/help/"] }
+          - { name: permalink, widget: hidden, default: "/software/" }
+          - { name: layout, widget: hidden, default: "hub-journey" }
+
+      - { divider: true, label: "Getting started" }
+      - file: _pages/software/getting-started.md
+        name: getting_started_page
+        label: "Getting started page"
+        icon: article
+        description: "The page at /software/getting-started/ — what the software does and how to get access."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
+          - name: body
+            label: "Page content (markdown)"
+            widget: markdown
+            hint: "The full page: what the software does, and how to get access."
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text (optional)", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points (optional)"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: classes, widget: hidden, default: "wide" }
+          - { name: toc, widget: hidden, default: false }
+          - { name: sidebar, widget: hidden, default: { nav: "software" } }
+          - { name: hero, widget: hidden, default: { image: "/assets/images/hub/laptop-download.png", alt: "A red laptop showing a download icon on its screen." } }
+          - { name: redirect_from, widget: hidden, default: ["/software/port/", "/software/next/"] }
+          - { name: permalink, widget: hidden, default: "/software/getting-started/" }
+          - { name: layout, widget: hidden, default: "page" }
+
+      - { divider: true, label: "Ready-made scripts" }
+      - file: _pages/software/ready-made-scripts.md
+        name: ready_made_scripts_page
+        label: "Ready-made scripts page"
+        icon: article
+        description: "The page at /software/ready-made-scripts/ — intro prose and the sections around the platform list. The platforms themselves are edited in the next entry."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
+          - name: body
+            label: "Intro prose (markdown)"
+            widget: markdown
+            hint: "Short prose shown above the sections."
+          - name: sections
+            label: "Page sections"
+            label_singular: "Section"
+            widget: list
+            summary: "{{title}}"
+            comment: "Each section renders as a heading with prose. The 'Available platforms' section shows the Supported platforms list (edited in the next entry) in place of prose."
+            fields:
+              - { name: title, label: "Section title", widget: string }
+              - name: body
+                label: "Section body (markdown)"
+                widget: markdown
+                required: false
+                hint: "Prose for this section. Leave empty on the 'Available platforms' section — its content is the platform list."
+              # Developer-owned: names the component rendered after the
+              # section (the platform list). Hidden so saves preserve it.
+              - { name: component, widget: hidden }
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text (optional)", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points (optional)"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: classes, widget: hidden, default: "wide" }
+          - { name: toc, widget: hidden, default: false }
+          - { name: sidebar, widget: hidden, default: { nav: "software" } }
+          - { name: hero, widget: hidden, default: { image: "/assets/images/hub/social-ideas.svg", alt: "A person presenting a board of ideas with colorful notes and a lightbulb." } }
+          - { name: permalink, widget: hidden, default: "/software/ready-made-scripts/" }
+          - { name: layout, widget: hidden, default: "page-sections" }
+
+      - file: _data/platforms.yml
+        name: platforms_data
+        label: "Supported platforms"
+        icon: apps
+        format: yml
+        description: "Platforms with ready-made scripts, listed on the Ready-made scripts page. Order here = order on the page."
+        editor:
+          preview: false
+        fields:
+          - name: platforms
+            label: "Platforms"
+            label_singular: "Platform"
+            widget: list
+            summary: "{{name}} — {{description}}"
+            fields:
+              - { name: name, label: "Platform name", widget: string }
+              - { name: description, label: "What the script extracts", widget: string, comment: "A short comma-separated list, e.g. 'posts, comments, followers'." }
+
+      - { divider: true, label: "Script builder" }
+      - file: _pages/software/script-builder.md
+        name: script_builder_page
+        label: "Script builder page"
+        icon: article
+        description: "The page at /software/script-builder/ — the highlight box, intro prose, and the section after the embedded builder. The builder itself is developer-managed."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "The yellow note box rendered at the top of the page. Currently used for the 'In active development' preview notice. Untick the checkbox to remove it."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
+          - name: body
+            label: "Intro prose (markdown)"
+            widget: markdown
+            hint: "Short prose shown above the embedded script builder."
+          - name: sections
+            label: "Page sections"
+            label_singular: "Section"
+            widget: list
+            summary: "{{title}}"
+            comment: "The first, untitled section is the embedded script builder itself — leave it as is. Sections after it render as heading + prose below the builder."
+            fields:
+              - { name: title, label: "Section title", widget: string, required: false, hint: "Leave empty on the embed section." }
+              - name: body
+                label: "Section body (markdown)"
+                widget: markdown
+                required: false
+                hint: "Prose for this section. Leave empty on the embed section."
+              # Developer-owned: names the component rendered after the
+              # section (the script builder embed). Hidden so saves preserve it.
+              - { name: component, widget: hidden }
+          # Contact block here is heading + email only — no intro/bullets
+          # in the page frontmatter, so none exposed here (lossless saves).
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: classes, widget: hidden, default: "wide" }
+          - { name: toc, widget: hidden, default: false }
+          - { name: sidebar, widget: hidden, default: { nav: "software" } }
+          - { name: permalink, widget: hidden, default: "/software/script-builder/" }
+          - { name: layout, widget: hidden, default: "page-sections" }
+
+      - { divider: true, label: "Going further" }
+      - file: _pages/software/going-further.md
+        name: going_further_page
+        label: "Going further page"
+        icon: article
+        description: "The page at /software/going-further/ — visualizations, interactive features, and custom development, with their example figures."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
+          - name: body
+            label: "Intro prose (markdown)"
+            widget: markdown
+            hint: "Short prose shown above the sections."
+          - name: sections
+            label: "Page sections"
+            label_singular: "Section"
+            widget: list
+            summary: "{{title}}"
+            comment: "Each section renders as a heading, prose, and then its example figures (if any)."
+            fields:
+              - { name: title, label: "Section title", widget: string }
+              - name: body
+                label: "Section body (markdown)"
+                widget: markdown
+                hint: "Prose for this section. Figures are added below, not in the prose."
+              - name: figures
+                label: "Example figures (optional)"
+                label_singular: "Figure"
+                widget: list
+                required: false
+                summary: "{{caption}}"
+                comment: "Screenshots shown after this section's prose, each with a caption."
+                fields:
+                  - name: image
+                    label: "Image"
+                    widget: image
+                    choose_url: false
+                    max_file_size: 2097152
+                    accept: "image/jpeg,image/png,image/svg+xml,image/webp"
+                  - { name: alt, label: "Image alt text (required)", widget: string, comment: "Describe the image for screen readers." }
+                  - { name: caption, label: "Caption", widget: string }
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text (optional)", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points (optional)"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: classes, widget: hidden, default: "wide" }
+          - { name: toc, widget: hidden, default: false }
+          - { name: sidebar, widget: hidden, default: { nav: "software" } }
+          - { name: hero, widget: hidden, default: { image: "/assets/images/hub/data-trends.svg", alt: "A person reviewing a dashboard of charts and data trends." } }
+          - { name: redirect_from, widget: hidden, default: ["/software/visualizations/", "/software/plugins/", "/software/data-donation-task/", "/software/technical-resources/"] }
+          - { name: permalink, widget: hidden, default: "/software/going-further/" }
+          - { name: layout, widget: hidden, default: "page-sections" }
+
+      - { divider: true, label: "Port in education" }
+      - file: _pages/software/port-in-education.md
+        name: port_in_education_page
+        label: "Port in education page"
+        icon: school
+        description: "The page at /software/port-in-education/ — using the software in teaching, and resources for educators."
+        fields:
+          - { name: title, label: "Page title", widget: string }
+          - name: postit
+            label: "Highlight (optional)"
+            widget: object
+            required: false
+            collapsed: true
+            summary: "{{title}}"
+            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
+            fields:
+              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
+              - { name: title, label: "Heading", widget: string, maxlength: 80 }
+              - { name: body, label: "Body", widget: text, maxlength: 200 }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
+          - name: body
+            label: "Page content (markdown)"
+            widget: markdown
+            hint: "The full page: three ways to use the software in a course, and resources for educators."
+          - name: contact
+            label: "Contact CTA"
+            widget: object
+            collapsed: true
+            summary: "{{lead}}"
+            comment: "Renders as the contact CTA block at the bottom of the page."
+            fields:
+              - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text (optional)", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points (optional)"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
+              - { name: email, label: "Email address", widget: string, type: email }
+              - { name: subject, label: "Email subject", widget: string }
+          - { name: classes, widget: hidden, default: "wide" }
+          - { name: toc, widget: hidden, default: false }
+          - { name: sidebar, widget: hidden, default: { nav: "software" } }
+          - { name: permalink, widget: hidden, default: "/software/port-in-education/" }
+          - { name: layout, widget: hidden, default: "page" }
