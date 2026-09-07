@@ -149,7 +149,7 @@ Template for a list-of-records data file:
 For a page with known layout and frontmatter structure:
 
 1. Identify which frontmatter keys the layout reads (title, sidebar, etc.).
-2. Add a file entry to the page's section collection in `admin/config.yml` (Community, About D3I, Prepare a Study), under the appropriate divider.
+2. Add a file entry to the page's section collection in `admin/config.yml` (Community, About D3I, Prepare a Study, Software), next to the data list it belongs with — the file list is flat, so adjacency is the grouping.
 3. Use `widget: hidden` for all structural keys (layout, permalink, redirect_from, sidebar.nav, etc.), mirroring the file's live frontmatter **exactly** — a no-op save in the CMS must produce no git diff.
 4. Expose editable content (title, body, contact blocks) with appropriate widgets. Only model optional sub-fields the file actually has (e.g. hub contact blocks are lead/email/subject only): modelling absent optional strings makes saves write `key: ''` noise.
 
@@ -177,6 +177,9 @@ Pages left out on purpose — don't add editors for these without addressing the
 - **Navigation** (`_data/navigation.yml`): developer-owned; URL changes require coordinated permalink/redirect work.
 
 ## Known CMS constraints
+
+- **Config schema validation blocks sign-in on hard errors** (Sveltia ≥ 0.202.0, 2026-08-30). Missing required options and wrong value types are listed on the login screen and nobody can sign in until they're fixed; an option the schema doesn't know only warns in the browser console. We load Sveltia unpinned, so a stricter upstream release lands on the live admin the same day — check the console after upgrades. `admin/config.yml` carries a `yaml-language-server` modeline pointing at Sveltia's published schema so an editor flags problems first.
+- **No dividers inside a file collection's `files:` list.** The config used to carry `{ divider: true, label: … }` entries between subsections. Sveltia's file list never rendered them (it filters them out), and since 0.202.0 the schema rejects them as files missing `name`/`file`/`fields` — which took the admin down. Dividers are only valid at the top level of `collections:` and in `singletons:`. Group by adjacency, labels and icons instead.
 
 - **`auth_type: implicit` is rejected**: Sveltia rejects Decap's `auth_type: implicit` with a hard error. Do **not** add `auth_type`, `base_url`, or `auth_endpoint` under `backend:` unless you've deployed a real OAuth proxy (see Future enhancements). The current PAT-based auth requires no `backend:` keys beyond `name`, `repo`, `branch`.
 - **GitHub OAuth App is dormant but kept**: the "datadonation.eu CMS" OAuth App registered in Task 03 is currently unused (we use PATs, not OAuth). It's left registered so a future OAuth-proxy deploy can reuse the same Client ID + Secret without re-registering. Callback URL is still set to `https://api.netlify.com/auth/done` from the original Netlify-OAuth attempt; this is stale and should be updated when/if you deploy the Worker.

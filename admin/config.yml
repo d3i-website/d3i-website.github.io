@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
 backend:
   name: github
   repo: d3i-website/d3i-website.github.io
@@ -59,12 +60,19 @@ asset_collections:
 # first (the entry collections he creates content in), then — below a
 # divider — the site-section editors (Community, About D3I, Prepare a
 # Study, Software), each holding that section's page editors AND its supporting data
-# lists, ordered by editor task flow (page first, then its data). Dividers
-# inside each `files:` array group the subsections.
+# lists, ordered by editor task flow (page first, then its data). A file
+# collection's list is flat: Sveltia has no dividers or group headers
+# inside `files:` (its schema rejects them since v0.202.0), so grouping is
+# carried by adjacency, labels and icons.
 #
 # Sveltia limits: sidebar nesting is two levels (collection → file), and
 # folder collections cannot nest inside file collections — which is why
 # Events and News sit at the top level rather than inside Community.
+#
+# Sveltia validates this file against its JSON schema on every load; a
+# hard error blocks sign-in, an unknown option only warns in the console.
+# The modeline on line 1 gives editors with yaml-language-server the same
+# schema, so mistakes show up before the CMS ever loads the file.
 #
 # Entry-list views: Events groups entries by year by default (mirroring
 # the year-folder organization the manager knows from Bloomreach) with
@@ -301,7 +309,6 @@ collections:
     description: "Pages and data lists under Community (/community/)."
     files:
 
-      - { divider: true, label: "Section landing page" }
       - file: _pages/community/index.md
         name: community_hub
         label: "Community landing page"
@@ -368,7 +375,6 @@ collections:
           - { name: permalink, widget: hidden, default: "/community/" }
           - { name: layout, widget: hidden, default: "hub-directory" }
 
-      - { divider: true, label: "Events page" }
       - file: _pages/community/events/index.md
         name: events_page
         label: "Events page"
@@ -417,7 +423,6 @@ collections:
           - { name: permalink, widget: hidden, default: "/community/events/" }
           - { name: layout, widget: hidden, default: "page-archive-stacked" }
 
-      - { divider: true, label: "Courses" }
       - file: _pages/community/courses/index.md
         name: courses_page
         label: "Courses page"
@@ -483,7 +488,6 @@ collections:
           - { name: permalink, widget: hidden, default: "/community/courses/materials" }
           - { name: layout, widget: hidden, default: "page" }
 
-      - { divider: true, label: "Symposia" }
       - file: _pages/community/symposia/index.md
         name: symposia_page
         label: "Symposia page"
@@ -532,7 +536,6 @@ collections:
           - { name: permalink, widget: hidden, default: "/community/symposia/" }
           - { name: layout, widget: hidden, default: "page-archive-stacked" }
 
-      - { divider: true, label: "Networks" }
       - file: _pages/community/network.md
         name: networks_page
         label: "Networks page"
@@ -633,7 +636,6 @@ collections:
               - { name: department, label: "Department", widget: string, required: false }
               - { name: country, label: "Country", widget: string }
 
-      - { divider: true, label: "Newsletter" }
       - file: _pages/community/newsletter/index.md
         name: newsletter_page
         label: "Newsletter page"
@@ -721,7 +723,6 @@ collections:
     description: "Pages and data lists under About D3I (/about-d3i/)."
     files:
 
-      - { divider: true, label: "Section landing page" }
       - file: _pages/about-d3i/index.md
         name: about_d3i_hub
         label: "About D3I landing page"
@@ -788,7 +789,6 @@ collections:
           - { name: permalink, widget: hidden, default: "/about-d3i/" }
           - { name: layout, widget: hidden, default: "hub-directory" }
 
-      - { divider: true, label: "Team" }
       - file: _pages/about-d3i/team.md
         name: team_page
         label: "Team page"
@@ -890,7 +890,6 @@ collections:
             fields:
               - { name: label, label: "Display label", widget: string, hint: "Shown as the filter chip and the badge on each card. The internal id used for filtering is generated automatically." }
 
-      - { divider: true, label: "Advisory board" }
       - file: _pages/about-d3i/advisory-board.md
         name: advisory_board_page
         label: "Advisory board page"
@@ -956,7 +955,6 @@ collections:
               - { name: name, label: "Name", widget: string }
               - { name: url, label: "Profile URL", widget: string, required: false }
 
-      - { divider: true, label: "Funding" }
       - file: _pages/about-d3i/funding.md
         name: funding_page
         label: "Funding page"
@@ -1025,7 +1023,6 @@ collections:
               - { name: url, label: "Link (optional)", widget: string, required: false }
               - { name: description, label: "Description", widget: text }
 
-      - { divider: true, label: "Partners" }
       - file: _pages/about-d3i/partners.md
         name: partners_page
         label: "Partners page"
@@ -1094,7 +1091,6 @@ collections:
               - { name: role, label: "Role / relationship", widget: string, required: false }
               - { name: description, label: "Description", widget: text }
 
-      - { divider: true, label: "Impact and adoption" }
       - file: _pages/about-d3i/impact-and-adoption.md
         name: impact_page
         label: "Impact and adoption page"
@@ -1216,7 +1212,6 @@ collections:
     description: "Pages and data lists under Prepare a Study (/prepare-a-study/)."
     files:
 
-      - { divider: true, label: "Section landing page" }
       - file: _pages/prepare-a-study/index.md
         name: prepare_a_study_hub
         label: "Prepare a Study landing page"
@@ -1297,7 +1292,6 @@ collections:
           - { name: permalink, widget: hidden, default: "/prepare-a-study/" }
           - { name: layout, widget: hidden, default: "hub-journey" }
 
-      - { divider: true, label: "Completed projects" }
       - file: _pages/prepare-a-study/completed-projects.md
         name: completed_projects_page
         label: "Completed projects page"
@@ -1400,7 +1394,6 @@ collections:
     description: "Pages and data lists under Software (/software/)."
     files:
 
-      - { divider: true, label: "Section landing page" }
       - file: _pages/software/index.md
         name: software_hub
         label: "Software landing page"
@@ -1483,7 +1476,6 @@ collections:
           - { name: permalink, widget: hidden, default: "/software/" }
           - { name: layout, widget: hidden, default: "hub-journey" }
 
-      - { divider: true, label: "Getting started" }
       - file: _pages/software/getting-started.md
         name: getting_started_page
         label: "Getting started page"
@@ -1532,7 +1524,6 @@ collections:
           - { name: permalink, widget: hidden, default: "/software/getting-started/" }
           - { name: layout, widget: hidden, default: "page" }
 
-      - { divider: true, label: "Ready-made scripts" }
       - file: _pages/software/ready-made-scripts.md
         name: ready_made_scripts_page
         label: "Ready-made scripts page"
@@ -1614,7 +1605,6 @@ collections:
               - { name: name, label: "Platform name", widget: string }
               - { name: description, label: "What the script extracts", widget: string, comment: "A short comma-separated list, e.g. 'posts, comments, followers'." }
 
-      - { divider: true, label: "Script builder" }
       - file: _pages/software/script-builder.md
         name: script_builder_page
         label: "Script builder page"
@@ -1673,7 +1663,6 @@ collections:
           - { name: permalink, widget: hidden, default: "/software/script-builder/" }
           - { name: layout, widget: hidden, default: "page-sections" }
 
-      - { divider: true, label: "Going further" }
       - file: _pages/software/going-further.md
         name: going_further_page
         label: "Going further page"
@@ -1750,7 +1739,6 @@ collections:
           - { name: permalink, widget: hidden, default: "/software/going-further/" }
           - { name: layout, widget: hidden, default: "page-sections" }
 
-      - { divider: true, label: "Port in education" }
       - file: _pages/software/port-in-education.md
         name: port_in_education_page
         label: "Port in education page"
