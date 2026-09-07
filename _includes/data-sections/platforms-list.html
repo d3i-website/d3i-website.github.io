@@ -1,0 +1,14 @@
+{% comment %}
+  Definition list of supported platforms from _data/platforms.yml.
+  Wrapped in .prose so it picks up the same dl/dt/dd styling the list had
+  when it lived in page markdown.
+{% endcomment %}
+{% assign items = include.items %}
+<div class="prose platforms-list">
+  <dl>
+    {% for item in items %}
+      <dt>{{ item.name }}</dt>
+      <dd>{{ item.description }}</dd>
+    {% endfor %}
+  </dl>
+</div>
