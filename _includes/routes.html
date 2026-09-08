@@ -56,4 +56,14 @@
   </section>
   {%- endfor -%}
 </div>
+{%- comment -%}
+  Eurostat asks that the EuroGeographics notice accompany any publication of
+  the GISCO boundaries, so it is printed here, tied to the glyph, whenever a
+  Netherlands outline is on the page. Small and muted, like the illustration
+  credit on the hub pages.
+{%- endcomment -%}
+{%- assign nl_routes = include.routes | where: "glyph", "netherlands" -%}
+{%- if nl_routes.size > 0 -%}
+<p class="routes__attribution">Netherlands outline: administrative boundaries © <a href="https://ec.europa.eu/eurostat/web/gisco/geodata/administrative-units/countries" rel="noopener">EuroGeographics</a>, via Eurostat GISCO.</p>
+{%- endif -%}
 {%- endif -%}

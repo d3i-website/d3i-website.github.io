@@ -737,6 +737,22 @@
   font-size: 1rem;
 }
 
+// Boundary-data credit, printed by the include whenever the Netherlands
+// glyph is used. Same voice as the hub pages' illustration credit.
+.routes__attribution {
+  max-width: $content-width;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  font-family: "Nunito", $sans-serif;
+  font-size: 0.8125rem;
+  color: $muted-text-color;
+
+  a {
+    color: $muted-text-color;
+    text-decoration: underline;
+  }
+}
+
 .page-section__component-title {
   max-width: $content-width;
   margin: 2rem 0 1rem;
