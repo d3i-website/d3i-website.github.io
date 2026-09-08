@@ -29,6 +29,15 @@ Vecteezy assets used in the software section.
 | `hands-icons.png` | Vecteezy.com (to be replaced with SVG later) |
 | `laptop-download.png` | Vecteezy.com (to be replaced with SVG later) |
 
+## Eurostat GISCO — © EuroGeographics for the administrative boundaries
+
+Not in this directory, but recorded here with the other artwork sources: the
+small Netherlands outline in `_includes/glyphs/netherlands.svg` (Getting started
+page, access routes) is traced from the GISCO Countries 2024 dataset at 1:20M.
+Eurostat asks that the copyright notice above accompany any publication of the
+boundaries; `_includes/routes.html` prints it under the routes automatically
+whenever the glyph is used.
+
 If you replace, add, or remove illustrations in this directory, please keep this
 credit file in sync and update the on-page attribution footer if the source mix
 changes.

@@ -1496,7 +1496,7 @@ collections:
         name: getting_started_page
         label: "Getting started page"
         icon: article
-        description: "The page at /software/getting-started/ — what the software does and how to get access."
+        description: "The page at /software/getting-started/ — what the software does, and the two access routes (Netherlands / elsewhere) drawn as rails."
         fields:
           - { name: title, label: "Page title", widget: string }
           - name: postit
@@ -1512,10 +1512,71 @@ collections:
               - { name: body, label: "Body", widget: text, maxlength: 200 }
               - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
               - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
-          - name: body
-            label: "Page content (markdown)"
-            widget: markdown
-            hint: "The full page: what the software does, and how to get access."
+          - name: sections
+            label: "Page sections"
+            label_singular: "Section"
+            widget: list
+            summary: "{{title}}"
+            comment: "Each section renders as a heading and prose. 'What the software does' carries the laptop illustration; 'How to get access' carries the preview button and the two access routes."
+            fields:
+              - { name: title, label: "Section title", widget: string }
+              - name: image
+                label: "Illustration (optional)"
+                widget: image
+                required: false
+                media_folder: /assets/images/hub
+                public_folder: /assets/images/hub
+                choose_url: false
+                accept: "image/jpeg,image/png,image/svg+xml,image/webp"
+              - { name: image_alt, label: "Image alt text (required if there is an image)", widget: string, required: false }
+              - name: image_side
+                label: "Image side"
+                widget: select
+                options: [left, right]
+                default: right
+                required: false
+              - name: body
+                label: "Section body (markdown)"
+                widget: markdown
+                hint: "Prose for this section."
+              - name: cta
+                label: "Section call-to-action button"
+                widget: object
+                required: false
+                collapsed: true
+                summary: "{{label}}"
+                comment: "Optional styled button rendered immediately after this section's prose, before the routes."
+                fields:
+                  - { name: label, label: "Button text", widget: string, comment: "Don't include the arrow — the layout adds it." }
+                  - { name: url, label: "URL or mailto link", widget: string, comment: "e.g. https://example.com/form or mailto:foo@bar." }
+              - name: routes
+                label: "Access routes (optional)"
+                label_singular: "Route"
+                widget: list
+                required: false
+                summary: "{{question}}"
+                comment: "A fork the reader resolves by picking the question that fits them. Each route is drawn as a coloured rail with a stop per step. Two routes sit side by side on wide screens."
+                fields:
+                  - { name: question, label: "Question", widget: string, comment: "Phrased as the reader would ask it, e.g. 'Are you a researcher in the Netherlands?'" }
+                  # Developer-owned: names the glyph drawn at the head of the
+                  # rail (netherlands | globe). Hidden so saves preserve it.
+                  - { name: glyph, widget: hidden }
+                  - { name: answer, label: "Answer", widget: text, comment: "One or two sentences: who this route is for and what they get." }
+                  - name: steps
+                    label: "Steps"
+                    label_singular: "Step"
+                    widget: list
+                    summary: "{{text}}"
+                    comment: "Each step is one line of text plus one action link, shown as a stop on the rail."
+                    fields:
+                      - { name: text, label: "Step text", widget: string }
+                      - name: link
+                        label: "Action link"
+                        widget: object
+                        summary: "{{label}}"
+                        fields:
+                          - { name: label, label: "Link text", widget: string, comment: "Don't include the arrow — the layout adds it." }
+                          - { name: url, label: "URL or mailto link", widget: string, comment: "e.g. https://example.com or mailto:foo@bar." }
           - name: contact
             label: "Contact CTA"
             widget: object
@@ -1535,10 +1596,9 @@ collections:
           - { name: classes, widget: hidden, default: "wide" }
           - { name: toc, widget: hidden, default: false }
           - { name: sidebar, widget: hidden, default: { nav: "software" } }
-          - { name: hero, widget: hidden, default: { image: "/assets/images/hub/laptop-download.png", alt: "A red laptop showing a download icon on its screen." } }
           - { name: redirect_from, widget: hidden, default: ["/software/port/", "/software/next/"] }
           - { name: permalink, widget: hidden, default: "/software/getting-started/" }
-          - { name: layout, widget: hidden, default: "page" }
+          - { name: layout, widget: hidden, default: "page-sections" }
 
       - file: _pages/software/ready-made-scripts.md
         name: ready_made_scripts_page

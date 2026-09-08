@@ -1,10 +1,11 @@
 {% comment %}
   Renders page.sections (frontmatter-authored prose blocks). Each section
   may carry: title, image/image_alt/image_side, body (markdown), cta,
-  figures (list of image/alt/caption, rendered after the prose), and a
-  component slot rendered after the section. A section with neither title
-  nor body nor figures renders only its component — used to drop an embed
-  between two prose sections.
+  figures (list of image/alt/caption, rendered after the prose), routes
+  (a question/answer/steps fork, rendered after the figures — see
+  routes.html), and a component slot rendered after the section. A section
+  with neither title nor body nor figures nor routes renders only its
+  component — used to drop an embed between two prose sections.
 {% endcomment %}
 {% if page.sections %}
   <div class="page-sections">
@@ -17,14 +18,18 @@
       {% if section.body and section.body != "" %}{% assign has_body = true %}{% endif %}
       {% assign has_figures = false %}
       {% if section.figures and section.figures.size > 0 %}{% assign has_figures = true %}{% endif %}
+      {% assign has_routes = false %}
+      {% if section.routes and section.routes.size > 0 %}{% assign has_routes = true %}{% endif %}
+      {% assign has_image = false %}
+      {% if section.image and section.image != "" %}{% assign has_image = true %}{% endif %}
       <div id="{{ section_id }}" class="page-section-block">
-        {% if has_title or has_body or has_figures %}
-        <section class="page-section{% if section.image %} page-section--with-image page-section--image-{{ image_side }}{% endif %}">
+        {% if has_title or has_body or has_figures or has_routes %}
+        <section class="page-section{% if has_image %} page-section--with-image page-section--image-{{ image_side }}{% endif %}">
           <div class="page-section__body">
           {% if has_title %}
             <h2 class="page-section__title">{{ section.title | smartify }}</h2>
           {% endif %}
-          {% if section.image %}
+          {% if has_image %}
             <figure class="page-section__figure page-section__figure--{{ image_side }}">
               <img src="{{ section.image | relative_url }}" alt="{{ section.image_alt | default: '' }}">
             </figure>
@@ -37,6 +42,9 @@
             {% for fig in section.figures %}
               {% include figure image_path=fig.image alt=fig.alt caption=fig.caption class="section-figure" %}
             {% endfor %}
+          {% endif %}
+          {% if has_routes %}
+            {% include routes.html routes=section.routes %}
           {% endif %}
 
           </div>
