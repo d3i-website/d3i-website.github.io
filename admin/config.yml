@@ -1401,7 +1401,7 @@ collections:
                 field: { name: reference, label: "Reference (markdown)", widget: text }
 
   # ──────────────────────── Software ──────────────────────────────────────
-  # Three of these pages (Ready-made scripts, Script builder, Going further)
+  # Three of these pages (Getting started, Script builder, Going further)
   # use the page-sections layout so that their figures and embeds live in
   # frontmatter rather than as Liquid tags in the markdown body, which the
   # rich-text editor cannot round-trip. Per-section `component` keys are
@@ -1600,92 +1600,11 @@ collections:
           - { name: permalink, widget: hidden, default: "/software/getting-started/" }
           - { name: layout, widget: hidden, default: "page-sections" }
 
-      - file: _pages/software/ready-made-scripts.md
-        name: ready_made_scripts_page
-        label: "Ready-made scripts page"
-        icon: article
-        description: "The page at /software/ready-made-scripts/ — intro prose and the sections around the platform list. The platforms themselves are edited in the next entry."
-        fields:
-          - { name: title, label: "Page title", widget: string }
-          - name: postit
-            label: "Highlight (optional)"
-            widget: object
-            required: false
-            collapsed: true
-            summary: "{{title}}"
-            comment: "Optional time-sensitive highlight box rendered at the top of the page. Use sparingly — for things like urgent calls, position papers, or deadlines. Leave the checkbox unchecked when not in use."
-            fields:
-              - { name: eyebrow, label: "Eyebrow text", widget: string, required: false, default: "Updates", maxlength: 20 }
-              - { name: title, label: "Heading", widget: string, maxlength: 80 }
-              - { name: body, label: "Body", widget: text, maxlength: 200 }
-              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work." }
-              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 30 }
-          - name: body
-            label: "Intro prose (markdown)"
-            widget: markdown
-            hint: "Short prose shown above the sections."
-          - name: sections
-            label: "Page sections"
-            label_singular: "Section"
-            widget: list
-            summary: "{{title}}"
-            comment: "Each section renders as a heading with prose. The 'Available platforms' section shows the Supported platforms list (edited in the next entry) in place of prose."
-            fields:
-              - { name: title, label: "Section title", widget: string }
-              - name: body
-                label: "Section body (markdown)"
-                widget: markdown
-                required: false
-                hint: "Prose for this section. Leave empty on the 'Available platforms' section — its content is the platform list."
-              # Developer-owned: names the component rendered after the
-              # section (the platform list). Hidden so saves preserve it.
-              - { name: component, widget: hidden }
-          - name: contact
-            label: "Contact CTA"
-            widget: object
-            collapsed: true
-            summary: "{{lead}}"
-            comment: "Renders as the contact CTA block at the bottom of the page."
-            fields:
-              - { name: lead, label: "Heading", widget: string }
-              - { name: intro, label: "Intro text (optional)", widget: string, required: false }
-              - name: bullets
-                label: "Bullet points (optional)"
-                widget: list
-                required: false
-                field: { name: bullet, widget: string }
-              - { name: email, label: "Email address", widget: string, type: email }
-              - { name: subject, label: "Email subject", widget: string }
-          - { name: classes, widget: hidden, default: "wide" }
-          - { name: toc, widget: hidden, default: false }
-          - { name: sidebar, widget: hidden, default: { nav: "software" } }
-          - { name: hero, widget: hidden, default: { image: "/assets/images/hub/social-ideas.svg", alt: "A person presenting a board of ideas with colorful notes and a lightbulb." } }
-          - { name: permalink, widget: hidden, default: "/software/ready-made-scripts/" }
-          - { name: layout, widget: hidden, default: "page-sections" }
-
-      - file: _data/platforms.yml
-        name: platforms_data
-        label: "Supported platforms"
-        icon: apps
-        format: yml
-        description: "Platforms with ready-made scripts, listed on the Ready-made scripts page. Order here = order on the page."
-        editor:
-          preview: false
-        fields:
-          - name: platforms
-            label: "Platforms"
-            label_singular: "Platform"
-            widget: list
-            summary: "{{name}} — {{description}}"
-            fields:
-              - { name: name, label: "Platform name", widget: string }
-              - { name: description, label: "What the script extracts", widget: string, comment: "A short comma-separated list, e.g. 'posts, comments, followers'." }
-
       - file: _pages/software/script-builder.md
         name: script_builder_page
         label: "Script builder page"
         icon: article
-        description: "The page at /software/script-builder/ — the highlight box, intro prose, and the section after the embedded builder. The builder itself is developer-managed."
+        description: "The page at /software/script-builder/ — the highlight box, intro prose, the section after the embedded builder, and the contact block (which carries the custom-script offer). The builder itself is developer-managed."
         fields:
           - { name: title, label: "Page title", widget: string }
           - name: postit
@@ -1721,21 +1640,26 @@ collections:
               # Developer-owned: names the component rendered after the
               # section (the script builder embed). Hidden so saves preserve it.
               - { name: component, widget: hidden }
-          # Contact block here is heading + email only — no intro/bullets
-          # in the page frontmatter, so none exposed here (lossless saves).
           - name: contact
             label: "Contact CTA"
             widget: object
             collapsed: true
             summary: "{{lead}}"
-            comment: "Renders as the contact CTA block at the bottom of the page."
+            comment: "Renders as the contact CTA block at the bottom of the page. The bullets carry the offer to adapt or build scripts for platforms we don't cover."
             fields:
               - { name: lead, label: "Heading", widget: string }
+              - { name: intro, label: "Intro text (optional)", widget: string, required: false }
+              - name: bullets
+                label: "Bullet points (optional)"
+                widget: list
+                required: false
+                field: { name: bullet, widget: string }
               - { name: email, label: "Email address", widget: string, type: email }
               - { name: subject, label: "Email subject", widget: string }
           - { name: classes, widget: hidden, default: "wide" }
           - { name: toc, widget: hidden, default: false }
           - { name: sidebar, widget: hidden, default: { nav: "software" } }
+          - { name: redirect_from, widget: hidden, default: ["/software/ready-made-scripts/"] }
           - { name: permalink, widget: hidden, default: "/software/script-builder/" }
           - { name: layout, widget: hidden, default: "page-sections" }
 

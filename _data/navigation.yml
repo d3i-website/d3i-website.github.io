@@ -60,8 +60,6 @@ software:
     children:
       - title: Getting started
         url: /software/getting-started/
-      - title: Ready-made scripts
-        url: /software/ready-made-scripts/
       - title: Script builder
         url: /software/script-builder/
       - title: Going further

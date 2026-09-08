@@ -25,10 +25,10 @@ movements:
     title: "Pick a platform"
     image: /assets/images/hub/social-ideas.svg
     image_alt: "A person presenting a board of ideas with colorful notes and a lightbulb."
-    body: "We provide ready-made scripts for the most common platforms, with no coding required to use them."
+    body: "We provide standard scripts for the most common platforms, with no coding required to use them. Pick the data you need and the builder packages it for your study."
     link:
-      url: /software/ready-made-scripts/
-      text: "Available platforms"
+      url: /software/script-builder/
+      text: "Use our script builder"
   - number: "03"
     title: "Go further (optional)"
     image: /assets/images/hub/data-trends.svg

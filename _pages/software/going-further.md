@@ -40,13 +40,16 @@ sections:
         caption: "Questions appear inline during the donation flow, so participants can answer them right next to the data they're about to share."
   - title: "Custom development"
     body: |-
-      If the ready-made scripts and built-in features don't cover what you need, you can build your own data donation task from scratch. This requires some Python and a willingness to read documentation, but the platform is designed to be extended.
+      If the [standard scripts](https://github.com/d3i-infra/data-donation-task) and built-in features don't cover what you need, you can build your own data donation task from scratch. This requires some Python and a willingness to read documentation, but the platform is designed to be extended.
 
       The full developer documentation lives on the project's documentation site:
 
       **[Data donation task documentation →](https://d3i-infra.github.io/data-donation-task/)**
 
       It covers setting up a development environment, writing extraction scripts, adding custom visualizations, testing, and deployment. The source code is on [GitHub](https://github.com/d3i-infra/data-donation-task) if you want to dig into the internals or contribute back.
+  - title: "Examples from previous studies"
+    body: |-
+      The [ODISSEI Code Library](https://odissei-data.github.io/ODISSEI-code-library/) archives scripts and code from previous data donation studies. They're useful as reference if you're designing something custom or want to see how other researchers approached a particular platform or research question.
 contact:
   lead: "Have a question or want to discuss your study?"
   intro: "We can answer your questions about:"
@@ -58,4 +61,4 @@ contact:
   subject: "Question about extending the data donation software"
 ---
 
-The ready-made scripts cover the basics, but you can do quite a bit more once you've got the foundation in place. The features below give you ways to make a study richer, more interactive, or more transparent for participants.
+The script builder covers the basics, but you can do quite a bit more once you've got the foundation in place. The features below give you ways to make a study richer, more interactive, or more transparent for participants.
