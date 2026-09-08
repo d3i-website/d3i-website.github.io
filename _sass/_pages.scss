@@ -603,6 +603,140 @@
   margin-top: 0;
 }
 
+// ---------------------------------------------------------------------
+// Routes: a fork the reader resolves by picking the question that fits
+// them. Each route is a vertical rail in a brand accent (blue, then
+// yellow, alternating) with a stop per step. Actions keep the site's
+// coral underline style. Rendered by _includes/routes.html.
+// ---------------------------------------------------------------------
+
+.routes {
+  --route-rail: 3px;
+  --route-inset: 1.75rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  max-width: $content-width;
+  // The preceding CTA paragraph already carries the site's `p` margin and
+  // padding, so only a small top margin is needed here.
+  margin-top: 0.75rem;
+  clear: both;
+  align-items: start; // each rail ends at its own last step
+
+  @media (min-width: $medium-wide) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3rem;
+  }
+}
+
+.route {
+  --route-accent: #{$accent-primary};
+  position: relative;
+  padding-left: var(--route-inset);
+
+  &:nth-child(2n) {
+    --route-accent: #{$accent-tertiary};
+  }
+
+  // The rail.
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0.4rem;
+    bottom: 0.4rem;
+    left: 0;
+    width: var(--route-rail);
+    border-radius: var(--route-rail);
+    background: var(--route-accent);
+  }
+}
+
+// A glyph at the head of the rail (the Netherlands, a globe): the path
+// starts from the place. The route gains top padding for it and the rail
+// starts just beneath it, centred on the rail line.
+.route--with-glyph {
+  --route-glyph: 2.5rem;
+  padding-top: calc(var(--route-glyph) + 0.75rem);
+
+  &::before {
+    top: calc(var(--route-glyph) + 0.75rem);
+  }
+}
+
+.route__glyph {
+  position: absolute;
+  top: 0;
+  left: calc(var(--route-rail) / 2 - var(--route-glyph) / 2);
+  width: var(--route-glyph);
+  height: var(--route-glyph);
+  color: var(--route-accent);
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.route__question {
+  margin: 0 0 0.5rem;
+  font-family: "Nunito", $sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: $text-color;
+  text-wrap: balance;
+}
+
+.route__answer {
+  margin: 0 0 1.5rem;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: $text-color;
+}
+
+.route__steps {
+  display: grid;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.route__step {
+  position: relative;
+  margin: 0;
+  padding: 0;
+
+  // The stop on the rail: a hollow dot centred on the rail line.
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0.45rem;
+    left: calc(-1 * var(--route-inset) + var(--route-rail) / 2 - 0.4rem);
+    width: 0.8rem;
+    height: 0.8rem;
+    box-sizing: border-box;
+    border-radius: 50%;
+    background: #fff;
+    border: var(--route-rail) solid var(--route-accent);
+  }
+}
+
+.route__step-text {
+  margin: 0 0 0.25rem;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: $text-color;
+}
+
+.route__step-link {
+  font-size: 1rem;
+}
+
 .page-section__component-title {
   max-width: $content-width;
   margin: 2rem 0 1rem;

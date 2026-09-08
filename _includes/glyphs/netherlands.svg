@@ -1,0 +1,14 @@
+{%- comment -%}
+  Netherlands outline glyph for the routes component. Traced from Eurostat
+  GISCO Countries 2024, 1:20M (© EuroGeographics for the administrative
+  boundaries), simplified to ~40 points and fitted to a 32×42 box.
+  Stroke-only so it takes the rail's colour via currentColor.
+{%- endcomment -%}
+<svg viewBox="0 0 32 42" aria-hidden="true" focusable="false">
+  <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M29.4 11.3 L28.1 15.1 L26.0 15.2 L25.9 16.9 L28.0 17.3 L28.5 19.7 L26.3 21.1 L26.5 23.2 L23.9 24.4 L22.2 23.6 L20.9 24.4 L20.7 25.3 L22.4 27.9 L22.6 29.7 L21.5 31.1 L22.2 31.8 L20.1 33.5 L21.6 34.9 L21.2 36.7 L18.8 36.7 L19.5 32.1 L17.4 30.6 L15.7 30.9 L14.3 28.5 L13.1 29.0 L12.3 28.1 L11.7 29.0 L10.4 28.5 L9.8 29.7 L4.3 28.4 L4.8 27.3 L5.9 27.1 L5.8 25.2 L7.3 24.1 L6.9 22.7 L7.9 22.4 L10.4 18.7 L12.8 9.1 L12.8 12.0 L15.1 11.0 L18.3 7.4 L26.3 5.7 L29.5 8.2 Z"/>
+    <path d="M8.6 29.9 L6.8 31.3 L5.9 31.5 L4.3 30.5 L2.6 30.7 L2.5 29.7 Z"/>
+    <path d="M19.3 5.7 L18.8 6.3 L18.1 5.8 L18.8 5.3 Z"/>
+    <path d="M17.0 6.4 L16.5 6.9 L15.7 6.3 L16.4 5.9 Z"/>
+  </g>
+</svg>
