@@ -60,8 +60,8 @@ software:
     children:
       - title: Getting started
         url: /software/getting-started/
-      - title: Script builder
-        url: /software/script-builder/
+      - title: Script selector
+        url: /software/script-selector/
       - title: Going further
         url: /software/going-further/
       - title: Port in education

@@ -1401,7 +1401,7 @@ collections:
                 field: { name: reference, label: "Reference (markdown)", widget: text }
 
   # ──────────────────────── Software ──────────────────────────────────────
-  # Three of these pages (Getting started, Script builder, Going further)
+  # Three of these pages (Getting started, Script selector, Going further)
   # use the page-sections layout so that their figures and embeds live in
   # frontmatter rather than as Liquid tags in the markdown body, which the
   # rich-text editor cannot round-trip. Per-section `component` keys are
@@ -1600,11 +1600,11 @@ collections:
           - { name: permalink, widget: hidden, default: "/software/getting-started/" }
           - { name: layout, widget: hidden, default: "page-sections" }
 
-      - file: _pages/software/script-builder.md
-        name: script_builder_page
-        label: "Script builder page"
+      - file: _pages/software/script-selector.md
+        name: script_selector_page
+        label: "Script selector page"
         icon: article
-        description: "The page at /software/script-builder/ — the highlight box, intro prose, the section after the embedded builder, and the contact block (which carries the custom-script offer). The builder itself is developer-managed."
+        description: "The page at /software/script-selector/ — the highlight box, intro prose, the section after the embedded selector, and the contact block (which carries the custom-script offer). The selector itself is developer-managed."
         fields:
           - { name: title, label: "Page title", widget: string }
           - name: postit
@@ -1623,13 +1623,13 @@ collections:
           - name: body
             label: "Intro prose (markdown)"
             widget: markdown
-            hint: "Short prose shown above the embedded script builder."
+            hint: "Short prose shown above the embedded script selector."
           - name: sections
             label: "Page sections"
             label_singular: "Section"
             widget: list
             summary: "{{title}}"
-            comment: "The first, untitled section is the embedded script builder itself — leave it as is. Sections after it render as heading + prose below the builder."
+            comment: "The first, untitled section is the embedded script selector itself — leave it as is. Sections after it render as heading + prose below the selector."
             fields:
               - { name: title, label: "Section title", widget: string, required: false, hint: "Leave empty on the embed section." }
               - name: body
@@ -1638,7 +1638,7 @@ collections:
                 required: false
                 hint: "Prose for this section. Leave empty on the embed section."
               # Developer-owned: names the component rendered after the
-              # section (the script builder embed). Hidden so saves preserve it.
+              # section (the script selector embed). Hidden so saves preserve it.
               - { name: component, widget: hidden }
           - name: contact
             label: "Contact CTA"
@@ -1659,8 +1659,8 @@ collections:
           - { name: classes, widget: hidden, default: "wide" }
           - { name: toc, widget: hidden, default: false }
           - { name: sidebar, widget: hidden, default: { nav: "software" } }
-          - { name: redirect_from, widget: hidden, default: ["/software/ready-made-scripts/"] }
-          - { name: permalink, widget: hidden, default: "/software/script-builder/" }
+          - { name: redirect_from, widget: hidden, default: ["/software/script-builder/", "/software/ready-made-scripts/"] }
+          - { name: permalink, widget: hidden, default: "/software/script-selector/" }
           - { name: layout, widget: hidden, default: "page-sections" }
 
       - file: _pages/software/going-further.md
