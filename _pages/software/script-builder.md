@@ -9,9 +9,9 @@ redirect_from:
 sidebar:
   nav: "software"
 postit:
-  eyebrow: "Preview"
-  title: "In active development"
-  body: "If the builder stops responding, try refreshing the page."
+  eyebrow: "Outage"
+  title: "Script builder is offline"
+  body: "SURF Research Cloud, which hosts the builder, is currently down. The builder will be back as soon as SURF is."
 sections:
   - component: script-builder
   - title: "About the script you get"

@@ -9,9 +9,9 @@ url: "https://sramtest.d3idatadonation.src.surf-hosted.nl/select"
 fallback:
   heading: "Script builder unavailable"
   message: >-
-    The script builder is temporarily offline.
-    It's typically back within a few minutes; please try again shortly,
-    or contact us if the problem persists.
+    The builder runs on SURF Research Cloud and isn't responding right now.
+    It's usually back within minutes; if it stays offline, SURF itself is
+    probably down. Try again later or email DataDonation@uu.nl.
 
 # How long the iframe has to fire `load` before we swap to fallback.
 # 8 seconds covers slow workspace cold-starts; faster than the user gives up.
