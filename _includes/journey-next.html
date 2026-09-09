@@ -1,0 +1,61 @@
+{%- comment -%}
+  "Next step" wayfinding for pages that are a step in a hub-journey section
+  (Software, Prepare a study). The hub page's `movements` list is the single
+  source of truth: this include finds the hub for the current page's sidebar
+  section, locates the step whose link matches the current URL, and renders
+  the step after it (number, title, body, link), plus a quieter "After that"
+  line when a further step exists. Renders nothing on the last step, on
+  pages that are not steps, and in sections without a journey hub.
+
+    {% include journey-next.html %}
+
+  URLs are compared with trailing slashes stripped, because the two sections
+  differ in whether their permalinks carry one.
+{%- endcomment -%}
+{%- assign journey_nav = page.sidebar.nav -%}
+{%- if journey_nav -%}
+  {%- assign journey_hub = site.pages | where: "hub_section", journey_nav | first -%}
+  {%- if journey_hub and journey_hub.movements and journey_hub.movements.size > 0 -%}
+    {%- assign journey_here = page.url | split: "/" | join: "/" -%}
+    {%- assign journey_next_i = -1 -%}
+    {%- for journey_step in journey_hub.movements -%}
+      {%- if journey_step.link and journey_step.link.url -%}
+        {%- assign journey_step_url = journey_step.link.url | split: "/" | join: "/" -%}
+        {%- if journey_step_url == journey_here -%}
+          {%- assign journey_next_i = forloop.index -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if journey_next_i >= 0 and journey_next_i < journey_hub.movements.size -%}
+      {%- assign journey_next = journey_hub.movements[journey_next_i] -%}
+      {%- assign journey_after_i = journey_next_i | plus: 1 -%}
+      {%- assign journey_after = nil -%}
+      {%- if journey_after_i < journey_hub.movements.size -%}
+        {%- assign journey_after = journey_hub.movements[journey_after_i] -%}
+      {%- endif -%}
+<aside class="journey-next" aria-labelledby="journey-next-label">
+  <p class="journey-next__label" id="journey-next-label">Next step</p>
+  <div class="journey-next__step">
+    {%- if journey_next.number and journey_next.number != "" -%}
+    <span class="journey-next__number" aria-hidden="true">{{ journey_next.number }}</span>
+    {%- endif -%}
+    <div class="journey-next__text">
+      <h2 class="journey-next__title">{{ journey_next.title }}</h2>
+      {%- if journey_next.body and journey_next.body != "" -%}
+      <p class="journey-next__body">{{ journey_next.body }}</p>
+      {%- endif -%}
+      {%- if journey_next.link and journey_next.link.url and journey_next.link.text -%}
+      <a class="section-cta journey-next__link" href="{{ journey_next.link.url | relative_url }}">{{ journey_next.link.text }} <span aria-hidden="true">→</span></a>
+      {%- endif -%}
+      {%- if journey_after -%}
+      <p class="journey-next__after">After that:
+        {%- if journey_after.number and journey_after.number != "" %} <span class="journey-next__after-number">{{ journey_after.number }}</span>{% endif %}
+        {%- if journey_after.link and journey_after.link.url %} <a href="{{ journey_after.link.url | relative_url }}">{{ journey_after.title }}</a>{% else %} {{ journey_after.title }}{% endif -%}
+      </p>
+      {%- endif -%}
+    </div>
+  </div>
+</aside>
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}
