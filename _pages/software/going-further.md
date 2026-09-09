@@ -61,4 +61,4 @@ contact:
   subject: "Question about extending the data donation software"
 ---
 
-The script builder covers the basics, but you can do quite a bit more once you've got the foundation in place. The features below give you ways to make a study richer, more interactive, or more transparent for participants.
+The script selector covers the basics, but you can do quite a bit more once you've got the foundation in place. The features below give you ways to make a study richer, more interactive, or more transparent for participants.

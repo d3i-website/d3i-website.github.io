@@ -1,0 +1,20 @@
+# Toggle the entire embed off (renders fallback at build time).
+# Use this for known/extended outages.
+available: true
+
+# URL of the script selector. Update when the workspace moves.
+# `?embed=1` tells the selector it is framed, so it can drop its own
+# header and width cap; until the app supports it, the parameter is ignored.
+url: "https://sramtest.d3idatadonation.src.surf-hosted.nl/select?embed=1"
+
+# Shown when build-time `available: false` OR the JS timeout fires.
+fallback:
+  heading: "Script selector unavailable"
+  message: >-
+    The selector runs on SURF Research Cloud and isn't responding right now.
+    It's usually back within minutes; if it stays offline, SURF itself is
+    probably down. Try again later or email DataDonation@uu.nl.
+
+# How long the iframe has to fire `load` before we swap to fallback.
+# 8 seconds covers slow workspace cold-starts; faster than the user gives up.
+timeout_seconds: 8

@@ -46,7 +46,7 @@ The left sidebar puts your day-to-day work at the top, with the site-section edi
 - **Community** — page editors and data lists for `/community/` (the section landing page, Events page, Courses page + course materials, Symposia page, Networks, Newsletter).
 - **About D3I** — page editors and data lists for `/about-d3i/` (the section landing page, Team, Advisory board, Funding, Partners, Impact and adoption).
 - **Prepare a Study** — the section landing page and the Completed projects page with its data list.
-- **Software** — page editors for `/software/` (the section landing page, Getting started, Script builder, Going further, Port in education). The script builder embed itself is managed by Danielle; the text around it is yours.
+- **Software** — page editors for `/software/` (the section landing page, Getting started, Script selector, Going further, Port in education). The script selector embed itself is managed by Danielle; the text around it is yours.
 
 Within each section, page editors are paired with their supporting data list (e.g. "Team page" sits next to "Team members"). Edit the page when you want to change the prose; edit the data list when you want to add, remove, or reorder items shown on the page. The Events, Courses, and Symposia pages are the exception: their intro prose is a page editor under Community, while the events listed on them come from the Events collection at the top of the sidebar.
 

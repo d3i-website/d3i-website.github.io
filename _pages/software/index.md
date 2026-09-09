@@ -25,10 +25,10 @@ movements:
     title: "Pick a platform"
     image: /assets/images/hub/social-ideas.svg
     image_alt: "A person presenting a board of ideas with colorful notes and a lightbulb."
-    body: "We provide standard scripts for the most common platforms, with no coding required to use them. Pick the data you need and the builder packages it for your study."
+    body: "We provide standard scripts for the most common platforms, with no coding required to use them. Pick the data you need and the selector packages it for your study."
     link:
-      url: /software/script-builder/
-      text: "Use our script builder"
+      url: /software/script-selector/
+      text: "Use our script selector"
   - number: "03"
     title: "Go further (optional)"
     image: /assets/images/hub/data-trends.svg
