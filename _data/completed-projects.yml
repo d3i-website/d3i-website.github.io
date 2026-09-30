@@ -132,3 +132,19 @@ completed_projects:
     data: The metadata of the survey and the metadata of the donated Instagram data are archived on the [ODISSEI Portal](https://doi.org/10.34894/TQU5ZD) (CC0 1.0). Contact the authors for access; see the readme.txt for the codebook.
     acknowledgements: ''
     references: []
+  - title: Project SOCIAL Social Online Connectedness In Adolescents’ Lives
+    year: 2026
+    image: /assets/images/completed-projects/Gemini_Generated_Image_xsx4z5xsx4z5xsx4.webp
+    image_credit: Gemini AI Product
+    image_credit_url: ''
+    investigators: Loes Pouwels & Michelle Pingel
+    summary: This project aims to better understand how the effects of social media use on social connectedness differ across adolescents, social contexts, and time scales. In which context does what apply, when, and to whom? This project combines data donations from Snapchat, WhatsApp, Instagram, and TikTok with experience sampling data, survey data, and peer nomination data.
+    collection_period: January 2025-June 2026
+    recruitment: 4 Cohorts of participants were recruited via ongoing collaborations  with schools
+    instructions: Contact the PI
+    ethical_review: The Ethics Committee Social Sciences (ECSS) has approved the study (23N.010144).
+    software: Port
+    local_processing: Contact the PI
+    data: Contact the PI
+    acknowledgements: This research is funded by a Veni grant (VI.Veni.221G.105) awarded to J. Loes Pouwels by the Dutch Research Council (NWO).
+    references: []
