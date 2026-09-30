@@ -160,7 +160,7 @@ completed_projects:
     instructions: ''
     ethical_review: 'Approved by the Ethics Review Board, Vrije Universiteit Amsterdam (ref: ETO21.52).'
     software: Port
-    local_processing: GitHub - https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2Fd3i-infra%2Fport-vu-pilot&data=05%7C02%7Cd.shanidze%40uu.nl%7C19a88242b275415c01e508df1ecc4234%7Cd72758a0a4464e0fa0aa4bf95a4a10e7%7C0%7C0%7C639263534778308160%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=43smAQxVvf6e3DhiF0wOsTpeMfj3sVCNSvghGls7pow%3D&reserved=0
+    local_processing: https://github.com/d3i-infra/port-vu-pilot
     data: Contact the PI.
     acknowledgements: Funded by NWO (VI.Veni.221C.068).
     references: []
