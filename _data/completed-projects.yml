@@ -45,7 +45,7 @@ completed_projects:
     instructions: ''
     ethical_review: 'Approved by the Ethics Review Board, Vrije Universiteit Amsterdam (ref: ETO21.52).'
     software: Port
-    local_processing: https://github.com/d3i-infra/port-vu-pilot
+    local_processing: '[Github](https://github.com/d3i-infra/port-vu-pilot)'
     data: Contact the PI.
     acknowledgements: Funded by NWO (VI.Veni.221C.068).
     references: []
