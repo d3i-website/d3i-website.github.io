@@ -148,3 +148,19 @@ completed_projects:
     data: Contact the PI
     acknowledgements: This research is funded by a Veni grant (VI.Veni.221G.105) awarded to J. Loes Pouwels by the Dutch Research Council (NWO).
     references: []
+  - title: 'When news resonates: How societal issues permeate people’s lifeworld'
+    year: 2025
+    image: /assets/images/completed-projects/Gemini_Generated_Image_uaxi2fuaxi2fuaxi.webp
+    image_credit: Gemini
+    image_credit_url: ''
+    investigators: Tim Groot Kormelink (PI), Kasper Welbers, Helen Arts, Summer Skillen & Niek de Schipper
+    summary: 'While digitalization and platformization have made it challenging to capture the full range of people’s engagement with news and information, paradoxically, they have also enabled unprecedented access into people’s practices and experiences. Harnessing these developments, this study combines data donations with WhatsApp-diaries and in-depth interviews to answer the following question: How and under which circumstances do societal issues ‘break through’ the continuous stream of information and resonate with citizens?'
+    collection_period: Spring 2025
+    recruitment: Participants were recruited via flyers and social media posts.
+    instructions: ''
+    ethical_review: 'Approved by the Ethics Review Board, Vrije Universiteit Amsterdam (ref: ETO21.52).'
+    software: Port
+    local_processing: GitHub - https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2Fd3i-infra%2Fport-vu-pilot&data=05%7C02%7Cd.shanidze%40uu.nl%7C19a88242b275415c01e508df1ecc4234%7Cd72758a0a4464e0fa0aa4bf95a4a10e7%7C0%7C0%7C639263534778308160%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=43smAQxVvf6e3DhiF0wOsTpeMfj3sVCNSvghGls7pow%3D&reserved=0
+    data: Contact the PI.
+    acknowledgements: Funded by NWO (VI.Veni.221C.068).
+    references: []
