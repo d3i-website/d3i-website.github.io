@@ -4,7 +4,7 @@ date: 2026-10-01
 summary: Lennert is a postdoctoral researcher in the Macroscope project, studying how online media consumption relates to attitudes and behaviors over time through innovative data donation research.
 image: /assets/images/news/Lennert D3I.webp
 image_alt: ''
-external_url: https://www.uva.nl/en/profile/g/r/l.j.groot/l.j.groot.html
+external_url: ''
 layout: page
 ---
 
