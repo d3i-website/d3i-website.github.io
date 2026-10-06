@@ -14,7 +14,7 @@ Data donation is a powerful way to study online behaviour at scale, but navigati
 
 The programme combined presentations on data donation research in practice, drawing on real projects and the lessons learned from them, with an introduction to the technical infrastructure that supports this kind of work. The day also made room for open discussion on how different institutions approach ethical evaluation. Its centrepiece was a set of scenario-based breakout sessions, in which participants worked through concrete cases and provided detailed feedback that will feed into text blocks that can be used in, for example, informed consent forms, as well as guidelines for researchers, ethics committees, and research institutions’ management boards.
 
-The input gathered throughout the day will directly shape these templates, which the team aims to share more broadly via the [data donation infrastructure](datadonation.eu). Beyond feedback on concrete tasks, the workshop also helped bring together and strengthen existing networks across research institutions focusing on responsible research based on digital data.
+The input gathered throughout the day will directly shape these templates, which the team aims to share more broadly via the [data donation infrastructure](https://datadonation.eu/). Beyond feedback on concrete tasks, the workshop also helped bring together and strengthen existing networks across research institutions focusing on responsible research based on digital data.
 
 Our thanks to all the speakers and participants who made it such a productive exchange.
 
