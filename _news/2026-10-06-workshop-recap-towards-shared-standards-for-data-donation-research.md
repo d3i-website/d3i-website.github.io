@@ -17,3 +17,5 @@ The programme combined presentations on data donation research in practice, draw
 The input gathered throughout the day will directly shape these templates, which the team aims to share more broadly via the [data donation infrastructure](datadonation.eu). Beyond feedback on concrete tasks, the workshop also helped bring together and strengthen existing networks across research institutions focusing on responsible research based on digital data.
 
 Our thanks to all the speakers and participants who made it such a productive exchange.
+
+![](/assets/images/news/20260904_101800.webp "Photo from Data Donation Workshop")
