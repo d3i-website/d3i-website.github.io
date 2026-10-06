@@ -1,6 +1,6 @@
 ---
 title: 'Workshop Recap: Towards Shared Standards for Data Donation Research'
-date: 2026-10-06
+date: 2026-09-21
 summary: On 4 September 2026, the RIGHTS project (NWO TDCC) brought together privacy experts, data stewards, ethics committee members, and researchers at the University of Amsterdam to tackle the legal and ethical challenges of data donation research.
 image: /assets/images/news/20260904_101800.webp
 image_alt: Photo from Data Donation Workshop
