@@ -1,4 +1,20 @@
 completed_projects:
+  - title: "Intentionality in Social Media Use: Linking Objective TikTok Behavioral Data to Users' Goals, Momentary Experiences, and Well-Being"
+    year: 2025
+    image: /assets/images/completed-projects/Gemini_Generated_Image_uemen9uemen9ueme.webp
+    image_credit: Gemini
+    image_credit_url: ''
+    investigators: Yuning Liu, Prof. Amit Goldenberg
+    summary: This project examines how intentionality in social media use, meaning how aware people are of their goal for using social media (goal awareness) and how motivated they are to pursue it (goal strength), shapes momentary experiences and well-being. Do people feel and act differently on social media when they know why they are using it? In a 7-day experience sampling study with 266 U.S. adults (six surveys per day), the project combines self-reported goals and well-being with screen-time screenshots and donated TikTok data. This project aims to explore how objective behavioral data from social media data donations, including time-stamped activity logs and multimodal content, can reveal about users' experiences and their positive and negative well-being outcomes
+    collection_period: July to September 2025
+    recruitment: Online participants who are adults and active TikTok users recruited from survey platforms
+    instructions: Contact the authors
+    ethical_review: The Institutional Review Board (IRB) of the Harvard University-Area approved this study (IRB24-1356).
+    software: Port
+    local_processing: We are working on the follow up studies. Please contact the authors.
+    data: ''
+    acknowledgements: 'Pre-registration: https://osf.io/dpwu7/overview'
+    references: []
   - title: Instagram, political preferences, and federated learning
     year: 2025
     image: /assets/images/completed-projects/Gemini_Generated_Image_mqca60mqca60mqca.webp
@@ -163,20 +179,4 @@ completed_projects:
     local_processing: '[GitHub](https://github.com/KiayangQ/port_yt)'
     data: Contact the PI.
     acknowledgements: Funded by the Healthy Future initiative of the University of Amsterdam.
-    references: []
-  - title: "Title -- Intentionality in Social Media Use: Linking Objective TikTok Behavioral Data to Users' Goals, Momentary Experiences, and Well-Being"
-    year: 2025
-    image: /assets/images/completed-projects/Gemini_Generated_Image_uemen9uemen9ueme.webp
-    image_credit: Gemini
-    image_credit_url: ''
-    investigators: Yuning Liu, Prof. Amit Goldenberg
-    summary: This project examines how intentionality in social media use, meaning how aware people are of their goal for using social media (goal awareness) and how motivated they are to pursue it (goal strength), shapes momentary experiences and well-being. Do people feel and act differently on social media when they know why they are using it? In a 7-day experience sampling study with 266 U.S. adults (six surveys per day), the project combines self-reported goals and well-being with screen-time screenshots and donated TikTok data. This project aims to explore how objective behavioral data from social media data donations, including time-stamped activity logs and multimodal content, can reveal about users' experiences and their positive and negative well-being outcomes
-    collection_period: July to September 2025
-    recruitment: Online participants who are adults and active TikTok users recruited from survey platforms
-    instructions: Contact the authors
-    ethical_review: The Institutional Review Board (IRB) of the Harvard University-Area approved this study (IRB24-1356).
-    software: Port
-    local_processing: We are working on the follow up studies. Please contact the authors.
-    data: ''
-    acknowledgements: 'Pre-registration: https://osf.io/dpwu7/overview'
     references: []
