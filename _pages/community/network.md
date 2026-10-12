@@ -21,7 +21,7 @@ sections:
     image_alt: Two people collaborating in a professional network.
     image_side: left
     body: |-
-      We also facilitate an informal PhD network for early-career researchers working with data donation, coordinated by our two PhD representatives [Elisabeth Schmidbauer](https://www.sw.lmu.de/ifkw/en/department/news-activities-history/people-at-the-ifkw/contact-page/elisabeth-schmidbauer-2496577c.html) and [Lion Wedel](https://www.weizenbaum-institut.de/en/portrait/p/lion/#page=1&tags=science_publications&sort=date). Through this network, PhD researchers can exchange experiences, coordinate around conferences, and share questions, ideas, and opportunities in a low-threshold way.
+      We also facilitate an informal network for early-career researchers working with data donation, coordinated by our two PhD representatives [Elisabeth Schmidbauer](https://www.sw.lmu.de/ifkw/en/department/news-activities-history/people-at-the-ifkw/contact-page/elisabeth-schmidbauer-2496577c.html) and [Lion Wedel](https://www.weizenbaum-institut.de/en/portrait/p/lion/#page=1&tags=science_publications&sort=date). Through this network, PhD researchers can exchange experiences, coordinate around conferences, and share questions, ideas, and opportunities in a low-threshold way.
 
       If you sign up, your contact details will be used to keep you informed and, if you agree, may be shared within the PhD network to support direct peer-to-peer connection.
     cta:
