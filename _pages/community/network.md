@@ -1,6 +1,7 @@
 ---
 title: Community Networks
 excerpt: Learn more about our institutional network and PhD network
+postit: null
 sections:
   - title: Data Donation Network
     image: /assets/images/hub/undraw_online-community_3o0l.svg
@@ -15,7 +16,7 @@ sections:
       url: mailto:DataDonation@uu.nl?subject=Question%20about%20joining%20the%20institutional%20network
     component_title: Network Members
     component: institutions-grid
-  - title: PhD Network
+  - title: Early Career Network
     image: /assets/images/hub/undraw_collaborating_mayd.svg
     image_alt: Two people collaborating in a professional network.
     image_side: left
@@ -24,7 +25,7 @@ sections:
 
       If you sign up, your contact details will be used to keep you informed and, if you agree, may be shared within the PhD network to support direct peer-to-peer connection.
     cta:
-      label: Join the PhD network
+      label: Join the Early Career Network
       url: https://mailings.uu.nl/hp/BsTM1OxHcH5nTdpEqXAkMg/subscribe_newsletter_data_donation_network
     component_title: ''
     component: ''
