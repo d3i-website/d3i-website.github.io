@@ -21,9 +21,9 @@ sections:
     image_alt: Two people collaborating in a professional network.
     image_side: left
     body: |-
-      We also facilitate an informal network for early-career researchers working with data donation, coordinated by our two PhD representatives [Elisabeth Schmidbauer](https://www.sw.lmu.de/ifkw/en/department/news-activities-history/people-at-the-ifkw/contact-page/elisabeth-schmidbauer-2496577c.html) and [Lion Wedel](https://www.weizenbaum-institut.de/en/portrait/p/lion/#page=1&tags=science_publications&sort=date). Through this network, PhD researchers can exchange experiences, coordinate around conferences, and share questions, ideas, and opportunities in a low-threshold way.
+      We also facilitate an informal network for early-career researchers working with data donation, coordinated by our two Early-Career Representatives: [Elisabeth Schmidbauer](https://www.sw.lmu.de/ifkw/en/department/news-activities-history/people-at-the-ifkw/contact-page/elisabeth-schmidbauer-2496577c.html) and [Lion Wedel](https://www.weizenbaum-institut.de/en/portrait/p/lion/#page=1&tags=science_publications&sort=date). Through this network, early-career researchers can exchange experiences, coordinate around conferences, and share questions, ideas, and opportunities in a low-threshold way.
 
-      If you sign up, your contact details will be used to keep you informed and, if you agree, may be shared within the PhD network to support direct peer-to-peer connection.
+      If you sign up, your contact details will be used to keep you informed and, if you agree, may be shared within the early career network to support direct peer-to-peer connection.
     cta:
       label: Join the Early Career Network
       url: https://mailings.uu.nl/hp/BsTM1OxHcH5nTdpEqXAkMg/subscribe_newsletter_data_donation_network
