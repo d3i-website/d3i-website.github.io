@@ -238,6 +238,21 @@ Estimated effort: 30 min if Cloudflare account exists; 1-2 hrs for an EU alterna
 
 When `datadonation.eu`'s production hosting moves off Netlify (planned, separate from CMS work), the OAuth proxy plan above is the same regardless of where production lands — the auth path is independent of the production deploy host as long as the admin stays on github.io.
 
+## Asset housekeeping backlog
+
+One-off cleanups under `assets/documents/`, found while reviewing the sitemap (2026-10-14). None is urgent; the duplicates and orphans just pad the sitemap and the repo. These files have public URLs that may be linked from old emails and newsletters, not only from pages in this repo, so a `grep` over `_data`, `_pages`, `_events` and `_news` is necessary but not sufficient before deleting or renaming anything.
+
+- [ ] **Byte-identical duplicates**: pick one copy, relink or redirect the other.
+  - `Netflix_instructions_download.pdf` and `Netflix_instructions_request.pdf` exist both at the top level (linked from `_data/completed-projects.yml`) and under `materials/` (linked from `_pages/community/courses/materials.md`).
+  - `Ethics_3_Privacy_policy.pdf` (top level, `_data/completed-projects.yml`) is the same file as `materials/Privacy_policy.pdf` (`_pages/community/courses/materials.md`).
+- [ ] **Consent manual in four variants, none linked**: `legal_ethical/Consent-manual.pdf` (hyphen, 527 KB) and `legal_ethical/Consent_manual.pdf` (underscore, 17 KB) are different documents, alongside `Consent_manual.docx` and `Consent_manual.md`. Decide which is canonical and drop the rest.
+- [ ] **Misspelled image names**: "Macroscrope" (for Macroscope) in `newsletters/Data Donation Newsletter - Fall 2025_files/Macroscrope OrganogramV_1V_1V_1` and `newsletters/Data Donation Newsletter - Spring 2026_files/Macroscrope Organogram.png`. Both are referenced by the saved newsletter HTML next to them, so renaming means editing those HTML files too. Cosmetic; the newsletter body text spells it correctly.
+- [ ] **Committed Word lock file**: `legal_ethical/~$nsent_manual.docx` (162 bytes). Safe to delete.
+- [ ] **Orphans** (not referenced by any page or data file): all ten files under `legal_ethical/`, `materials/Text_webpage_course_materials.docx`, and `Privacy_statement.pdf`. Confirm they are not linked externally before removing.
+- [ ] **Saved-webpage newsletter folders** carry their own duplicate images: the UU logo in both `_files` folders, a 104 KB image saved twice under different hashed names in Fall 2025, and a 43-byte image (likely a tracking pixel) in both. Low value; only worth touching if the newsletters are ever re-exported.
+
+Related: the sitemap lists every PDF and HTML file under `assets/documents/`, which is jekyll-sitemap's default for static files. If that is ever unwanted, add a second `defaults` scope in `_config.yml` for that path with `sitemap: false`, the same mechanism that keeps `admin/` out.
+
 ## Quarterly janitor checklist
 
 - [ ] Close stale `cms-staging` → `main` publication PRs that were opened but never merged (older than 14 days). These leave editor work in limbo; either publish or close.
