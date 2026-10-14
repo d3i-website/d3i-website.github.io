@@ -1,0 +1,18 @@
+<!-- @dsCard group="Actions" height=72 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>ActionLink — preview</title>
+<style>.pv{display:flex;flex-wrap:wrap;align-items:baseline;gap:1rem 2.5rem;padding:1.25rem 1.5rem}</style></head>
+<body>
+<div id="root" class="pv"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h(D.ActionLink, { href: '#' }, 'Learn about data donation'),
+    h(D.ActionLink, { href: '#', variant: 'compact' }, 'Read more'),
+    h(D.ActionLink, { href: '#', variant: 'accent', accent: 'primary' }, 'Learn how it works'),
+    h(D.ActionLink, { href: '#', variant: 'accent', accent: 'tertiary' }, 'Explore the software')
+  ));
+</script>
+</body>
+</html>

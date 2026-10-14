@@ -1,0 +1,26 @@
+<!-- @dsCard group="Content" height=560 width=960 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Figure — preview</title>
+<style>.pv{padding:0.5rem 1.5rem 1rem;max-width:54rem}.pv .section-figure{max-width:30rem;margin:1.5rem 0}.pv .page-section__figure{margin:0}.pv .row{display:flex;flex-wrap:wrap;gap:2rem;align-items:flex-start}.pv .media-grid{max-width:30rem}</style></head>
+<body>
+<div id="root" class="pv"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h('div', { className: 'row' },
+      h(D.Figure, { variant: 'panel', src: '/_blob/f25dcc0ffa32cd23fc3a0a0a921fedae', alt: 'A secure server with a lock' }),
+      h(D.Figure, {
+        src: '/_blob/cff92c11f04b720e927de0cfc5fd401f',
+        alt: 'Files moving to and from a cloud',
+        caption: 'Participants request their data from the platform, then process it locally before deciding what to donate.'
+      })
+    ),
+    h(D.Figure.MediaGrid, { images: [
+      { src: '/_blob/e4c1f13103cf847bd3dc6014c368bdd8', alt: 'Two devices syncing files' },
+      { src: '/_blob/1663b32bf2a2b6b26f55586d8d9261c4', alt: 'A question being answered' }
+    ] })
+  ));
+</script>
+</body>
+</html>

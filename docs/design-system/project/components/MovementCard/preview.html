@@ -1,0 +1,23 @@
+<!-- @dsCard group="Cards" height=380 width=1152 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>MovementCard — preview</title></head>
+<body>
+<div id="root" style="display:contents"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h(D.MovementCard.Group, { wide: true },
+      h(D.MovementCard, {
+        accent: 'primary',
+        eyebrow: 'The method',
+        heading: 'What is data donation?',
+        body: 'Data donation allows researchers to collect digital traces by asking participants to donate their own data. Interested?',
+        image: { src: '/_blob/d369c84e81363c23b84918aa956d524a', alt: 'A person viewing a social media profile on a screen' },
+        link: { label: 'Learn how it works', href: '#' }
+      })
+    )
+  );
+</script>
+</body>
+</html>

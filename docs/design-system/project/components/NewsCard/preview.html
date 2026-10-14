@@ -1,0 +1,35 @@
+<!-- @dsCard group="Cards" height=680 width=1152 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>NewsCard — preview</title>
+<style>.pv-row{padding:1.5rem 1.5rem 1rem}</style></head>
+<body>
+<div id="root" style="display:contents"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  var items = [
+    { accent: 0, title: 'Data Donation Symposium Program Available', date: 'September 8, 2026',
+      summary: 'The schedule for the 2026 Data Donation symposium has been published, featuring a keynote from Jasper Tjaden and sessions on study design, chat bots, biases, quality and standards.' },
+    { accent: 1, title: 'Build your data donation study with our new Script Builder', date: 'July 14, 2026',
+      summary: 'The new Port Script Builder helps researchers quickly create tailored Python scripts for local data processing. Select your platform and the data you want to collect.' },
+    { accent: 2, title: 'LISS Panel Grant 2026: One grant reserved for data donation research', date: 'July 14, 2026',
+      summary: 'The ODISSEI 2026 LISS Panel Grant call is open until 24 September 2026. Six grants are available, including one for data donation research using the representative LISS panel.' }
+  ];
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h(D.NewsCard.Band, { title: 'Latest news', moreLink: { label: 'More news', href: '#' } },
+      items.map(function (it, i) { return h(D.NewsCard, Object.assign({ key: i, href: '#' }, it)); })
+    ),
+    h('div', { className: 'pv-row' },
+      h(D.NewsCard.List, null,
+        h(D.NewsCard, {
+          variant: 'row', accent: 1, href: '#',
+          title: 'Meet our new community manager, Dachi Shanidze',
+          date: 'July 14, 2026',
+          summary: 'Dachi Shanidze joins D3I and TDCC RIGHTS as community manager, supporting project operations, administration, communication, and events.'
+        })
+      )
+    )
+  ));
+</script>
+</body>
+</html>

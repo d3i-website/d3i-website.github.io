@@ -1,0 +1,36 @@
+<!-- @dsCard group="Cards" height=430 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>ArchiveCard — preview</title>
+<style>.pv{padding:0.5rem 1.5rem 1rem}</style></head>
+<body>
+<div id="root" class="pv"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h(D.ArchiveCard.List, null,
+      h(D.ArchiveCard, {
+        featured: true,
+        title: 'Data Donation Symposium 2026',
+        date: 'October 1-2, 2026',
+        location: 'Weizenbaum Institute, Berlin, Germany',
+        summary: 'The 2026 symposium brings together applied researchers, methodologists, legal and ethical experts, research engineers, and software developers working with digital trace data.',
+        details: [
+          { label: 'Date', value: 'October 1-2, 2026' },
+          { label: 'Location', value: 'Weizenbaum Institute, Berlin, Germany' }
+        ],
+        href: '#',
+        actions: [{ label: 'Call for abstracts', href: '#' }]
+      }),
+      h(D.ArchiveCard, {
+        title: 'Data Donation Symposium 2025',
+        date: 'October 9-10, 2025',
+        location: 'Bavarian Academy of Sciences and Humanities, Munich, Germany',
+        summary: 'Hosted by colleagues at the Bavarian Academy of Sciences and Humanities.',
+        href: '#'
+      })
+    )
+  );
+</script>
+</body>
+</html>

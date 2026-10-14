@@ -1,0 +1,50 @@
+<!-- @dsCard group="Slides" height=540 width=960 subtitle="Content slide: eyebrow, title, footer row; three tint cards with icons and a statement panel" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>SlideFrame — preview</title>
+<style>html,body{margin:0;background:#f5f7fb}.stage{width:960px;height:540px;overflow:hidden}#root{width:1920px;height:1080px;transform:scale(.5);transform-origin:top left}</style></head>
+<body>
+<div class="stage"><div id="root"></div></div>
+<script>
+var D = window.D3I, h = React.createElement;
+ReactDOM.createRoot(document.getElementById('root')).render(h(D.SlideFrame, {
+ "eyebrow": "Part I · The data",
+ "heading": "Digital trace data are by-products of platform use",
+ "number": 5,
+ "cards": [
+  {
+   "iconSrc": "/_blob/b7493992ff75c7e90c65e4ca07073037",
+   "iconAlt": "Instagram",
+   "eyebrow": "Instagram",
+   "title": "A like",
+   "body": "What was liked, from whom, and when."
+  },
+  {
+   "iconSrc": "/_blob/ad1acc11a825802ce6230fc6b5dcfeac",
+   "iconAlt": "WhatsApp",
+   "eyebrow": "WhatsApp",
+   "title": "A message",
+   "body": "Who is contacted, how often, and at what time of day."
+  },
+  {
+   "iconSrc": "/_blob/74c6540a55bf2b394346d0895d455013",
+   "iconAlt": "A train",
+   "eyebrow": "Public transport",
+   "title": "A check-in",
+   "body": "Where and when a person travels."
+  }
+ ],
+ "panel": [
+  {
+   "eyebrow": "Definition",
+   "text": "The records that platforms, apps and services retain as a by-product of their use."
+  },
+  {
+   "eyebrow": "Why they matter",
+   "text": "Behaviour observed at a level of detail, and over durations, that self-report cannot provide."
+  }
+ ]
+}));
+</script>
+</body>
+</html>

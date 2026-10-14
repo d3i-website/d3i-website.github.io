@@ -1,0 +1,19 @@
+<!-- @dsCard group="Content" height=150 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>EventDetails — preview</title>
+<style>.pv{padding:0 1.5rem;max-width:54rem}.pv .event-details{margin:1rem 0}</style></head>
+<body>
+<div id="root" class="pv"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h(D.EventDetails, { rows: [
+      { label: 'Date', value: 'October 1-2, 2026' },
+      { label: 'Location', value: h(React.Fragment, null, h('a', { href: '#' }, 'Weizenbaum Institute'), ', Berlin, Germany') },
+      { label: 'Admission', value: 'Free (in-person)' }
+    ] })
+  );
+</script>
+</body>
+</html>
