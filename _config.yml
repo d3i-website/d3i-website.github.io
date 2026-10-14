@@ -27,11 +27,20 @@ exclude:
   - LICENSE
   - migration-backup/
   - docs/
+  - cms/
   - "*.backup"
 
 include:
   - _pages
   - .well-known
+
+# Front matter defaults. Jekyll applies these to static files too, which is
+# how jekyll-sitemap learns to leave the CMS admin page out of the sitemap.
+defaults:
+  - scope:
+      path: "admin"
+    values:
+      sitemap: false
 
 # Contact defaults
 contact_email: DataDonation@uu.nl
