@@ -1,0 +1,21 @@
+<!-- @dsCard group="Notes" height=236 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Postit — preview</title>
+<style>.pv{display:flex;flex-wrap:wrap;gap:2rem 3rem;padding:1.5rem 2rem 1rem}.pv .postit--inline{margin:0}</style></head>
+<body>
+<div id="root" class="pv"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h(D.Postit, {
+      eyebrow: 'Position',
+      title: 'GDPR Omnibus Proposal',
+      link: { label: 'Read our letter →', href: '#' }
+    }, 'The European Omnibus Act poses a direct risk to fundamental human rights and to data donation as a research method.'),
+    h(D.Postit, { inline: true, eyebrow: 'Outage', title: 'Script selector is offline' },
+      'SURF Research Cloud, which hosts the selector, is currently down. The selector will be back as soon as SURF is.')
+  ));
+</script>
+</body>
+</html>

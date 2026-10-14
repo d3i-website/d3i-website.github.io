@@ -1,0 +1,21 @@
+<!-- @dsCard group="Shell" height=96 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>SiteHeader — preview</title></head>
+<body class="site-shell">
+<div id="root" style="display:contents"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h(D.SiteHeader, { href: '#', items: [
+      { label: 'Data donation', href: '#' },
+      { label: 'Prepare a study', href: '#' },
+      { label: 'Software', href: '#', active: true },
+      { label: 'Community & Events', href: '#' },
+      { label: 'News', href: '#' },
+      { label: 'About D3I', href: '#' }
+    ] })
+  );
+</script>
+</body>
+</html>

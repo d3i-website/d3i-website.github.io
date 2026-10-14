@@ -1,0 +1,71 @@
+<!-- @dsCard group="Slides" height=540 width=960 subtitle="One step of a build: a step rail on top, earlier rows dimmed, the new row in full colour" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>SlideBuild — preview</title>
+<style>html,body{margin:0;background:#f5f7fb}.stage{width:960px;height:540px;overflow:hidden}#root{width:1920px;height:1080px;transform:scale(.5);transform-origin:top left}</style></head>
+<body>
+<div class="stage"><div id="root"></div></div>
+<script>
+var D = window.D3I, h = React.createElement;
+ReactDOM.createRoot(document.getElementById('root')).render(h(D.SlideBuild, {
+ "eyebrow": "Part I · The data",
+ "heading": "Retrospective questions, answered from records",
+ "number": 6,
+ "steps": [
+  "Frequency",
+  "Timing",
+  "Exposure",
+  "Not askable"
+ ],
+ "shown": 2,
+ "columns": {
+  "left": "Asked in a survey",
+  "right": "Read from a donated record"
+ },
+ "rows": [
+  {
+   "label": "Frequency",
+   "left": {
+    "title": "\"How many videos a day did you watch last month?\"",
+    "text": "An estimated rate over a reference period."
+   },
+   "right": {
+    "title": "165 a day for the median donor, IQR 19 to 370.",
+    "text": "Every watch event, timestamped."
+   }
+  },
+  {
+   "label": "Timing",
+   "left": {
+    "title": "\"When did you last…?\"",
+    "text": "Dated from memory; forward and backward telescoping."
+   },
+   "right": {
+    "title": "Exact timestamps across the whole window, here 180 days.",
+    "text": "No reference period for the respondent to place."
+   }
+  },
+  {
+   "label": "Exposure",
+   "left": {
+    "title": "\"How often did you see…?\""
+   },
+   "right": {
+    "title": "Every item in the feed, retrievable."
+   }
+  },
+  {
+   "label": "Not askable",
+   "tone": "coral",
+   "left": {
+    "title": "Cannot be asked."
+   },
+   "right": {
+    "title": "Advertiser lists, inferred interests, platform categories."
+   }
+  }
+ ]
+}));
+</script>
+</body>
+</html>

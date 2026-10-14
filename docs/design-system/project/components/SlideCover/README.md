@@ -1,0 +1,9 @@
+The cover (and closing) slide: the homepage road as a band across the top, with the D3I mark standing on it at left, a phone at right from which one small piece of data travels in an arc to the mark while the rest stays beside the phone, and three travellers at the far right; the eyebrow, title and lead below it, the byline at the bottom margin.
+
+Mount `D3I.SlideCover` in a design canvas; for a Slides deck, `D3I.slideMarkup(D3I.SlideCover, props)` returns the slide as one `<section>` with inline hex styles to paste. Its props are in `components/index.d.ts` and on its card; the values below are what it draws, for anyone writing a slide by hand.
+
+Pass `title` (at most two lines), `lead` (one line), `byline` ("Name · Affiliation · Venue, Month D, YYYY") and optionally `eyebrow` (default "D3I · datadonation.eu"). For a closing slide pass the closing content as children: it replaces the title block and the band stays.
+
+- The band is a pinned 1920 × 224 `<svg>`: the four mark columns (`heading`, `blue`, `coral`, `yellow`) standing on the road at x 192 to 544; a phone on the road at x 1316 (68 × 120, `surface` with a 4px `heading` stroke, four `blue` lines on its screen); a dotted arc of `blue` dots at 40% opacity from the phone to the mark with one `coral` square riding it; three `blue-tint` squares with a `road` stroke beside the phone, the part that stays on the device; three pills at right; the `road` band 48px tall at y 160 with `blue` dashes 60 on, 116 off. The site hero's moon, clouds and plane are not carried over: cut at the top edge the moon read as a stray half-disc.
+- Padding is 256px 128px 128px: the slide format caps padding at 256px and drops a larger value, so the last 64px of offset is padding on the title block; content starts at 320px.
+- Title: `slide-display` in `heading`, 1500px wide, `data-fit="none"`. Lead: `slide-lead`. Byline: `slide-item`.

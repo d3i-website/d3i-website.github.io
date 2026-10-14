@@ -1,0 +1,98 @@
+<!-- @dsCard group="Slides" height=540 width=960 subtitle="A drawn browser window for software, beside a numbered list" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>SlideWindow — preview</title>
+<style>html,body{margin:0;background:#f5f7fb}.stage{width:960px;height:540px;overflow:hidden}#root{width:1920px;height:1080px;transform:scale(.5);transform-origin:top left}</style></head>
+<body>
+<div class="stage"><div id="root"></div></div>
+<script>
+var D = window.D3I, h = React.createElement;
+ReactDOM.createRoot(document.getElementById('root')).render(h(D.SlideWindow, {
+ "eyebrow": "Part III · Use to date",
+ "heading": "A secondary use: teaching digital methods",
+ "number": 14,
+ "steps": [
+  {
+   "title": "Explore one's own data",
+   "text": "Students open their own export and see what a platform recorded."
+  },
+  {
+   "title": "Donate to a real study, then analyse",
+   "text": "Students work with the data they shared."
+  },
+  {
+   "title": "Design a study",
+   "text": "Students write extraction scripts and configure a task."
+  }
+ ],
+ "link": "datadonation.eu/software/port-in-education",
+ "window": {
+  "url": "d3i-infra.github.io/dd-education/#/port",
+  "title": "Digital Footprint Explorer · Netflix export",
+  "tabs": [
+   {
+    "label": "Viewing",
+    "active": true
+   },
+   {
+    "label": "Searches"
+   }
+  ],
+  "stat": "8,179 viewing sessions · 3 profiles · July 2017 to March 2026",
+  "chartLabel": "Hours watched per month",
+  "bars": [
+   {
+    "label": "Mar",
+    "value": 86
+   },
+   {
+    "label": "Apr",
+    "value": 92
+   },
+   {
+    "label": "May",
+    "value": 91
+   },
+   {
+    "label": "Jun",
+    "value": 28
+   },
+   {
+    "label": "Jul",
+    "value": 82
+   },
+   {
+    "label": "Aug",
+    "value": 48
+   },
+   {
+    "label": "Sep",
+    "value": 150
+   },
+   {
+    "label": "Oct",
+    "value": 38
+   },
+   {
+    "label": "Nov",
+    "value": 32
+   },
+   {
+    "label": "Dec",
+    "value": 45
+   },
+   {
+    "label": "Jan",
+    "value": 66
+   },
+   {
+    "label": "Feb",
+    "value": 58
+   }
+  ]
+ },
+ "caption": "Illustration drawn from a test export, not a screenshot."
+}));
+</script>
+</body>
+</html>
