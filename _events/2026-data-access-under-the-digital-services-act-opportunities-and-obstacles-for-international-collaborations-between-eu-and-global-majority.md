@@ -4,7 +4,7 @@ event_type: other
 date: 2026-10-14
 end_date: 2026-10-17
 date_label: ''
-location: Mexico CityMexico
+location: Mexico City, Mexico
 external_url: ''
 summary: Association of Internet Researchers Conference - AoIR 2026, Mexico
 featured: false
