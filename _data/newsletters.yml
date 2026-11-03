@@ -1,11 +1,16 @@
 newsletters:
-  - title: "Spring 2026 Newsletter"
+  - title: Fall 2026 Newsletter
+    date: 2026-10-15
+    url: https://mailings.uu.nl/u/archive/yoeFB4H79X39VgNZjGr15A
+    summary: TDCC RIGHTS's workshop, Data Donation Symposium, Early Career Network, Upcoming events.
+    link_text: Open newsletter
+  - title: Spring 2026 Newsletter
     date: 2026-04-01
-    url: "/assets/documents/newsletters/Data Donation Newsletter - Spring 2026.html"
-    summary: "Practice survey, active networks, and protecting data donation."
-    link_text: "Open newsletter"
-  - title: "Fall 2025 Newsletter"
+    url: /assets/documents/newsletters/Data Donation Newsletter - Spring 2026.html
+    summary: Practice survey, active networks, and protecting data donation.
+    link_text: Open newsletter
+  - title: Fall 2025 Newsletter
     date: 2025-12-01
-    url: "/assets/documents/newsletters/Data Donation Newsletter - Fall 2025.html"
-    summary: "GDPR letter, funding announcements, and new networks."
-    link_text: "Open newsletter"
+    url: /assets/documents/newsletters/Data Donation Newsletter - Fall 2025.html
+    summary: GDPR letter, funding announcements, and new networks.
+    link_text: Open newsletter
