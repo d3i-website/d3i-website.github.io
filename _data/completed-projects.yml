@@ -180,3 +180,19 @@ completed_projects:
     data: Contact the PI.
     acknowledgements: Funded by the Healthy Future initiative of the University of Amsterdam.
     references: []
+  - title: 'HARMONY: Holistic Assessment of Mental Health and Online Youth'
+    year: 2026
+    image: /assets/images/completed-projects/vecteezy_tired-and-bored-students-feel-sleepy_15916999.webp
+    image_credit: Vecteezy.com
+    image_credit_url: https://www.vecteezy.com/vector-art/15916999-tired-and-bored-students-feel-sleepy
+    investigators: Luisa Fassi, Lucia Majno, Doug Parry, Georgia Turner, Peter J. Schulz, Amy Orben and Laura Marciano
+    summary: HARMONY examines differences in social media use between adolescents in a clinical and community sample. The project combines donated TikTok and Instagram data with smartphone screen-time records, questionnaires on mental health and social media use, and a cognitive assessment.
+    collection_period: April 2025 – June 2026
+    recruitment: Adolescent participants aged 14-18 were recruited through an outpatient mental health clinic and a school in Lugano, Switzerland.
+    instructions: Participants received data donation instructions through [Eyra’s](https://eyra.co/) Next platform.
+    ethical_review: Approved by Università della Svizzera Italiana (USI; CE_2024_34).
+    software: ''
+    local_processing: Available on [OSF](https://osf.io/n8kyv/overview?view_only=2efaeb35145049c0942de9175b3668bb)
+    data: ''
+    acknowledgements: ''
+    references: []
