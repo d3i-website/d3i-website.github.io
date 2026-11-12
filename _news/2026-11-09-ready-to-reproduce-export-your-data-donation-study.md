@@ -12,9 +12,13 @@ If you run a data donation study with Port, you can now export your study setup 
 
 When you use Port to run a data donation study on Next, you can now export the study's settings and materials. Open your study, click the three-dot menu next to Publish and Preview, and choose Export.
 
- ![](/assets/images/news/export_dd_study.webp " Where to find Export in your study")
+ **📷 Where to find Export in your study**
+
+![](/assets/images/news/export_dd_study.webp "Where to find Export in your study")
 
 The export is a .zip file. It contains your study configuration (branding, information pages, consent and workflow tasks) and related files such as your logo, privacy statement and instruction images. These are packaged as a research object using RO-Crate (Research Object Crate), an open standard for describing research outputs with structured metadata. The metadata records who created the study, when it was exported, where it came from and under which licence it can be reused. You can read more about RO-Crate at researchobject.org/ro-crate ([https://www.researchobject.org/ro-crate/](https://www.researchobject.org/ro-crate/)).
+
+📷 **Contents of an exported study**
 
 ![](/assets/images/news/filetree.webp "Contents of an exported study")
 
