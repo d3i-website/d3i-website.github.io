@@ -1,16 +1,16 @@
 ---
 layout: homepage
-title: "Open infrastructure for data donation research"
-excerpt: "Digital trace data, donated by the people it belongs to"
-cta:
-  label: "Learn about data donation"
-  url: /data-donation/
+title: "Open Infrastructure for Data Donation Research"
+title_line_1: "Open Infrastructure for"
+title_line_2: "Data Donation Research"
+excerpt: "Digital Trace Data, donated to science by citizens."
 postit:
+  enabled: true
   eyebrow: "Position"
   title: "GDPR Omnibus Proposal"
   body: "The European Omnibus Act poses a direct risk to fundamental human rights and to data donation as a research method."
   link_url: /community/omnibus-letter
-  link_text: "Read our letter →"
+  link_text: "Read our letter"
 movements:
   - eyebrow: "The method"
     heading: "What is data donation?"

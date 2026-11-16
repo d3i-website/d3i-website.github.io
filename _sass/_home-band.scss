@@ -1,0 +1,175 @@
+// =====================================================================
+// Front page: the band and the note.
+//
+// Copied from the <style> of docs/front-page-reference/index.html, which is
+// the visual specification: where this file and the reference disagree about
+// looks, the reference wins. Rules keep the reference's order, values and
+// comments; they are nested under .home (the front page's wrapper in
+// _layouts/homepage.html), and the reference's :root custom properties sit on
+// .home. Markup: _includes/home/band.html, _includes/home/note.html.
+// =====================================================================
+
+// Page-level: the band is full-bleed, so the front page's main loses the
+// site's side and bottom padding, and the footer follows the page's last
+// section directly, as in the reference.
+.layout--homepage .site-main {
+  padding: 0;
+}
+
+.layout--homepage .site-footer {
+  margin-top: 0;
+}
+
+.home {
+  --ink: #252a34; --blue: #4272ef; --sky: #87c5eb; --coral: #ff5e5e; --line: #d5dae3; --gutter: 24px; --col: 72rem; --edge: max(var(--gutter), calc((100vw - var(--col)) / 2 + var(--gutter)));
+
+  // The reference's base rule for paragraphs; the site's base rule also pads them.
+  p { margin: 0; padding: 0; }
+  .serif { font-family: "Libre Caslon Condensed", serif; font-weight: 420; letter-spacing: 0; }
+
+  /* ---- the band ----
+     --s      depth on the left (shallow side); --drop  how much deeper the right side is
+     --step-x where the edge steps down; below 1280px that is just right of the notice,
+              so the notice sits in the niche under the shallow side
+     --fs     headline size; the headline is always two lines
+     --half   half the width of the text column
+     --thread y of the line that runs under the headline, across the whole band */
+  .hero { --s: 195px; --fs: 50px; --half: 234px; --pad: 34px; --gap: 36px;
+          --note-w: 60%; --step-w: 70px;
+          --drop: 84px;
+          --step-x: calc(var(--edge) + var(--note-w) + 16px);
+          --d: calc(var(--s) + var(--drop));
+          --deep-mid: calc((100% + var(--step-x) + var(--step-w)) / 2);
+          --thread: calc(var(--pad) + var(--fs) * 2.06 + 9px);
+          --rstart: calc(50% + var(--half) + var(--gap)); position: relative; }
+  .hero__band { position: relative; height: var(--d); }
+
+  /* the sky is three pieces, so the step can sit at a pixel position: a full-width strip,
+     a deeper block on the right, and the curve between them */
+  .sky { position: absolute; z-index: 0; background: var(--sky); }
+  .sky--top { left: 0; right: 0; top: 0; height: var(--s); }
+  .sky--deep { left: calc(var(--step-x) + var(--step-w) - 1px); right: 0; top: calc(var(--s) - 1px); height: calc(var(--drop) + 1px); }
+  .sky--step { background: none; left: var(--step-x); top: var(--s); width: var(--step-w); height: var(--drop); overflow: visible; }
+  .edge { position: absolute; z-index: 1; height: 1.5px; background: var(--blue); }
+  .edge--left { left: 0; width: calc(var(--step-x) + 1px); top: calc(var(--s) - .75px); }
+  .edge--right { left: calc(var(--step-x) + var(--step-w) - 1px); right: 0; top: calc(var(--d) - .75px); }
+
+  .hero__intro { position: relative; z-index: 2; width: calc(var(--half) * 2 + 40px); max-width: 100%; margin: 0 auto; padding-top: var(--pad); text-align: center; }
+  .hero__title { color: #fff; font-size: var(--fs); line-height: 1.03; margin: 0; white-space: nowrap; }
+  .hero__sub { color: var(--blue); font: 900 17px/1.4 "Nunito Sans", sans-serif; margin-top: 20px; }
+
+  /* the thread: one line across the band, between headline and subtitle */
+  /* the thread runs from the person (left) to the researcher (right), not edge to edge.
+     --pf and --wf are where those two sit, as fractions of their regions. */
+  .hero__thread { --pf: .12; --wf: .5; position: absolute; z-index: 1; left: 0; right: 0; top: var(--thread); height: 0; }
+  .hero__thread b { position: absolute; top: -.5px; height: 1px; background: #fff; left: calc((50% - var(--half) - var(--gap)) * var(--pf)); right: calc((100% - var(--rstart)) * (1 - var(--wf))); }
+  .hero__thread i { position: absolute; top: 0; width: 9px; height: 9px; border-radius: 50%; background: #fff; transform: translate(-50%, -50%); }
+  .hero__thread i:first-child { left: calc(50% - var(--half) - 6px); }
+  .hero__thread i:last-child { left: calc(50% + var(--half) + 6px); }
+
+  /* network regions: drawn with the thread at y=146, then shifted to wherever the thread is */
+  .hero__net { position: absolute; z-index: 1; top: calc(var(--thread) - 146px); height: 276px; }
+  .hero__net--l { left: 0; width: calc(50% - var(--half) - var(--gap)); }
+  .hero__net--r { left: var(--rstart); right: 0; }
+  .sp, .nd { position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%); }
+  .nd { width: 9px; height: 9px; border-radius: 50%; background: #fff; }
+  .sp { overflow: visible; }
+  /* horizontal lines stretch with the region; solid or dotted, as in the hero */
+  .hl { position: absolute; top: var(--y); height: 1px; margin-top: -.5px; background: #fff; }
+  .hl.dot { height: 2px; margin-top: -1px; background: radial-gradient(circle at 1px 1px, #fff .95px, transparent 1.1px) 0 0 / 7px 2px repeat-x; }
+  .xl, .tab-only { display: none; }
+  .midnet { position: absolute; left: 0; top: 0; width: 100%; height: 276px; color: #fff; }
+  /* first compression: the headline's line ends at the title's last node, where the drop begins */
+  @media (min-width: 1000px) and (max-width: 1279px) { .hero__thread b { right: calc(50% - var(--half) - 6px); } }
+  /* the right-hand drawing fills the space right of the headline, clipped to the band */
+  .rstory { position: absolute; left: 0; top: 0; width: 100%; height: 276px; color: #fff; }
+  .rstory .story__lines { height: 276px; }
+  .front { z-index: 2; }
+  /* part 2 lives right of the anchor, and stretches with what room there is */
+  .rpart2 { position: absolute; top: 0; height: 276px; left: max(248px, 55%); width: min(100% - max(248px, 55%) - 22px, 260px); }
+  /* the story fills the space left of the headline, up to the designer's own width, and is 300px
+     deep: deeper than the band, so its lower part hangs below the band's edge onto the page */
+  .story { --sw: min(100%, 560px); position: absolute; top: 0; left: 0; width: var(--sw); height: 300px; }
+  .story__clip { position: absolute; left: 0; width: 100%; overflow: hidden; pointer-events: none; }
+  .story__clip > div { position: absolute; left: 0; width: 100%; height: 300px; }
+  .story__clip--sky { top: 0; height: var(--s); color: #fff; }
+  .story__clip--sky > div { top: 0; }
+  .story__clip--page { top: var(--s); height: calc(300px - var(--s)); color: var(--sky); }
+  .story__clip--page > div { top: calc(var(--s) * -1); }
+  .story__lines { position: absolute; left: 0; top: 0; width: 100%; height: 300px; overflow: visible; }
+  .story__lines path, .story .ring { fill: none; stroke: currentColor; stroke-width: 1px; vector-effect: non-scaling-stroke; }
+  .story__clip--page .story__lines path, .story__clip--page .ring { stroke-width: 1.5px; }
+  .story__lines .dot, .story .ring { stroke-width: 1.6px; stroke-dasharray: .1 6.5; stroke-linecap: round; }
+  .story__clip--page .story__lines .dot, .story__clip--page .ring { stroke-width: 2px; }
+  .nd--yellow { background: #ffcf60; }
+
+  /* nodes on the edge line */
+  .edge-nd { position: absolute; z-index: 3; width: 11px; height: 11px; border-radius: 50%; transform: translate(-50%, -50%); }
+  .edge-nd--ring { left: 12%; top: var(--s); background: #fff; border: 1.5px solid var(--blue); }
+  .edge-nd--coral { left: calc(var(--step-x) + var(--step-w) / 2); top: calc(var(--s) + var(--drop) / 2); background: var(--coral); }
+  .edge-nd--blue { left: var(--deep-mid); top: var(--d); background: var(--blue); }
+  .sp--edge { display: none; z-index: 3; border-radius: 50%; box-shadow: 0 0 0 1.5px var(--blue); }
+
+  /* the notice: below 1280px it sits in the niche under the shallow side ... */
+  /* below 1280px the notice is plain text in the niche, with the arrow disc after it: no paper, no line */
+  .note { position: absolute; z-index: 2; left: var(--edge); top: var(--s); width: var(--note-w); height: var(--drop); display: flex; align-items: center; font-family: "Nunito Sans", sans-serif; line-height: 1.3; }
+  // The note is a link here (an aside in the reference): no link colour or underline of its own.
+  a.note { color: inherit; text-decoration: none; }
+  .note__paper { width: 100%; }
+  .note__body { display: flex; align-items: center; gap: var(--ngap, 22px); }
+  .note__head { flex: none; }
+  .note__eyebrow { color: var(--coral); font-weight: 800; font-size: 14px; line-height: 18px; }
+  .note__title { color: var(--ink); font-weight: 800; font-size: 14px; line-height: 18px; white-space: nowrap; }
+  .note__text { flex: 1; color: var(--ink); font-weight: 300; font-size: 13.5px; line-height: 19px; }
+  .note svg { display: block; overflow: visible; }
+  .note .note__go { flex: none; margin-left: auto; }
+  /* the tab, the route along it and the corner disc belong to the full note only */
+  .note__over { display: none; position: absolute; left: 0; right: 0; bottom: 0; }
+  .note .note__tab, .note .note__route, .note .note__link { display: none; }
+  .note__route { position: absolute; left: 0; top: 0; }
+  .note__route .dot { fill: none; stroke: var(--blue); stroke-width: 1.9; stroke-dasharray: .1 4.6; stroke-linecap: round; }
+  .note__run { position: absolute; left: 182px; right: 18px; top: -.75px; height: 1.5px; background: var(--blue); }
+  .note__disc { position: absolute; right: -18px; top: -18px; }
+  .note__link { position: absolute; left: 22px; top: -2px; line-height: 30px; color: var(--blue); font-weight: 800; font-size: 14px; white-space: nowrap; }
+
+  /* ... and from 1280px, the designer's card inside the band, right of the text */
+  @media (min-width: 1280px) {
+    .hero { --s: 224px; --drop: 52px; --step-x: calc(50% - 35px);
+            /* the anchor, in the band's own coordinates: where the note's arrow disc is centred */
+            --anchor-x: calc(50% + var(--half) + var(--gap) + max(248px, (50% - var(--half) - var(--gap)) * .55));
+            --anchor-y: 196px; }
+    /* the note hangs from the anchor: its arrow disc is centred there, and it grows upwards with its text */
+    .note { left: calc(var(--anchor-x) - 232px); top: auto; bottom: calc(var(--d) - var(--anchor-y) - 30px); width: 232px; height: auto; display: block; }
+    .note__paper { filter: drop-shadow(0 2px 10px rgba(39, 100, 173, .16)); }
+    .note__body { display: block; background: #f3f9fd; padding: 22px 22px 14px; }
+    .note__title { margin-bottom: 7px; }
+    .note__over { display: block; height: 30px; }
+    .note .note__tab, .note .note__route { display: block; }
+    .note .note__link { display: inline; }
+    .note .note__go { display: none; }
+    .xl { display: block; }
+    .lt-xl { display: none; }
+    .hero__thread b { left: calc(min(50% - var(--half) - var(--gap), 560px) * .9929); right: calc(50% - var(--half) - 6px); }
+  }
+
+  /* tablet: fewer icons, smaller headline, the notice loses its body */
+  @media (max-width: 999px) {
+    .hero { --s: 176px; --note-w: 230px; --drop: 64px; --fs: 40px; --half: 188px; --pad: 28px; --gap: 28px; }
+    .hero__sub { font-size: 15.5px; }
+    .desk { display: none; }
+    .tab-only { display: block; }
+    .sp, .nd { left: var(--tx, var(--x)); top: var(--ty, var(--y)); }
+    .hero__thread { --pf: .22; --wf: .75; }
+    .note__text { display: none; }
+  }
+
+  /* phone: no icons; the thread, the stepped edge, one icon riding it */
+  @media (max-width: 599px) {
+    .hero { --s: 171px; --note-w: 222px; --ngap: 14px; --step-w: 40px; --fs: 34px; --half: 160px; --pad: 26px; }
+    .hero__net { display: none; }
+    .hero__thread b { left: 0; right: 0; }
+    .hero__sub { padding: 0 var(--gutter); }
+    .sp--edge { display: block; left: var(--deep-mid); top: var(--d); }
+    .edge-nd--blue { display: none; }
+  }
+}
