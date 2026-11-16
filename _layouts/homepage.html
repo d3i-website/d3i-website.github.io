@@ -11,6 +11,8 @@ layout: site-shell
   a div here, since site-shell already has the page's <main>), the page's own text as the
   line between the cards and the lists (the reference's .outro), then the two lists. Each
   card's heading is its link; its ::after covers the card, so the whole card is the link.
+  A link URL with "://" or "mailto:" in it is used as it is; any other goes through
+  relative_url, the same rule as the note's link (_includes/home/note.html).
   Styles: _sass/_home-content.scss.
 {% endcomment %}
 <div class="home">
@@ -20,7 +22,11 @@ layout: site-shell
   {% if page.movements and page.movements.size > 0 %}
   <div class="cards">
     {%- for card in page.movements %}
-    <article class="cd">{% if card.eyebrow and card.eyebrow != "" %}<span class="eb">{{ card.eyebrow }}</span>{% endif %}<h3 class="serif hd">{% if card.link.url and card.link.url != "" %}<a href="{{ card.link.url | relative_url }}"><span>{{ card.heading }}</span></a>{% else %}<span>{{ card.heading }}</span>{% endif %}</h3>{% if card.body and card.body != "" %}<p class="bo">{{ card.body }}</p>{% endif %}</article>
+    {%- assign card_url = card.link.url -%}
+    {%- if card_url and card_url != "" -%}
+      {%- unless card_url contains "://" or card_url contains "mailto:" -%}{%- assign card_url = card_url | relative_url -%}{%- endunless -%}
+    {%- endif %}
+    <article class="cd">{% if card.eyebrow and card.eyebrow != "" %}<span class="eb">{{ card.eyebrow }}</span>{% endif %}<h3 class="serif hd">{% if card_url and card_url != "" %}<a href="{{ card_url }}"><span>{{ card.heading }}</span></a>{% else %}<span>{{ card.heading }}</span>{% endif %}</h3>{% if card.body and card.body != "" %}<p class="bo">{{ card.body }}</p>{% endif %}</article>
     {%- endfor %}
   </div>
   {% endif %}

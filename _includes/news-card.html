@@ -19,8 +19,9 @@
 
 {% comment %}
   variant="row" renders the horizontal list style (small thumbnail on the
-  left) used on /news/; the default is the vertical tile used in the
-  homepage strip.
+  left) used on /news/; the default is a vertical tile, which no page uses
+  since the front page's news strip was replaced by its "Latest news" list
+  (_includes/home/lists.html, which does not use this include).
 {% endcomment %}
 <article class="news-card{% if include.variant == 'row' %} news-card--row{% endif %}" data-news-date="{{ item.date | date: '%Y-%m-%d' }}">
   {% comment %}
