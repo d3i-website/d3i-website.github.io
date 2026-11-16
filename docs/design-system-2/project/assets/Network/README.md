@@ -20,7 +20,17 @@ Right of the title is the research side:
 - `music-note.svg` — the music note: a kind of trace, the start of the dotted line to the woman. Blue disc. The designer's.
 - `portrait-woman.svg` — the woman, the researcher, where her line leaves the page. The designer's, with its `clipPath`.
 
-Nine are cut from the designer's hero artwork (`docs/front-page-reference/source/designer-hero.svg`, never edited) with the same element selections and view boxes as the reference build; three (`phone`, `lock`, `consent-badge`) were drawn later in a `-18 -18 36 36` view box. All twelve are generated, so do not edit them by hand: run
+Not on the front page band, worked out during the design and left out:
+
+- `video.svg` — a video: a rounded screen with a play triangle. Drawn in the design conversation, 36×36.
+- `health.svg` — health data: a heartbeat line. Drawn in the design conversation, 36×36.
+- `messages.svg` — messages: a coral speech bubble, fill only. Drawn in the design conversation, 36×36.
+- `consent-shield.svg` — consent: an outline shield with a tick and no fill. Drawn in the design conversation, 36×36; not the same as `consent-badge.svg`, which is white-filled and thinner.
+- `burst-yellow.svg` and `burst-coral.svg` — scalloped seals, small spots of yellow `#ffcf60` and coral `#ff5e5e`. The designer's.
+- `bag-a.svg` and `bag-b.svg` — a shopping bag on a pale disc, two placements of the same piece (the data a shop holds). The designer's.
+- `x-disc.svg` — a coral cross on a white disc, like a close button. The designer's.
+
+Fourteen are cut from the designer's hero artwork (`docs/front-page-reference/source/designer-hero.svg`, never edited) with the same element selections and view boxes as the reference build; seven (`phone`, `lock`, `consent-badge`, `video`, `health`, `messages`, `consent-shield`) were drawn later in a `-18 -18 36 36` view box. All twenty-one are generated, so do not edit them by hand: run
 
     python3 -I docs/design-system-2/tools/extract_network_pieces.py
 
