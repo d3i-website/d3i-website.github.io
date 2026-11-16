@@ -17,16 +17,20 @@ $tab-tint: rgba(0, 0, 0, 0.02);
   border-bottom: 1px solid rgba(37, 42, 52, 0.06);
 }
 
+// The header's height is a whole number of pixels at every width, wrapped or not:
+// every vertical size in it is in px and each line height is a px font size times 1.
+// A fractional height puts everything below it on a half pixel, and the front page's
+// thin lines then snap a row off the reference.
 .site-header__inner {
   max-width: $site-width;
   margin: 0 auto;
-  padding: 1rem 1rem 0;
+  padding: 16px 1rem 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   line-height: 1;
-  gap: 1rem 2rem;
+  gap: 16px 2rem;
 }
 
 .site-header__brand {
@@ -43,7 +47,7 @@ $tab-tint: rgba(0, 0, 0, 0.02);
 .site-header__name {
   display: block;
   font-family: "Nunito", $sans-serif;
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 800;
   letter-spacing: 0;
   line-height: 1;
@@ -51,9 +55,9 @@ $tab-tint: rgba(0, 0, 0, 0.02);
 
 .site-header__subtitle {
   display: block;
-  margin-top: 0.2rem;
+  margin-top: 3px;
   color: $muted-text-color;
-  font-size: 0.875rem;
+  font-size: 14px;
   line-height: 1;
 }
 
@@ -73,10 +77,10 @@ $tab-tint: rgba(0, 0, 0, 0.02);
 .site-nav__item a {
   display: block;
   position: relative;
-  padding: 0.8rem 1.35rem;
+  padding: 13px 1.35rem;
   color: #6a6a6a;
   font-family: "Nunito", $sans-serif;
-  font-size: 0.95rem;
+  font-size: 15px;
   font-weight: 500;
   line-height: 1;
   text-decoration: none;
