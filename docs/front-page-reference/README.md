@@ -38,7 +38,21 @@ The widths are 1920, 1600, 1440, 1280, 1279, 1100, 1000, 999, 800, 600, 599 and 
 
 ## Testing the site against it
 
-Build the site, take screenshots of its front page at the same widths, and compare them with these. The band (`band-*`) is the part that must match closely: the positions of the lines, nodes and icons, the note, and the title. Below the band, compare layout, type and spacing; the news and event content will differ.
+`source/compare.sh` photographs the front page of a built site and compares its band with the band in these screenshots. From the repository root:
+
+```
+bundle exec jekyll build
+docs/front-page-reference/source/compare.sh _site on
+
+bundle exec jekyll build --config _config.yml,docs/front-page-reference/source/note-off.yml
+docs/front-page-reference/source/compare.sh _site off
+```
+
+`on` checks all 12 widths with the note shown; `off` checks 1920, 1440 and 1280px with the note off (the second build sets `home_note_off: true`). The script serves the folder on a free port, finds the top edge of the band in each picture (the first row whose pixel at x=4 is `#87c5eb`), cuts 360px from there, and compares it with the same 360px of `band-<width>-note-<on|off>.png`. A pixel counts as different when it is off by more than 5%. It prints one line per width with the number of differing pixels, and exits 1 if any width differs in more than 0.3% of the 360px crop.
+
+An optional third argument names the folder for the output; without it the script makes a temporary folder and prints its path. It holds `diff-<width>-note-<on|off>.png` per width, where the differing pixels are red. Add `--full` (before the folder names) to also get `full-<width>-note-<on|off>.png`: the reference page on the left and the site's on the right, for a human to judge below the band: layout, type and spacing. The news and event content will differ and is not judged.
+
+`compare.sh docs/front-page-reference on` (or `off`) tests the script itself: the reference page honours `?bar=off&note=<on|off>`, which the script always requests, so it must print all zeros.
 
 ## What was decided
 
