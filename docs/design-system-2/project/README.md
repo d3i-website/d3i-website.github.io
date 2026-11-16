@@ -77,7 +77,7 @@ Use the styles as they are. A size that is not on the scale for its medium is a 
 
 ## Slides
 
-The Slides sections below are carried over from the earlier system and not yet revised: slide headings now render in the provisional serif through the shared display token (`--font-display`), while their sizes, weights, hex values and radii are still the earlier system's, and the slide components in `components/bundle.js` still name Nunito in their inline styles.
+The Slides sections below are carried over from the earlier system and not yet revised: slide headings now render in the provisional serif through the shared display token (`--font-display`), while their sizes, weights and radii are still the earlier system's, and the slide components in `components/bundle.js` still name Nunito in their inline styles.
 
 ## Slides · Voice for talks and decks
 
@@ -131,7 +131,7 @@ Slides take hex values. These are the light theme's values; use nothing else.
 | `surface` | #ffffff | the ground, plain cards |
 | `surface-tint` | #f5f7fb | statement and list panels, window chrome |
 | `surface-strong` | #eceff5 | inactive tabs, empty meter tracks |
-| `border` | #e2e6ed | card borders, row dividers |
+| `border` | #d5dae3 | card borders, row dividers |
 | `border-strong` | #878e9b | axes, window dots |
 | `heading` | #252a34 | titles, item titles, text on coral and yellow |
 | `text` | #363b46 | body text |
