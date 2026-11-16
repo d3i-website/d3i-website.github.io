@@ -9,10 +9,12 @@
  *
  * On load this shows the first four upcoming rows that have not ended by the reader's local date
  * and hides the rest. When none is left it shows the past events instead and renames the heading
- * (the element with data-events-heading) "Past events".
+ * (the element with data-events-heading) "Past events". The upcoming rows have then all ended, and
+ * are the most recent past events, so they move into the past group: every row there (they carry
+ * data-event-end too) is put in order, newest end first, and only the first four show.
  *
  * A plain browser file, loaded with defer; it is not built. tests/home-events.test.mjs tests
- * planEvents under Node.
+ * planEvents and orderPast under Node.
  */
 (function () {
   "use strict";
@@ -29,6 +31,17 @@
     return { visible: visible, usePast: visible.length === 0 };
   }
 
+  // ends: "YYYY-MM-DD" end dates of past rows. Returns the indexes newest end first (ties keep
+  // their order) and the first four of them, the ones to show.
+  function orderPast(ends) {
+    var order = ends.map(function (end, i) { return i; });
+    order.sort(function (a, b) {
+      if (ends[a] !== ends[b]) return ends[a] < ends[b] ? 1 : -1;
+      return a - b;
+    });
+    return { order: order, visible: order.slice(0, SHOWN) };
+  }
+
   function localToday() {
     var d = new Date();
     function two(n) { return (n < 10 ? "0" : "") + n; }
@@ -43,13 +56,22 @@
     var plan = planEvents(rows.map(function (row) { return row.getAttribute("data-event-end"); }), localToday());
 
     rows.forEach(function (row, i) { row.hidden = plan.visible.indexOf(i) === -1; });
+    if (plan.usePast && past) {
+      // the ended upcoming rows join the built past rows; each row is moved, not copied
+      var all = rows.concat(Array.prototype.slice.call(past.querySelectorAll("[data-event-end]")));
+      var shown = orderPast(all.map(function (row) { return row.getAttribute("data-event-end"); }));
+      shown.order.forEach(function (i) {
+        all[i].hidden = shown.visible.indexOf(i) === -1;
+        past.appendChild(all[i]);
+      });
+    }
     if (upcoming) upcoming.hidden = plan.usePast;
     if (past) past.hidden = !plan.usePast;
     if (heading) heading.textContent = plan.usePast ? "Past events" : "Upcoming events";
   }
 
   if (typeof module !== "undefined" && module.exports) {
-    module.exports = { planEvents: planEvents };
+    module.exports = { planEvents: planEvents, orderPast: orderPast };
   }
 
   if (typeof document !== "undefined") {
