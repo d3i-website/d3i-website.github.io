@@ -18,19 +18,20 @@ $tab-tint: rgba(0, 0, 0, 0.02);
 }
 
 // The header's height is a whole number of pixels at every width, wrapped or not:
-// every vertical size in it is in px and each line height is a px font size times 1.
+// every vertical size in it is a multiple of 1/16rem (a whole pixel at the default 16px)
+// and each line height is that font size times 1.
 // A fractional height puts everything below it on a half pixel, and the front page's
 // thin lines then snap a row off the reference.
 .site-header__inner {
   max-width: $site-width;
   margin: 0 auto;
-  padding: 16px 1rem 0;
+  padding: 1rem 1rem 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   line-height: 1;
-  gap: 16px 2rem;
+  gap: 1rem 2rem;
 }
 
 .site-header__brand {
@@ -47,7 +48,7 @@ $tab-tint: rgba(0, 0, 0, 0.02);
 .site-header__name {
   display: block;
   font-family: "Nunito", $sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 800;
   letter-spacing: 0;
   line-height: 1;
@@ -55,9 +56,9 @@ $tab-tint: rgba(0, 0, 0, 0.02);
 
 .site-header__subtitle {
   display: block;
-  margin-top: 3px;
+  margin-top: 0.1875rem;
   color: $muted-text-color;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1;
 }
 
@@ -77,10 +78,10 @@ $tab-tint: rgba(0, 0, 0, 0.02);
 .site-nav__item a {
   display: block;
   position: relative;
-  padding: 13px 1.35rem;
+  padding: 0.8125rem 1.35rem;
   color: #6a6a6a;
   font-family: "Nunito", $sans-serif;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 500;
   line-height: 1;
   text-decoration: none;
