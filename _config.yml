@@ -29,6 +29,7 @@ exclude:
   - docs/
   - cms/
   - "*.backup"
+  - tests/
 
 include:
   - _pages

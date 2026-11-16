@@ -1,0 +1,102 @@
+// =====================================================================
+// Front page: below the band. The three cards, the line between the cards
+// and the lists, and the two lists (Latest news, Upcoming events).
+//
+// Copied from the <style> of docs/front-page-reference/index.html, which is
+// the visual specification: where this file and the reference disagree about
+// looks, the reference wins. Rules keep the reference's values and comments;
+// they are nested under .home (the front page's wrapper in
+// _layouts/homepage.html). The cards are the reference's final design only:
+// the centred card with the underlined heading (its "B" cards with
+// data-cards="u"), without the icon-and-arrow mark.
+//
+// Beyond the reference, which has no links that work: the card and row
+// headings are real links whose ::after covers the card or row, a visible
+// keyboard focus ring, the hover state on keyboard focus too, a visually
+// hidden second word on each "More", [hidden] rows staying hidden, and no
+// transitions for readers who ask for reduced motion.
+//
+// Markup: _layouts/homepage.html (cards, line), _includes/home/lists.html.
+// =====================================================================
+
+.home {
+  // The reference's body text colour; the site's base colour is a plain grey.
+  color: #363b46;
+  // --sep is the white space that separates the three cards from the lists
+  --sep: clamp(84px, 10vw, 136px);
+
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden;
+    clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;
+  }
+
+  // Every link on the front page shows where keyboard focus is. Square, like
+  // everything that is not a line or a node.
+  a:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; padding: 40px var(--edge) 8px; }
+  /* no card border */
+  .cd { position: relative; display: flex; flex-direction: column; }
+  .cd .bo { font-size: 16px; line-height: 1.55; margin-bottom: 0; }
+  /* B: the whole card centred */
+  .cd { text-align: center; }
+  .cd .eb { font: 700 11px/1 "Nunito Sans", sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #626976; }
+  .cd .hd { color: var(--ink); font-size: 27px; line-height: 1.08; margin: 10px 0 8px; }
+
+  /* closing line, the two lists */
+  .outro { text-align: center; font-size: 16px; }
+  .outro--mid { padding: 44px var(--edge) 0; }
+  /* the general link: the text keeps its colour and gets a dotted sky-blue underline, solid on hover */
+  .outro a { color: inherit; font-weight: 700; cursor: pointer; text-decoration: underline dotted var(--sky); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .outro a:hover, .outro a:focus-visible { text-decoration-style: solid; }
+  .lists { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; padding: var(--sep) var(--edge) 72px; font-size: 14px; line-height: 1.5; }
+  .lhead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .ltitle { color: var(--ink); font-size: 24px; line-height: 1.1; margin: 0; }
+  .more { display: flex; align-items: center; font: 700 14px/1 "Nunito Sans", sans-serif; color: #363b46; text-decoration: none; }
+  .more__dots { width: 28px; margin-left: 8px; height: 2px; background: radial-gradient(circle at 1px 1px, var(--sky) .95px, transparent 1.1px) 0 0 / 5px 2px repeat-x; }
+  // the dotted line turns solid on hover and focus, like an underline
+  .more:hover .more__dots, .more:focus-visible .more__dots { background: var(--sky); }
+  .go { display: block; flex: none; }
+  .row { display: grid; grid-template-columns: 46px 1fr auto; gap: 16px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); }
+  // The reference closes the list with .row:last-child's lower border. Here later rows can be
+  // hidden, so the group of rows carries that border, which sits in the same place.
+  .rows { border-bottom: 1px solid var(--line); }
+  .row[hidden], .rows[hidden] { display: none; }
+  .date { text-align: center; }
+  .date span { display: block; font: 700 11px/1 "Nunito Sans", sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #626976; }
+  .date b { display: block; color: var(--ink); font-size: 22px; line-height: 1.05; margin-top: 3px; white-space: nowrap; }
+  .row__title { color: var(--ink); font: 600 16px/1.6 "Nunito Sans", sans-serif; margin: 0; }
+  .where { font: 700 13px/1.4 "Nunito Sans", sans-serif; color: #626976; }
+
+  /* a dotted blue underline marks a title as a link, in the lists and on the three cards */
+  .row { cursor: pointer; }
+  .cd { cursor: pointer; }
+  .row__title span, .cd .hd span { text-decoration: underline dotted var(--sky); text-decoration-thickness: 2px; text-underline-offset: 5px; }
+  .row:hover .row__title span, .cd:hover .hd span,
+  .row__title a:focus-visible span, .cd .hd a:focus-visible span { text-decoration-style: solid; }
+
+  // A whole-line title link keeps its own colour and weight. Its ::after covers the row or the
+  // card, so the whole of it is the link, and the focus ring goes round the whole of it.
+  .row { position: relative; }
+  .row__title a, .cd .hd a { color: inherit; font-weight: inherit; text-decoration: none; }
+  .row__title a::after, .cd .hd a::after { content: ""; position: absolute; inset: 0; }
+  .row__title a:focus-visible, .cd .hd a:focus-visible { outline: none; }
+  .row__title a:focus-visible::after, .cd .hd a:focus-visible::after { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+  @media (max-width: 899px) { .lists { grid-template-columns: 1fr; gap: 44px; } }
+
+  @media (max-width: 999px) {
+    .cards { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .cards .cd:last-child { grid-column: 1 / -1; }
+  }
+
+  @media (max-width: 599px) {
+    .cards { grid-template-columns: 1fr; }
+  }
+
+  // The reference has no transitions; this keeps it so for readers who ask for less motion,
+  // whatever later rules add.
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  }
+}

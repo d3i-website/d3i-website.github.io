@@ -12,36 +12,21 @@ postit:
   link_url: /community/omnibus-letter
   link_text: "Read our letter"
 movements:
-  - eyebrow: "The method"
+  - eyebrow: "For newcomers"
     heading: "What is data donation?"
-    image: /assets/images/illustrations/social-media-profile.svg
-    image_alt: "A person viewing a social media profile on a screen"
-    body: "Data donation allows researchers to collect digital traces by asking participants to donate their own data. Interested?"
-    accent: "#4272EF"
-    tint: "#EEF3FE"
+    body: "Data donation allows researchers to collect digital traces by asking participants to donate their own data."
     link:
       url: /data-donation/
-      text: "Learn how it works"
   - eyebrow: "For researchers"
     heading: "Prepare a study"
-    image: /assets/images/illustrations/experts.svg
-    image_alt: "Researchers collaborating around a search interface"
-    body: "Guidance for preparing your study from design to ethics to FAIR practices."
-    accent: "#FF5E5E"
-    tint: "#FFEFEF"
+    body: "Guidance for preparing your study, from design to ethics to FAIR practices."
     link:
       url: /prepare-a-study/study-design
-      text: "How to run a study"
-  - eyebrow: "Open source"
-    heading: "Free, open-source software"
-    image: /assets/images/illustrations/group-project.svg
-    image_alt: "A team working together on a project"
+  - eyebrow: "For developers"
+    heading: "Open-source software"
     body: "Free, open-source tools that collect donated data right in the participant's browser."
-    accent: "#E8B53C"
-    tint: "#FDF4DF"
     link:
       url: /software/
-      text: "Explore the software"
 ---
 
 You can also subscribe to our [newsletter](/community/newsletter/) or

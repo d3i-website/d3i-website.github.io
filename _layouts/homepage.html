@@ -6,10 +6,26 @@ layout: site-shell
   The front page, built to docs/front-page-reference/index.html. Every front page style is
   nested under .home. The note lies on top of the band, so it goes inside the band's
   section, where the reference has it.
+
+  Below the band: one card per page.movements entry (the reference's <main class="cards">;
+  a div here, since site-shell already has the page's <main>), the page's own text as the
+  line between the cards and the lists (the reference's .outro), then the two lists. Each
+  card's heading is its link; its ::after covers the card, so the whole card is the link.
+  Styles: _sass/_home-content.scss.
 {% endcomment %}
 <div class="home">
   {% capture home_note %}{% include home/note.html %}{% endcapture %}
   {% include home/band.html note=home_note %}
 
-  {{ content }}
+  {% if page.movements and page.movements.size > 0 %}
+  <div class="cards">
+    {%- for card in page.movements %}
+    <article class="cd">{% if card.eyebrow and card.eyebrow != "" %}<span class="eb">{{ card.eyebrow }}</span>{% endif %}<h3 class="serif hd">{% if card.link.url and card.link.url != "" %}<a href="{{ card.link.url | relative_url }}"><span>{{ card.heading }}</span></a>{% else %}<span>{{ card.heading }}</span>{% endif %}</h3>{% if card.body and card.body != "" %}<p class="bo">{{ card.body }}</p>{% endif %}</article>
+    {%- endfor %}
+  </div>
+  {% endif %}
+
+  <div class="outro outro--mid">{{ content }}</div>
+
+  {% include home/lists.html %}
 </div>

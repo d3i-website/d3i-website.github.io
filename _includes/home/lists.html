@@ -1,0 +1,106 @@
+{% comment %}
+  The front page's two lists: Latest news and Upcoming events. Copied from the
+  <section class="lists"> of docs/front-page-reference/index.html. Styles: _sass/_home-content.scss.
+
+  News: the four newest items of site.news dated no later than the build. _config.yml has
+  future: true, so a future-dated item is published and must be left out here.
+
+  Events: an event's end is end_date, or date when end_date is missing or "" (the CMS writes a
+  cleared optional field as '', which Liquid treats as true; every optional field is tested
+  against "" too). Upcoming events (end on or after the build date) are rendered soonest first,
+  up to eight, the fifth onwards hidden; the four most recent past events are rendered in a
+  group that is hidden unless nothing is upcoming. assets/js/home-events.js redoes the split
+  with the reader's own date, since builds can be weeks apart. Without JavaScript the built
+  state stands.
+
+  A row's link goes to external_url when it is filled in (in a new tab), else to the item's own
+  page. The title is the link; its ::after covers the row, so the whole row is the link.
+{% endcomment %}
+{%- assign now_epoch = site.time | date: "%s" | plus: 0 -%}
+{%- assign today = site.time | date: "%Y-%m-%d" -%}
+{%- assign this_year = site.time | date: "%Y" -%}
+
+{%- assign home_news = "" | split: "" -%}
+{%- assign sorted_news = site.news | sort: "date" | reverse -%}
+{%- for item in sorted_news -%}
+  {%- assign item_epoch = item.date | date: "%s" | plus: 0 -%}
+  {%- if item_epoch <= now_epoch -%}
+    {%- assign home_news = home_news | push: item -%}
+    {%- if home_news.size == 4 -%}{%- break -%}{%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- assign upcoming_events = "" | split: "" -%}
+{%- assign past_events = "" | split: "" -%}
+{%- assign sorted_events = site.events | sort: "date" -%}
+{%- for item in sorted_events -%}
+  {%- if item.end_date and item.end_date != "" -%}{%- assign item_end = item.end_date -%}{%- else -%}{%- assign item_end = item.date -%}{%- endif -%}
+  {%- assign item_end_str = item_end | date: "%Y-%m-%d" -%}
+  {%- if item_end_str >= today -%}
+    {%- assign upcoming_events = upcoming_events | push: item -%}
+  {%- else -%}
+    {%- assign past_events = past_events | push: item -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign past_events = past_events | reverse -%}
+
+{%- capture more_disc -%}
+<svg class="go" width="24" height="24" viewBox="-18 -18 36 36" aria-hidden="true"><circle r="18" fill="#4272ef"/><path d="M-8 0 h16 M1.5 -6.5 l6.5 6.5 l-6.5 6.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+{%- endcapture -%}
+
+<section class="lists">
+  <div>
+    <div class="lhead"><h2 class="serif ltitle">Latest news</h2><a class="more" href="{{ '/news/' | relative_url }}">More<span class="visually-hidden"> news</span><i class="more__dots"></i>{{ more_disc }}</a></div>
+    <div class="rows">
+      {%- for item in home_news -%}
+        {%- if item.external_url and item.external_url != "" -%}
+          {%- assign row_href = item.external_url -%}{%- assign row_external = true -%}
+        {%- else -%}
+          {%- assign row_href = item.url | relative_url -%}{%- assign row_external = false -%}
+        {%- endif %}
+        <article class="row"><p class="date"><span>{{ item.date | date: "%b" }}</span><b class="serif">{{ item.date | date: "%-d" }}</b></p><div><h3 class="row__title"><a href="{{ row_href }}"{% if row_external %} target="_blank" rel="noopener noreferrer"{% endif %}><span>{{ item.title }}</span></a></h3></div></article>
+      {%- endfor %}
+    </div>
+  </div>
+  <div>
+    <div class="lhead"><h2 class="serif ltitle" data-events-heading>{% if upcoming_events.size > 0 %}Upcoming events{% else %}Past events{% endif %}</h2><a class="more" href="{{ '/community/events/' | relative_url }}">More<span class="visually-hidden"> events</span><i class="more__dots"></i>{{ more_disc }}</a></div>
+    {%- comment -%} Two groups, the same rows: 1 upcoming (with their end dates), 2 past. {%- endcomment -%}
+    {%- for group in (1..2) -%}
+      {%- if group == 1 -%}
+        {%- assign group_name = "upcoming" -%}{%- assign group_events = upcoming_events | slice: 0, 8 -%}{%- if upcoming_events.size == 0 -%}{%- assign group_hidden = true -%}{%- else -%}{%- assign group_hidden = false -%}{%- endif -%}
+      {%- else -%}
+        {%- assign group_name = "past" -%}{%- assign group_events = past_events | slice: 0, 4 -%}{%- if upcoming_events.size > 0 -%}{%- assign group_hidden = true -%}{%- else -%}{%- assign group_hidden = false -%}{%- endif -%}
+      {%- endif %}
+    <div class="rows" data-events="{{ group_name }}"{% if group_hidden %} hidden{% endif %}>
+      {%- for item in group_events -%}
+        {%- if item.end_date and item.end_date != "" -%}{%- assign item_end = item.end_date -%}{%- else -%}{%- assign item_end = item.date -%}{%- endif -%}
+        {%- assign start_ymd = item.date | date: "%Y-%m-%d" -%}
+        {%- assign end_ymd = item_end | date: "%Y-%m-%d" -%}
+        {%- assign row_month = item.date | date: "%b" -%}
+        {%- assign row_day = item.date | date: "%-d" -%}
+        {%- if end_ymd != start_ymd -%}
+          {%- assign end_month = item_end | date: "%b" -%}
+          {%- unless end_month == row_month -%}{%- assign row_month = row_month | append: "–" | append: end_month -%}{%- endunless -%}
+          {%- assign end_day = item_end | date: "%-d" -%}
+          {%- assign row_day = row_day | append: "–" | append: end_day -%}
+        {%- endif -%}
+        {%- comment -%} The date shows no year, so a row in another year than the build's says which. {%- endcomment -%}
+        {%- assign row_where = "" -%}
+        {%- if item.location and item.location != "" -%}{%- assign row_where = item.location -%}{%- endif -%}
+        {%- assign row_year = item.date | date: "%Y" -%}
+        {%- if row_year != this_year -%}
+          {%- if row_where != "" -%}{%- assign row_where = row_where | append: " · " -%}{%- endif -%}
+          {%- assign row_where = row_where | append: row_year -%}
+        {%- endif -%}
+        {%- if item.external_url and item.external_url != "" -%}
+          {%- assign row_href = item.external_url -%}{%- assign row_external = true -%}
+        {%- else -%}
+          {%- assign row_href = item.url | relative_url -%}{%- assign row_external = false -%}
+        {%- endif %}
+        <article class="row"{% if group == 1 %} data-event-end="{{ end_ymd }}"{% if forloop.index > 4 %} hidden{% endif %}{% endif %}><p class="date"><span>{{ row_month }}</span><b class="serif">{{ row_day }}</b></p><div><h3 class="row__title"><a href="{{ row_href }}"{% if row_external %} target="_blank" rel="noopener noreferrer"{% endif %}><span>{{ item.title }}</span></a></h3>{% if row_where != "" %}<p class="where">{{ row_where }}</p>{% endif %}</div></article>
+      {%- endfor %}
+    </div>
+    {%- endfor %}
+  </div>
+</section>
+<script src="{{ '/assets/js/home-events.js' | relative_url }}" defer></script>
