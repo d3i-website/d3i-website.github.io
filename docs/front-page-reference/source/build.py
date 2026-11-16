@@ -532,7 +532,7 @@ html = f"""<!DOCTYPE html>
   .cards {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; padding: 40px var(--edge) 8px; }}
   /* no card border: the text stands on a line that carries two nodes, the topic's icon and the arrow */
   .cd {{ position: relative; display: flex; flex-direction: column; }}
-  .cd .bo {{ font-size: 15.5px; line-height: 1.55; margin-bottom: 14px; }}
+  .cd .bo {{ font-size: 16px; line-height: 1.55; margin-bottom: 14px; }}
   .cd .go {{ display: block; flex: none; }}
   .ic-blue path {{ fill: #4272ef !important; }}
   /* the mark: icon node, dotted line, arrow node; half the card's width */
@@ -551,7 +551,7 @@ html = f"""<!DOCTYPE html>
   .proto button[aria-pressed="true"] {{ background: #fff; color: #252a34; }}
   .cd .eb {{ font: 700 11px/1 "Nunito Sans", sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #626976; }}
   .cd .hd {{ color: var(--ink); font-size: 27px; line-height: 1.08; margin: 10px 0 8px; }}
-  .cd .lnk {{ font: 700 15px/1.4 "Nunito Sans", sans-serif; color: var(--blue); }}
+  .cd .lnk {{ font: 700 14px/1.4 "Nunito Sans", sans-serif; color: var(--blue); }}
 
   /* closing line, the two lists, the footer */
   /* --sep is the white space that separates the three cards from the lists */
@@ -561,7 +561,7 @@ html = f"""<!DOCTYPE html>
   /* the general link: the text keeps its colour and gets a dotted sky-blue underline, solid on hover */
   .outro a {{ color: inherit; font-weight: 700; cursor: pointer; text-decoration: underline dotted var(--sky); text-decoration-thickness: 2px; text-underline-offset: 4px; }}
   .outro a:hover {{ text-decoration-style: solid; }}
-  .lists {{ display: grid; grid-template-columns: 1fr 1fr; gap: 56px; padding: var(--sep) var(--edge) 72px; font-size: 14.5px; line-height: 1.5; }}
+  .lists {{ display: grid; grid-template-columns: 1fr 1fr; gap: 56px; padding: var(--sep) var(--edge) 72px; font-size: 14px; line-height: 1.5; }}
   .lhead {{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }}
   .ltitle {{ color: var(--ink); font-size: 24px; line-height: 1.1; margin: 0; }}
   .more {{ display: flex; align-items: center; font: 700 14px/1 "Nunito Sans", sans-serif; color: #363b46; }}
@@ -572,8 +572,8 @@ html = f"""<!DOCTYPE html>
   .date {{ text-align: center; }}
   .date span {{ display: block; font: 700 11px/1 "Nunito Sans", sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #626976; }}
   .date b {{ display: block; color: var(--ink); font-size: 22px; line-height: 1.05; margin-top: 3px; white-space: nowrap; }}
-  .row__title {{ color: var(--ink); font: 600 15.5px/1.6 "Nunito Sans", sans-serif; margin: 0; }}
-  .where {{ font: 700 12.5px/1.4 "Nunito Sans", sans-serif; color: #626976; }}
+  .row__title {{ color: var(--ink); font: 600 16px/1.6 "Nunito Sans", sans-serif; margin: 0; }}
+  .where {{ font: 700 13px/1.4 "Nunito Sans", sans-serif; color: #626976; }}
   /* a dotted blue underline marks a title as a link, in the lists and on the three cards */
   .row {{ cursor: pointer; }}
   .row__arrow {{ display: none; }}
