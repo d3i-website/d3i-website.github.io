@@ -1,0 +1,146 @@
+<!-- @dsCard group="Slides" height=540 width=960 subtitle="Stat tiles in the chart colours, a mini bar chart, a tile of platform marks, and a list panel" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>SlideStats — preview</title>
+<style>html,body{margin:0;background:#f5f7fb}.stage{width:960px;height:540px;overflow:hidden}#root{width:1920px;height:1080px;transform:scale(.5);transform-origin:top left}</style></head>
+<body>
+<div class="stage"><div id="root"></div></div>
+<script>
+var D = window.D3I, h = React.createElement;
+ReactDOM.createRoot(document.getElementById('root')).render(h(D.SlideStats, {
+ "eyebrow": "Part III · Use to date",
+ "heading": "Adoption since the first deployment in 2022",
+ "number": 13,
+ "tiles": [
+  {
+   "value": 51,
+   "label": "studies, 2022 to 2025",
+   "series": [
+    {
+     "label": "2022",
+     "value": 1
+    },
+    {
+     "label": "2023",
+     "value": 4
+    },
+    {
+     "label": "2024",
+     "value": 18
+    },
+    {
+     "label": "2025",
+     "value": 28
+    }
+   ]
+  },
+  {
+   "value": 18,
+   "label": "institutions"
+  },
+  {
+   "value": 5,
+   "label": "countries"
+  },
+  {
+   "value": 16,
+   "label": "platforms studied",
+   "marks": [
+    {
+     "src": "/_blob/1e0edff50600a0e8962a93d02f4d98de",
+     "alt": "tiktok"
+    },
+    {
+     "src": "/_blob/b7493992ff75c7e90c65e4ca07073037",
+     "alt": "instagram"
+    },
+    {
+     "src": "/_blob/93c2327b29292aaadb58564b8042d4ae",
+     "alt": "youtube"
+    },
+    {
+     "src": "/_blob/1a82d3ba0fdd18bacf8f565dcb6d53e0",
+     "alt": "facebook"
+    },
+    {
+     "src": "/_blob/32af458018d733c3cbf6e42a40bb1b82",
+     "alt": "twitter-x"
+    },
+    {
+     "src": "/_blob/46c072a4cedda29d4461cc733be5f2d8",
+     "alt": "linkedin"
+    },
+    {
+     "src": "/_blob/9e2246aba00f17d565cf9334c5712cff",
+     "alt": "netflix"
+    },
+    {
+     "src": "/_blob/93ccdf454741dbb4f7d063122e6e63f2",
+     "alt": "spotify"
+    },
+    {
+     "src": "/_blob/42ea03c868b8ec116a8a508b67ddcc2b",
+     "alt": "chatgpt"
+    },
+    {
+     "src": "/_blob/1b7d6788c1459a1dc8011b0b41f7beb1",
+     "alt": "slack"
+    },
+    {
+     "src": "/_blob/733b1e7e178cb2580f385552450aac31",
+     "alt": "google-search"
+    },
+    {
+     "src": "/_blob/e55e13fbbb580b19db387e7440388250",
+     "alt": "google-browsing-history"
+    },
+    {
+     "src": "/_blob/93ff9808caf5c4cfca22e8fc9129bc09",
+     "alt": "google-semantic-location-history"
+    },
+    {
+     "src": "/_blob/3110317b30b0efb6629e39165774be28",
+     "alt": "google-home"
+    },
+    {
+     "src": "/_blob/6f67761d881bab6e842b0481209a88be",
+     "alt": "apple-health"
+    },
+    {
+     "src": "/_blob/e83806238efb46d9baf0271bb88684da",
+     "alt": "samsung-health"
+    }
+   ]
+  }
+ ],
+ "panel": [
+  {
+   "title": "Netherlands · 7",
+   "items": [
+    "University of Amsterdam",
+    "Utrecht University",
+    "Radboud University Nijmegen",
+    "VU Amsterdam"
+   ]
+  },
+  {
+   "title": "Germany · 5",
+   "items": [
+    "Weizenbaum Institute",
+    "GESIS Leibniz Institute",
+    "University of Mannheim"
+   ]
+  },
+  {
+   "title": "United States · 4",
+   "items": [
+    "Cornell University",
+    "Harvard University",
+    "Johns Hopkins University"
+   ]
+  }
+ ]
+}));
+</script>
+</body>
+</html>

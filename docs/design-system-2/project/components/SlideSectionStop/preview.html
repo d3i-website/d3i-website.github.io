@@ -1,0 +1,27 @@
+<!-- @dsCard group="Slides" height=540 width=960 subtitle="Section opener: the part number, one sentence, and the road with five stops" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>SlideSectionStop — preview</title>
+<style>html,body{margin:0;background:#f5f7fb}.stage{width:960px;height:540px;overflow:hidden}#root{width:1920px;height:1080px;transform:scale(.5);transform-origin:top left}</style></head>
+<body>
+<div class="stage"><div id="root"></div></div>
+<script>
+var D = window.D3I, h = React.createElement;
+ReactDOM.createRoot(document.getElementById('root')).render(h(D.SlideSectionStop, {
+ "part": "Part II",
+ "heading": "The method",
+ "stepNumber": "02",
+ "sentence": "Minimise, and consent. Both are best met on the participant's own device, which takes an infrastructure.",
+ "stops": [
+  "The data",
+  "The method",
+  "Use to date",
+  "One case in depth",
+  "For official statistics"
+ ],
+ "current": 1,
+ "number": 8
+}));
+</script>
+</body>
+</html>

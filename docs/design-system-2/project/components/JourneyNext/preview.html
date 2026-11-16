@@ -1,0 +1,21 @@
+<!-- @dsCard group="Wayfinding" height=250 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>JourneyNext — preview</title>
+<style>.pv{padding:0 1.5rem 1rem}.pv .journey-next{margin-top:0}</style></head>
+<body>
+<div id="root" class="pv"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h(D.JourneyNext, {
+      number: '02',
+      title: 'Pick a platform',
+      body: 'We provide standard scripts for the most common platforms, with no coding required to use them. Pick the data you need and the selector packages it for your study.',
+      link: { label: 'Use our script selector', href: '#' },
+      after: { number: '03', title: 'Go further (optional)', href: '#' }
+    })
+  );
+</script>
+</body>
+</html>

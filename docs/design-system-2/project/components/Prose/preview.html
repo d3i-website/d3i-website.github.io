@@ -1,0 +1,25 @@
+<!-- @dsCard group="Content" height=720 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Prose — preview</title>
+<style>.pv{padding:0.5rem 1.5rem 1rem}</style></head>
+<body>
+<div id="root" class="pv"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  /* Prose takes rendered Markdown as html (or as children); everything inside is element styling. */
+  var html = [
+    '<h2>What the software does</h2>',
+    '<p>Our open-source software service helps researchers run data donation studies. Anyone can create an account and <a href="#">preview the service on Next</a>. Participants always stay in control during their participation.</p>',
+    '<blockquote>Data donation allows researchers to collect digital traces by asking participants to donate their own data.</blockquote>',
+    '<p>To develop the site locally, run <code>bundle exec jekyll serve</code>:</p>',
+    '<pre><code>bundle config set --local path vendor/bundle\nbundle install\nbundle exec jekyll serve</code></pre>',
+    '<table><thead><tr><th>Year</th><th>Studies using Port</th></tr></thead><tbody><tr><td>2022</td><td>1</td></tr><tr><td>2023</td><td>4</td></tr><tr><td>2024</td><td>18</td></tr><tr><td>2025</td><td>28</td></tr></tbody></table>',
+    '<dl><dt>Data collection</dt><dd>January – February 2024</dd><dt>Recruitment</dt><dd>Participants were recruited through Ipsos I&amp;O.</dd></dl>',
+    '<hr>',
+    '<p>Visit the <a href="#">symposium website</a> for full details.</p>'
+  ].join('\n');
+  ReactDOM.createRoot(document.getElementById('root')).render(h(D.Prose, { html: html }));
+</script>
+</body>
+</html>

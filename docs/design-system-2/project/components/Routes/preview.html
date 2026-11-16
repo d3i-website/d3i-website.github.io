@@ -1,0 +1,34 @@
+<!-- @dsCard group="Wayfinding" height=560 width=960 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Routes — preview</title>
+<style>.pv{padding:1rem 1.5rem 1.5rem}.pv .routes{margin-top:0}</style></head>
+<body>
+<div id="root" class="pv"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h(D.Routes, { routes: [
+      {
+        glyph: 'netherlands',
+        question: 'Are you a researcher in the Netherlands?',
+        answer: 'Researchers employed at any university in the Netherlands, or at any ODISSEI or CLARIAH member organization, can use the data donation software service on Next for data collection for free.',
+        steps: [
+          { text: 'Contact us for access.', link: { label: 'Email datadonation@uu.nl', href: '#' } },
+          { text: 'Free licenses are provided by ODISSEI, and all studies are subject to the ODISSEI user policy.', link: { label: 'Read the ODISSEI user policy', href: '#' } }
+        ]
+      },
+      {
+        glyph: 'globe',
+        question: 'Are you based outside the Netherlands?',
+        answer: 'The Next platform is managed by Eyra, who offer the data donation service to researchers anywhere.',
+        steps: [
+          { text: "Use Eyra's hosted service.", link: { label: 'Service and pricing', href: '#' } },
+          { text: 'All software is open source, so you can also host it on your own servers.', link: { label: 'Source code on GitHub', href: '#' } }
+        ]
+      }
+    ] })
+  );
+</script>
+</body>
+</html>

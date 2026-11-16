@@ -1,0 +1,33 @@
+<!-- @dsCard group="Shell" height=400 width=1152 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>HomepageHero — preview</title></head>
+<body class="site-shell layout--homepage">
+<div id="root" style="display:contents"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h(D.HomepageHero, {
+      title: 'Open infrastructure for data donation research',
+      subtitle: 'Digital trace data, donated by the people it belongs to',
+      cta: { label: 'Learn about data donation', href: '#' },
+      postit: {
+        eyebrow: 'Position',
+        title: 'GDPR Omnibus Proposal',
+        body: 'The European Omnibus Act poses a direct risk to fundamental human rights and to data donation as a research method.',
+        link: { label: 'Read our letter →', href: '#' }
+      },
+      sprites: {
+        clouds: '/_blob/4474b56270e2fc8faec8723f8940a757',
+        plane: '/_blob/dba8064b5d63e4ac08f8af4d81759e85',
+        walker: '/_blob/92601164db910076160e2627fa508095',
+        mountains: '/_blob/cd8fa5ba281060bf0600c5ede879772c',
+        trees: '/_blob/c60dea963e3a01c12d25c3b32b0bbdda',
+        car: '/_blob/fd7dd26af66a3f4020dfa414f882b345',
+        cyclist: '/_blob/32cd9b8776a954ce9f6d1515ffd4ae77'
+      }
+    })
+  );
+</script>
+</body>
+</html>

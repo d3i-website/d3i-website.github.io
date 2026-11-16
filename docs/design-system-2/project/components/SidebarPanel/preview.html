@@ -1,0 +1,23 @@
+<!-- @dsCard group="Wayfinding" height=300 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>SidebarPanel — preview</title>
+<style>.pv{padding:1rem 1.5rem;max-width:13rem}</style></head>
+<body>
+<div id="root" class="pv"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h(D.SidebarPanel, { title: 'Software', href: '#', items: [
+      { label: 'Getting started', href: '#', active: true, sections: [
+        { label: 'What the software does', href: '#' },
+        { label: 'How to get access', href: '#' }
+      ] },
+      { label: 'Script selector', href: '#' },
+      { label: 'Going further', href: '#' },
+      { label: 'Port in education', href: '#' }
+    ] })
+  );
+</script>
+</body>
+</html>

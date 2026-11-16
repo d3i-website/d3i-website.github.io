@@ -1,0 +1,59 @@
+<!-- @dsCard group="Slides" height=540 width=960 subtitle="Layout that makes the point: a funnel with values at the bar ends, and a meter of three options" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>SlideFunnel — preview</title>
+<style>html,body{margin:0;background:#f5f7fb}.stage{width:960px;height:540px;overflow:hidden}#root{width:1920px;height:1080px;transform:scale(.5);transform-origin:top left}</style></head>
+<body>
+<div class="stage"><div id="root"></div></div>
+<script>
+var D = window.D3I, h = React.createElement;
+ReactDOM.createRoot(document.getElementById('root')).render(h(D.SlideFunnel, {
+ "eyebrow": "Part III · Use to date",
+ "heading": "Two forms that carry the argument",
+ "number": 16,
+ "funnel": {
+  "eyebrow": "Funnel",
+  "base": "Of 2,086 LISS panel members aged 50 and over",
+  "stages": [
+   {
+    "label": "were willing to donate",
+    "pct": 29
+   },
+   {
+    "label": "started a donation",
+    "pct": 17
+   },
+   {
+    "label": "completed one",
+    "pct": 12
+   }
+  ],
+  "note": "Completers were more often employed, educated, higher-income and more active."
+ },
+ "meter": {
+  "options": [
+   {
+    "eyebrow": "Option 1",
+    "fill": "all",
+    "fillLabel": "Everything arrives",
+    "text": "Send everything, select later."
+   },
+   {
+    "eyebrow": "Option 2",
+    "fill": "promise",
+    "fillLabel": "Arrives, then deleted",
+    "text": "Send everything, select, delete the rest."
+   },
+   {
+    "eyebrow": "Option 3 · Port",
+    "fill": "strip",
+    "fillLabel": "Selected only",
+    "text": "Select on the participant's device.",
+    "recommended": true
+   }
+  ]
+ }
+}));
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!-- @dsCard group="Content" height=740 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>UsageFigures — preview</title>
+<style>.pv{padding:1rem 1.5rem 0}.pv .usage-figure:last-child{margin-bottom:0}.pv .usage-globe-wrap{max-width:12rem}.pv .usage-globe-wrap svg{cursor:default}</style></head>
+<body>
+<div id="root" class="pv"></div>
+<script>
+  var D = window.D3I, h = React.createElement, U = D.UsageFigures;
+  /* The site draws the globe with JavaScript from _data/usage.yml; a plain disc stands in for it here. */
+  var disc = h('svg', { viewBox: '0 0 200 200', role: 'img', 'aria-label': 'Globe (drawn by the site)' },
+    h('circle', { cx: 100, cy: 100, r: 92, fill: 'var(--surface-tint)', stroke: 'var(--border)', strokeWidth: 2 }));
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h(U, null,
+      h(U.Figure, { title: 'Where D3I studies happen', caption: "Data donation studies making use of D3I's Port are happening worldwide." },
+        h(U.Stats, { stats: [
+          { value: '18', label: 'institutions' },
+          { value: '5', label: 'countries' },
+          { value: '28', label: 'studies in 2025' }
+        ] }),
+        h(U.Globe, null, disc)
+      ),
+      h(U.Figure, { title: 'Platforms investigated', caption: 'Which platforms are researchers studying? A wide variety, from social networks, to streaming services.' },
+        h(U.Platforms, { groups: [
+          { title: 'Social & video', platforms: [
+            { name: 'TikTok', logo: '/_blob/1e0edff50600a0e8962a93d02f4d98de' },
+            { name: 'Instagram', logo: '/_blob/b7493992ff75c7e90c65e4ca07073037' },
+            { name: 'YouTube', logo: '/_blob/93c2327b29292aaadb58564b8042d4ae' },
+            { name: 'Facebook', logo: '/_blob/1a82d3ba0fdd18bacf8f565dcb6d53e0' },
+            { name: 'Twitter (X)', logo: '/_blob/32af458018d733c3cbf6e42a40bb1b82' }
+          ] },
+          { title: 'Streaming & audio', platforms: [
+            { name: 'Spotify', logo: '/_blob/93ccdf454741dbb4f7d063122e6e63f2' },
+            { name: 'Netflix', logo: '/_blob/9e2246aba00f17d565cf9334c5712cff' }
+          ] }
+        ] })
+      )
+    )
+  );
+</script>
+</body>
+</html>
