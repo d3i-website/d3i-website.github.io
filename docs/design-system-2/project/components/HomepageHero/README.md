@@ -1,3 +1,5 @@
+This component describes the earlier front page and is replaced in the next phase.
+
 The homepage opener: a composition, not a banner. A pale `blue-tint` disc, clouds and a plane sit behind the headline row; a full-bleed CSS road with fixed-size travellers divides the hero from the page.
 
 Use it on the homepage only. Pass `title`, `subtitle` (the one-sentence excerpt), one `cta`, and optionally `postit` (a Postit's props) for the right-hand side. `sprites` takes the URLs of your uploads of `assets/Sprites` by name (`clouds`, `plane`, `walker`, `mountains`, `trees`, `car`, `cyclist`); a sprite left out is not drawn. The road is CSS.

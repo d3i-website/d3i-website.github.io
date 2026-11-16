@@ -1,3 +1,5 @@
+This component describes the earlier front page and is replaced in the next phase.
+
 A news item as a card: a media slot in one of the three brand accents, then title, date, summary and a "Read more →" link pinned to the bottom. Three forms: the tile (news page grid), the row (small thumbnail left), and the homepage strip, where the photo becomes a circular avatar on the accent field.
 
 Pass `title`, `date`, `summary`, an optional `image`, and `href`: the item's own url or an external one (external wins; set `external` and it opens in a new tab). `accent` defaults to the title length modulo 3, as on the site, so it is stable across builds and needs no editor choice; an imageless card shows the bare accent field. `variant="row"` is the row form. `NewsCard.Grid` and `NewsCard.List` hold tiles and rows; `NewsCard.Band` is the homepage strip, with its `title` and `moreLink`.

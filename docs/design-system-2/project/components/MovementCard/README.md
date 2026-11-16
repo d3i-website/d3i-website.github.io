@@ -1,3 +1,5 @@
+This component describes the earlier front page and is replaced in the next phase.
+
 The homepage's three "movements": one wide card per destination, pairing a tinted illustration panel with an eyebrow, a heading, a sentence and a link, all in that item's accent. On the live site the cards run in a peek carousel; without JavaScript they stack.
 
 Pass, per item, `eyebrow`, `heading`, `image` (an illustration from `assets/Illustrations`), a `body` of one or two sentences, `link`, and `accent`, which picks the accent and tint pair: `primary` is `blue` with `blue-tint`, `secondary` is `coral` with `coral-tint`, `tertiary` is `yellow-text` with `yellow-tint`; the homepage runs them in that order. The site sets the pair as inline styles from front matter; the component binds them to the tokens. Hold the cards in `MovementCard.Group`: stacked by default, or `wide` for the image-left layout with one card in view (`active`). The carousel's arrows and dots are the site's JavaScript and not part of the component.

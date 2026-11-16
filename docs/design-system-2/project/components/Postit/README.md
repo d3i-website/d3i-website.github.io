@@ -1,3 +1,5 @@
+This component describes the earlier front page and is replaced in the next phase.
+
 A cream sticky note for timely updates: a position statement, an outage, a deadline. Tilted 1.5 degrees, with a strip of yellow tape on the homepage and hub versions.
 
 Pass `eyebrow` (one or two words; default "Updates"), a short `title`, one or two sentences as `body` or children, and optionally a `link` with its own arrow in the label. `inline` is the content-page form. Pages declare it in front matter; one per page, and only while the news is timely.

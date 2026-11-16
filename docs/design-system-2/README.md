@@ -11,7 +11,7 @@ Start with `project/README.md`, the brand book: what every token is for, the sli
 ## Layout
 
 - `project/` holds the artifact's source files, as the artifact keeps them:
-  - `README.md` is the brand book; `website-migration.md` maps the site's current SCSS values onto the tokens.
+  - `README.md` is the brand book.
   - `tokens.json` holds every token: 23 colours in a light theme and a proposed dark one, the website and slide type scales, spacing, radii, shadows, layout widths and breakpoints.
   - `tokens.css` is `tokens.json` compiled to CSS variables, `--text-<style>` font shorthands, a class per text style and the `@font-face` rules. It is generated: see below.
   - `components/bundle.js` defines `window.D3I`: 24 website components and 9 slide components, as React 18 functions. `components/bundle.css` styles the website components; `components/index.d.ts` documents every prop; `components/lib/` carries React and ReactDOM 18.3.1.
@@ -27,4 +27,4 @@ Not copied from the artifact: its `api/` cards and `manifest.json`, which the ar
 
 - **A web page:** link `project/tokens.css` and `project/components/bundle.css`, load `components/lib/react.production.min.js`, `react-dom.production.min.js` and then `components/bundle.js`, and mount the components (`D3I.NewsCard`, `D3I.Routes` …). Pictures are props: pass the URL of your copy of the asset. In a clone the image files are already here, under `project/assets/<Group>/`, so you don't need the artifact's upload ids that the component READMEs mention.
 - **A slide deck:** each slide component renders one 1920 × 1080 `<section>` with inline hex styles. `D3I.slideMarkup(D3I.SlideFrame, props)` returns it as markup to paste into a deck. Without running the bundle, follow the component's README, which lists every value it draws. Declare the two fonts from `project/fonts/`.
-- **This website:** the site does not use these tokens yet. `project/website-migration.md` maps each old SCSS value to the token that replaces it.
+- **This website:** the site does not use these tokens yet. The front page is built towards `docs/front-page-reference/`.
