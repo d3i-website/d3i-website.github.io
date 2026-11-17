@@ -10,6 +10,7 @@ Nothing in `docs/` is published: `_config.yml` excludes it from the Jekyll build
 - `screenshots/` holds the reference screenshots (see below).
 - `source/build.py` builds `index.html`. `source/designer-hero.svg` is the designer's hero file as delivered ("v3.0 Hero Website - No Type - No Note.svg"); the build cuts the icons, portraits and lines out of it by their coordinates, so it must not be edited.
 - `source/capture.sh` takes the screenshots.
+- `source/compare.sh` compares a built site's front page with them, and `source/capture-pages.sh` photographs the site's other pages (see "Testing the site against it"). `source/note-off.yml` is the config override for the note-off build.
 - `fonts/` holds Nunito Sans and Libre Caslon Condensed (both SIL Open Font License).
 
 The news items, events and the note's text are sample content copied from the site on 2026-11-16. They show the layout; they are not part of the design.
@@ -50,6 +51,8 @@ docs/front-page-reference/source/compare.sh _site off
 
 `on` checks all 12 widths with the note shown; `off` checks 1920, 1440 and 1280px with the note off (the second build sets `home_note_off: true`). The script serves the folder on a free port, finds the top edge of the band in each picture (the first row whose pixel at x=4 is `#87c5eb`), cuts 360px from there, and compares it with the same 360px of `band-<width>-note-<on|off>.png`. A pixel counts as different when it is off by more than 5%. It prints one line per width with the number of differing pixels, and exits 1 if any width differs in more than 0.3% of the 360px crop.
 
+The live header keeps its own structure and height, so the comparison starts at the band's top edge, not at the top of the page. To let the band sit on whole pixels like the reference, the header's heights are whole pixels (58, 107, 148 and 189px by width, set in rem sixteenths).
+
 An optional third argument names the folder for the output; without it the script makes a temporary folder and prints its path. It holds `diff-<width>-note-<on|off>.png` per width, where the differing pixels are red. Add `--full` (before the folder names) to also get `full-<width>-note-<on|off>.png`: the reference page on the left and the site's on the right, for a human to judge below the band: layout, type and spacing. The news and event content will differ and is not judged.
 
 `compare.sh docs/front-page-reference on` (or `off`) tests the script itself: the reference page honours `?bar=off&note=<on|off>`, which the script always requests, so it must print all zeros.
@@ -84,9 +87,25 @@ An optional third argument names the folder for the output; without it the scrip
 ### Below the band
 
 - Three cards without borders or pictures, centred: an eyebrow (For newcomers, For researchers, For developers), a serif heading with the link underline, and a sentence.
-- The line about the newsletter and the team, between the cards and the lists.
-- Latest news on the left and Upcoming events on the right, as rows: date, title, and for events the place. Four each. No pictures, no summaries, no carousel. Every upcoming event is listed, not only featured ones. Each list ends its heading with "More" and the arrow disc.
+- The line about the newsletter and the team, between the cards and the lists. It is written in `_layouts/homepage.html` (developer-edited), not in the CMS.
+- Latest news on the left and Upcoming events on the right, as rows: date, title, and for events the place. Four each. No pictures, no summaries, no carousel. Every upcoming event is listed, not only featured ones. Each list ends its heading with "More" and the arrow disc. Each "More" carries a visually hidden second word, so its accessible name is "More news" or "More events".
 - The footer keeps its content; only type and lines change.
+
+### CMS field limits
+
+The band is drawn around the current text, so each CMS string has a `maxlength` (found on 2026-11-16 by building with test texts and measuring at the tested widths; details in `cms/maintainer-notes.md`, "The front page"):
+
+| Field | Limit | Beyond it |
+| --- | --- | --- |
+| Title lines | 23 each | A line runs out of the title's column from 600px up |
+| Browser-tab title | 47 | The two lines and a space |
+| Note eyebrow | 21 | Pushes the arrow disc out of the niche below 1000px |
+| Note title | 21 | Same |
+| Note text | 137 | From 138 some texts take a sixth line from 1280px up, cutting the gap above the note from 22px to 3px; from 161 the note grows past the band's top |
+| Note link text | 16 | Runs into the tab's sloping end from 1280px up |
+| Card eyebrow | 31 | Wraps at 600px |
+| Card heading | 26 | Wraps at 1000px |
+| Card text | 110 | Three lines from 1000px up (four below); more adds a line |
 
 ### What shows at each width
 
@@ -103,7 +122,7 @@ The two lists stack into one column below 900px. The cards go to two columns bel
 
 - With the note on, at window widths from 1280px to about 1580px, a 3px sliver of one white node shows below the note's lower edge. Accepted.
 - At 1280px the note covers most of the research side.
-- A note with much longer text would grow up past the top of the band.
+- A note with much longer text would grow up past the top of the band; the CMS limits above keep it within.
 
 ## Not decided yet
 
@@ -111,5 +130,4 @@ The two lists stack into one column below 900px. The cards go to two columns bel
 - The header and footer got a first pass only (type and lines).
 - The explainer panels for the "What is data donation?" page, including the typos in the designer's labels ("Informed concent", "Variables of insterest", "Participants device").
 - Slides: the road motif is still theirs.
-- "More" twice on one page needs a hidden label each ("More news", "More events") for screen readers.
 - The ODISSEI event's place reads "Jaarbeursplein 6 3521 AL"; that is a content fix in the CMS.
