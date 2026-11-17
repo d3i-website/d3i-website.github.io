@@ -5,13 +5,6 @@
    Tokens come from _sass/_variables.scss; keep the two in sync. */
 
 @font-face {
-  font-family: "Nunito";
-  src: url("/assets/fonts/Nunito.woff2") format("woff2");
-  font-weight: 200 900;
-  font-style: normal;
-}
-
-@font-face {
   font-family: "Nunito Sans";
   src: url("/assets/fonts/NunitoSans-VariableFont_wght.woff2") format("woff2");
   font-weight: 200 1000;
@@ -23,6 +16,21 @@
   src: url("/assets/fonts/NunitoSans-Italic-VariableFont_wght.woff2") format("woff2");
   font-weight: 200 1000;
   font-style: italic;
+}
+
+/* Libre Caslon Condensed, the serif for large headings, in two subsets */
+@font-face {
+  font-family: "Libre Caslon Condensed";
+  src: url("/assets/fonts/LibreCaslonCondensed-latin-ext.woff2") format("woff2");
+  font-weight: 400 700;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Libre Caslon Condensed";
+  src: url("/assets/fonts/LibreCaslonCondensed-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 body {
@@ -37,14 +45,30 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
   font-weight: 800;
   color: #333333;
   line-height: 1.25;
 }
 
+/* page titles and section headings in the serif ($serif), smaller headings in the sans */
+h1, h2, h3 {
+  font-family: "Libre Caslon Condensed", Georgia, "Times New Roman", serif;
+  font-weight: 420;
+  letter-spacing: 0;
+}
+
+/* a link in running text: its own colour, bold, a dotted sky-blue ($sky) underline, solid on hover and focus */
 a {
-  color: #4272EF; /* $accent-primary */
+  color: inherit;
+  font-weight: 700;
+  text-decoration: underline dotted #87c5eb;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration-style: solid;
 }
 
 img {

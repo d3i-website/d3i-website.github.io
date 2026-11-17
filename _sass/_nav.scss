@@ -34,9 +34,13 @@ $tab-tint: rgba(0, 0, 0, 0.02);
   gap: 1rem 2rem;
 }
 
+// The brand, the navigation and the subnav keep their look from before the
+// running-text link style: their own colour, weight and underline.
 .site-header__brand {
   color: $text-color;
+  font-weight: 400;
   text-decoration: none;
+  text-underline-offset: auto;
 
   &:hover,
   &:focus {
@@ -47,7 +51,7 @@ $tab-tint: rgba(0, 0, 0, 0.02);
 
 .site-header__name {
   display: block;
-  font-family: "Nunito", $sans-serif;
+  font-family: $sans-serif;
   font-size: 1rem;
   font-weight: 800;
   letter-spacing: 0;
@@ -80,7 +84,7 @@ $tab-tint: rgba(0, 0, 0, 0.02);
   position: relative;
   padding: 0.8125rem 1.35rem;
   color: #6a6a6a;
-  font-family: "Nunito", $sans-serif;
+  font-family: $sans-serif;
   font-size: 0.9375rem;
   font-weight: 500;
   line-height: 1;
@@ -147,8 +151,9 @@ $tab-tint: rgba(0, 0, 0, 0.02);
   display: inline-block;
   padding: 0.35rem 1rem;
   border-radius: 0;
-  font-family: "Nunito", $sans-serif;
+  font-family: $sans-serif;
   font-size: 0.8125rem;
+  font-weight: 400;
   color: $muted-text-color;
   text-decoration: none;
 
@@ -187,7 +192,7 @@ $tab-tint: rgba(0, 0, 0, 0.02);
 
 .site-footer__label {
   margin: 0;
-  font-family: "Nunito", $sans-serif;
+  font-family: $sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
   line-height: 1.55;

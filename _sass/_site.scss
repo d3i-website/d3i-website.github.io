@@ -3,13 +3,6 @@
 // =====================================================================
 
 @font-face {
-  font-family: "Nunito";
-  src: url("../fonts/Nunito.woff2") format("woff2");
-  font-weight: 200 900;
-  font-style: normal;
-}
-
-@font-face {
   font-family: "Nunito Sans";
   src: url("../fonts/NunitoSans-VariableFont_wght.woff2") format("woff2");
   font-weight: 200 1000;
@@ -50,18 +43,40 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: $sans-serif-title;
   line-height: 1.2;
   color: #252a34;
+}
+
+// Page titles and section headings are set in the serif; smaller headings stay in the sans
+h1, h2, h3 {
+  font-family: $serif;
+  font-weight: 420;
+  letter-spacing: 0;
+}
+
+h4, h5, h6 {
+  font-family: $sans-serif;
 }
 
 p {
   padding: 0.5em 0;
 }
 
+// A link in running text keeps the text's colour, is bold, and has a dotted sky-blue
+// underline that turns solid on hover and on keyboard focus. Links with a look of their
+// own (the coral action links, navigation, cards) set their colour, weight and decoration.
 a {
-  color: $accent-primary;
+  color: inherit;
+  font-weight: 700;
+  text-decoration: underline dotted $sky;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
   text-decoration-skip-ink: auto;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration-style: solid;
+  }
 }
 
 hr {
@@ -122,6 +137,9 @@ blockquote {
   background: #ffffff;
   border: 1px solid $border-color;
   border-radius: 0.5rem;
+  // keeps its look from before the running-text link style
+  color: $accent-primary;
+  font-weight: 400;
   text-decoration: none;
 
   &:focus {
@@ -150,7 +168,7 @@ body.site-shell {
 // Action links (coral CTA style)
 .section-cta {
   display: inline-block;
-  font-family: "Nunito", sans-serif;
+  font-family: $sans-serif;
   font-weight: 700;
   font-size: 1.0625rem;
   color: $accent-secondary;
@@ -220,7 +238,7 @@ body.site-shell {
 
   figcaption {
     margin-top: 1rem;
-    font-family: "Nunito", $sans-serif;
+    font-family: $sans-serif;
     font-size: 0.9375rem;
     font-style: italic;
     line-height: 1.5;
@@ -249,12 +267,12 @@ body.site-shell {
 }
 
 // ---------------------------------------------------------------------
-// Action links — red Nunito arrow links used on cards and section
+// Action links — red arrow links used on cards and section
 // headers ("Read more →").
 // ---------------------------------------------------------------------
 
 .cta-link {
-  font-family: "Nunito", $sans-serif;
+  font-family: $sans-serif;
   font-weight: 700;
   color: $accent-secondary;
   text-decoration: none;
