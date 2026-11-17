@@ -298,14 +298,18 @@ collections:
   # ──────────────── Front page (file collection) ──────────────────────────
   # index.md: the two title lines, the note on the band and the three cards
   # (_layouts/homepage.html, _includes/home/note.html). The subtitle
-  # (excerpt) and the line below the cards (the markdown body) are hidden:
-  # they belong to the design, and a save must keep them as they are.
+  # (excerpt) is a hidden field: it belongs to the design, and a save must
+  # keep it as it is. The line below the cards (newsletter and team) is not
+  # in index.md at all but written in _layouts/homepage.html, so no save can
+  # drop it; index.md's markdown body is empty.
   # Fields follow the file's key order, since a save writes keys in field
   # order. The maxlength values are the longest ordinary English text that
   # still fits the reference design at every tested width (1920 down to
-  # 390px): a longer title line leaves its box, a longer note grows past
-  # the top of the band or pushes its arrow out of the niche, a longer card
-  # heading wraps at 1000px. See cms/maintainer-notes.md, "The front page".
+  # 390px): a longer title line leaves its box, a longer note title pushes
+  # its arrow out of the niche, a longer card heading wraps at 1000px. The
+  # note text is held to five lines on wide screens, which keeps the note's
+  # designed gap below the top of the band. See cms/maintainer-notes.md,
+  # "The front page".
   - name: front_page
     label: "Front page"
     icon: home
@@ -315,7 +319,7 @@ collections:
         name: front_page
         label: "Front page"
         icon: home
-        description: "The title, the note on the band and the three cards. The subtitle and the line below the cards are not editable here."
+        description: "The title, the note on the band and the three cards. The subtitle and the line below the cards are not editable here: the subtitle is a hidden field, and the line is part of the page layout (_layouts/homepage.html)."
         fields:
           - { name: layout, widget: hidden, default: "homepage" }
           - { name: title, label: "Browser tab and search title", widget: string, maxlength: 47, hint: "Shown in the browser tab and in search results, not on the page. Keep it in step with the two title lines below: normally the two lines joined." }
@@ -332,7 +336,7 @@ collections:
               - { name: enabled, label: "Show the note", widget: boolean, default: false }
               - { name: eyebrow, label: "Eyebrow (optional)", widget: string, required: false, maxlength: 21, hint: "One or two words above the title, e.g. “Position”." }
               - { name: title, label: "Title", widget: string, maxlength: 21 }
-              - { name: body, label: "Text (optional)", widget: text, required: false, maxlength: 160, hint: "One or two sentences. Not shown on narrow screens (below 1000px)." }
+              - { name: body, label: "Text (optional)", widget: text, required: false, maxlength: 137, hint: "One or two sentences. Not shown on narrow screens (below 1000px)." }
               - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work. Without a link the note is plain text, with no arrow and no link text." }
               - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 16, hint: "Shown on the note's tab on wide screens, e.g. “Read our letter”." }
           - name: movements
@@ -352,7 +356,6 @@ collections:
                 widget: object
                 fields:
                   - { name: url, label: "Link URL", widget: string, comment: "Internal path (/...) or external URL (https://...). Both work. The whole card is the link." }
-          - { name: body, widget: hidden }
 
   # ───────────── Site sections (page editors + data lists) ────────────────
   - divider: true

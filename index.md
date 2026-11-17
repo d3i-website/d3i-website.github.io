@@ -28,7 +28,3 @@ movements:
     link:
       url: /software/
 ---
-
-You can also subscribe to our [newsletter](/community/newsletter/) or
-reach out to one of our [team](/about-d3i/team) members if you have any
-questions!

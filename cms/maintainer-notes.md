@@ -172,23 +172,23 @@ The intro paragraph above the sections stays in the markdown body; keep it Liqui
 `index.md` is in the CMS as **Front page**, a file collection of its own above the divider. The page is built to the agreed design in `docs/front-page-reference/` by `_layouts/homepage.html`, `_includes/home/band.html` and `_includes/home/note.html`. Editors get exactly what the redesign (November 2026) decided they should: the title, the note and the cards.
 
 - **Editable**: the two title lines (`title_line_1`, `title_line_2`); the browser-tab and search title (`title`), which nothing keeps in step with the two lines but the editor (the field's hint asks for that); the note on the band (`postit`: "Show the note", eyebrow, title, text, link URL, link text); and the three cards (`movements`: eyebrow, heading, text, link URL). The cards are a list fixed at three (`min: 3`, `max: 3`) because the layout is designed for three.
-- **Not editable**: the subtitle under the title (`excerpt`, also the page's meta description) and the line about the newsletter and the team between the cards and the lists (the markdown body). They stay developer-edited by decision; both are `hidden` fields so a save keeps them, and so are `layout` and everything else in the front matter.
+- **Not editable**: the subtitle under the title (`excerpt`, also the page's meta description) and the line about the newsletter and the team between the cards and the lists. They stay developer-edited by decision. The subtitle is a `hidden` field, as is `layout`, so a save keeps them. The line is not in `index.md` at all: it is written in `_layouts/homepage.html`, and `index.md`'s markdown body is empty, so a CMS save cannot drop or change it. Edit it in the layout.
 - **The note**: it shows only when "Show the note" is checked and the title is filled in. A cleared eyebrow, text or link text renders nothing (the template tests `!= ""`, see "Cleared optional fields" below). Without a link URL the note is plain text, with no arrow disc and no link text. Link URLs, on the note and on the cards, go through `relative_url` unless they contain `://` or `mailto:`.
-- **Why the length limits**: the band is drawn around the current text, and at most widths there is little room to spare. Each string has a `maxlength`: the longest ordinary English text that still fits at every width the reference is tested at (1920, 1600, 1440, 1280, 1279, 1100, 1000, 999, 800, 600, 599, 390px). They were found on 2026-11-16 by building the site with test texts of each length and measuring the page in headless Firefox. What breaks one character above each limit:
+- **Why the length limits**: the band is drawn around the current text, and at most widths there is little room to spare. Each string has a `maxlength`: the longest ordinary English text that still fits at every width the reference is tested at (1920, 1600, 1440, 1280, 1279, 1100, 1000, 999, 800, 600, 599, 390px). They were found on 2026-11-16 by building the site with test texts of each length and measuring the page in headless Firefox. The note text is held tighter, to the five lines it has now on wide screens, so the note keeps its designed gap below the top of the band. What a longer text does:
 
   | Field | Limit | What a longer text does |
   | --- | --- | --- |
   | Title lines | 23 each | A line runs out of the title's column from 600px up (each line is set without wrapping) |
   | Note eyebrow | 21 | Pushes the arrow disc out of the niche below 1000px |
   | Note title | 21 | Pushes the arrow disc out of the niche below 1000px (the title never wraps) |
-  | Note text | 160 | A seventh line from 1280px up lifts the note past the top of the band |
+  | Note text | 137 | From 138 some texts take a sixth line from 1280px up, which cuts the note's designed 22px gap below the top of the band to 3px (a seventh line, from 161, lifts it past the top) |
   | Note link text | 16 | Runs into the sloping end of the note's tab from 1280px up |
   | Card eyebrow | 31 | Wraps to a second line at 600px |
   | Card heading | 26 | Wraps to a second line at 1000px |
   | Card text | 110 | A fourth line at 1000px (at 600px, in two columns, the current text already takes four, so four is allowed there) |
 
   `title` (browser tab) is capped at 47, the two lines and a space. Link URLs have no limit. If the front page's sizes change (`_sass/_home-band.scss`, `_sass/_home-content.scss`), test the limits again.
-- **Not yet tried in the live CMS**: the entry passes `cms/validate-config.mjs`, but no one has saved the page through Sveltia yet. On the first edit, check the commit on `cms-staging`: beyond the normalisation described under "First save normalizes the file" below, nothing may change, and the body line must still be there (it is kept by a `hidden` field named `body`).
+- **Not yet tried in the live CMS**: the entry passes `cms/validate-config.mjs`, but no one has saved the page through Sveltia yet. On the first edit, check the commit on `cms-staging`: beyond the normalisation described under "First save normalizes the file" below, nothing may change.
 
 ## Deliberately not in the CMS
 

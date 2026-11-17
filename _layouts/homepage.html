@@ -8,8 +8,11 @@ layout: site-shell
   section, where the reference has it.
 
   Below the band: one card per page.movements entry (the reference's <main class="cards">;
-  a div here, since site-shell already has the page's <main>), the page's own text as the
-  line between the cards and the lists (the reference's .outro), then the two lists. Each
+  a div here, since site-shell already has the page's <main>), the line about the newsletter
+  and the team between the cards and the lists (the reference's .outro), then the two lists.
+  That line is written here, not in index.md: it is developer-edited, and index.md is edited
+  in the CMS, whose saves must not be able to drop it. Its continuation lines are not
+  indented so the output is the same as the markdown it replaced. Each
   card's heading is its link; its ::after covers the card, so the whole card is the link.
   A link URL with "://" or "mailto:" in it is used as it is; any other goes through
   relative_url, the same rule as the note's link (_includes/home/note.html).
@@ -31,7 +34,10 @@ layout: site-shell
   </div>
   {% endif %}
 
-  <div class="outro outro--mid">{{ content }}</div>
+  <div class="outro outro--mid"><p>You can also subscribe to our <a href="{{ '/community/newsletter/' | relative_url }}">newsletter</a> or
+reach out to one of our <a href="{{ '/about-d3i/team' | relative_url }}">team</a> members if you have any
+questions!</p>
+</div>
 
   {% include home/lists.html %}
 </div>
