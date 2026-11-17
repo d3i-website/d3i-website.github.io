@@ -3,6 +3,11 @@
 // =====================================================================
 
 $tab-tint: rgba(0, 0, 0, 0.02);
+// Below this width the six links fold into the Menu drop-down (the front page reference's
+// breakpoint). assets/js/site-menu.js closes the panel at this width; keep the two equal.
+$menu-below: 1000px;
+$menu-ink: #252a34;
+$menu-hairline: #d5dae3;
 
 // ---------------------------------------------------------------------
 // Site header
@@ -17,6 +22,16 @@ $tab-tint: rgba(0, 0, 0, 0.02);
   border-bottom: 1px solid rgba(37, 42, 52, 0.06);
 }
 
+// The header's height is a whole number of pixels at every width, wrapped or not:
+// every vertical size in it is a multiple of 1/16rem (a whole pixel at the default 16px)
+// and each line height is that font size times 1.
+// A fractional height puts everything below it on a half pixel, and the front page's
+// thin lines then snap a row off the reference.
+// The brand is 16 + 3 + 14 = 33px, a nav row and the Menu button 13 + 15 + 13 = 41px.
+// One row is 16 + 41 + 1 (border) = 58px: the brand and the six links from 1000px up,
+// the brand and the Menu button below. Without JavaScript the links stay a list below
+// 1000px; where it drops under the brand the header is 16 + 33 + 16 + 41 a row + 1:
+// 107, 148 and 189px (at 800, 600 and 390px).
 .site-header__inner {
   max-width: $site-width;
   margin: 0 auto;
@@ -29,9 +44,13 @@ $tab-tint: rgba(0, 0, 0, 0.02);
   gap: 1rem 2rem;
 }
 
+// The brand, the navigation and the subnav keep their look from before the
+// running-text link style: their own colour, weight and underline.
 .site-header__brand {
   color: $text-color;
+  font-weight: 400;
   text-decoration: none;
+  text-underline-offset: auto;
 
   &:hover,
   &:focus {
@@ -42,7 +61,7 @@ $tab-tint: rgba(0, 0, 0, 0.02);
 
 .site-header__name {
   display: block;
-  font-family: "Nunito", $sans-serif;
+  font-family: $sans-serif;
   font-size: 1rem;
   font-weight: 800;
   letter-spacing: 0;
@@ -51,7 +70,7 @@ $tab-tint: rgba(0, 0, 0, 0.02);
 
 .site-header__subtitle {
   display: block;
-  margin-top: 0.2rem;
+  margin-top: 0.1875rem;
   color: $muted-text-color;
   font-size: 0.875rem;
   line-height: 1;
@@ -73,10 +92,11 @@ $tab-tint: rgba(0, 0, 0, 0.02);
 .site-nav__item a {
   display: block;
   position: relative;
-  padding: 0.8rem 1.35rem;
+  // 14px each side: 28px between two labels, the reference's gap
+  padding: 0.8125rem 0.875rem;
   color: #6a6a6a;
-  font-family: "Nunito", $sans-serif;
-  font-size: 0.95rem;
+  font-family: $sans-serif;
+  font-size: 0.9375rem;
   font-weight: 500;
   line-height: 1;
   text-decoration: none;
@@ -86,8 +106,8 @@ $tab-tint: rgba(0, 0, 0, 0.02);
     content: "";
     position: absolute;
     bottom: 0.4rem;
-    left: 1.35rem;
-    right: 1.35rem;
+    left: 0.875rem;
+    right: 0.875rem;
     height: 4px;
     background: $accent-primary;
     transform: scaleX(0);
@@ -112,6 +132,111 @@ $tab-tint: rgba(0, 0, 0, 0.02);
 .site-nav__item.is-active a {
   background: $tab-tint;
   color: #6a6a6a;
+}
+
+// From 1000px the brand and the six links fit on one row; the last label ends on the
+// gutter, as in the reference, so the row's right padding hangs into it
+@media (min-width: $menu-below) {
+  .site-nav__list {
+    margin-right: -0.875rem;
+  }
+}
+
+// ---------------------------------------------------------------------
+// The Menu drop-down, below 1000px
+// ---------------------------------------------------------------------
+// The button shows only below $menu-below and only when JavaScript runs: an inline
+// script in _includes/head.html turns <html class="no-js"> into class="js" before the
+// first paint. Without JavaScript the six links stay a wrapped list.
+// The panel is the main navigation itself, under the header at full width. It overlays
+// the top of the page rather than pushing it down, so the page under it does not move.
+// It is open while the button's aria-expanded is "true".
+
+.site-header__menu {
+  display: none;
+  position: relative;
+  margin: 0;
+  padding: 0.8125rem 0 0.8125rem 1rem;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: $menu-ink;
+  font-family: $sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+
+  // the nav links' bar, shown on hover and while the panel is open
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0.4rem;
+    left: 1rem;
+    right: 0;
+    height: 4px;
+    background: $accent-primary;
+    transform: scaleX(0);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  &:hover::before,
+  &[aria-expanded="true"]::before {
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: $menu-below - 1px) {
+  html.js {
+    .site-header__menu {
+      display: block;
+    }
+
+    .site-nav {
+      display: none;
+      position: absolute;
+      // over the header's own bottom border, which the panel's top hairline replaces
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      border-top: 1px solid $menu-hairline;
+      border-bottom: 1px solid $menu-hairline;
+    }
+
+    .site-header__menu[aria-expanded="true"] + .site-nav {
+      display: block;
+    }
+
+    .site-nav__list {
+      display: block;
+    }
+
+    .site-nav__item + .site-nav__item {
+      border-top: 1px solid $menu-hairline;
+    }
+
+    // one row per section: 14 + 15 + 14 = 43px, 44px with its separator
+    .site-nav__item a {
+      padding: 0.875rem 1rem;
+
+      // the hover bar stands at the row's left end instead of running the full row
+      &::before {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: auto;
+        width: 4px;
+        height: auto;
+        transform: scaleY(0);
+      }
+
+      &:hover::before,
+      &:focus::before {
+        transform: scaleY(1);
+      }
+    }
+  }
 }
 
 // ---------------------------------------------------------------------
@@ -142,8 +267,9 @@ $tab-tint: rgba(0, 0, 0, 0.02);
   display: inline-block;
   padding: 0.35rem 1rem;
   border-radius: 0;
-  font-family: "Nunito", $sans-serif;
+  font-family: $sans-serif;
   font-size: 0.8125rem;
+  font-weight: 400;
   color: $muted-text-color;
   text-decoration: none;
 
@@ -171,6 +297,10 @@ $tab-tint: rgba(0, 0, 0, 0.02);
   padding: 1.6rem 1rem 1.8rem;
   border-top: 1px solid rgba(37, 42, 52, 0.08);
   background: #ffffff;
+  // The Utrecht and Erasmus logos are drawn larger with transform: scale(), which does not
+  // change layout; when one wraps to the end of a row on a phone its scaled edge reaches
+  // 3px past the screen and makes the page scroll sideways. Clip at the footer's edge.
+  overflow-x: clip;
 }
 
 .site-footer__inner {
@@ -182,7 +312,7 @@ $tab-tint: rgba(0, 0, 0, 0.02);
 
 .site-footer__label {
   margin: 0;
-  font-family: "Nunito", $sans-serif;
+  font-family: $sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
   line-height: 1.55;

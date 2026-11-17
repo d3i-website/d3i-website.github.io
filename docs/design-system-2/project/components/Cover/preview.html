@@ -1,0 +1,62 @@
+<!-- @dsCard height=288 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>datadonation.eu</title>
+<style>
+  html, body { margin:0; height:100%; }
+  body { background:var(--surface); color:var(--text); font-family:var(--font-display); overflow:hidden; }
+  .cover { position:relative; width:960px; height:288px; overflow:hidden; }
+  /* top-band skeleton: the name is too wide for the 440px zone at 64px, so the band runs full width across the top */
+  .art { position:absolute; top:0; left:0; width:960px; height:112px; overflow:hidden; }
+  .art svg { display:block; width:960px; height:112px; }
+  .road { fill:var(--road); }
+  .blue { fill:var(--blue); }
+  .coral { fill:var(--coral); }
+  .yellow { fill:var(--yellow); }
+  .ink { fill:var(--heading); }
+  .phone { fill:var(--surface); stroke:var(--heading); stroke-width:2; }
+  .stay { fill:var(--blue-tint); stroke:var(--road); stroke-width:1; }
+  .dot { fill:var(--blue); opacity:.4; }
+  /* a 32px-wide pill: rx is half its width, which is the radius-lg token */
+  .pill { rx:var(--radius-lg); }
+  .words { position:absolute; left:var(--space-32); right:var(--space-32); bottom:var(--space-32); }
+  .name { margin:0; padding:0; font-size:64px; line-height:.95; font-weight:900; letter-spacing:-.015em; color:var(--heading); }
+  .tag { margin:var(--space-8) 0 0 2px; padding:0; font-size:14px; line-height:20px; color:var(--text-muted); font-family:var(--font-sans); }
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="art" aria-hidden="true">
+<svg viewBox="0 0 960 112" width="960" height="112">
+<!--
+  blocks      the slide cover's band at half scale: road 960×24 (space-24 tall) at y=80; pills 32 wide (space-32) in heading, blue, coral, yellow standing on it and bleeding off the top, the D3I mark's four columns; a smaller blue, coral, yellow cluster right — ≈30% of 960×288
+  arrangement one horizontal strip across the top, the homepage road: the brand composes in a band with things standing on it
+  pattern     the road's own dashes, blue 30px on, 58px off, 11 of them; between the mark and the cluster the donation in miniature, a phone sending one coral square along a dotted blue arc to the mark while three blue-tint squares stay beside it, because that is what the system is about
+  scales      pill width space-32, pill rx radius-lg (16px), road height space-24, dot pitch about space-24, name inset space-32, tagline gap space-8
+-->
+<rect class="ink pill" x="96" y="24" width="32" height="56" rx="16"/>
+<rect class="blue pill" x="144" y="-32" width="32" height="112" rx="16"/>
+<rect class="coral pill" x="192" y="8" width="32" height="72" rx="16"/>
+<rect class="yellow pill" x="240" y="-8" width="32" height="88" rx="16"/>
+<circle class="dot" cx="636" cy="23" r="3"/><circle class="dot" cx="612" cy="21" r="3"/><circle class="dot" cx="589" cy="19" r="3"/><circle class="dot" cx="565" cy="18" r="3"/><circle class="dot" cx="542" cy="18" r="3"/><circle class="dot" cx="518" cy="18" r="3"/><circle class="dot" cx="471" cy="21" r="3"/><circle class="dot" cx="448" cy="23" r="3"/><circle class="dot" cx="425" cy="26" r="3"/><circle class="dot" cx="402" cy="29" r="3"/><circle class="dot" cx="379" cy="33" r="3"/><circle class="dot" cx="355" cy="38" r="3"/><circle class="dot" cx="332" cy="44" r="3"/><circle class="dot" cx="309" cy="50" r="3"/>
+<rect class="coral" x="488" y="13" width="12" height="12" rx="3" transform="rotate(12 494 19)"/>
+<rect class="phone" x="658" y="20" width="34" height="60" rx="5"/>
+<rect class="blue" x="665" y="34" width="14" height="4" rx="2"/><rect class="blue" x="665" y="42" width="20" height="4" rx="2"/><rect class="blue" x="665" y="50" width="10" height="4" rx="2"/><rect class="blue" x="665" y="58" width="17" height="4" rx="2"/>
+<rect class="ink" x="670" y="73" width="10" height="2" rx="1"/>
+<rect class="stay" x="702" y="56" width="11" height="11" rx="3"/><rect class="stay" x="702" y="69" width="11" height="11" rx="3"/><rect class="stay" x="715" y="69" width="11" height="11" rx="3"/>
+<rect class="coral pill" x="760" y="40" width="32" height="40" rx="16"/>
+<rect class="blue pill" x="808" y="16" width="32" height="64" rx="16"/>
+<rect class="yellow pill" x="856" y="48" width="32" height="32" rx="16"/>
+<rect class="road" x="0" y="80" width="960" height="24"/>
+<rect class="blue" x="0" y="90" width="30" height="3"/><rect class="blue" x="88" y="90" width="30" height="3"/><rect class="blue" x="176" y="90" width="30" height="3"/><rect class="blue" x="264" y="90" width="30" height="3"/><rect class="blue" x="352" y="90" width="30" height="3"/><rect class="blue" x="440" y="90" width="30" height="3"/><rect class="blue" x="528" y="90" width="30" height="3"/><rect class="blue" x="616" y="90" width="30" height="3"/><rect class="blue" x="704" y="90" width="30" height="3"/><rect class="blue" x="792" y="90" width="30" height="3"/><rect class="blue" x="880" y="90" width="30" height="3"/>
+</svg>
+</div>
+<div class="words">
+<h1 class="name">datadonation.eu</h1>
+<p class="tag">Data donation for research</p>
+</div>
+</div>
+</body>
+</html>

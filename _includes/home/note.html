@@ -1,0 +1,48 @@
+{% comment %}
+  The front page's note: the position note that lies on top of the band. Copied from
+  docs/front-page-reference/index.html; its texts come from page.postit. With a link_url
+  the whole note is one link, so the reference's <aside class="note"> is an <a class="note">
+  here. Without one it is a plain <div class="note">, and the arrow disc on the corner, the
+  arrow below 1280px and the link text are left out, since there is nothing to go to.
+  Shown only when postit.enabled is true, postit.title is filled in, and the site is not
+  built with home_note_off (the comparison's note-off build). The CMS writes a cleared
+  optional field as '', so every optional field is tested against "" too; an empty one
+  renders no element. Styles: _sass/_home-band.scss.
+{% endcomment %}
+{% assign note = page.postit %}
+{% if note and note.enabled == true and note.title and note.title != "" and site.home_note_off != true %}
+{% assign note_url = note.link_url %}
+{% if note_url and note_url != "" %}
+  {% unless note_url contains "://" or note_url contains "mailto:" %}{% assign note_url = note_url | relative_url %}{% endunless %}
+{% else %}
+  {% assign note_url = nil %}
+{% endif %}
+  {% if note_url %}<a class="note" href="{{ note_url }}">{% else %}<div class="note">{% endif %}
+    <div class="note__paper">
+      <div class="note__body">
+        <div class="note__head">{% if note.eyebrow and note.eyebrow != "" %}<p class="note__eyebrow">{{ note.eyebrow }}</p>{% endif %}<p class="note__title">{{ note.title }}</p></div>
+        {% if note.body and note.body != "" %}<p class="note__text">{{ note.body }}</p>{% endif %}
+        {% if note_url %}<svg class="note__go" width="36" height="36" viewBox="-18 -18 36 36" aria-hidden="true"><circle r="18" fill="#4272ef"/><path d="M-8 0 h16 M1.5 -6.5 l6.5 6.5 l-6.5 6.5" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>{% endif %}
+      </div>
+      <svg class="note__tab" width="169" height="30" viewBox="0 0 169 30" aria-hidden="true">
+        <path fill="#f3f9fd" d="M0 0 H168.3 c-6.55 0 -12.47 3.9 -15.05 9.93 l-4.2 10.15 c-2.57 6.03 -8.5 9.93 -15.05 9.93 H0 Z"/>
+      </svg>
+    </div>
+    <div class="note__over">
+      <svg class="note__route" width="184" height="30" viewBox="0 0 184 30" aria-hidden="true">
+        <path class="dot" d="M0 30 H134 c6.55 0 12.48-3.9 15.05-9.93 l4.2-10.15 c2.58-6.03 8.5-9.93 15.05-9.93 H174"/>
+        <circle cx="0" cy="30" r="4.5" fill="#ff5e5e"/>
+        <circle cx="178" cy="0" r="4.2" fill="#fff" stroke="#4272ef" stroke-width="1.4"/>
+      </svg>
+
+      <i class="note__run"></i>
+      {% if note_url %}
+      <svg class="note__disc" width="36" height="36" viewBox="-18 -18 36 36" aria-hidden="true">
+        <circle r="18" fill="#4272ef"/>
+        <path d="M-8 0 h16 M1.5 -6.5 l6.5 6.5 l-6.5 6.5" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      {% if note.link_text and note.link_text != "" %}<span class="note__link">{{ note.link_text }}</span>{% endif %}
+      {% endif %}
+    </div>
+  {% if note_url %}</a>{% else %}</div>{% endif %}
+{% endif %}

@@ -9,7 +9,14 @@
       {% endif %}
     </a>
 
-    <nav class="site-nav" aria-label="Primary">
+    {% comment %}
+      Below 1000px the six links fold into a drop-down that this button opens
+      (assets/js/site-menu.js). Without JavaScript the button stays hidden and
+      the links show as a wrapped list.
+    {% endcomment %}
+    <button class="site-header__menu" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
       <ul class="site-nav__list">
         {% for link in main_nav %}
           {% assign is_active = false %}

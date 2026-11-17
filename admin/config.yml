@@ -56,9 +56,9 @@ asset_collections:
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Collections — ordered around the manager's daily work: Events and News
-# first (the entry collections he creates content in), then — below a
-# divider — the site-section editors (Community, About D3I, Prepare a
-# Study, Software), each holding that section's page editors AND its supporting data
+# first (the entry collections he creates content in), then the News page
+# and the Front page, then — below a divider — the site-section editors
+# (Community, About D3I, Prepare a Study, Software), each holding that section's page editors AND its supporting data
 # lists, ordered by editor task flow (page first, then its data). A file
 # collection's list is flat: Sveltia has no dividers or group headers
 # inside `files:` (its schema rejects them since v0.202.0), so grouping is
@@ -204,11 +204,9 @@ collections:
       - { name: body, label: "Full event page content (markdown)", widget: markdown, required: false, comment: "Optional when an External URL is set — cards link straight out, so no event page is needed." }
 
   # ──────────────── News (entry collection) ───────────────────────────────
-  # Folder collection for news items. Each item appears on /news/ and,
-  # while fresh (under ~3 months old), in the homepage "Latest news" strip.
-  # The freshness window is enforced at build time AND client-side
-  # (assets/js/news-freshness.js), so old items drop off the homepage even
-  # when the site isn't rebuilt for months.
+  # Folder collection for news items. Each item appears on /news/; the
+  # four newest dated on or before the build also appear in the front
+  # page's "Latest news" list (_includes/home/lists.html).
   - name: news
     label: "News"
     icon: newspaper
@@ -235,14 +233,14 @@ collections:
       - label: "Year"
         field: date
         pattern: '\d{4}'
-    description: "News items shown on /news/ and, while fresh (under ~3 months old), in the homepage 'Latest news' strip. For a story that lives elsewhere (e.g. a partner site), fill in the External URL field — cards then link straight there and the body may stay empty. Add a new item with the '+' button."
+    description: "News items shown on /news/; the four newest also appear in the front page's 'Latest news' list. For a story that lives elsewhere (e.g. a partner site), fill in the External URL field — cards then link straight there and the body may stay empty. Add a new item with the '+' button."
     fields:
       - { name: title, label: "Title", widget: string }
       - name: date
         label: "Date"
         widget: datetime
         type: date
-        comment: "Publication date. Newest items appear first; items older than ~3 months drop off the homepage strip automatically (they stay on /news/)."
+        comment: "Publication date. Newest items appear first; the front page lists the four newest. An item dated in the future stays hidden until a rebuild on or after its date."
       - { name: summary, label: "Short summary (used in cards)", widget: text }
       - name: image
         label: "Image (optional)"
@@ -296,6 +294,68 @@ collections:
               - { name: subject, label: "Email subject", widget: string }
           - { name: permalink, widget: hidden, default: "/news/" }
           - { name: layout, widget: hidden, default: "page-news" }
+
+  # ──────────────── Front page (file collection) ──────────────────────────
+  # index.md: the two title lines, the note on the band and the three cards
+  # (_layouts/homepage.html, _includes/home/note.html). The subtitle
+  # (excerpt) is a hidden field: it belongs to the design, and a save must
+  # keep it as it is. The line below the cards (newsletter and team) is not
+  # in index.md at all but written in _layouts/homepage.html, so no save can
+  # drop it; index.md's markdown body is empty.
+  # Fields follow the file's key order, since a save writes keys in field
+  # order. The maxlength values are the longest ordinary English text that
+  # still fits the reference design at every tested width (1920 down to
+  # 390px): a longer title line leaves its box, a longer note title pushes
+  # its arrow out of the niche, a longer card heading wraps at 1000px. The
+  # note text is held to five lines on wide screens, which keeps the note's
+  # designed gap below the top of the band. See cms/maintainer-notes.md,
+  # "The front page".
+  - name: front_page
+    label: "Front page"
+    icon: home
+    description: "The front page at datadonation.eu: its title, the note on the band, and the three cards below it."
+    files:
+      - file: index.md
+        name: front_page
+        label: "Front page"
+        icon: home
+        description: "The title, the note on the band and the three cards. The subtitle and the line below the cards are not editable here: the subtitle is a hidden field, and the line is part of the page layout (_layouts/homepage.html)."
+        fields:
+          - { name: layout, widget: hidden, default: "homepage" }
+          - { name: title, label: "Browser tab and search title", widget: string, maxlength: 47, hint: "Shown in the browser tab and in search results, not on the page. Keep it in step with the two title lines below: normally the two lines joined." }
+          - { name: title_line_1, label: "Title, first line", widget: string, maxlength: 23 }
+          - { name: title_line_2, label: "Title, second line", widget: string, maxlength: 23 }
+          - { name: excerpt, widget: hidden, default: "Digital Trace Data, donated to science by citizens." }
+          - name: postit
+            label: "Note"
+            widget: object
+            collapsed: true
+            summary: "{{title}}"
+            comment: "The note on the band, for something time-sensitive such as a position paper or a deadline. Uncheck “Show the note” to take it off the front page without losing its text."
+            fields:
+              - { name: enabled, label: "Show the note", widget: boolean, default: false }
+              - { name: eyebrow, label: "Eyebrow (optional)", widget: string, required: false, maxlength: 21, hint: "One or two words above the title, e.g. “Position”." }
+              - { name: title, label: "Title", widget: string, maxlength: 21 }
+              - { name: body, label: "Text (optional)", widget: text, required: false, maxlength: 137, hint: "One or two sentences. Not shown on narrow screens (below 1000px)." }
+              - { name: link_url, label: "Link URL (optional)", widget: string, required: false, comment: "Internal path (/...) or external URL (https://...). Both work. Without a link the note is plain text, with no arrow and no link text." }
+              - { name: link_text, label: "Link text (optional)", widget: string, required: false, maxlength: 16, hint: "Shown on the note's tab on wide screens, e.g. “Read our letter”." }
+          - name: movements
+            label: "Cards"
+            label_singular: "Card"
+            widget: list
+            min: 3
+            max: 3
+            summary: "{{heading}}"
+            comment: "The three cards below the band, in this order on the page."
+            fields:
+              - { name: eyebrow, label: "Eyebrow (optional)", widget: string, required: false, maxlength: 31, hint: "A few words, e.g. “For newcomers”." }
+              - { name: heading, label: "Heading", widget: string, maxlength: 26 }
+              - { name: body, label: "Text (optional)", widget: text, required: false, maxlength: 110 }
+              - name: link
+                label: "Link"
+                widget: object
+                fields:
+                  - { name: url, label: "Link URL", widget: string, comment: "Internal path (/...) or external URL (https://...). Both work. The whole card is the link." }
 
   # ───────────── Site sections (page editors + data lists) ────────────────
   - divider: true

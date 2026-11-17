@@ -1,0 +1,26 @@
+<!-- @dsCard group="Cards" height=220 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>InstitutionCard — preview</title>
+<style>.pv{padding:0 1.5rem 1rem}.pv .institution-grid{margin-top:1rem}</style></head>
+<body>
+<div id="root" class="pv"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h(D.InstitutionCard.Grid, null,
+      h(D.InstitutionCard, {
+        institution: 'Utrecht University',
+        affiliate: { name: 'Dr. Laura Boeschoten', href: '#' },
+        department: 'Department of Methodology and Statistics'
+      }),
+      h(D.InstitutionCard, {
+        institution: 'Weizenbaum Institute',
+        affiliate: { name: 'Dr. Jakob Ohme', href: '#' },
+        department: 'Research Group: Platformization of the Public Sphere'
+      })
+    )
+  );
+</script>
+</body>
+</html>

@@ -3,13 +3,6 @@
 // =====================================================================
 
 @font-face {
-  font-family: "Nunito";
-  src: url("../fonts/Nunito.woff2") format("woff2");
-  font-weight: 200 900;
-  font-style: normal;
-}
-
-@font-face {
   font-family: "Nunito Sans";
   src: url("../fonts/NunitoSans-VariableFont_wght.woff2") format("woff2");
   font-weight: 200 1000;
@@ -21,6 +14,21 @@
   src: url("../fonts/NunitoSans-Italic-VariableFont_wght.woff2") format("woff2");
   font-weight: 200 1000;
   font-style: italic;
+}
+
+// Libre Caslon Condensed, the serif for large headings, in two subsets
+@font-face {
+  font-family: "Libre Caslon Condensed";
+  src: url("../fonts/LibreCaslonCondensed-latin-ext.woff2") format("woff2");
+  font-weight: 400 700;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Libre Caslon Condensed";
+  src: url("../fonts/LibreCaslonCondensed-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 // ---------------------------------------------------------------------
@@ -35,18 +43,40 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: $sans-serif-title;
   line-height: 1.2;
   color: #252a34;
+}
+
+// Page titles and section headings are set in the serif; smaller headings stay in the sans
+h1, h2, h3 {
+  font-family: $serif;
+  font-weight: 420;
+  letter-spacing: 0;
+}
+
+h4, h5, h6 {
+  font-family: $sans-serif;
 }
 
 p {
   padding: 0.5em 0;
 }
 
+// A link in running text keeps the text's colour, is bold, and has a dotted sky-blue
+// underline that turns solid on hover and on keyboard focus. Links with a look of their
+// own (the coral action links, navigation, cards) set their colour, weight and decoration.
 a {
-  color: $accent-primary;
+  color: inherit;
+  font-weight: 700;
+  text-decoration: underline dotted $sky;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
   text-decoration-skip-ink: auto;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration-style: solid;
+  }
 }
 
 hr {
@@ -98,19 +128,26 @@ blockquote {
   color: $text-color;
 }
 
+// Out of sight above the page until keyboard focus reaches it: moved up by its own full
+// height, so no edge of it shows whatever its size
 .skip-link {
   position: absolute;
   left: 1rem;
-  top: -3rem;
+  top: 0;
+  transform: translateY(-100%);
   z-index: 100;
   padding: 0.75rem 1rem;
   background: #ffffff;
   border: 1px solid $border-color;
-  border-radius: 0.5rem;
+  border-radius: 0;
+  // keeps its look from before the running-text link style
+  color: $accent-primary;
+  font-weight: 400;
   text-decoration: none;
 
   &:focus {
     top: 1rem;
+    transform: none;
   }
 }
 
@@ -135,7 +172,7 @@ body.site-shell {
 // Action links (coral CTA style)
 .section-cta {
   display: inline-block;
-  font-family: "Nunito", sans-serif;
+  font-family: $sans-serif;
   font-weight: 700;
   font-size: 1.0625rem;
   color: $accent-secondary;
@@ -205,7 +242,7 @@ body.site-shell {
 
   figcaption {
     margin-top: 1rem;
-    font-family: "Nunito", $sans-serif;
+    font-family: $sans-serif;
     font-size: 0.9375rem;
     font-style: italic;
     line-height: 1.5;
@@ -234,13 +271,12 @@ body.site-shell {
 }
 
 // ---------------------------------------------------------------------
-// Action links — red Nunito arrow links used on cards and section
-// headers ("Read more →", "More news →"). Homepage-specific layout
-// lives in _homepage.scss.
+// Action links — red arrow links used on cards and section
+// headers ("Read more →").
 // ---------------------------------------------------------------------
 
 .cta-link {
-  font-family: "Nunito", $sans-serif;
+  font-family: $sans-serif;
   font-weight: 700;
   color: $accent-secondary;
   text-decoration: none;
@@ -290,4 +326,9 @@ body.site-shell {
   margin-top: 0.6rem;
   color: $muted-text-color;
   font-size: 0.95rem;
+}
+
+// For readers who ask for less motion: no transitions or animations anywhere on the site.
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }

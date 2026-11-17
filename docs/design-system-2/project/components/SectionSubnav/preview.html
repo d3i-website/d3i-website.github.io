@@ -1,0 +1,19 @@
+<!-- @dsCard group="Shell" height=52 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>SectionSubnav — preview</title></head>
+<body>
+<div id="root" style="display:contents"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h(D.SectionSubnav, { label: 'Software', items: [
+      { label: 'Getting started', href: '#' },
+      { label: 'Script selector', href: '#', active: true },
+      { label: 'Going further', href: '#' },
+      { label: 'Port in education', href: '#' }
+    ] })
+  );
+</script>
+</body>
+</html>

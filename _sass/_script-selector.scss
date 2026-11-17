@@ -32,12 +32,12 @@
   border-radius: 4px;
   background-color: rgba($border-color, 0.15);
   text-align: center;
-  font-family: "Nunito", $sans-serif;
+  font-family: $sans-serif;
 
   h2 {
     margin: 0 0 0.75rem;
     font-size: 1.25rem;
-    font-weight: 700;
+    font-weight: 420;
     color: $text-color;
   }
 
@@ -49,19 +49,6 @@
 
     &:last-child {
       margin-bottom: 0;
-    }
-  }
-
-  a {
-    color: $accent-primary;
-    font-weight: 700;
-    text-decoration: none;
-    border-bottom: 2px solid transparent;
-    transition: border-color 0.15s ease;
-
-    &:hover,
-    &:focus {
-      border-bottom-color: $accent-primary;
     }
   }
 }

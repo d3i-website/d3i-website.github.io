@@ -44,7 +44,7 @@ Two environments, two workflows:
 - **Manual (`workflow_dispatch`)** — the promote step, and the only path that ships new content. The `deploy-manual` job builds the triggering ref (normally `main` HEAD) and deploys to production through the gated `production` environment (→ waits for the reviewer); then the `record-snapshot` job force-moves the `production` branch to the deployed commit (`gh api … refs/heads/production`, needs `contents: write`). So **Run workflow** both ships `main` → live *and* records the approved snapshot. No new editor step beyond before.
 - **Scheduled (daily cron `7 4 * * *`, 04:07 UTC)** — the `deploy-scheduled` job rebuilds and redeploys the **`production` branch only**, never `main` HEAD, so un-promoted `main` work can never auto-ship. `record-snapshot` doesn't run (it `needs: deploy-manual`, which is skipped on schedule).
 
-**Why the daily rebuild exists — scheduled (future-dated) content.** The homepage news strip (`_includes/news-strip.html`) and the News page (`_layouts/page-news.html`) drop items dated after build time; events (`_layouts/page-archive-stacked.html`) already split upcoming/past the same way. A static build only sees the build clock, so a future-dated item stays hidden until *something* rebuilds on/after its date. The cron advances the build clock daily, so a scheduled item surfaces on its due date with no human action.
+**Why the daily rebuild exists — scheduled (future-dated) content.** The front page's "Latest news" list (`_includes/home/lists.html`) and the News page (`_layouts/page-news.html`) drop items dated after build time; events (`_layouts/page-archive-stacked.html`) already split upcoming/past the same way. A static build only sees the build clock, so a future-dated item stays hidden until *something* rebuilds on/after its date. The cron advances the build clock daily, so a scheduled item surfaces on its due date with no human action.
 
 **Why two jobs, not a conditional environment.** The `production` environment requires a reviewer, and a scheduled run that used it would block forever waiting for approval — but an environment's protection is all-or-nothing, and you can't conditionally omit the `environment:` key on one job. So the gate and the auto-path are split into separate jobs: `deploy-manual` uses the gated `production` environment; `deploy-scheduled` uses **no environment** (hence no approval) and authenticates to Netlify with the **repository-level** `NETLIFY_AUTH_TOKEN` / `NETLIFY_SITE_ID` secrets. These are verified repo-level — if they're ever narrowed to environment scope, `deploy-scheduled` loses access and the cron fails to deploy.
 
@@ -61,13 +61,13 @@ Two environments, two workflows:
 How the admin look-and-feel is configured (all in `admin/config.yml` unless noted):
 
 - **Branding**: `app_title` (login screen + browser tab) and `logo: { src: ... }` (replaces the deprecated `logo_url`). There is no supported way to theme/CSS the Sveltia app UI itself; light/dark follows each user's OS or their in-CMS Settings choice.
-- **Sidebar order**: collections are listed in manager-task order — Events and News (entry collections) first, then a top-level `- divider: true`, then the site-section file collections. Folder collections still cannot nest inside file collections, hence Events/News at top level.
+- **Sidebar order**: collections are listed in manager-task order — Events and News (entry collections) first, then the News page and Front page editors, then a top-level `- divider: true`, then the site-section file collections. Folder collections still cannot nest inside file collections, hence Events/News at top level.
 - **Entry-list views (Events)**: `sortable_fields` with a `default` of date-descending; `view_groups` grouping by year (regex `\d{4}` on `date`, `default: year`) to mirror the Bloomreach year-folder mental model; `view_filters` presets per `event_type`. Users can override sort/group/filter per-session via the toolbar; the config only sets defaults.
 - **Entry-list views (News)**: `thumbnail: image` (grid view shows the news image), date-descending default sort, optional year grouping (no default).
 - **"View on Live Site"** (the ⋯ menu in the entry editor): needs `preview_path` on the collection because Sveltia can't infer Jekyll permalinks — set to the permalink pattern with `{{filename}}` standing in for `:path` (see the Events and News collections). Resolves against `site_url`, i.e. staging. Entry collections only; file-collection page editors have no per-file equivalent.
 - **Body-image tidiness**: Events and News set collection-level `media_folder`/`public_folder` so images inserted into entry bodies land in `/assets/images/events` and `/assets/images/news` rather than the global root.
 - **unDraw illustration bank**: `assets/images/undraw/` holds ~320 unDraw SVGs pre-colored in the three brand accents, named `undraw_<title>_<blue|coral|yellow>.svg`. It is declared as an **asset collection** (`asset_collections:` in admin/config.yml), which gives it its own folder in the Asset Library and makes it a selectable source in every image field's picker. Caveats: (1) asset collections landed upstream mid-2026 (sveltia-cms#301) and are in the pinned release; (2) do NOT instead bind the folder to specific fields' `media_folder` — a field-scoped folder is invisible to every *other* field's picker (tried; locked the bank away from news images). To grow the bank: a supporter saves undraw.co gallery pages with the brand color applied, and the inline SVGs are extracted with `fill="currentColor"` replaced by the page's hex (otherwise they render black standalone).
-- **Preview pane**: `admin/index.html` registers `admin/preview.css` via `CMS.registerPreviewStyle()` so entry previews use site typography (self-contained `@font-face` for the self-hosted Nunito fonts plus tokens copied from `_sass/_variables.scss` — keep in sync by hand). Data-list file editors set `editor: { preview: false }` because a preview of a raw YAML list is noise.
+- **Preview pane**: `admin/index.html` registers `admin/preview.css` via `CMS.registerPreviewStyle()` so entry previews use site typography (self-contained `@font-face` for the self-hosted Nunito Sans and Libre Caslon Condensed fonts plus tokens copied from `_sass/_variables.scss` — keep in sync by hand). Data-list file editors set `editor: { preview: false }` because a preview of a raw YAML list is noise.
 
 ## Why PATs instead of OAuth (background)
 
@@ -167,11 +167,33 @@ Trade-off: sections in one page share one field schema, so a section without a b
 
 The intro paragraph above the sections stays in the markdown body; keep it Liquid-free.
 
+## The front page
+
+`index.md` is in the CMS as **Front page**, a file collection of its own above the divider. The page is built to the agreed design in `docs/front-page-reference/` by `_layouts/homepage.html`, `_includes/home/band.html` and `_includes/home/note.html`. Editors get exactly what the redesign (November 2026) decided they should: the title, the note and the cards.
+
+- **Editable**: the two title lines (`title_line_1`, `title_line_2`); the browser-tab and search title (`title`), which nothing keeps in step with the two lines but the editor (the field's hint asks for that); the note on the band (`postit`: "Show the note", eyebrow, title, text, link URL, link text); and the three cards (`movements`: eyebrow, heading, text, link URL). The cards are a list fixed at three (`min: 3`, `max: 3`) because the layout is designed for three.
+- **Not editable**: the subtitle under the title (`excerpt`, also the page's meta description) and the line about the newsletter and the team between the cards and the lists. They stay developer-edited by decision. The subtitle is a `hidden` field, as is `layout`, so a save keeps them. The line is not in `index.md` at all: it is written in `_layouts/homepage.html`, and `index.md`'s markdown body is empty, so a CMS save cannot drop or change it. Edit it in the layout.
+- **The note**: it shows only when "Show the note" is checked and the title is filled in. A cleared eyebrow, text or link text renders nothing (the template tests `!= ""`, see "Cleared optional fields" below). Without a link URL the note is plain text, with no arrow disc and no link text. Link URLs, on the note and on the cards, go through `relative_url` unless they contain `://` or `mailto:`.
+- **Why the length limits**: the band is drawn around the current text, and at most widths there is little room to spare. Each string has a `maxlength`: the longest ordinary English text that still fits at every width the reference is tested at (1920, 1600, 1440, 1280, 1279, 1100, 1000, 999, 800, 600, 599, 390px). They were found on 2026-11-16 by building the site with test texts of each length and measuring the page in headless Firefox. The note text is held tighter, to the five lines it has now on wide screens, so the note keeps its designed gap below the top of the band. What a longer text does:
+
+  | Field | Limit | What a longer text does |
+  | --- | --- | --- |
+  | Title lines | 23 each | A line runs out of the title's column from 600px up (each line is set without wrapping) |
+  | Note eyebrow | 21 | Pushes the arrow disc out of the niche below 1000px |
+  | Note title | 21 | Pushes the arrow disc out of the niche below 1000px (the title never wraps) |
+  | Note text | 137 | From 138 some texts take a sixth line from 1280px up, which cuts the note's designed 22px gap below the top of the band to 3px (a seventh line, from 161, lifts it past the top) |
+  | Note link text | 16 | Runs into the sloping end of the note's tab from 1280px up |
+  | Card eyebrow | 31 | Wraps to a second line at 600px |
+  | Card heading | 26 | Wraps to a second line at 1000px |
+  | Card text | 110 | A fourth line at 1000px (at 600px, in two columns, the current text already takes four, so four is allowed there) |
+
+  `title` (browser tab) is capped at 47, the two lines and a space. Link URLs have no limit. If the front page's sizes change (`_sass/_home-band.scss`, `_sass/_home-content.scss`), test the limits again.
+- **Not yet tried in the live CMS**: the entry passes `cms/validate-config.mjs`, but no one has saved the page through Sveltia yet. On the first edit, check the commit on `cms-staging`: beyond the normalisation described under "First save normalizes the file" below, nothing may change.
+
 ## Deliberately not in the CMS
 
 Pages left out on purpose — don't add editors for these without addressing the stated reason:
 
-- **Homepage** (`index.md`): awaiting the external homepage redesign; expose it once the new structure lands. (Its frontmatter is otherwise fully mappable — postit, movements, hero.)
 - **`_pages/data-donation.md`**: the body embeds raw `<iframe>` video embeds, which the CMS rich-text editor can mangle on save.
 - **`_pages/prepare-a-study/study-design.md`**: body uses `notice--warning`/`notice--success` HTML divs — same mangling risk.
 - **`_pages/community/open-letter.md` / `omnibus-letter.md`**: the open letter contains a Liquid variable (`{{ site.open_letter_url }}`) and kramdown attribute syntax; the omnibus letter uses markdown footnotes. Both are signed position documents that shouldn't be casually editable anyway.

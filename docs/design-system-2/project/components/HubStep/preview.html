@@ -1,0 +1,21 @@
+<!-- @dsCard group="Wayfinding" height=360 width=1152 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>HubStep — preview</title></head>
+<body>
+<div id="root" style="display:contents"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h(D.HubStep.List, null,
+      h(D.HubStep, {
+        title: 'Get access',
+        body: 'Pick the option that fits your project. Dutch researchers can use it for free with support from the D3I project.',
+        image: { src: '/_blob/97aee84fd8481ed9fd2d7d963d19d305', alt: 'A red laptop showing a download icon on its screen.' },
+        link: { label: 'How to get started', href: '#' }
+      })
+    )
+  );
+</script>
+</body>
+</html>

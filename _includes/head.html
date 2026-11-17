@@ -1,8 +1,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{%- comment -%} Before the stylesheet, so the header never paints its no-JS list first {%- endcomment %}
+<script>document.documentElement.classList.replace('no-js', 'js')</script>
 {% seo %}
 {% feed_meta %}
 <link type="application/atom+xml" rel="alternate" href="{{ '/feed/news.xml' | absolute_url }}" title="{{ site.title }} | News" />
 <link type="application/atom+xml" rel="alternate" href="{{ '/feed/events.xml' | absolute_url }}" title="{{ site.title }} | Events" />
 <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+<script src="{{ '/assets/js/site-menu.js' | relative_url }}" defer></script>
 {% include head/custom.html %}
