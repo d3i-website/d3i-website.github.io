@@ -50,9 +50,10 @@
   .sky--top { left: 0; right: 0; top: 0; height: var(--s); }
   .sky--deep { left: calc(var(--step-x) + var(--step-w) - 1px); right: 0; top: calc(var(--s) - 1px); height: calc(var(--drop) + 1px); }
   .sky--step { background: none; left: var(--step-x); top: var(--s); width: var(--step-w); height: var(--drop); overflow: visible; }
-  .edge { position: absolute; z-index: 1; height: 1.5px; background: var(--blue); }
-  .edge--left { left: 0; width: calc(var(--step-x) + 1px); top: calc(var(--s) - .75px); }
-  .edge--right { left: calc(var(--step-x) + var(--step-w) - 1px); right: 0; top: calc(var(--d) - .75px); }
+  /* the edge line is one stroke in the step's SVG: the shallow run, the curve and the deep run are a
+     single path, whose runs reach far past both sides of the page. Do not split it again: at browser
+     zoom, 1.5px DIVs snap to whole device pixels and an SVG stroke antialiases, so a DIV run next to
+     the curve changes thickness and jogs at each join. */
 
   .hero__intro { position: relative; z-index: 2; width: calc(var(--half) * 2 + 40px); max-width: 100%; margin: 0 auto; padding-top: var(--pad); text-align: center; }
   .hero__title { color: #fff; font-size: var(--fs); line-height: 1.03; margin: 0; white-space: nowrap; }

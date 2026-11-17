@@ -74,7 +74,7 @@ An optional third argument names the folder for the output; without it the scrip
 - The title and subtitle are centred. A line runs through the title, between two nodes.
 - **Left of the title: the participant's story.** The switch (controlling what is donated), the lock (safety), the phone (where the data come from), the chart (seeing it), the tick on the dotted circle round the funnel (saying yes), the person, and the map pin. Its lines are the designer's own, from the left of their hero. The story is deeper than the band and hangs below its edge, where its lines turn sky blue. Its main line comes down onto the title's line just before the title.
 - **Right of the title: the research side.** Just after the title the line drops to the height of the note's corner. It rises to the chart on the anchor and runs down to the globe. From the consent badge a second line climbs to the woman. A dotted line runs from the music note to the woman, and her line leaves the page.
-- The band's lower edge is a blue line with a step in it.
+- The band's lower edge is a blue line with a step in it. In the live site it is one SVG stroke, so it keeps one weight at any browser zoom; at 100% its straight halves are slightly softer than the reference's two solid rows (about 0.025% of the band, within the threshold).
 
 ### The note
 
