@@ -25,7 +25,7 @@
 
   // The reference's base rule for paragraphs; the site's base rule also pads them.
   p { margin: 0; padding: 0; }
-  .serif { font-family: "Libre Caslon Condensed", serif; font-weight: 420; letter-spacing: 0; }
+  .serif { font-family: "Libre Caslon Condensed", serif; font-weight: 420; letter-spacing: 0; --dotted-regrow-baseline: 1.04em; } // the custom property: where a card heading's underline regrows (_site.scss)
 
   /* ---- the band ----
      --s      depth on the left (shallow side); --drop  how much deeper the right side is

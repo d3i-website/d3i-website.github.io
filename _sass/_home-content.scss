@@ -12,7 +12,7 @@
 //
 // Beyond the reference, which has no links that work: the card and row
 // headings are real links whose ::after covers the card or row, a visible
-// keyboard focus ring, the hover state on keyboard focus too, a visually
+// keyboard focus ring, a solid underline on keyboard focus, a visually
 // hidden second word on each "More", [hidden] rows staying hidden, and no
 // transitions for readers who ask for reduced motion.
 //
@@ -69,7 +69,8 @@
   .row { cursor: pointer; }
   .cd { cursor: pointer; }
   .row__title span, .cd .hd span { text-decoration: underline dotted var(--sky); text-decoration-thickness: 2px; text-underline-offset: 5px; }
-  .row:hover .row__title span, .cd:hover .hd span,
+  // on hovering the row or the card the line regrows from the middle (_site.scss); on keyboard focus it turns solid
+  .row:hover .row__title a:not(:focus-visible) span, .cd:hover .hd a:not(:focus-visible) span { @include dotted-regrow(5px); }
   .row__title a:focus-visible span, .cd .hd a:focus-visible span { text-decoration-style: solid; }
 
   // A whole-line title link keeps its own colour and weight. Its ::after covers the row or the
