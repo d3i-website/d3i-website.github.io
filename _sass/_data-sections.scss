@@ -15,6 +15,15 @@
 }
 
 // ---------------------------------------------------------------------
+// Info list (partners, advisory board)
+// ---------------------------------------------------------------------
+
+// A whole-line name link keeps the heading's weight; its underline is the base link's
+.info-list__name a {
+  font-weight: inherit;
+}
+
+// ---------------------------------------------------------------------
 // People grid
 // ---------------------------------------------------------------------
 
@@ -62,6 +71,7 @@
 
   a {
     color: inherit;
+    font-weight: inherit;
     text-decoration: none;
     border-bottom: 1px solid rgba(37, 42, 52, 0.15);
     transition: border-color 0.15s ease, color 0.15s ease;
