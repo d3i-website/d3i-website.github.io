@@ -14,6 +14,16 @@
   padding: 1em 0;
 }
 
+// The lists' item headings are small headings: the sans at 700, at the h3's own size
+.info-list__name,
+.funding-list__title,
+.project-card__title,
+.institution-grid__name {
+  font-family: $sans-serif;
+  font-weight: 700;
+  letter-spacing: normal;
+}
+
 // ---------------------------------------------------------------------
 // Info list (partners, advisory board)
 // ---------------------------------------------------------------------

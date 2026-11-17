@@ -51,17 +51,4 @@
       margin-bottom: 0;
     }
   }
-
-  a {
-    color: $accent-primary;
-    font-weight: 700;
-    text-decoration: none;
-    border-bottom: 2px solid transparent;
-    transition: border-color 0.15s ease;
-
-    &:hover,
-    &:focus {
-      border-bottom-color: $accent-primary;
-    }
-  }
 }

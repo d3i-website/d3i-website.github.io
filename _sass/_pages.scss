@@ -328,16 +328,19 @@
   max-width: $content-width;
   margin-bottom: 1em;
 
-  h2,
-  h3 {
+  // the serif reads smaller than the rounded face did at the browser's 1.5em
+  h2 {
     font-family: $serif;
     font-weight: 420;
     letter-spacing: 0;
+    font-size: 1.6875rem;
   }
 
-  // the serif reads smaller than the rounded face did at the browser's 1.5em
-  h2 {
-    font-size: 1.6875rem;
+  // a small heading: the sans at 700, at the browser's h3 size
+  h3 {
+    font-family: $sans-serif;
+    font-weight: 700;
+    letter-spacing: normal;
   }
 
   h4 {
@@ -518,20 +521,6 @@
 .event-details__value {
   margin: 0;
   color: $text-color;
-
-  // keeps its look from before the running-text link style (an open question)
-  a {
-    color: $accent-primary;
-    font-weight: 400;
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.15s ease;
-
-    &:hover,
-    &:focus {
-      border-bottom-color: $accent-primary;
-    }
-  }
 }
 
 // ---------------------------------------------------------------------
