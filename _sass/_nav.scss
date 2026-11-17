@@ -28,10 +28,10 @@ $menu-hairline: #d5dae3;
 // A fractional height puts everything below it on a half pixel, and the front page's
 // thin lines then snap a row off the reference.
 // The brand is 16 + 3 + 14 = 33px, a nav row and the Menu button 13 + 15 + 13 = 41px.
-// One row is 16 + 41 + 1 (border) = 58px: at 1100px and wider, and below 1000px with the
-// Menu button. Where the nav drops under the brand, 16 + 33 + 16 + 41 + 1 = 107px (at
-// 1000px); without JavaScript below 1000px the list wraps further, 41px a row: 107, 148
-// and 189px (at 999, 800 and 390px).
+// One row is 16 + 41 + 1 (border) = 58px: the brand and the six links from 1000px up,
+// the brand and the Menu button below. Without JavaScript the links stay a list below
+// 1000px; where it drops under the brand the header is 16 + 33 + 16 + 41 a row + 1:
+// 107, 148 and 189px (at 800, 600 and 390px).
 .site-header__inner {
   max-width: $site-width;
   margin: 0 auto;
@@ -92,7 +92,8 @@ $menu-hairline: #d5dae3;
 .site-nav__item a {
   display: block;
   position: relative;
-  padding: 0.8125rem 1.35rem;
+  // 14px each side: 28px between two labels, the reference's gap
+  padding: 0.8125rem 0.875rem;
   color: #6a6a6a;
   font-family: $sans-serif;
   font-size: 0.9375rem;
@@ -105,8 +106,8 @@ $menu-hairline: #d5dae3;
     content: "";
     position: absolute;
     bottom: 0.4rem;
-    left: 1.35rem;
-    right: 1.35rem;
+    left: 0.875rem;
+    right: 0.875rem;
     height: 4px;
     background: $accent-primary;
     transform: scaleX(0);
@@ -133,11 +134,20 @@ $menu-hairline: #d5dae3;
   color: #6a6a6a;
 }
 
+// From 1000px the brand and the six links fit on one row; the last label ends on the
+// gutter, as in the reference, so the row's right padding hangs into it
+@media (min-width: $menu-below) {
+  .site-nav__list {
+    margin-right: -0.875rem;
+  }
+}
+
 // ---------------------------------------------------------------------
 // The Menu drop-down, below 1000px
 // ---------------------------------------------------------------------
-// The button shows only below $menu-below and only once assets/js/site-menu.js has
-// removed .no-js; without JavaScript the six links stay a wrapped list.
+// The button shows only below $menu-below and only when JavaScript runs: an inline
+// script in _includes/head.html turns <html class="no-js"> into class="js" before the
+// first paint. Without JavaScript the six links stay a wrapped list.
 // The panel is the main navigation itself, under the header at full width. It overlays
 // the top of the page rather than pushing it down, so the page under it does not move.
 // It is open while the button's aria-expanded is "true".
@@ -177,7 +187,7 @@ $menu-hairline: #d5dae3;
 }
 
 @media (max-width: $menu-below - 1px) {
-  html:not(.no-js) {
+  html.js {
     .site-header__menu {
       display: block;
     }

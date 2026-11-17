@@ -1,10 +1,9 @@
 // The header's Menu button below 1000px (_includes/site-header.html, _sass/_nav.scss).
 // It opens and closes the main navigation as a drop-down under the header. The open
 // state is the button's aria-expanded; the stylesheet shows the panel from it.
-// Without JavaScript the page keeps class="no-js" and the header shows the wrapped list.
+// The inline script in _includes/head.html has already turned class="no-js" into "js";
+// without JavaScript the header shows the wrapped list instead.
 (function () {
-  document.documentElement.classList.remove('no-js');
-
   var button = document.querySelector('.site-header__menu');
   var nav = button && document.getElementById(button.getAttribute('aria-controls'));
   if (!nav) return;
@@ -34,6 +33,13 @@
   // following a link closes it
   nav.addEventListener('click', function (event) {
     if (event.target.closest('a')) setOpen(false);
+  });
+
+  // so does a click or tap anywhere outside the panel and the button
+  document.addEventListener('click', function (event) {
+    if (isOpen() && !nav.contains(event.target) && !button.contains(event.target)) {
+      setOpen(false);
+    }
   });
 
   // at 1000px and wider the links are a row again, and the panel is closed
