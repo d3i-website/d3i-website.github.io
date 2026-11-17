@@ -63,9 +63,8 @@ p {
 }
 
 // A link in running text keeps the text's colour, is bold, and has a dotted sky-blue
-// underline. On hover the dotted line shrinks to its middle and grows back out (below);
-// on keyboard focus it turns solid. Links with a look of their own (the coral action
-// links, navigation, cards) set their colour, weight and decoration.
+// underline that turns solid on hover and on keyboard focus. Links with a look of their
+// own (the coral action links, navigation, cards) set their colour, weight and decoration.
 a {
   color: inherit;
   font-weight: 700;
@@ -74,52 +73,10 @@ a {
   text-underline-offset: 4px;
   text-decoration-skip-ink: auto;
 
+  &:hover,
   &:focus-visible {
     text-decoration-style: solid;
   }
-}
-
-// The hover of a dotted underline: the line shrinks to its middle and grows back out,
-// dotted throughout, once, in 0.4s (0.2s each way, ease-in-out, like the old navigation's
-// underline). A text decoration cannot be drawn in part, so while the animation runs the
-// decoration is transparent and the line is a background in its place: 2px squares 4px
-// apart, as a 2px dotted underline is drawn, counted out from the middle so the dots stay
-// put while the line shrinks and grows. When it ends the decoration is back, as at rest.
-// Each line of a link that wraps regrows from its own middle. The background's top is the
-// underline offset below the baseline, which lies 1em below the top of the text in Nunito
-// Sans and 1.04em in Libre Caslon Condensed: where a link is set in the serif, its
-// --dotted-regrow-baseline says so. Keyboard focus keeps the solid line, and readers who
-// ask for reduced motion see the underline unchanged.
-$dotted-line: repeating-linear-gradient(90deg, $sky calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px) calc(50% + 3px));
-
-@keyframes dotted-regrow {
-  from, to { text-decoration-color: transparent; background-image: $dotted-line; background-size: 100% 2px; }
-  50% { text-decoration-color: transparent; background-image: $dotted-line; background-size: 0 2px; }
-}
-
-@mixin dotted-regrow($offset) {
-  @media (prefers-reduced-motion: no-preference) {
-    // room below the text for the line, which lies partly below the box the background
-    // is drawn in; the negative margin takes back what the padding would add to a block
-    padding-bottom: 0.5em;
-    margin-bottom: -0.5em;
-    background-repeat: no-repeat;
-    background-position: 50% calc(var(--dotted-regrow-baseline, 1em) + #{$offset});
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
-    animation: dotted-regrow 0.4s ease-in-out;
-  }
-}
-
-// Every link carries the dotted underline but those with a look of their own, which set
-// text-decoration: none (and the image link of a news card, which shows no underline).
-// A new link style without the underline belongs in this list too.
-a:not(.site-header__brand, .site-nav__item a, .section-subnav__item a, .hub-subnav__inner a,
-      .sidebar-panel__title, .sidebar-panel__link, .section-nav__sublink, .content-page__toc-list a,
-      .skip-link, .cta-link, .section-cta, .hub__movement-link, .hub__entry-link, .postit__link,
-      .people-grid__name a, .institution-card a, .news-card__media,
-      .note, .more, .row__title a, .cd .hd a):hover:not(:focus-visible) {
-  @include dotted-regrow(4px);
 }
 
 hr {
