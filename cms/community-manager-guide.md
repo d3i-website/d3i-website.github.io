@@ -41,7 +41,8 @@ If login fails: most often, your token has the wrong permissions. Re-generate fo
 The left sidebar puts your day-to-day work at the top, with the site-section editors below a separator:
 
 - **Events** — create new event pages (symposia, courses, workshops, and more); edit existing ones. The list is grouped by year (like folders), newest first. Use the filter icon above the list to show only one event type. Each entry produces its own page on the site and is listed on `/community/events/`; the Courses and Symposia pages automatically show the entries of the matching type.
-- **News** — create news items, newest first; switch to grid view to see image thumbnails. Each item appears on `/news/` and, while fresh (under ~3 months old), in the homepage "Latest news" strip.
+- **News** — create news items, newest first; switch to grid view to see image thumbnails. Each item appears on `/news/` and, as one of the four newest, in the front page's "Latest news" list.
+- **Front page** — the title, the note and the three cards of the front page (see "Edit the front page" below).
 - **News page** — the intro text and contact block of the `/news/` page itself.
 - **Community** — page editors and data lists for `/community/` (the section landing page, Events page, Courses page + course materials, Symposia page, Networks, Newsletter).
 - **About D3I** — page editors and data lists for `/about-d3i/` (the section landing page, Team, Advisory board, Funding, Partners, Impact and adoption).
@@ -89,6 +90,24 @@ The landing pages of Community, About D3I, Prepare a Study, and Software (the pa
 5. Write the full event page content in the **Full event page content** field. (For events whose primary page lives elsewhere, the External URL is enough — visitors land on this site's page first and can click through.)
 6. Click **Save**.
 
+### Edit the front page
+
+1. Dashboard → **Front page**.
+2. Change what you need: the two **title lines**, the **note** (the small card on the top band), or the three **cards**.
+3. Click **Save**.
+
+What you can edit:
+
+- **Title lines** and the browser-tab title. The tab title is what shows in the browser tab and in search results; keep it the same as the two lines joined together.
+- **The note** — eyebrow, title, text, link URL and link text. Untick **Show the note** to take the note off the front page; its text stays in the editor, so you can tick the box again later without retyping anything. If you leave the link URL empty, the note is plain text with no link or arrow.
+- **The three cards** — eyebrow, heading, text and link URL. There are always exactly three; you can't add or remove one.
+
+The text fields have a length limit, and the editor stops you at it. This is deliberate: the front page is designed around its current text, and the limits are the longest texts that still fit at every screen width. Please don't look for ways around them. If you need more room, ask Danielle.
+
+The subtitle under the title and the line below the cards (about the newsletter and the team) can't be edited here. Ask Danielle to change them.
+
+The front page's lists are automatic: "Latest news" shows the four newest news items, and the events list shows the next four upcoming events (or, when none are coming up, the four most recent past ones).
+
 ### Add a news item
 
 1. Dashboard → News.
@@ -97,7 +116,7 @@ The landing pages of Community, About D3I, Prepare a Study, and Software (the pa
 4. Write the story in the body field — or, for news that lives elsewhere (e.g. an announcement on a partner site), fill in the **External URL** instead and leave the body empty; the news card then links straight there.
 5. Click **Save**.
 
-News items appear on the News page immediately after publication. The homepage "Latest news" strip shows the three most recent items and automatically drops anything older than about 3 months.
+News items appear on the News page immediately after publication. The front page's "Latest news" list always shows the four newest news items, however old they are; a newer item pushes the oldest of the four off the list (it stays on the News page).
 
 **Scheduling ahead:** if you give a news item a date in the **future**, it stays hidden until that day and then appears on its own — handy for announcements you want to prepare in advance. Publish it as usual (and let Danielle know it's a scheduled item so she promotes it to production before its date). To preview the wording before then, set today's date while drafting, since future-dated items are hidden on staging too.
 

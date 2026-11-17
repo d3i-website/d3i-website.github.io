@@ -323,3 +323,8 @@ body.site-shell {
   color: $muted-text-color;
   font-size: 0.95rem;
 }
+
+// For readers who ask for less motion: no transitions or animations anywhere on the site.
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}

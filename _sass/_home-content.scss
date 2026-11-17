@@ -46,9 +46,6 @@
   /* closing line, the two lists */
   .outro { text-align: center; font-size: 16px; }
   .outro--mid { padding: 44px var(--edge) 0; }
-  /* the general link: the text keeps its colour and gets a dotted sky-blue underline, solid on hover */
-  .outro a { color: inherit; font-weight: 700; cursor: pointer; text-decoration: underline dotted var(--sky); text-decoration-thickness: 2px; text-underline-offset: 4px; }
-  .outro a:hover, .outro a:focus-visible { text-decoration-style: solid; }
   .lists { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; padding: var(--sep) var(--edge) 72px; font-size: 14px; line-height: 1.5; }
   .lhead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
   .ltitle { color: var(--ink); font-size: 24px; line-height: 1.1; margin: 0; }
@@ -92,11 +89,5 @@
 
   @media (max-width: 599px) {
     .cards { grid-template-columns: 1fr; }
-  }
-
-  // The reference has no transitions; this keeps it so for readers who ask for less motion,
-  // whatever later rules add.
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
   }
 }

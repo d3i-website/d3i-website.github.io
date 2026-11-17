@@ -5,7 +5,7 @@ layout: site-shell
 {% comment %}
   Exclude future-dated items (scheduled news) so they only surface once
   their date arrives. No upper-age cap here — the News tab keeps full
-  history, unlike the homepage strip's 90-day window.
+  history.
 {% endcomment %}
 {% assign now_epoch = site.time | date: "%s" | plus: 0 %}
 {% assign sorted_news = site.news | sort: "date" | reverse %}

@@ -27,10 +27,9 @@
   {% comment %}
     Every media slot gets one of the three D3I accent colors, derived
     from the title length — effectively random across items, but stable
-    across builds (no editor choice, no per-build reshuffling). On the
-    homepage strip the photo renders as a circular avatar centered on the
-    accent field; on /news/ rows a photo covers the slot, hiding the
-    accent. Imageless cards show the bare accent field in both places.
+    across builds (no editor choice, no per-build reshuffling). On /news/
+    rows a photo covers the slot, hiding the accent; imageless cards show
+    the bare accent field.
   {% endcomment %}
   {% assign accent_index = item.title | size | modulo: 3 %}
   <a class="news-card__media news-card__media--accent-{{ accent_index }}" href="{{ card_href }}"{% if card_external %} target="_blank" rel="noopener noreferrer"{% endif %} tabindex="-1" aria-hidden="true">
