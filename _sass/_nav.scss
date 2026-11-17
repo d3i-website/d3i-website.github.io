@@ -297,6 +297,10 @@ $menu-hairline: #d5dae3;
   padding: 1.6rem 1rem 1.8rem;
   border-top: 1px solid rgba(37, 42, 52, 0.08);
   background: #ffffff;
+  // The Utrecht and Erasmus logos are drawn larger with transform: scale(), which does not
+  // change layout; when one wraps to the end of a row on a phone its scaled edge reaches
+  // 3px past the screen and makes the page scroll sideways. Clip at the footer's edge.
+  overflow-x: clip;
 }
 
 .site-footer__inner {
