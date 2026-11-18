@@ -327,9 +327,14 @@
 .prose {
   max-width: $content-width;
   margin-bottom: 1em;
+  color: $ink-text;
+
+  // The reset zeroes every margin and paragraphs only carry 0.5em padding, so
+  // headings, lists and code blocks get their own space back here.
 
   // the serif reads smaller than the rounded face did at the browser's 1.5em
   h2 {
+    margin: 2.25rem 0 0.15rem;
     font-family: $serif;
     font-weight: 420;
     letter-spacing: 0;
@@ -338,9 +343,23 @@
 
   // a small heading: the sans at 700, at the browser's h3 size
   h3 {
+    margin: 1.75rem 0 0.1rem;
     font-family: $sans-serif;
     font-weight: 700;
     letter-spacing: normal;
+  }
+
+  ul,
+  ol {
+    margin: 0.4rem 0 0.9rem;
+  }
+
+  li + li {
+    margin-top: 0.3rem;
+  }
+
+  pre {
+    margin: 0.6rem 0 0.9rem;
   }
 
   h4 {

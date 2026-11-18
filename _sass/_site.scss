@@ -102,8 +102,8 @@ code {
 pre {
   overflow-x: auto;
   padding: 1rem;
-  background: #f5f7fb;
-  border-radius: 0.5rem;
+  background: #ffffff;
+  border: 1px solid $sky;
 
   code {
     background: none;
@@ -217,37 +217,27 @@ body.site-shell {
   }
 }
 
-// Content figures
+// Content figures: square, framed by a hairline, with the caption closed off by
+// another, in the front page's language (square corners, no colour blocks)
 .section-figure {
-  margin: 2rem auto;
+  margin: 1.75rem auto 1.5rem;
   max-width: $content-width;
-  padding: 1.25rem;
-  background-color: #f5f7fb;
-  border-radius: 0.75rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04),
-              0 8px 24px -12px rgba(66, 114, 239, 0.18);
-
-  @media (min-width: $medium) {
-    margin: 2.5rem auto;
-    padding: 1.75rem;
-  }
 
   img {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 0.5rem;
-    background-color: #ffffff;
+    border: 1px solid $hairline;
   }
 
   figcaption {
-    margin-top: 1rem;
+    padding: 0.6rem 0 0.7rem;
+    border-bottom: 1px solid $hairline;
     font-family: $sans-serif;
     font-size: 0.9375rem;
-    font-style: italic;
     line-height: 1.5;
-    text-align: center;
-    color: $muted-text-color;
+    text-align: left;
+    color: $ink-text;
   }
 }
 
