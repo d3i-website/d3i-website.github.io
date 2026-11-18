@@ -1,0 +1,185 @@
+// =====================================================================
+// News post: an article column with a "Latest news" rail beside it.
+// Markup: _layouts/page.html (.content-page--news), the date in
+// _includes/content-page-intro.html, the rail in _includes/news-rail.html.
+// The rail's rows follow the front page's list (_sass/_home-content.scss).
+// =====================================================================
+
+$news-column: 40rem;
+$news-rail: 15rem;
+$news-gap: 4.5rem;
+// the column, the gap and the rail side by side (59.5rem), with room left for a
+// figure to reach $news-figure-reach past the column on the left
+$news-two-up: 64rem;
+// how far a figure reaches past the text on each side
+$news-figure-reach: 2rem;
+
+.content-page--news {
+  .content-page__main {
+    width: 100%;
+    max-width: $news-column;
+    margin: 0 auto;
+  }
+
+  .content-page__intro,
+  .prose {
+    max-width: none;
+  }
+
+  .content-page__intro {
+    margin-bottom: 1.1rem;
+  }
+
+  .content-page__date {
+    margin: 0 0 0.55rem;
+    padding: 0;
+    font: 700 11px/1 $sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #626976;
+  }
+
+  // Figures reach a little past the text; the caption keeps the text's width.
+  @media (min-width: 48rem) {
+    .section-figure {
+      max-width: none;
+      margin-left: -$news-figure-reach;
+      margin-right: -$news-figure-reach;
+
+      figcaption {
+        margin: 0 $news-figure-reach;
+      }
+    }
+  }
+
+  @media (min-width: $news-two-up) {
+    .content-page__grid {
+      grid-template-columns: $news-column $news-rail;
+      column-gap: $news-gap;
+      justify-content: center;
+    }
+
+    .content-page__main {
+      grid-column: 1;
+      margin: 0;
+    }
+
+    .news-rail {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: start;
+      padding-top: 0.2rem;
+    }
+  }
+}
+
+.news-rail {
+  width: 100%;
+  max-width: $news-column;
+  justify-self: center;
+  margin-top: 2.5rem;
+  color: $ink-text;
+
+  @media (min-width: $news-two-up) {
+    margin-top: 0;
+  }
+
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden;
+    clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;
+  }
+}
+
+.news-rail__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.news-rail__title {
+  margin: 0;
+  font-family: $serif;
+  font-weight: 420;
+  font-size: 22px;
+  line-height: 1.1;
+  color: #252a34;
+}
+
+// "All": the front page's "More", with its dotted line and arrow disc
+.news-rail__all {
+  display: flex;
+  align-items: center;
+  font: 700 14px/1 $sans-serif;
+  color: $ink-text;
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: 2px solid $accent-primary;
+    outline-offset: 3px;
+  }
+}
+
+.news-rail__dots {
+  width: 22px;
+  height: 2px;
+  margin: 0 6px;
+  background: radial-gradient(circle at 1px 1px, $sky 0.95px, transparent 1.1px) 0 0 / 5px 2px repeat-x;
+}
+
+.news-rail__all:hover .news-rail__dots,
+.news-rail__all:focus-visible .news-rail__dots {
+  background: $sky;
+}
+
+.news-rail__disc {
+  display: block;
+  flex: none;
+  overflow: visible;
+}
+
+.news-rail__rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid $hairline;
+}
+
+.news-rail__row {
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 0;
+  border-top: 1px solid $hairline;
+}
+
+.news-rail__date {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+
+  span {
+    display: block;
+    font: 700 10px/1 $sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #626976;
+  }
+
+  b {
+    display: block;
+    margin-top: 3px;
+    font-family: $serif;
+    font-weight: 420;
+    font-size: 20px;
+    line-height: 1.05;
+    color: #252a34;
+  }
+}
+
+// A whole-line title link keeps its own weight (front page rule)
+.news-rail__link {
+  color: #252a34;
+  font: 600 14.5px/1.45 $sans-serif;
+}
