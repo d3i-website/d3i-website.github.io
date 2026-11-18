@@ -8,11 +8,11 @@ external_url: ''
 layout: page
 ---
 
-If you run a data donation study with Port on Next, you can now export your study setup as an RO-Crate with one click. The export packages everything that participants see, including information pages, consent, instructions, and tasks into a single documentation package. This makes your study easier to archive and reproduce.
+If you run a data donation study with Port on [Next](https://next.eyra.co), you can now export your study setup as an RO-Crate with one click. The export packages everything that participants see, including information pages, consent, instructions, and tasks into a single documentation package. This makes your study easier to archive and reproduce.
 
 ## How to export your study
 
-Open your study in Next, click the **:** menu at the top right next to **Publish** and choose **Export**. Your browser downloads a .zip file with the name of your study. 
+Open your study in Next, click the **⋮** menu at the top right next to **Publish** and choose **Export**. Your browser downloads a .zip file with the name of your study. 
 
 ![The study page in Next with the ⋮ menu opened, showing the Export option](/assets/images/news/export-study-menu.webp "Open the ⋮ menu (1) and choose Export (2). The blue button next to it reads Preview or Finish up, depending on whether your study has been live.")
 
