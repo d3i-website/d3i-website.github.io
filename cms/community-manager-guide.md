@@ -118,6 +118,8 @@ The front page's lists are automatic: "Latest news" shows the four newest news i
 
 News items appear on the News page immediately after publication. The front page's "Latest news" list always shows the four newest news items, however old they are; a newer item pushes the oldest of the four off the list (it stays on the News page).
 
+**Captioned images in a news item:** in the body, insert the image with the image button on its own line, and fill in **Title** in the image dialog. The title becomes the caption under the image, and it works with or without a **Link**. **Alt Text** describes the image for screen readers. An image without a title shows without a caption. (The separate **Image** field at the top is the card and share picture and never gets a caption.)
+
 **Scheduling ahead:** if you give a news item a date in the **future**, it stays hidden until that day and then appears on its own — handy for announcements you want to prepare in advance. Publish it as usual (and let Danielle know it's a scheduled item so she promotes it to production before its date). To preview the wording before then, set today's date while drafting, since future-dated items are hidden on staging too.
 
 ## How "Save" works
