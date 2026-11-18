@@ -14,6 +14,7 @@
 //   ink:  x0 y0 x1 y1           the ink box inside it (pixels darker than 250/255
 //                               on white; Tilburg's SVG measured rendered 1300px wide)
 //   weight:                     optical nudge on the ink height, 1 by default
+//                               (Eyra 1.2: it read small beside ODISSEI)
 //
 // A logo's cell is exactly its ink box. Every logo gets the same ink area, so
 // wide logos sit lower and compact ones taller; the image sits in the cell
@@ -22,20 +23,29 @@
 // =====================================================================
 
 $footer-logos: (
-  odissei: (file: 1817 973, ink: 13 12 1807 958, weight: 1),
-  eyra:    (file: 798 300,  ink: 12 12 798 288,  weight: 1),
-  uva:     (file: 426 95,   ink: 0 0 426 95,     weight: 1),
-  ru:      (file: 1024 234, ink: 0 0 1024 234,   weight: 1),
-  uu:      (file: 1347 532, ink: 188 153 850 378, weight: 1),
-  vu:      (file: 1280 333, ink: 0 0 1280 331,   weight: 1),
-  tilburg: (file: 1300 334, ink: 2 2 1298 331,   weight: 1),
-  eur:     (file: 761 719,  ink: 95 104 653 627, weight: 1),
+  odissei: (file: 1817 973, ink: 13 12 1807 958,  density: 0.139, weight: 1),
+  eyra:    (file: 798 300,  ink: 12 12 798 288,   density: 0.267, weight: 1.2),
+  uva:     (file: 426 95,   ink: 0 0 426 95,      density: 0.212, weight: 1),
+  ru:      (file: 1024 234, ink: 0 0 1024 234,    density: 0.093, weight: 1),
+  uu:      (file: 1347 532, ink: 188 153 850 378, density: 0.243, weight: 1),
+  vu:      (file: 1280 333, ink: 0 0 1280 331,    density: 0.193, weight: 1),
+  tilburg: (file: 1300 334, ink: 2 2 1298 331,    density: 0.063, weight: 1),
+  eur:     (file: 761 719,  ink: 95 104 653 627,  density: 0.169, weight: 1),
 );
 
-// Ink area per logo, in rem². The providers' area puts ODISSEI's ink at about
-// 3.06rem, so its wordmark (18.5% of the ink height) stays above 9px.
+// density: how dark the ink box is on average (0 white, 1 solid black), measured
+// on white. Equal area alone leaves thin, pale logos (Tilburg, Radboud) looking
+// small, so each logo is scaled by (typical density / its density) ^ 0.25: a
+// partial correction, since thin type still reads as thin however large it is.
+$footer-typical-density: 0.17;
+
+// Ink area per logo, in rem². The providers' area keeps ODISSEI's wordmark (18.5%
+// of its ink height) above 9px; the partners' area is the largest at which two
+// columns of them fit a 360px phone.
 $footer-provider-area: 17.8;
-$footer-partner-area: 14.25;
+$footer-partner-area: 13.7;
+
+$footer-partners: (uva, ru, uu, vu, tilburg, eur);
 
 @function _footer-ink($name) {
   $ink: map.get($footer-logos, $name, ink);
@@ -49,7 +59,67 @@ $footer-partner-area: 14.25;
 @function footer-ink-height($name, $area) {
   $ink: _footer-ink($name);
   $aspect: math.div(map.get($ink, w), map.get($ink, h));
-  @return math.sqrt(math.div($area, $aspect)) * map.get($footer-logos, $name, weight) * 1rem;
+  $density: math.pow(math.div($footer-typical-density, map.get($footer-logos, $name, density)), 0.25);
+  @return math.sqrt(math.div($area, $aspect)) * $density * map.get($footer-logos, $name, weight) * 1rem;
+}
+
+// rem per file pixel
+@function _footer-px($name, $area) {
+  @return math.div(footer-ink-height($name, $area), map.get(_footer-ink($name), h));
+}
+
+@function footer-ink-width($name, $area) {
+  @return map.get(_footer-ink($name), w) * _footer-px($name, $area);
+}
+
+@function _footer-clear($name, $area, $side) {
+  $file: map.get($footer-logos, $name, file);
+  $box: map.get($footer-logos, $name, ink);
+  $px: _footer-px($name, $area);
+  @if $side == l { @return list.nth($box, 1) * $px; }
+  @if $side == t { @return list.nth($box, 2) * $px; }
+  @if $side == r { @return (list.nth($file, 1) - list.nth($box, 3)) * $px; }
+  @return (list.nth($file, 2) - list.nth($box, 4)) * $px;
+}
+
+// Phone columns: as wide as the widest partner, and a gap wide enough that no
+// partner's clear zone reaches into the other column.
+@function _footer-phone-col() {
+  $col: 0rem;
+  @each $name in $footer-partners {
+    $col: math.max($col, footer-ink-width($name, $footer-partner-area));
+  }
+  @return $col;
+}
+
+@function _footer-phone-gap() {
+  $col: _footer-phone-col();
+  $gap: 1.5rem;
+  @each $name in $footer-partners {
+    $w: footer-ink-width($name, $footer-partner-area);
+    $gap: math.max($gap, $w + _footer-clear($name, $footer-partner-area, r) - $col);
+    $gap: math.max($gap, _footer-clear($name, $footer-partner-area, l));
+  }
+  @return $gap;
+}
+
+// Desktop row: one gap between all partners, as wide as the widest clear zone,
+// so spacing stays even; the row starts at the width where all six fit with it.
+@function _footer-row-gap() {
+  $gap: 1.5rem;
+  @each $name in $footer-partners {
+    $gap: math.max($gap, _footer-clear($name, $footer-partner-area, l), _footer-clear($name, $footer-partner-area, r));
+  }
+  @return $gap;
+}
+
+@function _footer-row-from() {
+  $width: 2rem; // the footer's side padding
+  @each $name in $footer-partners {
+    $width: $width + footer-ink-width($name, $footer-partner-area);
+  }
+  $width: $width + (list.length($footer-partners) - 1) * _footer-row-gap();
+  @return math.ceil(math.div($width, 1rem) * 16) * 1px;
 }
 
 @function _scaled($length) {
@@ -59,22 +129,19 @@ $footer-partner-area: 14.25;
 @mixin footer-logo($name, $area) {
   $file: map.get($footer-logos, $name, file);
   $box: map.get($footer-logos, $name, ink);
-  $ink: _footer-ink($name);
-  $height: footer-ink-height($name, $area);
-  // rem per file pixel
-  $px: math.div($height, map.get($ink, h));
+  $px: _footer-px($name, $area);
 
   .site-footer__cell--#{$name} {
-    width: _scaled(map.get($ink, w) * $px);
-    height: _scaled($height);
+    width: _scaled(footer-ink-width($name, $area));
+    height: _scaled(footer-ink-height($name, $area));
     overflow: clip;
     // Room for sub-pixel rounding, so a logo with no whitespace of its own
     // (UvA, Radboud, VU) never loses a hairline of ink at its edge.
     overflow-clip-margin: 1px;
-    --clear-l: #{_scaled(list.nth($box, 1) * $px)};
-    --clear-t: #{_scaled(list.nth($box, 2) * $px)};
-    --clear-r: #{_scaled((list.nth($file, 1) - list.nth($box, 3)) * $px)};
-    --clear-b: #{_scaled((list.nth($file, 2) - list.nth($box, 4)) * $px)};
+    --clear-l: #{_scaled(_footer-clear($name, $area, l))};
+    --clear-t: #{_scaled(_footer-clear($name, $area, t))};
+    --clear-r: #{_scaled(_footer-clear($name, $area, r))};
+    --clear-b: #{_scaled(_footer-clear($name, $area, b))};
 
     img {
       display: block;
@@ -91,11 +158,14 @@ $footer-partner-area: 14.25;
   @include footer-logo($name, $footer-provider-area);
 }
 
-@each $name in (uva, ru, uu, vu, tilburg, eur) {
+@each $name in $footer-partners {
   @include footer-logo($name, $footer-partner-area);
 }
 
 .site-footer {
+  --footer-col: #{_scaled(_footer-phone-col())};
+  --footer-gap: #{_scaled(_footer-phone-gap())};
+  --footer-row-gap: #{_footer-row-gap()};
   margin-top: 3rem;
   padding: 1.6rem 1rem 1.8rem;
   border-top: 1px solid rgba(37, 42, 52, 0.08);
@@ -118,48 +188,76 @@ $footer-partner-area: 14.25;
   color: #4f5560;
 }
 
-.site-footer__sentence {
-  padding-bottom: 0.85rem;
+.site-footer__label--small {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $muted-text-color;
+}
+
+// Who provides and supports the service: a label above each logo, in the same
+// two columns as the partners below on a phone, so ODISSEI sits over UvA and
+// Eyra over Radboud. Labels share a line; logos hang from it.
+.site-footer__providers {
+  display: grid;
+  grid-template-columns: repeat(2, var(--footer-col));
+  column-gap: var(--footer-gap);
+  align-items: start;
+  justify-items: start;
+  justify-content: center;
+  padding-bottom: 1.25rem;
   border-bottom: 1px solid rgba(37, 42, 52, 0.08);
 }
 
-.site-footer__inline-logo {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  vertical-align: middle;
-  margin: 0 0.35rem;
-}
-
-.site-footer__logo {
-  display: block;
-  width: auto;
-  object-fit: contain;
-}
-
-.site-footer__group--members {
+.site-footer__provider {
   display: grid;
-  gap: 0.55rem;
+  gap: 0.5rem;
 }
 
-.site-footer__logo-strip {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.85rem 1.75rem;
+.site-footer__partners {
+  display: grid;
+  gap: 0.5rem; // as far below its label as the providers' logos
 }
 
-.site-footer__logo-cell {
-  display: flex;
+// On a phone the partner logos are centred as a block, so their heading is too;
+// wider, they span the footer and the heading sits left.
+@media (max-width: $medium - 1px) {
+  .site-footer__partners > .site-footer__label {
+    text-align: center;
+  }
+}
+
+// Partners. Phone: two left-aligned columns of a fixed width (--footer-col),
+// centred as a block, apart by a gap (--footer-gap) that keeps every clear zone
+// in its own column. Tablet: three centred columns. Desktop: one row, spread
+// evenly, never closer than --footer-row-gap.
+$footer-gap: 1.5rem;
+
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: repeat(2, var(--footer-col));
+  column-gap: var(--footer-gap);
+  row-gap: 1.75rem;
   align-items: center;
+  justify-items: start;
   justify-content: center;
-  min-height: 2.2rem;
+
+  @media (min-width: $medium) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: $footer-gap;
+    justify-items: center;
+  }
+
+  @media (min-width: _footer-row-from()) {
+    display: flex;
+    justify-content: space-between;
+    column-gap: var(--footer-row-gap);
+  }
 }
 
-.site-footer__logo-cell img,
-.site-footer__inline-logo img {
-  max-width: 100%;
-  max-height: 1.6rem;
+// Narrow phones: every logo shrinks together so the widest still fits its column.
+@media (max-width: 359px) {
+  .site-footer { --logo-scale: 0.85; }
 }
 
 .site-footer__copyright {

@@ -1,10 +1,11 @@
-The footer: one sentence naming who provides and supports the service, with their logos inline, then the partner universities' logo strip, then the copyright line.
+The footer: who provides and supports the service (ODISSEI and Eyra, each under a small label), then the partner universities' logos, then the copyright line.
 
-Use it once at the bottom of every page; it pins to the viewport bottom on short pages because the body is a flex column. Pass the `year` and the logos: `providedBy` (ODISSEI) and `supportedBy` (Eyra) from `assets/Logos`, and `partners` from `assets/Partners` in the footer's order, each with its `name`, the URL of your upload as `src`, and its `mark` (`odissei`, `eyra`, `uva`, `ru`, `uu`, `vu`, `tilburg`, `eur`), which picks its per-logo cap in the stylesheet.
+Use it once at the bottom of every page; it pins to the viewport bottom on short pages because the body is a flex column. Pass the `year` and the logos: `providedBy` (ODISSEI) and `supportedBy` (Eyra) from `assets/Logos`, and `partners` from `assets/Partners` in the footer's order, each with its `name`, the URL of your upload as `src`, and its `mark` (`odissei`, `eyra`, `uva`, `ru`, `uu`, `vu`, `tilburg`, `eur`), which picks its measured size in the stylesheet.
 
 - `.site-footer` has a `border` top rule and a `space-48` top margin (0 on the homepage, where the news band abuts it).
-- `.site-footer__label` is `label-small` in `text`; `.site-footer__sentence` carries a `border` bottom rule.
-- `.site-footer__logo-strip` wraps with `space-12` by `space-24` gaps; each `.site-footer__logo-cell` is 2.2rem tall, images capped at 1.6rem, with the per-logo modifier classes (`--uva` … `--eur`) evening out their weights.
+- `.site-footer__label` is `label-small` in `text`; `--small` makes it uppercase and muted, for "Provided by" and "Supported by". `.site-footer__providers` carries a `border` bottom rule; its labels share a line and the logos hang top-aligned beneath them.
+- Every logo sits in a `.site-footer__cell--{mark}` that is exactly the logo's ink box, measured once from the file (`$footer-logos` in `_sass/_footer.scss`). The files are used as they are: whitespace baked into a file (Utrecht, Erasmus) is its clear zone, which no other logo may enter, published as `--clear-l/r/t/b`. Each logo gets the same ink area, scaled by `(0.17 / its darkness) ^ 0.25` so pale logos are not lost, with a per-logo `weight` for hand nudges.
+- Phone: providers and partners share two left-aligned columns (`--footer-col`, the widest partner, and `--footer-gap`, wide enough for every clear zone). From `medium`: partners in three centred columns. From `large`: one row, each cell keeping the part of its clear zone half the gap does not cover. Below 360px every logo shrinks by 0.85.
 - `.site-footer__copyright` is `small` in `text-muted`.
 
 ## What you provide
