@@ -1,5 +1,8 @@
 <div class="content-page__intro">
   <header class="content-page__header">
+    {%- if page.collection == 'news' %}
+    <p class="content-page__date"><time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: "%-d %B %Y" }}</time></p>
+    {%- endif %}
     <h1 class="content-page__title">{{ page.title }}</h1>
   </header>
 </div>

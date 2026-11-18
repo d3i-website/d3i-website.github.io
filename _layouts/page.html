@@ -5,7 +5,7 @@ layout: site-shell
 {% assign nav_key = page.sidebar.nav %}
 {% assign stripped_content = content | strip %}
 
-<article class="content-page">
+<article class="content-page{% if page.collection == 'news' %} content-page--news{% endif %}">
   <div class="content-page__grid{% unless nav_key %} content-page__grid--full{% endunless %}">
     {% if nav_key %}
       <aside class="content-page__sidebar">
@@ -68,5 +68,8 @@ layout: site-shell
       {% include journey-next.html %}
       {% include contact-cta.html constrained=true %}
     </div>
+    {%- if page.collection == 'news' %}
+    {% include news-rail.html %}
+    {%- endif %}
   </div>
 </article>

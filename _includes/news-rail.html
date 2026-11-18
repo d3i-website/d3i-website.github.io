@@ -1,0 +1,36 @@
+{% comment %}
+  News post: the "Latest news" rail beside the article (_layouts/page.html, news only).
+  Styles: _sass/_news-post.scss. Rows as in the front page's list (_includes/home/lists.html):
+  the five newest other news items dated no later than the build (_config.yml has future: true,
+  so a future-dated item is published and must be left out), linking to external_url in a new
+  tab when it is filled in (the CMS writes a cleared optional field as "").
+{% endcomment %}
+{%- assign now_epoch = site.time | date: "%s" | plus: 0 -%}
+{%- assign rail_news = "" | split: "" -%}
+{%- assign sorted_news = site.news | sort: "date" | reverse -%}
+{%- for item in sorted_news -%}
+  {%- if item.url == page.url -%}{%- continue -%}{%- endif -%}
+  {%- assign item_epoch = item.date | date: "%s" | plus: 0 -%}
+  {%- if item_epoch <= now_epoch -%}
+    {%- assign rail_news = rail_news | push: item -%}
+    {%- if rail_news.size == 5 -%}{%- break -%}{%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if rail_news.size > 0 -%}
+<aside class="news-rail" aria-labelledby="news-rail-title">
+  <div class="news-rail__head">
+    <h2 class="news-rail__title" id="news-rail-title">Latest news</h2>
+    <a class="news-rail__all" href="{{ '/news/' | relative_url }}">All<span class="visually-hidden"> news</span><i class="news-rail__dots"></i><svg class="news-rail__disc" width="22" height="22" viewBox="-18 -18 36 36" aria-hidden="true"><circle r="18" fill="#4272ef"/><path d="M-8 0 h16 M1.5 -6.5 l6.5 6.5 l-6.5 6.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+  <ul class="news-rail__rows">
+    {%- for item in rail_news -%}
+      {%- if item.external_url and item.external_url != "" -%}
+        {%- assign row_href = item.external_url -%}{%- assign row_external = true -%}
+      {%- else -%}
+        {%- assign row_href = item.url | relative_url -%}{%- assign row_external = false -%}
+      {%- endif %}
+    <li class="news-rail__row"><p class="news-rail__date"><span>{{ item.date | date: "%b" }}</span><b>{{ item.date | date: "%-d" }}</b></p><a class="news-rail__link" href="{{ row_href }}"{% if row_external %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ item.title }}</a></li>
+    {%- endfor %}
+  </ul>
+</aside>
+{%- endif -%}
