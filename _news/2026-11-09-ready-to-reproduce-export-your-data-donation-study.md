@@ -36,7 +36,7 @@ my_study/
 
 The package is a research object built on [RO-Crate](https://www.researchobject.org/ro-crate/) (Research Object Crate), an open standard for describing research outputs with structured metadata. Repositories and tools that understand RO-Crate can read who created your study, when it was exported, and where it came from (its provenance) without opening the files.
 
-![An RO-Crate preview page for an example study, listing its name, type, description, publication date and authors](/assets/images/news/export-study-menu.webp "The crate's own description of an exported study, as shown by the standard RO-Crate preview. Example study with placeholder names.")
+![An RO-Crate preview page for an example study, listing its name, type, description, publication date and authors](/assets/images/news/export-study-crate.webp "The crate's own description of an exported study, as shown by the standard RO-Crate preview. Example study with placeholder names.")
 
 All of this supports the FAIR principles: Findable, Accessible, Interoperable and Reusable. You can store the export with your data, add it to a repository, or share it with reviewers and colleagues.
 
