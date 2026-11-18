@@ -11,3 +11,7 @@ end
 
 gem "webrick", "~> 1.8"
 gem "erb", "~> 6.0"
+
+group :test do
+  gem "minitest", "~> 5.25"
+end
