@@ -119,7 +119,9 @@ $footer-partners: (uva, ru, uu, vu, tilburg, eur);
     $width: $width + footer-ink-width($name, $footer-partner-area);
   }
   $width: $width + (list.length($footer-partners) - 1) * _footer-row-gap();
-  @return math.ceil(math.div($width, 1rem) * 16) * 1px;
+  // In em, like the logos' rem sizes: a larger browser default font moves the
+  // breakpoint with them. (Media queries resolve em against that default.)
+  @return math.div(math.ceil(math.div($width, 1rem) * 100), 100) * 1em;
 }
 
 @function _scaled($length) {
@@ -252,11 +254,12 @@ $footer-gap: 1.5rem;
     display: flex;
     justify-content: space-between;
     column-gap: var(--footer-row-gap);
+    flex-wrap: wrap; // never overflow, whatever the zoom or font settings
   }
 }
 
 // Narrow phones: every logo shrinks together so the widest still fits its column.
-@media (max-width: 359px) {
+@media (max-width: 22.4375em) { // 359px at the default 16px font
   .site-footer { --logo-scale: 0.85; }
 }
 

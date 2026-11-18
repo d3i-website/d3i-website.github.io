@@ -102,6 +102,18 @@ class FooterLogosTest < Minitest::Test
 
   # Phone: the partner block is centred, so its heading is too. Wider, the
   # partners span the footer and the heading sits left, as Danielle wants.
+  # Logos are sized in rem, so the breakpoints that depend on their size are in em:
+  # with a larger browser default font both grow together and the page never
+  # scrolls sideways. The row also wraps rather than overflow, as a safety net.
+  def test_size_dependent_breakpoints_follow_font_size
+    row = FooterCss.css[/@media \(min-width: ([\d.]+)(\w+)\) \{\s*\.site-footer__grid \{\s*display: flex;/, 2]
+    assert_equal "em", row, "desktop row breakpoint unit"
+    scale = FooterCss.css[/@media \(max-width: ([\d.]+)(\w+)\) \{\s*\.site-footer \{\s*--logo-scale/, 2]
+    assert_equal "em", scale, "logo-scale breakpoint unit"
+    row_rule = FooterCss.css[/@media \(min-width: [\d.]+em\) \{\s*\.site-footer__grid \{[^}]*\}/].to_s
+    assert_match(/flex-wrap:\s*wrap/, row_rule)
+  end
+
   def test_partners_label_centred_on_phone_only
     phone = /@media \(max-width: 767px\) \{\s*\.site-footer__partners > \.site-footer__label \{\s*text-align: center;/
     assert FooterCss.css.match?(phone), "no phone-only centring of the partners label"
