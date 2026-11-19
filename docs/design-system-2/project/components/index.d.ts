@@ -701,7 +701,7 @@ export interface FigureProps {
   className?: string;
 }
 /**
- * A picture in the reading column. The content figure (prose, news) is square, framed by a border hairline, its caption closed by another; the floated panel keeps the site's surface-tint panel and shadow.
+ * A picture in the reading column: square, framed by a border hairline, its caption closed by another. No tinted panel, radius or shadow, in either form.
  * @example
  * <Figure src={cloudFilesUrl} alt="Files moving to and from a cloud" caption="Participants request their data from the platform, then process it locally." />
  */

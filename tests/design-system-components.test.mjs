@@ -368,27 +368,33 @@ function cssRules(css) {
   return out;
 }
 
-// The figure in prose and news is square and framed by a hairline (#145): no class it renders is
-// painted surface-tint. The floated figure on the pages not yet redone keeps the site's tinted panel (R30).
+// Every figure is square and framed by a hairline (#145, carried to the floated one too): no class
+// a Figure renders is painted surface-tint.
 const tintedSelectors = () => cssRules(readFileSync(join(components, 'bundle.css'), 'utf8'))
   .filter(([, decl]) => decl.includes('var(--surface-tint)')).map(([sel]) => sel);
 const classRe = (c) => new RegExp(`\\.${c.replace(/[-_]/g, '\\$&')}(?![\\w-])`);
 
 test('figure has no tint panel', () => {
   const { D3I, React } = bundle();
-  const html = renderToHtml(React.createElement(D3I.Figure, { src: '/_blob/1', alt: 'x', caption: 'A caption.' }));
+  const forms = {
+    content: { src: '/_blob/1', alt: 'x', caption: 'A caption.' },
+    floated: { variant: 'panel', float: 'right', src: '/_blob/1', alt: 'x' },
+  };
   const tinted = tintedSelectors();
   const found = [];
-  for (const c of classesIn(html)) for (const sel of tinted) if (classRe(c).test(sel)) found.push(`${c} in ${sel}`);
-  assert.deepEqual(found, [], `content figure classes on surface-tint:\n  ${found.join('\n  ')}`);
+  for (const [form, props] of Object.entries(forms)) {
+    for (const c of classesIn(renderToHtml(React.createElement(D3I.Figure, props)))) {
+      for (const sel of tinted) if (classRe(c).test(sel)) found.push(`${form}: ${c} in ${sel}`);
+    }
+  }
+  assert.deepEqual(found, [], `Figure classes on surface-tint:\n  ${found.join('\n  ')}`);
 });
 
 // _includes/page-sections.html: <figure class="page-section__figure page-section__figure--right"><img …></figure>
-test('floated figure is the site\'s panel', () => {
+test('floated figure emits page-section__figure', () => {
   const { D3I, React } = bundle();
   const html = renderToHtml(React.createElement(D3I.Figure, { variant: 'panel', float: 'right', src: '/_blob/1', alt: 'x' }));
   assert.equal(html, '<figure class="page-section__figure page-section__figure--right"><img src="/_blob/1" alt="x"/></figure>');
-  assert.ok(tintedSelectors().includes('.page-section__figure'), '.page-section__figure on surface-tint, as on the site');
 });
 
 // _includes/content-page-intro.html writes the date as %-d %B %Y in a <time> with %Y-%m-%d, and
