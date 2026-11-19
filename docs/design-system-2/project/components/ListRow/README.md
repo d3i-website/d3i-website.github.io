@@ -7,9 +7,11 @@ Which items show is the site's business, not the component's. The site lists the
 ## What you provide
 
 - `ListRow`:
-  - `date`: the item's date, ISO ("2026-11-20"). It shows as lists.html writes it: the month's short name ("Nov") over the day without a leading zero ("20"). For an event the site writes a range when the event runs over several days ("Dec" over "7–8"); the component shows the start date only.
+  - `date`: the item's date, ISO ("2026-11-20"). It shows as lists.html writes it: the month's short name ("Nov") over the day without a leading zero ("20").
+  - `endDate` (optional): for an event over several days, its last day, ISO (the site's `end_date`). The row then shows the range as lists.html writes it: the days joined by an en dash ("7–8"), under one month ("Dec") when both month names are the same and under both ("Oct–Nov") when not. An `endDate` equal to `date` shows one day.
   - `title`: the item's title.
-  - `href`: the item's page, or its `external_url` when it has one (the site opens that in a new tab).
+  - `href`: the item's page, or its `external_url` when it has one.
+  - `external` (optional): set it with an `external_url`; the link then opens in a new tab (`target="_blank" rel="noopener noreferrer"`), as on the site.
   - `place` (optional): for an event, its location in `.where`. The site adds " · " and the year when the event is not in the build's year ("Bristol, UK · 2027"); pass that text as you want it shown. Left out, as for news, there is no `.where`.
 - `ListRow.List`: `title` ("Latest news", "Upcoming events"); `moreHref`, the news page or the events page; `moreLabel`, the word "More" leaves out ("news", "events"), which goes in a visually hidden span straight after "More", so the link reads "More news". The rows are its children.
 - `ListRow.Lists`: the two lists, news first.

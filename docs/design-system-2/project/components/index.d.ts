@@ -213,10 +213,14 @@ export declare const HomeCard: ((props: HomeCardProps) => React.ReactElement) & 
 export interface ListRowProps {
   /** The item's date as ISO "2026-11-20"; shown as the month ("Nov") over the day ("20"), as lists.html formats it. */
   date: string;
+  /** For an event over several days, its last day as ISO. The row then shows the range as lists.html does: "Dec" over "7–8", or "Oct–Nov" over "30–2" when the month names differ. On the start date itself, or left out, the row shows one day. */
+  endDate?: string;
   /** The item's title. It is the row's link and its ::after covers the row, so the whole row is the link. */
   title: string;
   /** The item's page, or its external_url. */
   href: string;
+  /** Set for an external_url: the link opens in a new tab (target="_blank" rel="noopener noreferrer"), as on the site. */
+  external?: boolean;
   /** For an event: its location, with " · <year>" when the event is not in this year. Left out (news), there is no .where line. */
   place?: string;
   /** Added to the <article class="row">, which also takes the other unknown props. */

@@ -580,14 +580,26 @@
      %b over the day as %-d), the title, which is the row's link, and for an event its place.
      ListRow.List is one list with its heading line and "More"; ListRow.Lists holds the two. */
   var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  function ymdOf(iso) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(iso || ''));
+    return m ? { key: m[0], month: MONTHS[+m[2] - 1], day: String(+m[3]) } : null;
+  }
+  /* With an endDate on another day, the range as lists.html writes it: the days joined by "–", and
+     the months too when the end's month name differs from the start's. */
   function ListRow(p) {
-    var ymd = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(p.date || '')) || [];
-    var attrs = rest(p, ['date', 'title', 'href', 'place', 'className']);
+    var start = ymdOf(p.date) || { key: '', month: '', day: '' };
+    var end = ymdOf(p.endDate);
+    var month = start.month, day = start.day;
+    if (end && end.key !== start.key) {
+      if (end.month !== month) month += '–' + end.month;
+      day += '–' + end.day;
+    }
+    var attrs = rest(p, ['date', 'endDate', 'title', 'href', 'external', 'place', 'className']);
     attrs.className = cx('row', p.className);
     return h('article', attrs,
-      h('p', { className: 'date' }, h('span', null, MONTHS[+ymd[2] - 1]), h('b', { className: 'serif' }, ymd[3] ? String(+ymd[3]) : null)),
+      h('p', { className: 'date' }, h('span', null, month), h('b', { className: 'serif' }, day)),
       h('div', null,
-        h('h3', { className: 'row__title' }, h('a', { href: p.href }, h('span', null, p.title))),
+        h('h3', { className: 'row__title' }, h('a', linkAttrs(p.href, p.external), h('span', null, p.title))),
         p.place ? h('p', { className: 'where' }, p.place) : null));
   }
   ListRow.List = function ListRowList(p) {

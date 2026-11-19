@@ -271,3 +271,31 @@ test('More has its hidden word', () => {
   assert.ok(html.includes('<a class="more" href="#">More<span class="visually-hidden"> events</span><i class="more__dots"></i><svg class="go"'), 'More, then " events" hidden, the dots and the disc');
   assert.equal(count(html, 'visually-hidden'), 1, 'one hidden word');
 });
+
+// A multi-day event's date is lists.html's range: the days joined by "–", one month when both are in it.
+test('list row shows a range within one month', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.ListRow, { date: '2026-12-07', endDate: '2026-12-08', title: 'x', href: '#' }));
+  assert.ok(html.includes('<p class="date"><span>Dec</span><b class="serif">7–8</b></p>'), 'Dec over 7–8');
+});
+
+test('list row shows a range across months', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.ListRow, { date: '2026-10-30', endDate: '2026-11-02', title: 'x', href: '#' }));
+  assert.ok(html.includes('<p class="date"><span>Oct–Nov</span><b class="serif">30–2</b></p>'), 'Oct–Nov over 30–2');
+});
+
+test('list row with an end date on its start date shows one day', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.ListRow, { date: '2026-11-20', endDate: '2026-11-20', title: 'x', href: '#' }));
+  assert.ok(html.includes('<span>Nov</span><b class="serif">20</b>'), 'no range');
+});
+
+// lists.html opens an external_url in a new tab.
+test('external row opens in a new tab', () => {
+  const { D3I, React } = bundle();
+  const ext = renderToHtml(React.createElement(D3I.ListRow, { date: '2026-11-20', title: 'x', href: 'https://example.org/', external: true }));
+  const own = renderToHtml(React.createElement(D3I.ListRow, { date: '2026-11-20', title: 'x', href: '#' }));
+  assert.ok(ext.includes('<a href="https://example.org/" target="_blank" rel="noopener noreferrer"><span>x</span></a>'), 'target and rel');
+  assert.ok(!/target=|rel=/.test(own), 'none without external');
+});

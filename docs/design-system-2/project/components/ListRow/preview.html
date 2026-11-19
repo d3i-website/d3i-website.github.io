@@ -15,8 +15,8 @@
   var events = [
     { date: '2026-11-20', title: 'Unlocking Data: Exploring research opportunities on online platforms', place: 'Webinar' },
     { date: '2026-11-24', title: 'ODISSEI Conference 2026 – Special Edition: 10 Years of ODISSEI', place: 'Jaarbeursplein 6 3521 AL' },
-    { date: '2026-12-07', title: 'New Directions in Social Media Research Conference', place: "St John's College, University of Cambridge" },
-    { date: '2027-05-10', title: 'Digital Footprints 2027: Transforming Health for People and Planet', place: 'Bristol, UK · 2027' }
+    { date: '2026-12-07', endDate: '2026-12-08', title: 'New Directions in Social Media Research Conference', place: "St John's College, University of Cambridge" },
+    { date: '2027-05-10', endDate: '2027-05-13', title: 'Digital Footprints 2027: Transforming Health for People and Planet', place: 'Bristol, UK · 2027' }
   ];
   function rows(items) {
     return items.map(function (it, i) { return h(D.ListRow, Object.assign({ key: i, href: '#' }, it)); });
