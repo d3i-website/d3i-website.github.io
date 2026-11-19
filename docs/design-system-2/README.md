@@ -12,14 +12,14 @@ Start with `project/README.md`, the brand book: what every token is for, the sli
 
 - `project/` holds the artifact's source files, as the artifact keeps them:
   - `README.md` is the brand book.
-  - `tokens.json` holds every token: 26 colours in a light theme and a proposed dark one, the website and slide type scales, spacing, radii, shadows, layout widths, line weights, node sizes, the front page band's measurements, and breakpoints.
+  - `tokens.json` holds every token: 27 colours in a light theme and a proposed dark one, the website and slide type scales, spacing, radii, shadows, layout widths, line weights, node sizes, the front page band's measurements, and breakpoints.
   - `tokens.css` is `tokens.json` compiled to CSS variables, `--text-<style>` font shorthands, a class per text style and the `@font-face` rules. It is generated: see below.
   - `components/bundle.js` defines `window.D3I`: 24 website components and 9 slide components, as React 18 functions. `components/bundle.css` styles the website components; `components/index.d.ts` documents every prop; `components/lib/` carries React and ReactDOM 18.3.1.
   - `components/<Name>/README.md` is each component's guidelines; `components/<Name>/preview.html` is the live preview the artifact page shows. Previews only run inside that page, which loads the stylesheets, React and the bundle first; opened from disk they are blank.
   - `fonts/` holds Nunito, Nunito Sans and Libre Caslon Condensed (all SIL Open Font License).
   - `assets/<Group>/` holds the images, with a `README.md` per group on how each is used. In the artifact the images are uploads; `design-system.json` (the artifact's index) records each one's upload id under `assetGroups`. The `Network` group is not uploaded yet and has no ids there.
 - `tools/build_tokens_css.py` compiles `project/tokens.css` from `project/tokens.json`.
-- `tools/check_reference_values.py` checks that every colour and font size the front page reference uses has a token.
+- `tools/check_reference_values.py` checks that every colour and font size the front page reference uses has a token. With `--site` it scans the site's Sass for the redone surfaces (`_site`, `_pages`, `_nav`, `_footer`, `_news-post`, `_home-band`, `_home-content`) and lists every hex colour that has no token. Colours that belong only to pages not yet redone are listed in the script's `ALLOWED_UNREDONE`.
 - `tools/extract_network_pieces.py` writes the `Network` pieces from the designer's hero artwork.
 - `tools/install_copy.py` does the mechanical part of installing or re-syncing a copy in someone's claude.ai account (see `INSTALL.md`).
 

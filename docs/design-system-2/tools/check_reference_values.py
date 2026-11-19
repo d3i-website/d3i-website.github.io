@@ -12,6 +12,13 @@ styles (the Slides groups are left out, since the reference is a web page).
 
     python3 -I docs/design-system-2/tools/check_reference_values.py
 
+With --site it instead scans the site's own Sass for the redone surfaces (the front
+page, header, footer, content pages and news article) and prints each hex colour that
+no token matches. Colours that belong only to pages not yet redone are listed in
+ALLOWED_UNREDONE below, each with its page.
+
+    python3 -I docs/design-system-2/tools/check_reference_values.py --site
+
 Exits 1 if it printed anything, 0 otherwise.
 """
 import json
@@ -26,6 +33,21 @@ SKIP = (".proto", ".nav")
 
 HEX = re.compile(r"#[0-9a-fA-F]{3,8}\b")
 PX = r"(\d+(?:\.\d+)?)px"
+
+SITE_ROOT = HERE.parent.parent.parent
+SITE_FILES = ("_site", "_pages", "_nav", "_footer", "_news-post", "_home-band", "_home-content")
+
+# Colours in the scanned Sass that have no token because they belong only to pages the
+# rebrand has not redone. Each is six lowercase digits, with the page that uses it.
+ALLOWED_UNREDONE = {
+    "#4f5560": "_footer.scss: .site-footer__label base colour, overridden by --small on every label in use",
+    "#50545d": "_pages.scss: sidebar panel title and links (sidebar, not yet redone)",
+    "#fbfbfc": "_pages.scss: sidebar panel ground (sidebar, not yet redone)",
+    "#fafbfd": "_pages.scss: table of contents ground (not yet redone)",
+    "#fafcff": "_pages.scss: featured archive card ground (archive pages, not yet redone)",
+    "#f6f8fc": "_site.scss: media grid image ground (media pages, not yet redone)",
+    "#f0f8ff": "_site.scss: callout ground (callouts, not yet redone)",
+}
 
 
 def rules(css):
@@ -60,7 +82,37 @@ def six(hex_colour):
     return "#" + "".join(c * 2 for c in h[1:]) if len(h) == 4 else h
 
 
+def token_colours():
+    t = json.loads(TOKENS.read_text(encoding="utf-8"))
+    first = t["color"]["themes"][0]["id"]
+    out = set()
+    for tok in t["color"]["tokens"]:
+        v = tok["value"]
+        v = v.get(first) if isinstance(v, dict) else v
+        if isinstance(v, str) and HEX.fullmatch(v):
+            out.add(six(v))
+    return out
+
+
+def site():
+    """Print each hex colour in the site's Sass that has no token. Returns the exit code."""
+    known = token_colours() | set(ALLOWED_UNREDONE)
+    found = {}
+    for name in SITE_FILES:
+        path = SITE_ROOT / "_sass" / f"_{name.lstrip('_')}.scss"
+        text = re.sub(r"/\*.*?\*/", "", path.read_text(encoding="utf-8"), flags=re.S)
+        text = re.sub(r"(?m)(^|\s)//.*$", "", text)
+        for h in HEX.findall(text):
+            found.setdefault(six(h), []).append(path.name)
+    missing = [(c, f) for c, f in sorted(found.items()) if c not in known]
+    for value, files in missing:
+        print(f"{value:<9} no token; used in {', '.join(dict.fromkeys(files))}")
+    return 1 if missing else 0
+
+
 def main():
+    if "--site" in sys.argv[1:]:
+        return site()
     html = REFERENCE.read_text(encoding="utf-8")
     css = re.search(r"<style>(.*?)</style>", html, flags=re.S).group(1)
     css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)

@@ -18,7 +18,7 @@ The website is white with one colour block. Learn the roles and you know every t
 **Ground and ink.**
 
 - `surface` (white) is the ground of every page and slide. Cards and lists stand on it without fills.
-- `heading` (#252a34) is the ink of headings, card and list headings, row titles, the date's day and the note's title and body. `text` (#363b46) is for anything read in sentences. `text-muted` (#626976) is for everything secondary: eyebrows, the month in a date, an event's place, the copyright line, the header's tagline. Nothing else is coloured unless it has a job.
+- `heading` (#252a34) is the ink of headings, card and list headings, row titles, the date's day and the note's title and body. `text` (#363b46) is for anything read in sentences. `text-muted` (#626976) is for everything secondary: eyebrows, the month in a date, an event's place, the copyright line, the header's tagline. `nav-text` (#6a6a6a) is the header's links alone. Nothing else is coloured unless it has a job.
 - `border` is every hairline: between list rows, in the footer, in tables. It is decorative; nothing depends on seeing it.
 
 **The working colour and the band.**
@@ -206,8 +206,7 @@ The note carries one timely message, such as a position statement. It is not par
 - **The line about the newsletter and the team**, centred, `outro-top` below the cards, in `body` and `text`, with its links.
 - **The two lists**, after `section-space`, the front page's one large break: Latest news on the left and Upcoming events on the right, `list-gap` apart. Each is a heading in `list-heading` that ends its line with "More" and the arrow disc, then rows: date, title, and for events the place. Four rows each. No pictures, no summaries, no carousel. Every upcoming event is listed, not only featured ones.
 - A row is the date (the month in `eyebrow` and `text-muted`, over the day in `numeral` and `heading`), the title in `row-title` and `heading`, and for events the place in `caption` at 700 in `text-muted`. Rows are divided by `border` hairlines, with one above the first row and one below the last. The lists are set in `small`. `lists-bottom` lies below them.
-- **The footer** keeps its content; only type and lines change. Its lines and labels are `label` in `heading` between `border` hairlines, the partner logos are a strip, and the copyright line is `caption` in `text-muted`.
-- The header and footer got a first pass only (type and lines). The header holds the site's name with its tagline in `text-muted`, and the main nav.
+- **The header and the footer** are under Header and footer, below.
 
 ## Website · Layout
 
@@ -216,8 +215,37 @@ The note carries one timely message, such as a position statement. It is not par
 - The front page's vertical rhythm, top to bottom: the band, `cards-top`, the cards, `outro-top`, the line about the newsletter and the team, `section-space`, the two lists, `lists-bottom`, the footer.
 - The pages not yet redone keep the earlier layout. `content-width` is for everything read and `measure` for leads. From 900px a content page is a two-column grid: a `sidebar-width` column on the left, the reading column on the right. Below 900px it is one column with the sidebar first.
 - Hubs come in two modes. Journey hubs (Software, Prepare a study) stack numbered steps that alternate image left and right, `space-64` to `space-96` apart, each image letterboxed in a 5:4 box. Directory hubs (Community, About) are a 3:6:3 hero over a list of entries divided by `border` rules, with the post-it pinned top right.
-- On those pages, figures float right (sometimes left) from 900px at about 14rem wide, `space-32` from the text, in a `surface-tint` panel; below that they centre above the text. Grids: news 3-up from 768px, people 2-up then 3-up, institutions `auto-fit` at 15rem, media 2-up, routes 2-up from 900px. Rows wrap; nothing scrolls sideways except the script-selector frame. These widths live in the components' CSS. The breakpoint tokens now describe the front page, and 768px is not among them.
+- On those pages, figures float right (sometimes left) from 900px at about 14rem wide, `space-32` from the text, in a square frame with a `border` hairline and a caption closed by another (see Content pages); below that they centre above the text. Grids: news 3-up from 768px, people 2-up then 3-up, institutions `auto-fit` at 15rem, media 2-up, routes 2-up from 900px. Rows wrap; nothing scrolls sideways except the script-selector frame. These widths live in the components' CSS. The breakpoint tokens now describe the front page, and 768px is not among them.
 - The footer pins to the bottom of short pages (the body is a flex column).
+
+## Website · Header and footer
+
+**Header.** One row, `58px` high, at every width: 16px above, a 41px row, and a 1px faint hairline under it. It is sticky and white.
+
+- The name is 16px at 800 in the text colour, with the tagline under it in `text-muted`, 14px. The two read as one link home.
+- From 1000px, the name is on the left and the six main links on the right, 28px apart (14px of padding either side of each label; the last label ends on the page edge). The links are `nav-text`, 15px at 500. On hover and on keyboard focus a link turns `blue` and grows a 4px `blue` bar. The page's own link has a faint tint behind it.
+- Below 1000px, the six links fold away. The row holds the name and a "Menu" button (`heading`, 15px at 600), and the button opens a drop-down panel: the same six links, one per row, at the header's full width, over the top of the page rather than pushing it down. A row is 44px, rows are divided by `border` hairlines, and the hover bar stands at the row's left end. The button's `aria-expanded` says whether it is open.
+- The panel closes on a tap or click outside it, on Escape (focus returns to the button), when a link is followed, and when the window grows to 1000px.
+- Without JavaScript the button stays hidden and the links wrap under the name. The header is then 107px high at 800px wide, 148px at 600px and 189px at 390px.
+- A skip link ("Skip to content") stays fully off-screen until it takes keyboard focus.
+- Every vertical size in the header is a whole number of pixels at the default font size, so the front page's thin lines below it never land on a half pixel.
+
+**Footer.** Three parts under a faint hairline, each separated by `space-16`: who provides the service, the project partners, and the copyright line.
+
+- The providers are a labelled pair: "Provided by" over the ODISSEI logo and "Supported by" over the Eyra logo. The labels are `label`-sized small capitals (0.72rem, 0.08em tracking) in `text-muted`. A faint hairline closes the pair.
+- The partners are under one label, "Project partners". On a phone they are a grid of two columns, edge-aligned, the block centred and its label with it. From 768px they are three columns, centred. From the width where all six fit in one row, they are six in a row, spread evenly.
+- Every logo has the same ink area, the part of the file that is not white or transparent. The providers' logos have 17.8rem² each (`$footer-provider-area`) and the partners' 13.7rem² (`$footer-partner-area`). A wide logo is therefore low and a compact one tall. Pale, thin logos are enlarged a little more, since thin type reads as thin however large it is. The providers' area keeps the ODISSEI wordmark above 9px; the partners' is the largest at which two columns fit a 360px phone. Below 360px every logo shrinks together to 85%.
+- Some files carry whitespace of their own. That whitespace is the logo's clear zone: no other logo may sit in it, and the gaps between columns and between partners are as wide as the widest zone. A logo is placed by its ink, not its file.
+- The copyright line is 0.85rem in `text-muted`. Never recolour a logo.
+
+## Website · Content pages
+
+- **Figures** are square. The picture sits in a frame of one `border` hairline, and the caption beneath is closed by another. There is no tinted panel behind it (not `surface-tint`), no radius and no shadow. The caption is 15px in `text`, line height 1.5, left aligned, 0.6rem under the frame and 0.7rem above its closing line. A figure sits 1.75rem below the text and 1.5rem above what follows, no wider than `content-width`.
+- **Code blocks** are sky blue: a white block with a 1px `sky` border, padded 1rem, scrolling sideways if a line is long. Inline code is `surface-tint` with 0.15em of padding and no outline.
+- **Prose spacing.** The reset zeroes margins, so the prose gives them back. A second heading has 2.25rem above and 0.15rem below, in the serif at 1.6875rem and weight 420 (the serif is provisional). A third heading is the sans at 700, 1.75rem above and 0.1rem below. Lists have 0.4rem above and 0.9rem below, and 0.3rem between items. A code block has 0.6rem above and 0.9rem below. A definition term is `heading` at 800; its definition has a faint 2px coral rule at its left.
+- **A news article** is a 40rem column. Its date comes first, over the title: 11px, 700, upper case, 0.12em tracking, in `text-muted`. Beside it is the "Latest news" rail, 15rem wide and 4.5rem from the column, the two side by side from 64rem and centred as a pair. Below 64rem the rail sits 2.5rem under the article, in a column of the same width. There is no sidebar on a news article.
+- **Figures in an article** reach 2rem past the text on each side from 48rem. The caption keeps the text's width.
+- **The rail** is the front page's list in small. A heading "Latest news" in the serif (22px, weight 420, provisional) in `heading`, ending its line with "All", a short dotted `sky` line and the arrow disc, 22px. Under it, up to five rows, with a `border` hairline above each and one below the last: the date as a month over a day (10px caps in `text-muted` over a 20px serif numeral in `heading`, in a 38px column), then the title at 14.5px, weight 600, in `heading`. The rail shows the five newest other news items dated no later than the build. A row that has an external link opens it in a new tab. A rail with no rows is left out.
 
 ## Website · What shows at each width
 
@@ -238,14 +266,14 @@ The breakpoints are desktop-first: `bp-lg` (1280px), `bp-md` (1000px), `bp-lists
 
 - The front page has no pictures besides the band's drawing and the partner logos in the footer. The cards and the lists carry none.
 - The band's pieces are in `assets/Network`: the participant's story (switch, lock, phone, chart, funnel, tick, the man's portrait, map pin) and the research side (globe, consent badge, music note, the woman's portrait). Nine are cut from the designer's hero artwork and three were drawn later; the group's README says how they are made. They are the front page's only icons, and each sits on a line. The arrow disc is the only other mark.
-- Partner and funder logos are shown small, in a strip, at their own capped sizes (`assets/Partners`, `assets/Logos`). Never recolour them.
+- Partner and provider logos are shown small, each sized to the same ink area (see Header and footer; `assets/Partners`, `assets/Logos`). Never recolour them.
 - Carried over for the pages not yet redone: flat unDraw figures recoloured in one accent (`assets/Illustrations`, `assets/unDraw`); circular photos of people; platform logos as 18px icons inside platform pills (`assets/Platforms`); 0.45rem `coral` bullets; the route stop, a hollow 0.8rem circle with a 3px accent ring; and the two stroke glyphs that head the routes rails (`assets/Glyphs`), inlined so `currentColor` takes the rail's accent.
 - The earlier homepage hero is retired from the front page: the `blue-tint` disc, the clouds and plane, and the road with its travellers (`assets/Sprites`).
 
 ## Website · Motion
 
-- The front page has almost no motion. A link's dotted underline turns solid on hover and on keyboard focus; its colour never changes. There are no carousels.
-- The pages not yet redone keep their motion. Main nav items grow a 4px `blue` bar from the centre (`scaleX` 0 to 1) over 0.2s ease-in-out and turn `blue`. Carousels slide over 0.55s `cubic-bezier(0.4, 0, 0.2, 1)` (movements) or 0.45s ease (news); the active dot stretches from 11px to a 32px bar over 0.3s.
+- The front page has almost no motion. A link's dotted underline turns solid at once on hover and on keyboard focus; its colour never changes. A version in which the underline regrew from the left was tried and reverted. There are no carousels.
+- The header's links grow a 4px `blue` bar from the centre (`scaleX` 0 to 1) over 0.2s ease-in-out and turn `blue`. In the Menu panel the bar stands at the row's left end and grows downward (`scaleY`). The pages not yet redone keep their other motion. Carousels slide over 0.55s `cubic-bezier(0.4, 0, 0.2, 1)` (movements) or 0.45s ease (news); the active dot stretches from 11px to a 32px bar over 0.3s.
 - Everything honours `prefers-reduced-motion: reduce`: the carousels stop transitioning.
 
 ## Website · Components
