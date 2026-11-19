@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"D3I","components":[{"name":"SiteHeader"},{"name":"SectionSubnav"},{"name":"SiteFooter"},{"name":"FrontPage"},{"name":"Band"},{"name":"Note"},{"name":"ArrowDisc"},{"name":"Link"},{"name":"HomeCard"},{"name":"ListRow"},{"name":"ActionLink"},{"name":"ContactBlock"},{"name":"Postit"},{"name":"Callout"},{"name":"NewsCard"},{"name":"ArchiveCard"},{"name":"InstitutionCard"},{"name":"ProjectCard"},{"name":"PeopleGrid"},{"name":"PageIntro"},{"name":"SidebarPanel"},{"name":"TableOfContents"},{"name":"Routes"},{"name":"JourneyNext"},{"name":"HubStep"},{"name":"Prose"},{"name":"Figure"},{"name":"EventDetails"},{"name":"UsageFigures"},{"name":"SlideCover"},{"name":"SlideFrame"},{"name":"SlidePlan"},{"name":"SlideSectionStop"},{"name":"SlideBuild"},{"name":"SlideStats"},{"name":"SlideFunnel"},{"name":"SlideWindow"},{"name":"SlideQuestions"}]} */
+/* @ds-bundle: {"format":4,"namespace":"D3I","components":[{"name":"SiteHeader"},{"name":"SectionSubnav"},{"name":"SiteFooter"},{"name":"FrontPage"},{"name":"Band"},{"name":"Note"},{"name":"ArrowDisc"},{"name":"Link"},{"name":"HomeCard"},{"name":"ListRow"},{"name":"ActionLink"},{"name":"ContactBlock"},{"name":"Postit"},{"name":"Callout"},{"name":"NewsCard"},{"name":"ArchiveCard"},{"name":"InstitutionCard"},{"name":"ProjectCard"},{"name":"PeopleGrid"},{"name":"PageIntro"},{"name":"SidebarPanel"},{"name":"TableOfContents"},{"name":"Routes"},{"name":"JourneyNext"},{"name":"HubStep"},{"name":"Prose"},{"name":"Figure"},{"name":"NewsArticle"},{"name":"EventDetails"},{"name":"UsageFigures"},{"name":"SlideCover"},{"name":"SlideFrame"},{"name":"SlidePlan"},{"name":"SlideSectionStop"},{"name":"SlideBuild"},{"name":"SlideStats"},{"name":"SlideFunnel"},{"name":"SlideWindow"},{"name":"SlideQuestions"}]} */
 /*
  * datadonation.eu components, as window.D3I.
  *
@@ -59,24 +59,11 @@
     return s.length < 2 ? '0' + s : s;
   }
 
-  var ACCENT_TEXT = {
-    primary: 'var(--blue)',
-    secondary: 'var(--coral)',
-    tertiary: 'var(--yellow-text)'
-  };
-
   /* Actions --------------------------------------------------------------- */
 
   function ActionLink(p) {
-    var variant = p.variant || 'section';
-    var attrs = Object.assign(rest(p, ['href', 'external', 'variant', 'accent', 'className', 'style']), linkAttrs(p.href, p.external));
-    if (variant === 'accent') {
-      attrs.className = cx('movement-card__link', p.className);
-      attrs.style = Object.assign({ color: ACCENT_TEXT[p.accent || 'primary'] }, p.style);
-      return h('a', attrs, p.children, ' →');
-    }
-    attrs.className = cx(variant === 'compact' ? 'cta-link' : 'section-cta', p.className);
-    if (p.style) attrs.style = p.style;
+    var attrs = Object.assign(rest(p, ['href', 'external', 'variant', 'className']), linkAttrs(p.href, p.external));
+    attrs.className = cx(p.variant === 'compact' ? 'cta-link' : 'section-cta', p.className);
     return h('a', attrs, p.children, ' ', arrow());
   }
 
@@ -309,6 +296,8 @@
             }))))));
   }
 
+  /* As _layouts/page.html writes it for toc: true; the site's generator (_includes/toc.html) writes
+     the list as ul.toc__menu, so the links are running-text links. */
   function TableOfContents(p) {
     var attrs = rest(p, ['title', 'items', 'className']);
     var title = p.title || 'Contents';
@@ -316,7 +305,7 @@
     attrs['aria-label'] = typeof title === 'string' ? title : 'Contents';
     return h('nav', attrs,
       h('p', { className: 'content-page__toc-title' }, title),
-      h('ul', { className: 'toc__menu content-page__toc-list' }, list(p.items).map(function (it, i) {
+      h('ul', { className: 'toc__menu' }, list(p.items).map(function (it, i) {
         return h('li', { key: i }, h('a', { href: it.href }, it.label));
       })));
   }
@@ -643,6 +632,8 @@
     return h('div', attrs, p.children);
   }
 
+  /* A figure as _includes/figure (section-figure; also _plugins/news_figures.rb in news posts) or
+     _includes/page-sections.html (page-section__figure) writes it: square, framed by a hairline. */
   function Figure(p) {
     var img = h('img', { src: p.src, alt: p.alt || '' });
     var attrs = rest(p, ['src', 'alt', 'caption', 'variant', 'float', 'className']);
@@ -653,11 +644,40 @@
     attrs.className = cx('section-figure', p.className);
     return h('figure', attrs, img, p.caption ? h('figcaption', null, p.caption) : null);
   }
-  Figure.MediaGrid = function FigureMediaGrid(p) {
-    var attrs = rest(p, ['images', 'className']);
-    attrs.className = cx('media-grid', p.className);
-    return h('div', attrs, list(p.images).map(function (im, i) { return h('img', { key: i, src: im.src, alt: im.alt || '' }); }));
-  };
+
+  /* A news post as _layouts/page.html writes it for the news collection: the date over the title
+     (_includes/content-page-intro.html), the body in .prose, and the "Latest news" rail beside it
+     (_includes/news-rail.html), left out when it has no rows. */
+  var MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  function NewsArticle(p) {
+    var d = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(p.date || ''));
+    var rail = list(p.rail);
+    var attrs = rest(p, ['title', 'date', 'html', 'rail', 'allHref', 'className']);
+    attrs.className = cx('content-page', 'content-page--news', p.className);
+    return h('article', attrs,
+      h('div', { className: 'content-page__grid content-page__grid--full' },
+        h('div', { className: 'content-page__main' },
+          h('div', { className: 'content-page__intro' },
+            h('header', { className: 'content-page__header' },
+              d ? h('p', { className: 'content-page__date' },
+                h('time', { dateTime: d[0] }, +d[3] + ' ' + MONTH_NAMES[+d[2] - 1] + ' ' + d[1])) : null,
+              h('h1', { className: 'content-page__title' }, p.title))),
+          h(Prose, { html: p.html }, p.children)),
+        rail.length > 0 ? h('aside', { className: 'news-rail', 'aria-labelledby': 'news-rail-title' },
+          h('div', { className: 'news-rail__head' },
+            h('h2', { className: 'news-rail__title', id: 'news-rail-title' }, 'Latest news'),
+            h('a', { className: 'news-rail__all', href: p.allHref },
+              'All',
+              h('span', { className: 'visually-hidden' }, ' news'),
+              h('i', { className: 'news-rail__dots' }),
+              h('svg', { className: 'news-rail__disc', width: '22', height: '22', viewBox: '-18 -18 36 36', 'aria-hidden': 'true' }, discParts('2')))),
+          h('ul', { className: 'news-rail__rows' }, rail.map(function (it, i) {
+            var day = ymdOf(it.date) || { month: '', day: '' };
+            return h('li', { className: 'news-rail__row', key: i },
+              h('p', { className: 'news-rail__date' }, h('span', null, day.month), h('b', null, day.day)),
+              h('a', Object.assign({ className: 'news-rail__link' }, linkAttrs(it.href, it.external)), it.title));
+          }))) : null));
+  }
 
   function EventDetails(p) {
     var attrs = rest(p, ['rows', 'className']);
@@ -1094,6 +1114,7 @@
     HubStep: HubStep,
     Prose: Prose,
     Figure: Figure,
+    NewsArticle: NewsArticle,
     EventDetails: EventDetails,
     UsageFigures: UsageFigures,
     SlideCover: SlideCover,

@@ -1,0 +1,37 @@
+<!-- @dsCard group="Content" height=1000 width=1152 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>NewsArticle — preview</title>
+<style>.pv{padding:1.5rem 1.5rem 2rem}.pv .content-page{padding-top:0}</style></head>
+<body>
+<div id="root" class="pv"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  /* The body is ordinary Prose content: paragraphs, headings, and a Figure where the post has a captioned picture. */
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h(D.NewsArticle, {
+      title: 'Ready to reproduce: export your data donation study',
+      date: '2026-11-09',
+      allHref: '#',
+      rail: [
+        { title: 'Building a Shared Knowledge Base for Data Donation: Join the DDP Tracker Initiative', date: '2026-11-03', href: '#' },
+        { title: 'Data Donation Early Career Network', date: '2026-10-12', href: '#' },
+        { title: 'D3I and TDCC RIGHTS at the Data Donation Symposium 2026 in Berlin', date: '2026-10-09', href: '#' },
+        { title: 'Meet Lennert: Postdoctoral Researcher in the Macroscope Project', date: '2026-10-01', href: '#' },
+        { title: 'Workshop Recap: Towards Shared Standards for Data Donation Research', date: '2026-09-21', href: '#' }
+      ]
+    },
+      h('p', null, 'If you run a data donation study with Port on ', h('a', { href: '#' }, 'Next'), ', you can now export your study setup as an RO-Crate with one click. The export packages everything that participants see, including information pages, consent, instructions, and tasks into a single documentation package.'),
+      h('h2', null, 'How to export your study'),
+      h('p', null, 'Open your study in Next, click the ', h('strong', null, '⋮'), ' menu at the top right next to ', h('strong', null, 'Publish'), ' and choose ', h('strong', null, 'Export'), '. Your browser downloads a .zip file with the name of your study.'),
+      h(D.Figure, {
+        src: '/_blob/cff92c11f04b720e927de0cfc5fd401f',
+        alt: 'Files moving to and from a cloud',
+        caption: 'Open the ⋮ menu and choose Export. The download is a .zip file named after your study.'
+      }),
+      h('p', null, 'All of this supports the FAIR principles: Findable, Accessible, Interoperable and Reusable.')
+    )
+  );
+</script>
+</body>
+</html>

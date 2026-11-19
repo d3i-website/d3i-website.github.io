@@ -284,13 +284,10 @@ export interface ActionLinkProps {
   href: string;
   /** The label: a verb phrase, no arrow (the arrow is added). */
   children: React.ReactNode;
-  /** section: the standard coral link (.section-cta); compact: inside cards and headers (.cta-link); accent: in an item's accent (.movement-card__link). */
-  variant?: 'section' | 'compact' | 'accent';
-  /** For variant accent only: primary (blue), secondary (coral) or tertiary (yellow-text). */
-  accent?: 'primary' | 'secondary' | 'tertiary';
+  /** section: the standard coral link (.section-cta); compact: inside cards and headers (.cta-link). */
+  variant?: 'section' | 'compact';
   external?: boolean;
   className?: string;
-  style?: React.CSSProperties;
 }
 /**
  * The site's one call to action: a bold coral link with a trailing arrow. One per card or section; there are no buttons.
@@ -588,7 +585,7 @@ export interface TableOfContentsProps {
   className?: string;
 }
 /**
- * An in-page contents list at the top of a long content page.
+ * An in-page contents list at the top of a long content page: a soft panel, a bold title and the headings as a bulleted list of running-text links (ul.toc__menu, as the site's generator writes it).
  * @example
  * <TableOfContents items={[{ label: "What the software does", href: "#" }, { label: "How to get access", href: "#" }]} />
  */
@@ -686,7 +683,7 @@ export interface ProseProps {
   className?: string;
 }
 /**
- * Markdown content as the site renders it: Nunito headings, blue links, ruled blockquote, code on the panel tint, plain tables.
+ * Markdown content as the site renders it: serif second headings (provisional) and sans third headings with their spacing given back, running-text links, ruled blockquote, sky-framed code blocks, plain tables, definitions with a faint coral rule.
  * @example
  * <Prose html={renderedMarkdown} />
  */
@@ -695,7 +692,7 @@ export declare function Prose(props: ProseProps): React.ReactElement;
 export interface FigureProps {
   src: string;
   alt: string;
-  /** content (default): the captioned figure in the reading column; panel: the small floated panel beside a section. */
+  /** content (default): the captioned figure in the reading column; panel: the small floated figure beside a section. */
   variant?: 'content' | 'panel';
   /** For variant content. */
   caption?: React.ReactNode;
@@ -703,20 +700,42 @@ export interface FigureProps {
   float?: 'right' | 'left';
   className?: string;
 }
-export interface FigureMediaGridProps {
-  /** Two images side by side above 768px. */
-  images: Picture[];
-  className?: string;
-}
 /**
- * Illustrations and diagrams in the reading column, on a surface-tint panel with the blue-tinted shadow.
+ * A picture in the reading column: square, framed by a border hairline, its caption closed by another. No tinted panel, radius or shadow.
  * @example
  * <Figure src={cloudFilesUrl} alt="Files moving to and from a cloud" caption="Participants request their data from the platform, then process it locally." />
  */
-export declare const Figure: ((props: FigureProps) => React.ReactElement) & {
-  /** Two images side by side. */
-  MediaGrid: (props: FigureMediaGridProps) => React.ReactElement;
-};
+export declare function Figure(props: FigureProps): React.ReactElement;
+
+/** One row of the "Latest news" rail. */
+export interface NewsRailItem {
+  title: string;
+  /** ISO date, YYYY-MM-DD: shown as the month (%b) over the day (%-d). */
+  date: string;
+  href: string;
+  /** Opens in a new tab with rel="noopener noreferrer" (a news item with an external_url). */
+  external?: boolean;
+}
+export interface NewsArticleProps {
+  title: string;
+  /** ISO date, YYYY-MM-DD: shown over the title as "9 November 2026". */
+  date: string;
+  /** The body, inside .prose: elements, Figures among them. */
+  children?: React.ReactNode;
+  /** Or the body as rendered Markdown, as Prose takes it. */
+  html?: string;
+  /** Up to five other news items, newest first; none leaves the rail out. */
+  rail?: NewsRailItem[];
+  /** Where "All" goes: the news page. */
+  allHref: string;
+  className?: string;
+}
+/**
+ * A news post: a 40rem column with the date over the title and the body, and the "Latest news" rail beside it from 64rem (under it below).
+ * @example
+ * <NewsArticle title="Ready to reproduce: export your data donation study" date="2026-11-09" allHref={newsUrl} rail={[{ title: "Data Donation Early Career Network", date: "2026-10-12", href: itemUrl }]}><p>…</p></NewsArticle>
+ */
+export declare function NewsArticle(props: NewsArticleProps): React.ReactElement;
 
 export interface EventDetailsProps {
   /** Date, location and the like; a value may carry a link. */
@@ -1012,6 +1031,7 @@ declare global {
       HubStep: typeof HubStep;
       Prose: typeof Prose;
       Figure: typeof Figure;
+      NewsArticle: typeof NewsArticle;
       EventDetails: typeof EventDetails;
       UsageFigures: typeof UsageFigures;
       SlideCover: typeof SlideCover;

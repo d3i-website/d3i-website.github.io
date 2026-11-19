@@ -358,3 +358,58 @@ test('footer with no partners', () => {
 test('footer rejects a logo the site has not measured', () => {
   assert.throws(() => footer({ partners: [{ name: 'X', key: 'x', logo: '/_blob/1' }] }), /_footer\.scss/);
 });
+
+/* Figure, NewsArticle ---------------------------------------------------------------------- */
+
+// The rules of bundle.css, media queries flattened: [selector, declarations].
+function cssRules(css) {
+  const out = [];
+  for (const m of css.replace(/@media[^{]*\{/g, '').matchAll(/([^{}]+)\{([^{}]*)\}/g)) out.push([m[1].trim(), m[2]]);
+  return out;
+}
+
+// Figures are square and framed by a hairline (#145): no class a Figure renders is painted surface-tint.
+test('figure has no tint panel', () => {
+  const css = readFileSync(join(components, 'bundle.css'), 'utf8');
+  const tinted = cssRules(css).filter(([, decl]) => decl.includes('var(--surface-tint)')).map(([sel]) => sel);
+  const found = [];
+  for (const c of classesIn(runPreview(previewPath('Figure'), bundle()))) {
+    if (c.startsWith('pv')) continue;
+    const re = new RegExp(`\\.${c.replace(/[-_]/g, '\\$&')}(?![\\w-])`);
+    for (const sel of tinted) if (re.test(sel)) found.push(`${c} in ${sel}`);
+  }
+  assert.deepEqual(found, [], `Figure classes on surface-tint:\n  ${found.join('\n  ')}`);
+});
+
+// _includes/content-page-intro.html writes the date as %-d %B %Y in a <time> with %Y-%m-%d, and
+// _includes/news-rail.html each row's date as %b over %-d, then the title as the row's link.
+const RAIL = [
+  { title: 'Building a Shared Knowledge Base', date: '2026-11-03', href: '#' },
+  { title: 'Data Donation Early Career Network', date: '2026-10-12', href: '#' },
+  { title: 'Workshop Recap', date: '2026-09-01', href: 'https://example.org/', external: true },
+];
+const article = (props) => {
+  const { D3I, React } = bundle();
+  return renderToHtml(React.createElement(D3I.NewsArticle,
+    { title: 'Ready to reproduce', date: '2026-11-09', allHref: '#', rail: RAIL, ...props },
+    React.createElement('p', null, 'Body')));
+};
+
+test('news article rail', () => {
+  const html = article({});
+  // React writes the prop dateTime as the attribute dateTime; HTML reads attribute names in any case.
+  assert.match(html, /<p class="content-page__date"><time datetime="2026-11-09">9 November 2026<\/time><\/p>/i, 'the date as the site writes it');
+  assert.ok(html.includes('<h1 class="content-page__title">Ready to reproduce</h1>'), 'the title');
+  assert.ok(html.includes('<div class="prose"><p>Body</p></div>'), 'the body in .prose');
+  assert.equal(count(html, 'class="news-rail__link"'), 3, 'three rail links');
+  assert.ok(html.includes('<li class="news-rail__row"><p class="news-rail__date"><span>Nov</span><b>3</b></p>'
+    + '<a class="news-rail__link" href="#">Building a Shared Knowledge Base</a></li>'), 'a row: Nov over 3, then the link');
+  assert.ok(html.includes('<span>Sep</span><b>1</b></p><a class="news-rail__link" href="https://example.org/" target="_blank" rel="noopener noreferrer">'), 'an external row opens in a new tab');
+  assert.ok(html.includes('<a class="news-rail__all" href="#">All<span class="visually-hidden"> news</span><i class="news-rail__dots"></i><svg class="news-rail__disc" width="22" height="22"'), '"All", its hidden word, the dots and the disc');
+});
+
+test('news article without a rail has no aside', () => {
+  const html = article({ rail: [] });
+  assert.ok(!html.includes('news-rail'), 'no rail');
+  assert.ok(html.startsWith('<article class="content-page content-page--news"><div class="content-page__grid content-page__grid--full"><div class="content-page__main">'), 'the article column');
+});
