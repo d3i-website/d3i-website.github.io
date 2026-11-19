@@ -15,7 +15,9 @@ styles (the Slides groups are left out, since the reference is a web page).
 With --site it instead scans the site's own Sass for the redone surfaces (the front
 page, header, footer, content pages and news article) and prints each hex colour that
 no token matches. Colours that belong only to pages not yet redone are listed in
-ALLOWED_UNREDONE below, each with its page.
+ALLOWED_UNREDONE below, each with its page. It also resolves each $name those files use
+to its hex in _sass/_variables.scss and checks that value the same way. It does not see
+rgba() or hsl() colours, named colours (white, black), or a colour built by a Sass function.
 
     python3 -I docs/design-system-2/tools/check_reference_values.py --site
 
@@ -35,6 +37,7 @@ HEX = re.compile(r"#[0-9a-fA-F]{3,8}\b")
 PX = r"(\d+(?:\.\d+)?)px"
 
 SITE_ROOT = HERE.parent.parent.parent
+VARIABLES = SITE_ROOT / "_sass" / "_variables.scss"
 SITE_FILES = ("_site", "_pages", "_nav", "_footer", "_news-post", "_home-band", "_home-content")
 
 # Colours in the scanned Sass that have no token because they belong only to pages the
@@ -94,16 +97,25 @@ def token_colours():
     return out
 
 
+def site_variables():
+    """{'$name': '#hex'} for each colour variable defined in _variables.scss."""
+    text = VARIABLES.read_text(encoding="utf-8")
+    return {n: six(h) for n, h in re.findall(r"(\$[\w-]+)\s*:\s*(#[0-9a-fA-F]{3,8})\s*;", text)}
+
+
 def site():
     """Print each hex colour in the site's Sass that has no token. Returns the exit code."""
     known = token_colours() | set(ALLOWED_UNREDONE)
-    found = {}
+    found, variables = {}, site_variables()
     for name in SITE_FILES:
         path = SITE_ROOT / "_sass" / f"_{name.lstrip('_')}.scss"
         text = re.sub(r"/\*.*?\*/", "", path.read_text(encoding="utf-8"), flags=re.S)
         text = re.sub(r"(?m)(^|\s)//.*$", "", text)
         for h in HEX.findall(text):
             found.setdefault(six(h), []).append(path.name)
+        for var, h in variables.items():
+            if re.search(re.escape(var) + r"(?![\w-])", text):
+                found.setdefault(h, []).append(f"{path.name} via {var}")
     missing = [(c, f) for c, f in sorted(found.items()) if c not in known]
     for value, files in missing:
         print(f"{value:<9} no token; used in {', '.join(dict.fromkeys(files))}")

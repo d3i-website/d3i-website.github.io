@@ -18,7 +18,7 @@ The website is white with one colour block. Learn the roles and you know every t
 **Ground and ink.**
 
 - `surface` (white) is the ground of every page and slide. Cards and lists stand on it without fills.
-- `heading` (#252a34) is the ink of headings, card and list headings, row titles, the date's day and the note's title and body. `text` (#363b46) is for anything read in sentences. `text-muted` (#626976) is for everything secondary: eyebrows, the month in a date, an event's place, the copyright line, the header's tagline. `nav-text` (#6a6a6a) is the header's links alone. Nothing else is coloured unless it has a job.
+- `heading` (#252a34) is the ink of headings, card and list headings, row titles, the date's day and the note's title and body. `text` (#363b46) is for anything read in sentences. `text-muted` (#626976) is for everything secondary: eyebrows, the month in a date, an event's place. `nav-text` (#6a6a6a) is the site's own muted grey, kept as it is: the header's links and tagline, the footer's labels and copyright line, and secondary lines on the content pages. `ink` (#333333) is the page's base colour and the header's name. `border-soft` (#e6e6e6) is the lighter rule: the horizontal rule, table lines and the skip link's frame. Nothing else is coloured unless it has a job.
 - `border` is every hairline: between list rows, in the footer, in tables. It is decorative; nothing depends on seeing it.
 
 **The working colour and the band.**
@@ -222,7 +222,7 @@ The note carries one timely message, such as a position statement. It is not par
 
 **Header.** One row, `58px` high, at every width: 16px above, a 41px row, and a 1px faint hairline under it. It is sticky and white.
 
-- The name is 16px at 800 in the text colour, with the tagline under it in `text-muted`, 14px. The two read as one link home.
+- The name is 16px at 800 in `ink`, with the tagline under it in `nav-text`, 14px. The two read as one link home.
 - From 1000px, the name is on the left and the six main links on the right, 28px apart (14px of padding either side of each label; the last label ends on the page edge). The links are `nav-text`, 15px at 500. On hover and on keyboard focus a link turns `blue` and grows a 4px `blue` bar. The page's own link has a faint tint behind it.
 - Below 1000px, the six links fold away. The row holds the name and a "Menu" button (`heading`, 15px at 600), and the button opens a drop-down panel: the same six links, one per row, at the header's full width, over the top of the page rather than pushing it down. A row is 44px, rows are divided by `border` hairlines, and the hover bar stands at the row's left end. The button's `aria-expanded` says whether it is open.
 - The panel closes on a tap or click outside it, on Escape (focus returns to the button), when a link is followed, and when the window grows to 1000px.
@@ -232,11 +232,11 @@ The note carries one timely message, such as a position statement. It is not par
 
 **Footer.** Three parts under a faint hairline, each separated by `space-16`: who provides the service, the project partners, and the copyright line.
 
-- The providers are a labelled pair: "Provided by" over the ODISSEI logo and "Supported by" over the Eyra logo. The labels are `label`-sized small capitals (0.72rem, 0.08em tracking) in `text-muted`. A faint hairline closes the pair.
+- The providers are a labelled pair: "Provided by" over the ODISSEI logo and "Supported by" over the Eyra logo. The labels are `label`-sized small capitals (0.72rem, 0.08em tracking) in `nav-text`. A faint hairline closes the pair.
 - The partners are under one label, "Project partners". On a phone they are a grid of two columns, edge-aligned, the block centred and its label with it. From 768px they are three columns, centred. From the width where all six fit in one row, they are six in a row, spread evenly.
 - Every logo has the same ink area, the part of the file that is not white or transparent. The providers' logos have 17.8rem² each (`$footer-provider-area`) and the partners' 13.7rem² (`$footer-partner-area`). A wide logo is therefore low and a compact one tall. Pale, thin logos are enlarged a little more, since thin type reads as thin however large it is. The providers' area keeps the ODISSEI wordmark above 9px; the partners' is the largest at which two columns fit a 360px phone. Below 360px every logo shrinks together to 85%.
 - Some files carry whitespace of their own. That whitespace is the logo's clear zone: no other logo may sit in it, and the gaps between columns and between partners are as wide as the widest zone. A logo is placed by its ink, not its file.
-- The copyright line is 0.85rem in `text-muted`. Never recolour a logo.
+- The copyright line is 0.85rem in `nav-text`. Never recolour a logo.
 
 ## Website · Content pages
 

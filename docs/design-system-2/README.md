@@ -12,7 +12,7 @@ Start with `project/README.md`, the brand book: what every token is for, the sli
 
 - `project/` holds the artifact's source files, as the artifact keeps them:
   - `README.md` is the brand book.
-  - `tokens.json` holds every token: 27 colours in a light theme and a proposed dark one, the website and slide type scales, spacing, radii, shadows, layout widths, line weights, node sizes, the front page band's measurements, and breakpoints.
+  - `tokens.json` holds every token: 29 colours in a light theme and a proposed dark one, the website and slide type scales, spacing, radii, shadows, layout widths, line weights, node sizes, the front page band's measurements, and breakpoints.
   - `tokens.css` is `tokens.json` compiled to CSS variables, `--text-<style>` font shorthands, a class per text style and the `@font-face` rules. It is generated: see below.
   - `components/bundle.js` defines `window.D3I`: 24 website components and 9 slide components, as React 18 functions. `components/bundle.css` styles the website components; `components/index.d.ts` documents every prop; `components/lib/` carries React and ReactDOM 18.3.1.
   - `components/<Name>/README.md` is each component's guidelines; `components/<Name>/preview.html` is the live preview the artifact page shows. Previews only run inside that page, which loads the stylesheets, React and the bundle first; opened from disk they are blank.

@@ -12,6 +12,8 @@
   --text: #363b46;
   --text-muted: #626976;
   --nav-text: #6a6a6a;
+  --ink: #333333;
+  --border-soft: #e6e6e6;
   --blue: #4272ef;
   --blue-tint: #eef3fe;
   --coral: #ff5e5e;
@@ -42,6 +44,8 @@
   --text: #dfe2e8;
   --text-muted: #a3a8b3;
   --nav-text: #a3a8b3;
+  --ink: #dfe2e8;
+  --border-soft: #262b36;
   --blue: #7d9ff6;
   --blue-tint: #1c2742;
   --coral: #ff7d7d;
