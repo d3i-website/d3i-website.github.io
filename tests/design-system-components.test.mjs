@@ -168,3 +168,79 @@ test('renderToHtml writes what React would', () => {
     + '<svg viewBox="0 0 1 1"><path stroke-width="2" d="M0 0"></path></svg>');
   assert.deepEqual([...classesIn('<p class="x  y"><i class="y z">')].sort(), ['x', 'y', 'z']);
 });
+
+// Band fills its title and subtitle into a markup string, so it must escape them itself. The
+// drawing has one <b> of its own (the thread's line), so the title must add none.
+test('band escapes its text', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.Band, { titleLines: ['A & <b>', 'x'], subtitle: 's' }));
+  const plain = renderToHtml(React.createElement(D3I.Band, BAND_PROPS));
+  assert.ok(html.includes('A &amp; &lt;b&gt;'), 'the title line, escaped');
+  assert.equal(html.split('<b>').length, plain.split('<b>').length, 'no <b> element from the title');
+});
+
+/* FrontPage, Note, ArrowDisc, Link --------------------------------------------------------- */
+
+test('front page wraps its children in .home', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.FrontPage, null, React.createElement('p', null, 'x')));
+  assert.equal(html, '<div class="home"><p>x</p></div>');
+});
+
+// The note is _includes/home/note.html. With a link it carries the arrow disc twice, as the site
+// does: note__go below 1280px and note__disc on the corner from 1280px; one shows at each width.
+const NOTE_PROPS = {
+  eyebrow: 'Position',
+  title: 'GDPR Omnibus Proposal',
+  body: 'The European Omnibus Act poses a direct risk.',
+  link: { label: 'Read our letter', href: '#' },
+};
+const count = (html, s) => html.split(s).length - 1;
+
+test('note with every field', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.Note, NOTE_PROPS));
+  assert.ok(html.startsWith('<a class="note" href="#">'), 'the whole note is one link');
+  assert.ok(html.includes('<p class="note__eyebrow">Position</p>'), 'eyebrow');
+  assert.ok(html.includes('<p class="note__title">GDPR Omnibus Proposal</p>'), 'title');
+  assert.ok(html.includes('<p class="note__text">The European Omnibus Act poses a direct risk.</p>'), 'body');
+  assert.ok(html.includes('<span class="note__link">Read our letter</span>'), 'link label');
+  assert.equal(count(html, 'class="note__disc"'), 1, 'one arrow disc on the corner');
+  assert.equal(count(html, 'class="note__go"'), 1, 'one arrow disc below 1280px');
+});
+
+test('note without a link', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.Note, { ...NOTE_PROPS, link: undefined }));
+  assert.ok(html.startsWith('<div class="note">'), 'a plain div');
+  assert.ok(!html.includes('<a'), 'no link');
+  assert.ok(!/note__(disc|go|link)/.test(html), 'no arrow disc, no link label');
+});
+
+test('note without a body', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.Note, { ...NOTE_PROPS, body: undefined }));
+  assert.ok(!html.includes('note__text'), 'no body element');
+  assert.ok(html.includes('note__title'), 'still the title');
+});
+
+test('note without a link label has an empty tab', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.Note, { ...NOTE_PROPS, link: { href: '#' } }));
+  assert.ok(html.includes('class="note__disc"'), 'still the arrow disc');
+  assert.ok(!html.includes('note__link'), 'no link label');
+});
+
+test('arrow disc label is visually hidden', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.ArrowDisc, { label: ' news' }));
+  assert.ok(html.includes('<span class="visually-hidden"> news</span>'), 'the label, visually hidden');
+  assert.equal(count(html, 'class="go"'), 1, 'one disc');
+  assert.ok(!renderToHtml(React.createElement(D3I.ArrowDisc, {})).includes('visually-hidden'), 'no label, no hidden text');
+});
+
+// The site styles every bare <a> as a running-text link (_sass/_site.scss), so Link adds no class.
+test('link is a bare <a>', () => {
+  const { D3I, React } = bundle();
+  assert.equal(renderToHtml(React.createElement(D3I.Link, { href: '#' }, 'newsletter')), '<a href="#">newsletter</a>');
+});

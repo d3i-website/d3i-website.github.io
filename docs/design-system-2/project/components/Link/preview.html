@@ -1,0 +1,17 @@
+<!-- @dsCard group="Actions" height=92 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Link — preview</title>
+<style>.pv{padding:1rem 1.5rem 0;max-width:40rem}</style></head>
+<body class="site-shell">
+<div id="root" class="pv"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('p', null, 'You can also subscribe to our ', h(D.Link, { href: '#' }, 'newsletter'),
+      ' or reach out to one of our ', h(D.Link, { href: '#' }, 'team'),
+      ' members if you have any questions!')
+  );
+</script>
+</body>
+</html>

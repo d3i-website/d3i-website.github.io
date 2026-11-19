@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"D3I","components":[{"name":"SiteHeader"},{"name":"SectionSubnav"},{"name":"SiteFooter"},{"name":"Band"},{"name":"ActionLink"},{"name":"ContactBlock"},{"name":"Postit"},{"name":"Callout"},{"name":"NewsCard"},{"name":"ArchiveCard"},{"name":"MovementCard"},{"name":"InstitutionCard"},{"name":"ProjectCard"},{"name":"PeopleGrid"},{"name":"PageIntro"},{"name":"SidebarPanel"},{"name":"TableOfContents"},{"name":"Routes"},{"name":"JourneyNext"},{"name":"HubStep"},{"name":"Prose"},{"name":"Figure"},{"name":"EventDetails"},{"name":"UsageFigures"},{"name":"SlideCover"},{"name":"SlideFrame"},{"name":"SlidePlan"},{"name":"SlideSectionStop"},{"name":"SlideBuild"},{"name":"SlideStats"},{"name":"SlideFunnel"},{"name":"SlideWindow"},{"name":"SlideQuestions"}]} */
+/* @ds-bundle: {"format":4,"namespace":"D3I","components":[{"name":"SiteHeader"},{"name":"SectionSubnav"},{"name":"SiteFooter"},{"name":"FrontPage"},{"name":"Band"},{"name":"Note"},{"name":"ArrowDisc"},{"name":"Link"},{"name":"ActionLink"},{"name":"ContactBlock"},{"name":"Postit"},{"name":"Callout"},{"name":"NewsCard"},{"name":"ArchiveCard"},{"name":"MovementCard"},{"name":"InstitutionCard"},{"name":"ProjectCard"},{"name":"PeopleGrid"},{"name":"PageIntro"},{"name":"SidebarPanel"},{"name":"TableOfContents"},{"name":"Routes"},{"name":"JourneyNext"},{"name":"HubStep"},{"name":"Prose"},{"name":"Figure"},{"name":"EventDetails"},{"name":"UsageFigures"},{"name":"SlideCover"},{"name":"SlideFrame"},{"name":"SlidePlan"},{"name":"SlideSectionStop"},{"name":"SlideBuild"},{"name":"SlideStats"},{"name":"SlideFunnel"},{"name":"SlideWindow"},{"name":"SlideQuestions"}]} */
 /*
  * datadonation.eu components, as window.D3I.
  *
@@ -548,6 +548,67 @@
         p.children));
   }
 
+  /* The front page's wrapper, <div class="home"> from _layouts/homepage.html. Every front-page
+     style hangs off .home, so Band, Note and ArrowDisc are mounted inside it. */
+  function FrontPage(p) {
+    var attrs = rest(p, ['className']);
+    attrs.className = cx('home', p.className);
+    return h('div', attrs, p.children);
+  }
+
+  /* The arrow disc's two parts, as the site draws them: the blue disc and the white arrow. */
+  function discParts(strokeWidth) {
+    return [
+      h('circle', { key: 'c', r: '18', fill: '#4272ef' }),
+      h('path', { key: 'p', d: 'M-8 0 h16 M1.5 -6.5 l6.5 6.5 l-6.5 6.5', fill: 'none', stroke: '#fff', strokeWidth: strokeWidth, strokeLinecap: 'round', strokeLinejoin: 'round' })
+    ];
+  }
+
+  /* The note that lies on the band, as _includes/home/note.html writes it. With link.href the whole
+     note is one link and carries the arrow disc (note__go below 1280px, note__disc on the corner from
+     1280px) and, with link.label, the tab's text; without one it is a plain div with neither. */
+  function Note(p) {
+    var href = p.link && p.link.href ? p.link.href : null;
+    var attrs = rest(p, ['eyebrow', 'title', 'body', 'link', 'className']);
+    attrs.className = cx('note', p.className);
+    if (href) attrs.href = href;
+    var disc = { width: '36', height: '36', viewBox: '-18 -18 36 36', 'aria-hidden': 'true' };
+    return h(href ? 'a' : 'div', attrs,
+      h('div', { className: 'note__paper' },
+        h('div', { className: 'note__body' },
+          h('div', { className: 'note__head' },
+            p.eyebrow ? h('p', { className: 'note__eyebrow' }, p.eyebrow) : null,
+            h('p', { className: 'note__title' }, p.title)),
+          p.body ? h('p', { className: 'note__text' }, p.body) : null,
+          href ? h('svg', Object.assign({ className: 'note__go' }, disc), discParts('1.8')) : null),
+        h('svg', { className: 'note__tab', width: '169', height: '30', viewBox: '0 0 169 30', 'aria-hidden': 'true' },
+          h('path', { fill: '#f3f9fd', d: 'M0 0 H168.3 c-6.55 0 -12.47 3.9 -15.05 9.93 l-4.2 10.15 c-2.57 6.03 -8.5 9.93 -15.05 9.93 H0 Z' }))),
+      h('div', { className: 'note__over' },
+        h('svg', { className: 'note__route', width: '184', height: '30', viewBox: '0 0 184 30', 'aria-hidden': 'true' },
+          h('path', { className: 'dot', d: 'M0 30 H134 c6.55 0 12.48-3.9 15.05-9.93 l4.2-10.15 c2.58-6.03 8.5-9.93 15.05-9.93 H174' }),
+          h('circle', { cx: '0', cy: '30', r: '4.5', fill: '#ff5e5e' }),
+          h('circle', { cx: '178', cy: '0', r: '4.2', fill: '#fff', stroke: '#4272ef', strokeWidth: '1.4' })),
+        h('i', { className: 'note__run' }),
+        href ? h('svg', Object.assign({ className: 'note__disc' }, disc), discParts('1.8')) : null,
+        href && p.link.label ? h('span', { className: 'note__link' }, p.link.label) : null));
+  }
+
+  /* The small arrow disc that ends "More" (_includes/home/lists.html's svg.go), 24px. Its label is
+     visually hidden text before it, for the link it sits in; className and other props go on the svg. */
+  function ArrowDisc(p) {
+    var attrs = Object.assign(rest(p, ['label', 'className']), { width: '24', height: '24', viewBox: '-18 -18 36 36', 'aria-hidden': 'true' });
+    attrs.className = cx('go', p.className);
+    return frag(
+      p.label ? h('span', { className: 'visually-hidden' }, p.label) : null,
+      h('svg', attrs, discParts('2')));
+  }
+
+  /* A link in running text. The site styles every bare <a> this way (_sass/_site.scss), so Link
+     adds no class: it is an <a> with whatever props it is given. */
+  function Link(p) {
+    return h('a', rest(p, []), p.children);
+  }
+
   /* Content ------------------------------------------------------------------ */
 
   function Prose(p) {
@@ -987,7 +1048,11 @@
     SiteHeader: SiteHeader,
     SectionSubnav: SectionSubnav,
     SiteFooter: SiteFooter,
+    FrontPage: FrontPage,
     Band: Band,
+    Note: Note,
+    ArrowDisc: ArrowDisc,
+    Link: Link,
     ActionLink: ActionLink,
     ContactBlock: ContactBlock,
     Postit: Postit,

@@ -1,4 +1,4 @@
-Markdown content as the site renders it: headings in Nunito, Nunito Sans paragraphs with padding instead of margins, blue links, a blue-ruled italic blockquote, code on the panel tint, plain ruled tables, and definition lists with a rule.
+Markdown content as the site renders it: headings in Nunito, Nunito Sans paragraphs with padding instead of margins, running-text links (see Link), a blue-ruled italic blockquote, code on the panel tint, plain ruled tables, and definition lists with a rule.
 
 Pass rendered Markdown as `html` (or the elements as children); the component wraps it in `.prose`, which caps the column at `content-width` and removes the first child's top margin. Everything inside is element styling from the stylesheet; no further classes are needed.
 

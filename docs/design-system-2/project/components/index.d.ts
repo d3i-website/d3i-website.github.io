@@ -11,7 +11,7 @@ import type * as React from 'react';
 /* Shared shapes ------------------------------------------------------------- */
 
 /** A link: the visible label and where it goes. Action links add the arrow themselves; never put "→" in `label` (the Postit link is the one exception). */
-export interface Link {
+export interface LinkTarget {
   /** Visible text, a verb phrase in sentence case: "Learn about data donation". */
   label: string;
   href: string;
@@ -106,6 +106,19 @@ export declare function SiteFooter(props: SiteFooterProps): React.ReactElement;
 
 /* Front page --------------------------------------------------------------------- */
 
+export interface FrontPageProps {
+  /** The front page's parts, in order: Band (with a Note inside), then what lies below it. */
+  children: React.ReactNode;
+  /** Added to the <div class="home">, which also takes the other unknown props. */
+  className?: string;
+}
+/**
+ * The front page's wrapper, <div class="home"> from _layouts/homepage.html. Every front-page style is scoped to .home, so Band, Note and ArrowDisc look right only inside it. Once per front page, around everything between the header and the footer.
+ * @example
+ * <FrontPage><Band titleLines={["Open Infrastructure for", "Data Donation Research"]} subtitle="Digital Trace Data, donated to science by citizens."><Note eyebrow="Position" title="GDPR Omnibus Proposal" link={{ label: "Read our letter", href: letterUrl }} /></Band></FrontPage>
+ */
+export declare function FrontPage(props: FrontPageProps): React.ReactElement;
+
 export interface BandProps {
   /** The title's two lines, in title and on-sky. The title is always two lines; the site takes them from index.md's title_line_1 and title_line_2. */
   titleLines: [string, string];
@@ -117,11 +130,57 @@ export interface BandProps {
   className?: string;
 }
 /**
- * The sky-blue band at the top of the front page: the network drawing, the two-line title and the subtitle, as _includes/home/band.html writes them. Front page only, once, inside the front page's wrapper <div class="home">, which carries the band's styles. Renders the hidden clip-path <svg> and then <section class="hero">.
+ * The sky-blue band at the top of the front page: the network drawing, the two-line title and the subtitle, as _includes/home/band.html writes them. Front page only, once, inside FrontPage (the front page's wrapper <div class="home">), which carries the band's styles. Renders the hidden clip-path <svg> and then <section class="hero">.
  * @example
- * <div className="home"><Band titleLines={["Open Infrastructure for", "Data Donation Research"]} subtitle="Digital Trace Data, donated to science by citizens." /></div>
+ * <FrontPage><Band titleLines={["Open Infrastructure for", "Data Donation Research"]} subtitle="Digital Trace Data, donated to science by citizens." /></FrontPage>
  */
 export declare function Band(props: BandProps): React.ReactElement;
+
+export interface NoteProps {
+  /** One to three words, in note-label and coral: "Position". Left out, there is no eyebrow. */
+  eyebrow?: string;
+  /** The message's name, in note-label and heading; one line, it does not wrap. */
+  title: string;
+  /** One sentence, in note-text; hidden below 1000px. Left out, there is no body paragraph. */
+  body?: string;
+  /** Where the note leads. With an href the whole note is one link (<a class="note">) and carries the arrow disc; `label` is the text on the tab from 1280px ("Read our letter"), and without it the tab is empty. Left out, the note is a plain <div class="note"> with no disc. */
+  link?: { label?: string; href: string };
+  /** Added to the note's root, which also takes the other unknown props. */
+  className?: string;
+}
+/**
+ * The front page's note: one timely message that lies on the band, as _includes/home/note.html writes it. From 1280px it hangs from the band's anchor on paper with a tab; below 1280px it is plain text in the niche under the band's shallow side. Pass it as Band's children, inside FrontPage.
+ * @example
+ * <Note eyebrow="Position" title="GDPR Omnibus Proposal" body="The European Omnibus Act poses a direct risk to fundamental human rights and to data donation as a research method." link={{ label: "Read our letter", href: letterUrl }} />
+ */
+export declare function Note(props: NoteProps): React.ReactElement;
+
+export interface ArrowDiscProps {
+  /** Text for screen readers only, in a <span class="visually-hidden"> before the disc: what the link it ends leads to (" news" after "More"). The disc itself is aria-hidden. */
+  label?: string;
+  /** Added to the <svg class="go">, which also takes the other unknown props. */
+  className?: string;
+}
+/**
+ * The arrow disc (disc-arrow-sm, 24px): a blue disc with a white arrow, the site's svg.go. It ends "More" on each list's heading line; nothing else carries it (the note draws its own 36px disc). Put it at the end of the link it marks, inside FrontPage, which styles it.
+ * @example
+ * <a className="more" href={newsUrl}>More<ArrowDisc label=" news" /></a>
+ */
+export declare function ArrowDisc(props: ArrowDiscProps): React.ReactElement;
+
+export interface LinkProps {
+  href: string;
+  /** The link's words, inside the sentence. */
+  children: React.ReactNode;
+  /** Added to the <a>, which also takes the other unknown props (target, rel …). Leave it out for the running-text look. */
+  className?: string;
+}
+/**
+ * A link in running text: the text's own colour, at 700, with a dotted sky underline that turns solid on hover and on keyboard focus. The site styles every bare <a> this way, so Link is a plain <a> with no class; every other prop goes on it.
+ * @example
+ * <p>You can also subscribe to our <Link href={newsletterUrl}>newsletter</Link>.</p>
+ */
+export declare function Link(props: LinkProps): React.ReactElement;
 
 /* Actions ----------------------------------------------------------------------- */
 
@@ -179,7 +238,7 @@ export interface PostitProps {
   body?: React.ReactNode;
   children?: React.ReactNode;
   /** Optional link; its label carries its own arrow: "Read our letter →". */
-  link?: Link;
+  link?: LinkTarget;
   /** The content-page form: no tape, floats right above 768px. */
   inline?: boolean;
   className?: string;
@@ -237,7 +296,7 @@ export interface NewsCardBandProps {
   /** Default "Latest news". */
   title?: string;
   /** The "More news →" link. */
-  moreLink?: Link;
+  moreLink?: LinkTarget;
   /** Three NewsCards; the band lays them out as the grid. */
   children: React.ReactNode;
   className?: string;
@@ -271,7 +330,7 @@ export interface ArchiveCardProps {
   hrefLabel?: string;
   external?: boolean;
   /** Further action links after the first. */
-  actions?: Link[];
+  actions?: LinkTarget[];
   /** Upcoming or highlighted: blue-tint fill and a road border. */
   featured?: boolean;
   className?: string;
@@ -302,7 +361,7 @@ export interface MovementCardProps {
   /** An illustration from assets/Illustrations in the item's accent. */
   image?: Picture;
   /** The link, drawn in the accent with a trailing arrow. */
-  link?: Link;
+  link?: LinkTarget;
   /** primary pairs blue with blue-tint, secondary coral with coral-tint, tertiary yellow-text with yellow-tint; homepage order: primary, secondary, tertiary. */
   accent?: 'primary' | 'secondary' | 'tertiary';
   className?: string;
@@ -435,7 +494,7 @@ export interface PageIntroProps {
   /** A small illustration from assets/Illustrations, floated right of the prose. */
   image?: Picture;
   /** A wrapping row of compact action links. */
-  actions?: Link[];
+  actions?: LinkTarget[];
   /** A SidebarPanel: the page then takes the two-column grid with the sidebar left. */
   sidebar?: React.ReactNode;
   className?: string;
@@ -486,7 +545,7 @@ export declare function TableOfContents(props: TableOfContentsProps): React.Reac
 /** One step on a route: one line and one action. */
 export interface RouteStep {
   text: string;
-  link?: Link;
+  link?: LinkTarget;
 }
 /** One route: the reader's own question, the answer, and its steps. */
 export interface Route {
@@ -517,7 +576,7 @@ export interface JourneyNextProps {
   number: string;
   title: string;
   body?: string;
-  link?: Link;
+  link?: LinkTarget;
   /** The step after that, as a quieter line. */
   after?: { number: string; title: string; href: string };
   /** Default "Next step". */
@@ -537,7 +596,7 @@ export interface HubStepProps {
   body?: string;
   /** An illustration, letterboxed in a 5:4 box. */
   image?: Picture;
-  link?: Link;
+  link?: LinkTarget;
   /** Two digits; inside HubStep.List it defaults to the step's position: "01", "02". */
   number?: string;
   /** Image side above 900px; inside HubStep.List steps alternate left, right. */
@@ -877,7 +936,11 @@ declare global {
       SiteHeader: typeof SiteHeader;
       SectionSubnav: typeof SectionSubnav;
       SiteFooter: typeof SiteFooter;
+      FrontPage: typeof FrontPage;
       Band: typeof Band;
+      Note: typeof Note;
+      ArrowDisc: typeof ArrowDisc;
+      Link: typeof Link;
       ActionLink: typeof ActionLink;
       ContactBlock: typeof ContactBlock;
       Postit: typeof Postit;

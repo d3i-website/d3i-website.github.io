@@ -1,6 +1,6 @@
 The sky-blue band at the top of the front page: the network drawing, the two-line title and the subtitle. It is the site's one colour block and runs full width.
 
-Use it once, at the top of the front page, inside the front page's wrapper `<div class="home">`: every band style is scoped to `.home`, as on the site. Pass `titleLines` (two strings; the title is always two lines) and `subtitle` (one sentence). Put a `Note` in `children` to lay it on the band; without one the band is complete, and below 1280px the niche under its shallow side stays empty.
+Use it once, at the top of the front page, inside `FrontPage` (the front page's wrapper `<div class="home">`): every band style is scoped to `.home`, as on the site. Pass `titleLines` (two strings; the title is always two lines) and `subtitle` (one sentence). Put a `Note` in `children` to lay it on the band; without one the band is complete, and below 1280px the niche under its shallow side stays empty.
 
 The drawing is not drawn in React. It is `_includes/home/band.html`'s own markup, copied into `bundle.js` by `tools/build_band_markup.py`; Band fills in only the title lines and the subtitle. When the include changes, run the tool again (the tests check it is current). The drawing's positions come from `docs/front-page-reference/source/build.py`, not from the tokens.
 
@@ -8,7 +8,7 @@ The drawing is not drawn in React. It is `_includes/home/band.html`'s own markup
 
 - `titleLines`: the title's two lines. On the site they are `index.md`'s `title_line_1` and `title_line_2`.
 - `subtitle`: one sentence, `index.md`'s `excerpt`.
-- `children` (optional): the note.
+- `children` (optional): the note, a `Note`.
 
 There are no pictures to pass. The pieces of the drawing (`assets/Network`) are inline SVG in the markup.
 

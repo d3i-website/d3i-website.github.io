@@ -1,0 +1,16 @@
+<!-- @dsCard group="Actions" height=72 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>ArrowDisc — preview</title>
+<style>.pv{display:flex;align-items:center;gap:1.5rem;padding:1.5rem 2rem 1rem}</style></head>
+<body>
+<div id="root"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h(D.FrontPage, null,
+      h('div', { className: 'pv' }, h(D.ArrowDisc, { label: 'More news' })))
+  );
+</script>
+</body>
+</html>
