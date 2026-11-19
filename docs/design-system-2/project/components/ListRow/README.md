@@ -12,7 +12,7 @@ Which items show is the site's business, not the component's. The site lists the
   - `title`: the item's title.
   - `href`: the item's page, or its `external_url` when it has one.
   - `external` (optional): set it with an `external_url`; the link then opens in a new tab (`target="_blank" rel="noopener noreferrer"`), as on the site.
-  - `place` (optional): for an event, its location in `.where`. The site adds " · " and the year when the event is not in the build's year ("Bristol, UK · 2027"); pass that text as you want it shown. Left out, as for news, there is no `.where`.
+  - `place` (optional): for an event, its location in `.where`. The site adds " · " and the year when the event is not in the build's year ("Bristol, UK · 2027"); pass that text as you want it shown: for an event in a year other than the current one, append " · <year>" to `place` yourself, as the site does. Left out, as for news, there is no `.where`.
 - `ListRow.List`: `title` ("Latest news", "Upcoming events"); `moreHref`, the news page or the events page; `moreLabel`, the word "More" leaves out ("news", "events"), which goes in a visually hidden span straight after "More", so the link reads "More news". The rows are its children.
 - `ListRow.Lists`: the two lists, news first.
 

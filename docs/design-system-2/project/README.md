@@ -204,7 +204,7 @@ The note carries one timely message, such as a position statement. It is not par
 
 - **Three cards**, without borders or pictures, centred, `cards-top` below the band's lower edge and `card-gap` apart. Each has an eyebrow (For newcomers, For researchers, For developers) in `eyebrow` and `text-muted`; a serif heading in `card-heading` and `heading`, with the link underline; and a sentence in `body`, at line height 1.55, in `text`.
 - **The line about the newsletter and the team**, centred, `outro-top` below the cards, in `body` and `text`, with its links.
-- **The two lists**, after `section-space`, the front page's one large break: Latest news on the left and Upcoming events on the right, `list-gap` apart. Each is a heading in `list-heading` that ends its line with "More" and the arrow disc, then rows: date, title, and for events the place. Four rows each. No pictures, no summaries, no carousel. Every upcoming event is listed, not only featured ones.
+- **The two lists**, after `section-space`, the front page's one large break: Latest news on the left and Upcoming events on the right, `list-gap` apart. Each is a heading in `list-heading` that ends its line with "More" and the arrow disc, then rows: date, title, and for events the place. Four rows each. No pictures, no summaries. Every upcoming event is listed, not only featured ones.
 - A row is the date (the month in `eyebrow` and `text-muted`, over the day in `numeral` and `heading`), the title in `row-title` and `heading`, and for events the place in `caption` at 700 in `text-muted`. Rows are divided by `border` hairlines, with one above the first row and one below the last. The lists are set in `small`. `lists-bottom` lies below them.
 - **The header and the footer** are under Header and footer, below.
 
@@ -272,13 +272,13 @@ The breakpoints are desktop-first: `bp-lg` (1280px), `bp-md` (1000px), `bp-lists
 
 ## Website · Motion
 
-- The front page has almost no motion. A link's dotted underline turns solid at once on hover and on keyboard focus; its colour never changes. A version in which the underline regrew from the left was tried and reverted. There are no carousels.
-- The header's links grow a 4px `blue` bar from the centre (`scaleX` 0 to 1) over 0.2s ease-in-out and turn `blue`. In the Menu panel the bar stands at the row's left end and grows downward (`scaleY`). The pages not yet redone keep their other motion. Carousels slide over 0.55s `cubic-bezier(0.4, 0, 0.2, 1)` (movements) or 0.45s ease (news); the active dot stretches from 11px to a 32px bar over 0.3s.
-- Everything honours `prefers-reduced-motion: reduce`: the carousels stop transitioning.
+- The front page has almost no motion. A link's dotted underline turns solid at once on hover and on keyboard focus; its colour never changes. A version in which the underline regrew from the left was tried and reverted.
+- The header's links grow a 4px `blue` bar from the centre (`scaleX` 0 to 1) over 0.2s ease-in-out and turn `blue`. In the Menu panel the bar stands at the row's left end and grows downward (`scaleY`). The pages not yet redone keep their other motion.
+- Everything honours `prefers-reduced-motion: reduce`.
 
 ## Website · Components
 
-React components that render the site's own markup, styled by `components/bundle.css`. `components/bundle.js` defines them on `window.D3I` and needs React 18 (`components/lib/` carries react and react-dom 18.3.1); `tokens.css` and `components/bundle.css` style them. Every class name they emit is one the site uses. Mount the component instead of copying its markup: its card lists the props, and its README says what to pass and when to use it. Images, logos and sprites are props, and no picture has a default: inside this system's previews they carry the uploads' `/_blob/<id>` URLs, which resolve nowhere else; in your own page pass a copy you serve. Each component's "What you provide" section says which asset and how to fetch it. Containers are parts of the component they hold (`NewsCard.Grid`, `HubStep.List`, `UsageFigures.Figure`).
+React components that render the site's own markup, styled by `components/bundle.css`. `components/bundle.js` defines them on `window.D3I` and needs React 18 (`components/lib/` carries react and react-dom 18.3.1); `tokens.css` and `components/bundle.css` style them. Every class name they emit is one the site uses. Mount the component instead of copying its markup: its card lists the props, and its README says what to pass and when to use it. Images, logos and sprites are props, and no picture has a default: inside this system's previews they carry the uploads' `/_blob/<id>` URLs, which resolve nowhere else; in your own page pass a copy you serve. Each component's "What you provide" section says which asset and how to fetch it. Containers are parts of the component they hold (`NewsCard.List`, `HubStep.List`, `UsageFigures.Figure`).
 
 Apart from SiteHeader, SiteFooter, FrontPage, Band, Note, ArrowDisc, Link, HomeCard, ListRow, NewsArticle, Prose and Figure, the components are carried over from the earlier system and not yet revised. They read the tokens, so their headings now take the serif (`--font-display`) and their corners are square (the radius tokens at 0); their colours, sizes and layout are still the earlier site's. The front page is FrontPage, holding Band with Note on it, then HomeCard.Grid and ListRow.Lists. The line about the newsletter and the team between them has no component: it is a centred paragraph with two Links. A news post is NewsArticle, its body Prose content with a Figure where it has a captioned picture.
 
@@ -286,11 +286,11 @@ Apart from SiteHeader, SiteFooter, FrontPage, Band, Note, ArrowDisc, Link, HomeC
 - Front page: FrontPage (the `<div class="home">` wrapper every front-page style hangs off), Band (the sky-blue band: the drawing, the title and the subtitle, with the note as its children), Note (the timely message on the band), ArrowDisc (the small arrow disc that ends "More"), HomeCard (the three borderless cards below the band, in `HomeCard.Grid`), ListRow (a row of Latest news or Upcoming events, in `ListRow.List` with its heading and "More", the two lists in `ListRow.Lists`).
 - Actions: Link (a link in running text: a plain `<a>`), ActionLink (the coral arrow link on the pages not yet redone, in its two forms), ContactBlock (lead, topics, email).
 - Notes: Postit (timely updates on directory hubs and content pages), Callout (notices).
-- Cards: NewsCard (tile, and the row the news page lists), ArchiveCard (events, featured), InstitutionCard, ProjectCard, PeopleGrid (cards, filter chips, tag pills).
+- Cards: NewsCard (the row the news page lists), ArchiveCard (events, featured), InstitutionCard, ProjectCard, PeopleGrid (cards, filter chips, tag pills).
 - Wayfinding: PageIntro (title, hero, excerpt, actions), SidebarPanel (section nav), TableOfContents (a soft panel over the headings as running-text links), Routes (a fork with rails and stops), JourneyNext (next step), HubStep (numbered journey step).
 - Content: NewsArticle (a news post: the date over the title, the body, and the "Latest news" rail), Prose (headings with their spacing, lists, links, blockquote, sky-framed code, table, definitions, rules), Figure (square and hairline-framed: the captioned content figure and the small floated one), EventDetails, UsageFigures (stat row, platform pills, globe controls).
 
-Where the system and the live site differ, the system leads and the site is to be brought in line; for the front page, the reference in `docs/front-page-reference/` leads both. The globe, the studies-per-year bars and the carousels are JavaScript on the site; the components render their resting markup only.
+Where the system and the live site differ, the system leads and the site is to be brought in line; for the front page, the reference in `docs/front-page-reference/` leads both. The globe and the studies-per-year bars are JavaScript on the site; the components render their resting markup only.
 
 ## Builders · Files and assets
 

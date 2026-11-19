@@ -114,8 +114,8 @@
   }
   function NewsCard(p) {
     var link = linkAttrs(p.href, p.external);
-    var attrs = rest(p, ['title', 'href', 'external', 'date', 'summary', 'image', 'accent', 'variant', 'linkLabel', 'className']);
-    attrs.className = cx('news-card', p.variant === 'row' && 'news-card--row', p.className);
+    var attrs = rest(p, ['title', 'href', 'external', 'date', 'summary', 'image', 'accent', 'linkLabel', 'className']);
+    attrs.className = cx('news-card', 'news-card--row', p.className);
     return h('article', attrs,
       h('a', Object.assign({ className: 'news-card__media news-card__media--accent-' + newsAccent(p), tabIndex: -1, 'aria-hidden': 'true' }, link),
         p.image ? h('img', { src: p.image.src, alt: p.image.alt || '' }) : null),
@@ -125,11 +125,6 @@
         p.summary ? h('p', { className: 'news-card__summary' }, p.summary) : null,
         h('a', Object.assign({ className: 'cta-link news-card__link' }, link), p.linkLabel || 'Read more', ' ', arrow())));
   }
-  NewsCard.Grid = function NewsCardGrid(p) {
-    var attrs = rest(p, ['className']);
-    attrs.className = cx('news-grid', p.className);
-    return h('div', attrs, p.children);
-  };
   NewsCard.List = function NewsCardList(p) {
     var attrs = rest(p, ['className']);
     attrs.className = cx('news-list', p.className);

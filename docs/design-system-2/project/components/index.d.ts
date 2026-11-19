@@ -369,31 +369,22 @@ export interface NewsCardProps {
   image?: Picture;
   /** Media field colour 0, 1, 2 (blue, coral, yellow); default: title length modulo 3, as the site does. */
   accent?: 0 | 1 | 2;
-  /** tile (default; the news grid) or row (small media slot left). */
-  variant?: 'tile' | 'row';
   /** Default "Read more". */
   linkLabel?: string;
   className?: string;
 }
-export interface NewsCardGridProps {
-  /** NewsCards: one column, three above 768px. */
-  children: React.ReactNode;
-  className?: string;
-}
 export interface NewsCardListProps {
-  /** NewsCards with variant="row". */
+  /** NewsCards. */
   children: React.ReactNode;
   className?: string;
 }
 /**
- * A news item as a card: an accent media slot, title, date, summary and a "Read more →" link pinned to the bottom.
+ * A news item as a row: an accent media slot at the left, title, date, summary and a "Read more →" link pinned to the bottom.
  * @example
  * <NewsCard title="Data Donation Symposium Program Available" href="#" date="September 8, 2026" summary="The schedule for the 2026 symposium has been published." />
  */
 export declare const NewsCard: ((props: NewsCardProps) => React.ReactElement) & {
-  /** The news page grid. */
-  Grid: (props: NewsCardGridProps) => React.ReactElement;
-  /** A stack of row cards. */
+  /** A stack of news rows. */
   List: (props: NewsCardListProps) => React.ReactElement;
 };
 

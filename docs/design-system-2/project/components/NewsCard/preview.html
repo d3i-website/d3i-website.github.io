@@ -1,4 +1,4 @@
-<!-- @dsCard group="Cards" height=750 width=1152 -->
+<!-- @dsCard group="Cards" height=560 width=1152 -->
 <!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><title>NewsCard — preview</title>
@@ -16,18 +16,8 @@
       summary: 'The ODISSEI 2026 LISS Panel Grant call is open until 24 September 2026. Six grants are available, including one for data donation research using the representative LISS panel.' }
   ];
   ReactDOM.createRoot(document.getElementById('root')).render(h('div', { className: 'pv-row' },
-    h(D.NewsCard.Grid, null,
+    h(D.NewsCard.List, null,
       items.map(function (it, i) { return h(D.NewsCard, Object.assign({ key: i, href: '#' }, it)); })
-    ),
-    h('div', { className: 'pv-gap' },
-      h(D.NewsCard.List, null,
-        h(D.NewsCard, {
-          variant: 'row', accent: 1, href: '#',
-          title: 'Meet our new community manager, Dachi Shanidze',
-          date: 'July 14, 2026',
-          summary: 'Dachi Shanidze joins D3I and TDCC RIGHTS as community manager, supporting project operations, administration, communication, and events.'
-        })
-      )
     )
   ));
 </script>

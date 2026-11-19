@@ -5,7 +5,7 @@ Pass `src` (the URL of your upload of a screenshot, a photo, a diagram or an ill
 - `.section-figure` is the content figure: no wider than `content-width`, 1.75rem below the text and 1.5rem above what follows. The image is full width in a 1px `border` frame.
 - `figcaption` is 15px (0.9375rem) Nunito Sans in `text`, line height 1.5, left aligned, 0.6rem under the frame and 0.7rem above its closing `border` hairline.
 - In a news article (see NewsArticle) the figure reaches 2rem past the text on each side from 48rem; the caption keeps the text's width.
-- `.page-section__figure` is the small one: 13.5rem wide, the image in the same `border` frame. `--right` or `--left` floats it from 900px, 2rem from the text and 1.25rem above what follows; below 900px it centres. The site's older section pages still draw it on a tinted panel with a shadow until they are redone; this is the new look.
+- `.page-section__figure` is the small one: 13.5rem wide, the image in the same `border` frame. `--right` or `--left` floats it from 900px, 2rem from the text and 1.25rem above what follows; below 900px it centres.
 
 ## What you provide
 
