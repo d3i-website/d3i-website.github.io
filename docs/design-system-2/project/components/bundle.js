@@ -418,17 +418,23 @@
 
   /* Shell -------------------------------------------------------------------- */
 
+  /* _includes/site-header.html. Below 1000px the site folds the links into a drop-down that the
+     Menu button opens (assets/js/site-menu.js), keeping its state in the button's aria-expanded.
+     menu 'closed' (the default) and 'open' render that button; 'none' renders the markup as it
+     shows without JavaScript: no button, the links a wrapped list. */
   function SiteHeader(p) {
-    var attrs = rest(p, ['name', 'subtitle', 'href', 'items', 'className']);
+    var menu = p.menu || 'closed';
+    var attrs = rest(p, ['brand', 'tagline', 'href', 'links', 'menu', 'className']);
     attrs.className = cx('site-header', p.className);
     return h('header', attrs,
       h('div', { className: 'site-header__inner' },
         h('a', { className: 'site-header__brand', href: p.href || '/' },
-          h('span', { className: 'site-header__name' }, p.name || 'datadonation.eu'), ' ',
-          h('span', { className: 'site-header__subtitle' }, p.subtitle || 'Data donation for research')),
-        h('nav', { className: 'site-nav', 'aria-label': 'Primary' },
-          h('ul', { className: 'site-nav__list' }, list(p.items).map(function (it, i) {
-            return h('li', { className: cx('site-nav__item', it.active && 'is-active'), key: i }, h('a', { href: it.href }, it.label));
+          h('span', { className: 'site-header__name' }, p.brand),
+          p.tagline ? h('span', { className: 'site-header__subtitle' }, p.tagline) : null),
+        menu === 'none' ? null : h('button', { className: 'site-header__menu', type: 'button', 'aria-expanded': menu === 'open' ? 'true' : 'false', 'aria-controls': 'site-nav' }, 'Menu'),
+        h('nav', { className: 'site-nav', id: 'site-nav', 'aria-label': 'Primary' },
+          h('ul', { className: 'site-nav__list' }, list(p.links).map(function (l, i) {
+            return h('li', { className: cx('site-nav__item', l.current && 'is-active'), key: i }, h('a', { href: l.href }, l.label));
           })))));
   }
 
@@ -443,28 +449,33 @@
         }))));
   }
 
-  function footerLogo(l) {
-    return h('img', { className: 'site-footer__logo site-footer__logo--' + l.mark, src: l.src, alt: l.name });
+  /* The logos _sass/_footer.scss has measured ($footer-logos); each key is its cell's modifier,
+     site-footer__cell--<key>, which sizes the logo by its ink box. */
+  var FOOTER_LOGOS = ['odissei', 'eyra', 'uva', 'ru', 'uu', 'vu', 'tilburg', 'eur'];
+  function footerCell(l) {
+    if (FOOTER_LOGOS.indexOf(l.key) < 0) {
+      throw new Error('SiteFooter: no logo "' + l.key + '" is measured; add it to $footer-logos in _sass/_footer.scss first');
+    }
+    var img = h('img', { src: l.logo, alt: l.name });
+    return h('div', { className: 'site-footer__cell site-footer__cell--' + l.key, key: l.key }, l.href ? h('a', { href: l.href }, img) : img);
   }
+  var PROVIDER_LABELS = ['Provided by', 'Supported by'];
+  /* _includes/site-footer.html: the labelled provider pair, the partner grid, the copyright line. */
   function SiteFooter(p) {
-    var year = p.year || new Date().getFullYear();
-    var partners = list(p.partners);
-    var attrs = rest(p, ['providedBy', 'supportedBy', 'partners', 'partnersLabel', 'year', 'owner', 'className']);
+    var providers = list(p.providers), partners = list(p.partners);
+    var attrs = rest(p, ['providers', 'partners', 'copyright', 'className']);
     attrs.className = cx('site-footer', p.className);
     return h('footer', attrs,
       h('div', { className: 'site-footer__inner' },
-        h('div', { className: 'site-footer__sentence' },
-          h('p', { className: 'site-footer__label' },
-            'A service provided by ',
-            p.providedBy ? h('span', { className: 'site-footer__inline-logo' }, footerLogo(p.providedBy)) : null,
-            ' and supported by ',
-            p.supportedBy ? h('span', { className: 'site-footer__inline-logo' }, footerLogo(p.supportedBy)) : null)),
-        partners.length > 0 ? h('div', { className: 'site-footer__group site-footer__group--members' },
-          h('p', { className: 'site-footer__label' }, p.partnersLabel || 'Project partners'),
-          h('div', { className: 'site-footer__logo-strip' }, partners.map(function (l, i) {
-            return h('div', { className: 'site-footer__logo-cell', key: i }, footerLogo(l));
-          }))) : null,
-        h('p', { className: 'site-footer__copyright' }, '© ' + year + ' ' + (p.owner || 'datadonation.eu'))));
+        providers.length > 0 ? h('div', { className: 'site-footer__providers' }, providers.map(function (l, i) {
+          return h('div', { className: 'site-footer__provider', key: i },
+            h('p', { className: 'site-footer__label site-footer__label--small' }, l.label || PROVIDER_LABELS[i]),
+            footerCell(l));
+        })) : null,
+        partners.length > 0 ? h('div', { className: 'site-footer__partners' },
+          h('p', { className: 'site-footer__label site-footer__label--small' }, 'Project partners'),
+          h('div', { className: 'site-footer__grid' }, partners.map(footerCell))) : null,
+        h('p', { className: 'site-footer__copyright' }, p.copyright || '© ' + new Date().getFullYear() + ' datadonation.eu')));
   }
 
   /* Front page --------------------------------------------------------------- */

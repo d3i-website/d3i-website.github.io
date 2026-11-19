@@ -43,20 +43,35 @@ export interface DetailRow {
 
 /* Shell ----------------------------------------------------------------------- */
 
+/** One of the header's main links. */
+export interface HeaderLink {
+  label: string;
+  href: string;
+  /** The current page or its section: takes is-active, the faint tint behind the label. */
+  current?: boolean;
+}
 export interface SiteHeaderProps {
-  /** Primary navigation, in order; mark the current section active. */
-  items: NavItem[];
-  /** Brand name, set in type (there is no wordmark). */
-  name?: string;
-  subtitle?: string;
-  /** Where the brand links. */
+  /** The site's name, set in type (there is no wordmark): "datadonation.eu". */
+  brand: string;
+  /** The line under the name: "Data donation for research". Left out when empty. */
+  tagline?: string;
+  /** Where the brand links. Default "/". */
   href?: string;
+  /** The six main links, in order. */
+  links: HeaderLink[];
+  /**
+   * The Menu drop-down below 1000px (assets/js/site-menu.js). 'closed' (default) and 'open' render the
+   * Menu button with aria-expanded false or true; 'none' is the page without JavaScript: no button,
+   * the links a wrapped list. From 1000px all three show the one row.
+   */
+  menu?: 'none' | 'closed' | 'open';
   className?: string;
 }
 /**
- * The sticky site header: brand name and subtitle left, the primary navigation right. Once per page, at the top.
+ * The sticky site header, as _includes/site-header.html: the name and tagline left, the six links right;
+ * below 1000px the Menu button and its drop-down. Once per page, at the top.
  * @example
- * <SiteHeader items={[{ label: "Data donation", href: "#" }, { label: "Software", href: "#", active: true }]} />
+ * <SiteHeader brand="datadonation.eu" tagline="Data donation for research" links={[{ label: "Data donation", href: "#" }, { label: "Software", href: "#", current: true }]} menu="open" />
  */
 export declare function SiteHeader(props: SiteHeaderProps): React.ReactElement;
 
@@ -74,33 +89,42 @@ export interface SectionSubnavProps {
  */
 export declare function SectionSubnav(props: SectionSubnavProps): React.ReactElement;
 
-/** A logo in the footer. `mark` picks the per-logo size cap in bundle.css. */
+/**
+ * The logos the site's footer has measured: `$footer-logos` in _sass/_footer.scss, each the modifier of
+ * its cell, site-footer__cell--<key>, which sizes it by its ink box. odissei and eyra are sized as
+ * providers, the other six as partners. Any other logo is not supported: SiteFooter throws. Add it to
+ * $footer-logos (and the site's footer) first.
+ */
+export type FooterLogoKey = 'odissei' | 'eyra' | 'uva' | 'ru' | 'uu' | 'vu' | 'tilburg' | 'eur';
+/** A logo in the footer. */
 export interface FooterLogo {
-  /** The organisation's name, used as alt text. */
+  /** The organisation's name, the image's alt text. */
   name: string;
-  /** URL of your upload of its file in assets/Logos (odissei.png, eyra.png) or assets/Partners. */
-  src: string;
-  /** odissei, eyra (Logos); uva, ru, uu, vu, tilburg, eur (Partners, in the footer's order). */
-  mark: 'odissei' | 'eyra' | 'uva' | 'ru' | 'uu' | 'vu' | 'tilburg' | 'eur';
+  /** URL of your upload of its file: assets/Logos (odissei.png, eyra.png) or assets/Partners, the file as it is. */
+  logo: string;
+  /** Which measured logo it is; picks its size. */
+  key: FooterLogoKey;
+  /** Makes the logo a link. The site's footer logos are not links. */
+  href?: string;
+}
+export interface FooterProvider extends FooterLogo {
+  /** The small label above it. Default by position: "Provided by", then "Supported by". */
+  label?: string;
 }
 export interface SiteFooterProps {
-  /** ODISSEI, inline in "A service provided by … and supported by …". */
-  providedBy: FooterLogo;
-  /** Eyra, inline in the same sentence. */
-  supportedBy: FooterLogo;
-  /** The six partner universities in order: uva, ru, uu, vu, tilburg, eur. */
-  partners: FooterLogo[];
-  /** Copyright year; defaults to the current year. */
-  year?: number;
-  partnersLabel?: string;
-  /** Name in the copyright line. */
-  owner?: string;
+  /** The pair at the top: ODISSEI (provided by), then Eyra (supported by). */
+  providers: FooterProvider[];
+  /** The partner universities in the footer's order: uva, ru, uu, vu, tilburg, eur. None: no partner grid. */
+  partners?: FooterLogo[];
+  /** The whole last line. Default "© <this year> datadonation.eu". */
+  copyright?: string;
   className?: string;
 }
 /**
- * The footer: the provider sentence with inline logos, the partner logo strip, the copyright line. Once per page.
+ * The footer, as _includes/site-footer.html: the labelled provider pair, the "Project partners" grid
+ * (two columns on a phone, three from 768px, one row from 66.32em) and the copyright line. Once per page.
  * @example
- * <SiteFooter year={2026} providedBy={{ name: "ODISSEI", mark: "odissei", src: odisseiUrl }} supportedBy={{ name: "Eyra", mark: "eyra", src: eyraUrl }} partners={partnerLogos} />
+ * <SiteFooter providers={[{ name: "ODISSEI", key: "odissei", logo: odisseiUrl }, { name: "Eyra", key: "eyra", logo: eyraUrl }]} partners={partnerLogos} copyright="© 2026 datadonation.eu" />
  */
 export declare function SiteFooter(props: SiteFooterProps): React.ReactElement;
 

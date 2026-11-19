@@ -299,3 +299,62 @@ test('external row opens in a new tab', () => {
   assert.ok(ext.includes('<a href="https://example.org/" target="_blank" rel="noopener noreferrer"><span>x</span></a>'), 'target and rel');
   assert.ok(!/target=|rel=/.test(own), 'none without external');
 });
+
+/* SiteHeader, SiteFooter ------------------------------------------------------------------- */
+
+const HEADER_PROPS = {
+  brand: 'datadonation.eu',
+  tagline: 'Data donation for research',
+  href: '#',
+  links: [{ label: 'Data donation', href: '#' }, { label: 'Software', href: '#', current: true }],
+};
+const header = (props) => {
+  const { D3I, React } = bundle();
+  return renderToHtml(React.createElement(D3I.SiteHeader, { ...HEADER_PROPS, ...props }));
+};
+
+// site-menu.js keeps the panel's state in the button's aria-expanded, and the stylesheet opens the
+// panel from it. Without the script (menu 'none') the site hides the button and the links wrap.
+test('header menu states', () => {
+  const button = (expanded) => `<button class="site-header__menu" type="button" aria-expanded="${expanded}" aria-controls="site-nav">Menu</button>`;
+  assert.ok(header({ menu: 'open' }).includes(button('true')), "'open': aria-expanded true");
+  assert.ok(header({ menu: 'closed' }).includes(button('false')), "'closed': aria-expanded false");
+  assert.equal(header({}), header({ menu: 'closed' }), "closed by default");
+  const none = header({ menu: 'none' });
+  assert.ok(!none.includes('<button'), "'none': no Menu button");
+  assert.ok(none.includes('<nav class="site-nav" id="site-nav" aria-label="Primary"><ul class="site-nav__list">'), "'none': the list");
+});
+
+test('header marks the current link', () => {
+  const html = header({});
+  assert.ok(html.includes('<li class="site-nav__item is-active"><a href="#">Software</a></li>'), 'is-active on the current link');
+  assert.ok(html.includes('<li class="site-nav__item"><a href="#">Data donation</a></li>'), 'none on the others');
+  assert.ok(html.includes('<span class="site-header__subtitle">Data donation for research</span>'), 'the tagline');
+  assert.ok(!header({ tagline: undefined }).includes('site-header__subtitle'), 'no tagline, no subtitle');
+});
+
+const PROVIDERS = [
+  { name: 'ODISSEI', key: 'odissei', logo: '/_blob/693138a09fb55860252fdf53cdfdee18' },
+  { name: 'Eyra', key: 'eyra', logo: '/_blob/87afcf44ac9de2aea316b5c81eda8dd5' },
+];
+const footer = (props) => {
+  const { D3I, React } = bundle();
+  return renderToHtml(React.createElement(D3I.SiteFooter, { providers: PROVIDERS, copyright: '© 2026 datadonation.eu', ...props }));
+};
+
+// _includes/site-footer.html: each logo in a cell whose class sizes it (site-footer__cell--<key>).
+test('footer with no partners', () => {
+  const html = footer({ partners: [] });
+  const classes = classesIn(html);
+  assert.ok(html.includes('<div class="site-footer__provider"><p class="site-footer__label site-footer__label--small">Provided by</p>'
+    + '<div class="site-footer__cell site-footer__cell--odissei"><img src="/_blob/693138a09fb55860252fdf53cdfdee18" alt="ODISSEI"/></div></div>'), 'ODISSEI, provided by');
+  assert.ok(html.includes('<p class="site-footer__label site-footer__label--small">Supported by</p>'
+    + '<div class="site-footer__cell site-footer__cell--eyra">'), 'Eyra, supported by');
+  assert.equal(count(html, 'class="site-footer__provider"'), 2, 'the provider pair');
+  assert.ok(!classes.has('site-footer__grid') && !classes.has('site-footer__partners'), 'no partner grid');
+  assert.ok(html.includes('<p class="site-footer__copyright">© 2026 datadonation.eu</p>'), 'the copyright line');
+});
+
+test('footer rejects a logo the site has not measured', () => {
+  assert.throws(() => footer({ partners: [{ name: 'X', key: 'x', logo: '/_blob/1' }] }), /_footer\.scss/);
+});
