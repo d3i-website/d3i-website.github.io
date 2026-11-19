@@ -104,35 +104,24 @@ export interface SiteFooterProps {
  */
 export declare function SiteFooter(props: SiteFooterProps): React.ReactElement;
 
-/** URLs of your uploads of the files in assets/Sprites; a sprite left out is not drawn. */
-export interface HeroSprites {
-  clouds?: string;
-  plane?: string;
-  walker?: string;
-  mountains?: string;
-  trees?: string;
-  car?: string;
-  cyclist?: string;
-}
-export interface HomepageHeroProps {
-  /** One line of what the site is, in hero-title. */
-  title: string;
-  /** One sentence, in lead. */
-  subtitle?: string;
-  /** The one call to action. */
-  cta?: Link;
-  /** A Postit for the right-hand side (its props; body as `body`). */
-  postit?: PostitProps;
-  /** The sky and road travellers. */
-  sprites?: HeroSprites;
+/* Front page --------------------------------------------------------------------- */
+
+export interface BandProps {
+  /** The title's two lines, in title and on-sky. The title is always two lines; the site takes them from index.md's title_line_1 and title_line_2. */
+  titleLines: [string, string];
+  /** One sentence, in lead and blue; index.md's excerpt. */
+  subtitle: string;
+  /** The note that lies on the band (a D3I.Note), placed where the site places it: after the drawing, inside the section. Leave it out and the band is complete without it. */
+  children?: React.ReactNode;
+  /** Added to the <section class="hero">, which also takes the other unknown props. */
   className?: string;
 }
 /**
- * The homepage opener: a blue-tint disc, sky, headline row with an optional post-it, and the CSS road with travellers. Homepage only.
+ * The sky-blue band at the top of the front page: the network drawing, the two-line title and the subtitle, as _includes/home/band.html writes them. Front page only, once, inside the front page's wrapper <div class="home">, which carries the band's styles. Renders the hidden clip-path <svg> and then <section class="hero">.
  * @example
- * <HomepageHero title="Open infrastructure for data donation research" subtitle="Digital trace data, donated by the people it belongs to" cta={{ label: "Learn about data donation", href: "#" }} sprites={sprites} />
+ * <div className="home"><Band titleLines={["Open Infrastructure for", "Data Donation Research"]} subtitle="Digital Trace Data, donated to science by citizens." /></div>
  */
-export declare function HomepageHero(props: HomepageHeroProps): React.ReactElement;
+export declare function Band(props: BandProps): React.ReactElement;
 
 /* Actions ----------------------------------------------------------------------- */
 
@@ -888,7 +877,7 @@ declare global {
       SiteHeader: typeof SiteHeader;
       SectionSubnav: typeof SectionSubnav;
       SiteFooter: typeof SiteFooter;
-      HomepageHero: typeof HomepageHero;
+      Band: typeof Band;
       ActionLink: typeof ActionLink;
       ContactBlock: typeof ContactBlock;
       Postit: typeof Postit;

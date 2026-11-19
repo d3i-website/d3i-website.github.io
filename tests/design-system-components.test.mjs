@@ -7,6 +7,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadBundle, renderToHtml, classesIn, runPreview } from './lib/stub-react.mjs';
@@ -101,6 +102,7 @@ test('every class a website component emits is used by the site', () => {
   const missing = [];
   for (const name of previews.filter((n) => !n.startsWith('Slide'))) {
     for (const c of classesIn(runPreview(previewPath(name), bundle()))) {
+      if (c.startsWith('pv')) continue; // preview scaffolding (pv, pv-row), not component output
       if (!used.has(c)) missing.push(`${name} → ${c}`);
     }
   }
@@ -120,6 +122,33 @@ test('previews point only at uploads', () => {
     }
   }
   assert.deepEqual(bad, [], `previews pointing elsewhere:\n  ${bad.join('\n  ')}`);
+});
+
+/* Band ------------------------------------------------------------------------------------ */
+
+// The band's drawing is _includes/home/band.html, copied into bundle.js by build_band_markup.py.
+test('band markup is current', () => {
+  execFileSync('python3', ['-I', join(root, 'docs/design-system-2/tools/build_band_markup.py'), '--check'], { stdio: 'pipe' });
+});
+
+const BAND_PROPS = {
+  titleLines: ['Open Infrastructure for', 'Data Donation Research'],
+  subtitle: 'Digital Trace Data, donated to science by citizens.',
+};
+
+test('band renders both title lines and the subtitle', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.Band, BAND_PROPS));
+  assert.ok(html.includes('Open Infrastructure for'), 'first title line');
+  assert.ok(html.includes('Data Donation Research'), 'second title line');
+  assert.ok(html.includes('Digital Trace Data, donated to science by citizens.'), 'subtitle');
+});
+
+// The note is _includes/home/note.html: its classes are note and note__*.
+test('band without a note', () => {
+  const { D3I, React } = bundle();
+  const classes = [...classesIn(renderToHtml(React.createElement(D3I.Band, BAND_PROPS)))];
+  assert.deepEqual(classes.filter((c) => c === 'note' || c.startsWith('note__')), []);
 });
 
 // The stub itself, so a renderer slip is not mistaken for a component's.

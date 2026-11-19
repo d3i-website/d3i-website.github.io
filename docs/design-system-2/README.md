@@ -19,6 +19,7 @@ Start with `project/README.md`, the brand book: what every token is for, the sli
   - `fonts/` holds Nunito, Nunito Sans and Libre Caslon Condensed (all SIL Open Font License).
   - `assets/<Group>/` holds the images, with a `README.md` per group on how each is used. In the artifact the images are uploads; `design-system.json` (the artifact's index) records each one's upload id under `assetGroups`. The `Network` group is not uploaded yet and has no ids there.
 - `tools/build_tokens_css.py` compiles `project/tokens.css` from `project/tokens.json`.
+- `tools/build_band_markup.py` copies the front page's band drawing from `_includes/home/band.html` into `components/bundle.js`, for the Band component. Run it when the include changes; with `--check` it only says whether the copy is current.
 - `tools/check_reference_values.py` checks that every colour and font size the front page reference uses has a token. With `--site` it scans the site's Sass for the redone surfaces (`_site`, `_pages`, `_nav`, `_footer`, `_news-post`, `_home-band`, `_home-content`) and lists every hex colour that has no token. Colours that belong only to pages not yet redone are listed in the script's `ALLOWED_UNREDONE`.
 - `tools/extract_network_pieces.py` writes the `Network` pieces from the designer's hero artwork.
 - `tools/install_copy.py` does the mechanical part of installing or re-syncing a copy in someone's claude.ai account (see `INSTALL.md`).
