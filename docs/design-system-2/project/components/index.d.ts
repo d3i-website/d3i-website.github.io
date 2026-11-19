@@ -162,7 +162,7 @@ export interface ArrowDiscProps {
   className?: string;
 }
 /**
- * The arrow disc (disc-arrow-sm, 24px): a blue disc with a white arrow, the site's svg.go. It ends "More" on each list's heading line; nothing else carries it (the note draws its own 36px disc). Put it at the end of the link it marks, inside FrontPage, which styles it.
+ * The arrow disc (disc-arrow-sm, 24px): a blue disc with a white arrow, the site's svg.go. It ends "More" on each list's heading line, which ListRow.List draws; nothing else carries it (the note draws its own 36px disc). Put it at the end of the link it marks, inside FrontPage, which styles it.
  * @example
  * <a className="more" href={newsUrl}>More<ArrowDisc label=" news" /></a>
  */
@@ -181,6 +181,74 @@ export interface LinkProps {
  * <p>You can also subscribe to our <Link href={newsletterUrl}>newsletter</Link>.</p>
  */
 export declare function Link(props: LinkProps): React.ReactElement;
+
+export interface HomeCardProps {
+  /** One to three words over the heading, in eyebrow type and text-muted: "Learn more". The site leaves it out when page.movements' eyebrow is empty. */
+  eyebrow: string;
+  /** The heading, in Libre Caslon Condensed and heading, with a dotted sky underline; one of page.movements' headings. */
+  title: string;
+  /** Where the card leads. The heading is the link and its ::after covers the card, so the whole card is the link. */
+  href: string;
+  /** The body: one sentence, in <p class="bo">. */
+  children?: React.ReactNode;
+  /** Added to the <article class="cd">, which also takes the other unknown props. */
+  className?: string;
+}
+export interface HomeCardGridProps {
+  /** The HomeCards, three on the site: three columns from 1000px, two below it (the last spanning both), one below 600px. */
+  children: React.ReactNode;
+  /** Added to the <div class="cards">, which also takes the other unknown props. */
+  className?: string;
+}
+/**
+ * One of the borderless, centred cards below the band, as _layouts/homepage.html writes each of page.movements: eyebrow, heading (the card's link) and body. Inside HomeCard.Grid, inside FrontPage.
+ * @example
+ * <HomeCard.Grid><HomeCard eyebrow="Learn more" title="What is data donation?" href={dataDonationUrl}>Data donation allows researchers to collect digital traces by asking participants to donate their own data.</HomeCard></HomeCard.Grid>
+ */
+export declare const HomeCard: ((props: HomeCardProps) => React.ReactElement) & {
+  /** The row of cards, <div class="cards">. */
+  Grid: (props: HomeCardGridProps) => React.ReactElement;
+};
+
+export interface ListRowProps {
+  /** The item's date as ISO "2026-11-20"; shown as the month ("Nov") over the day ("20"), as lists.html formats it. */
+  date: string;
+  /** The item's title. It is the row's link and its ::after covers the row, so the whole row is the link. */
+  title: string;
+  /** The item's page, or its external_url. */
+  href: string;
+  /** For an event: its location, with " · <year>" when the event is not in this year. Left out (news), there is no .where line. */
+  place?: string;
+  /** Added to the <article class="row">, which also takes the other unknown props. */
+  className?: string;
+}
+export interface ListRowListProps {
+  /** The list's heading: "Latest news" or "Upcoming events". */
+  title: string;
+  /** Where "More" leads: the news page or the events page. */
+  moreHref: string;
+  /** The second word of "More", visually hidden, for screen readers: "news" or "events". */
+  moreLabel: string;
+  /** Four ListRows. */
+  children: React.ReactNode;
+}
+export interface ListRowListsProps {
+  /** Two ListRow.Lists: news, then events. Side by side from 900px, stacked below. */
+  children: React.ReactNode;
+  /** Added to the <section class="lists">, which also takes the other unknown props. */
+  className?: string;
+}
+/**
+ * A row of the front page's lists, as _includes/home/lists.html writes it: the date, the title (the row's link) and, for an event, its place. In a ListRow.List, the two lists in ListRow.Lists, inside FrontPage.
+ * @example
+ * <ListRow.Lists><ListRow.List title="Latest news" moreHref={newsUrl} moreLabel="news"><ListRow date="2026-11-09" title="Ready to reproduce: export your data donation study" href={itemUrl} /></ListRow.List><ListRow.List title="Upcoming events" moreHref={eventsUrl} moreLabel="events"><ListRow date="2026-11-20" title="Unlocking Data" href={eventUrl} place="Webinar" /></ListRow.List></ListRow.Lists>
+ */
+export declare const ListRow: ((props: ListRowProps) => React.ReactElement) & {
+  /** One list: its heading line (title and "More" with the arrow disc) and its rows. */
+  List: (props: ListRowListProps) => React.ReactElement;
+  /** The two lists side by side, <section class="lists">. */
+  Lists: (props: ListRowListsProps) => React.ReactElement;
+};
 
 /* Actions ----------------------------------------------------------------------- */
 
@@ -272,7 +340,7 @@ export interface NewsCardProps {
   /** As the site writes it: "September 8, 2026". */
   date?: string;
   summary?: string;
-  /** Optional photo; inside NewsCard.Band it becomes a round avatar on the accent field. */
+  /** Optional photo; without one the accent field shows bare. */
   image?: Picture;
   /** Media field colour 0, 1, 2 (blue, coral, yellow); default: title length modulo 3, as the site does. */
   accent?: 0 | 1 | 2;
@@ -292,15 +360,6 @@ export interface NewsCardListProps {
   children: React.ReactNode;
   className?: string;
 }
-export interface NewsCardBandProps {
-  /** Default "Latest news". */
-  title?: string;
-  /** The "More news →" link. */
-  moreLink?: LinkTarget;
-  /** Three NewsCards; the band lays them out as the grid. */
-  children: React.ReactNode;
-  className?: string;
-}
 /**
  * A news item as a card: an accent media slot, title, date, summary and a "Read more →" link pinned to the bottom.
  * @example
@@ -311,8 +370,6 @@ export declare const NewsCard: ((props: NewsCardProps) => React.ReactElement) & 
   Grid: (props: NewsCardGridProps) => React.ReactElement;
   /** A stack of row cards. */
   List: (props: NewsCardListProps) => React.ReactElement;
-  /** The homepage news band on surface-tint, photos as avatars. */
-  Band: (props: NewsCardBandProps) => React.ReactElement;
 };
 
 export interface ArchiveCardProps {
@@ -350,39 +407,6 @@ export interface ArchiveCardListProps {
 export declare const ArchiveCard: ((props: ArchiveCardProps) => React.ReactElement) & {
   /** The archive list, optionally under a heading. */
   List: (props: ArchiveCardListProps) => React.ReactElement;
-};
-
-export interface MovementCardProps {
-  /** One or two uppercase words: "The method". */
-  eyebrow?: string;
-  heading: string;
-  /** One or two sentences. */
-  body?: string;
-  /** An illustration from assets/Illustrations in the item's accent. */
-  image?: Picture;
-  /** The link, drawn in the accent with a trailing arrow. */
-  link?: LinkTarget;
-  /** primary pairs blue with blue-tint, secondary coral with coral-tint, tertiary yellow-text with yellow-tint; homepage order: primary, secondary, tertiary. */
-  accent?: 'primary' | 'secondary' | 'tertiary';
-  className?: string;
-}
-export interface MovementCardGroupProps {
-  /** The MovementCards, in order. */
-  children: React.ReactNode;
-  /** The wide layout (image panel left, text right), one card in view; without it the cards stack. */
-  wide?: boolean;
-  /** With wide: the index of the card in view. */
-  active?: number;
-  className?: string;
-}
-/**
- * One of the homepage's movements: a tinted illustration panel with eyebrow, heading, sentence and link, all in one accent.
- * @example
- * <MovementCard accent="primary" eyebrow="The method" heading="What is data donation?" body="Data donation allows researchers to collect digital traces." link={{ label: "Learn how it works", href: "#" }} />
- */
-export declare const MovementCard: ((props: MovementCardProps) => React.ReactElement) & {
-  /** The homepage band that holds the cards. */
-  Group: (props: MovementCardGroupProps) => React.ReactElement;
 };
 
 /** A person named on a card, linked to their profile when there is one. */
@@ -941,13 +965,14 @@ declare global {
       Note: typeof Note;
       ArrowDisc: typeof ArrowDisc;
       Link: typeof Link;
+      HomeCard: typeof HomeCard;
+      ListRow: typeof ListRow;
       ActionLink: typeof ActionLink;
       ContactBlock: typeof ContactBlock;
       Postit: typeof Postit;
       Callout: typeof Callout;
       NewsCard: typeof NewsCard;
       ArchiveCard: typeof ArchiveCard;
-      MovementCard: typeof MovementCard;
       InstitutionCard: typeof InstitutionCard;
       ProjectCard: typeof ProjectCard;
       PeopleGrid: typeof PeopleGrid;

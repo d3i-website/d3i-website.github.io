@@ -1,0 +1,32 @@
+<!-- @dsCard group="Cards" height=540 width=1152 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>ListRow — preview</title></head>
+<body class="site-shell layout--homepage">
+<div id="root"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  var news = [
+    { date: '2026-11-09', title: 'Ready to reproduce: export your data donation study' },
+    { date: '2026-11-03', title: 'Building a Shared Knowledge Base for Data Donation: Join the DDP Tracker Initiative' },
+    { date: '2026-10-12', title: 'Data Donation Early Career Network' },
+    { date: '2026-10-09', title: 'D3I and TDCC RIGHTS at the Data Donation Symposium 2026 in Berlin' }
+  ];
+  var events = [
+    { date: '2026-11-20', title: 'Unlocking Data: Exploring research opportunities on online platforms', place: 'Webinar' },
+    { date: '2026-11-24', title: 'ODISSEI Conference 2026 – Special Edition: 10 Years of ODISSEI', place: 'Jaarbeursplein 6 3521 AL' },
+    { date: '2026-12-07', title: 'New Directions in Social Media Research Conference', place: "St John's College, University of Cambridge" },
+    { date: '2027-05-10', title: 'Digital Footprints 2027: Transforming Health for People and Planet', place: 'Bristol, UK · 2027' }
+  ];
+  function rows(items) {
+    return items.map(function (it, i) { return h(D.ListRow, Object.assign({ key: i, href: '#' }, it)); });
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h(D.FrontPage, null,
+      h(D.ListRow.Lists, null,
+        h(D.ListRow.List, { title: 'Latest news', moreHref: '#', moreLabel: 'news' }, rows(news)),
+        h(D.ListRow.List, { title: 'Upcoming events', moreHref: '#', moreLabel: 'events' }, rows(events))))
+  );
+</script>
+</body>
+</html>

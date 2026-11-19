@@ -244,3 +244,30 @@ test('link is a bare <a>', () => {
   const { D3I, React } = bundle();
   assert.equal(renderToHtml(React.createElement(D3I.Link, { href: '#' }, 'newsletter')), '<a href="#">newsletter</a>');
 });
+
+/* HomeCard, ListRow ------------------------------------------------------------------------ */
+
+// A row's date is _includes/home/lists.html's: the month as %b over the day as %-d.
+test('list row shows month and day', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.ListRow, { date: '2026-11-20', title: 'Unlocking Data', href: '#' }));
+  assert.ok(html.includes('<p class="date"><span>Nov</span><b class="serif">20</b></p>'), 'Nov over 20');
+  const early = renderToHtml(React.createElement(D3I.ListRow, { date: '2026-03-05', title: 'x', href: '#' }));
+  assert.ok(early.includes('<span>Mar</span><b class="serif">5</b>'), 'the day without a leading zero');
+});
+
+test('event row shows its place, news row does not', () => {
+  const { D3I, React } = bundle();
+  const event = renderToHtml(React.createElement(D3I.ListRow, { date: '2026-11-20', title: 'Unlocking Data', href: '#', place: 'Webinar' }));
+  const news = renderToHtml(React.createElement(D3I.ListRow, { date: '2026-11-09', title: 'Ready to reproduce', href: '#' }));
+  assert.ok(event.includes('<p class="where">Webinar</p>'), 'the place, in .where');
+  assert.ok(!classesIn(news).has('where'), 'no .where without a place');
+});
+
+// "More" is lists.html's: the hidden second word comes straight after it, before the dots and the disc.
+test('More has its hidden word', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.ListRow.List, { title: 'Upcoming events', moreHref: '#', moreLabel: 'events' }));
+  assert.ok(html.includes('<a class="more" href="#">More<span class="visually-hidden"> events</span><i class="more__dots"></i><svg class="go"'), 'More, then " events" hidden, the dots and the disc');
+  assert.equal(count(html, 'visually-hidden'), 1, 'one hidden word');
+});

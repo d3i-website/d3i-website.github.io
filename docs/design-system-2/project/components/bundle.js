@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"D3I","components":[{"name":"SiteHeader"},{"name":"SectionSubnav"},{"name":"SiteFooter"},{"name":"FrontPage"},{"name":"Band"},{"name":"Note"},{"name":"ArrowDisc"},{"name":"Link"},{"name":"ActionLink"},{"name":"ContactBlock"},{"name":"Postit"},{"name":"Callout"},{"name":"NewsCard"},{"name":"ArchiveCard"},{"name":"MovementCard"},{"name":"InstitutionCard"},{"name":"ProjectCard"},{"name":"PeopleGrid"},{"name":"PageIntro"},{"name":"SidebarPanel"},{"name":"TableOfContents"},{"name":"Routes"},{"name":"JourneyNext"},{"name":"HubStep"},{"name":"Prose"},{"name":"Figure"},{"name":"EventDetails"},{"name":"UsageFigures"},{"name":"SlideCover"},{"name":"SlideFrame"},{"name":"SlidePlan"},{"name":"SlideSectionStop"},{"name":"SlideBuild"},{"name":"SlideStats"},{"name":"SlideFunnel"},{"name":"SlideWindow"},{"name":"SlideQuestions"}]} */
+/* @ds-bundle: {"format":4,"namespace":"D3I","components":[{"name":"SiteHeader"},{"name":"SectionSubnav"},{"name":"SiteFooter"},{"name":"FrontPage"},{"name":"Band"},{"name":"Note"},{"name":"ArrowDisc"},{"name":"Link"},{"name":"HomeCard"},{"name":"ListRow"},{"name":"ActionLink"},{"name":"ContactBlock"},{"name":"Postit"},{"name":"Callout"},{"name":"NewsCard"},{"name":"ArchiveCard"},{"name":"InstitutionCard"},{"name":"ProjectCard"},{"name":"PeopleGrid"},{"name":"PageIntro"},{"name":"SidebarPanel"},{"name":"TableOfContents"},{"name":"Routes"},{"name":"JourneyNext"},{"name":"HubStep"},{"name":"Prose"},{"name":"Figure"},{"name":"EventDetails"},{"name":"UsageFigures"},{"name":"SlideCover"},{"name":"SlideFrame"},{"name":"SlidePlan"},{"name":"SlideSectionStop"},{"name":"SlideBuild"},{"name":"SlideStats"},{"name":"SlideFunnel"},{"name":"SlideWindow"},{"name":"SlideQuestions"}]} */
 /*
  * datadonation.eu components, as window.D3I.
  *
@@ -63,11 +63,6 @@
     primary: 'var(--blue)',
     secondary: 'var(--coral)',
     tertiary: 'var(--yellow-text)'
-  };
-  var ACCENT_TINT = {
-    primary: 'var(--blue-tint)',
-    secondary: 'var(--coral-tint)',
-    tertiary: 'var(--yellow-tint)'
   };
 
   /* Actions --------------------------------------------------------------- */
@@ -153,17 +148,6 @@
     attrs.className = cx('news-list', p.className);
     return h('div', attrs, p.children);
   };
-  NewsCard.Band = function NewsCardBand(p) {
-    var attrs = rest(p, ['title', 'moreLink', 'className']);
-    attrs.className = cx('home-news', p.className);
-    return h('section', attrs,
-      h('div', { className: 'home-news__inner' },
-        h('div', { className: 'home-news__header' },
-          h('h2', { className: 'home-news__title' }, p.title || 'Latest news'),
-          p.moreLink ? h('a', Object.assign({ className: 'cta-link' }, linkAttrs(p.moreLink.href, p.moreLink.external)), p.moreLink.label, ' ', arrow()) : null),
-        h('div', { className: 'news-carousel' }, h('div', { className: 'news-grid' }, p.children))));
-  };
-
   function ArchiveCard(p) {
     var actions = list(p.actions);
     if (p.href) actions = [{ label: p.hrefLabel || 'View details', href: p.href, external: p.external }].concat(actions);
@@ -191,40 +175,6 @@
     return h('section', { className: 'archive-page__section' },
       h('div', { className: 'archive-page__section-header' }, h('h2', { className: 'archive-page__heading' }, p.heading)),
       listEl);
-  };
-
-  function MovementCard(p) {
-    var accent = p.accent || 'primary';
-    var color = ACCENT_TEXT[accent];
-    var attrs = rest(p, ['eyebrow', 'heading', 'body', 'image', 'link', 'accent', 'className']);
-    attrs.className = cx('movement-card', p.className);
-    return h('article', attrs,
-      h('div', { className: 'movement-card__figure', style: { background: ACCENT_TINT[accent] } },
-        p.image ? h('img', { src: p.image.src, alt: p.image.alt || '' }) : null),
-      h('div', { className: 'movement-card__text' },
-        p.eyebrow ? h('span', { className: 'movement-card__eyebrow', style: { color: color } }, p.eyebrow) : null,
-        h('h2', { className: 'movement-card__heading' }, p.heading),
-        p.body ? h('p', { className: 'movement-card__body' }, p.body) : null,
-        p.link ? h('a', Object.assign({ className: 'movement-card__link', style: { color: color } }, linkAttrs(p.link.href, p.link.external)), p.link.label, ' →') : null));
-  }
-  MovementCard.Group = function MovementCardGroup(p) {
-    var R_ = R();
-    var items = R_.Children.toArray(p.children);
-    var active = Math.max(0, Math.min(items.length - 1, p.active || 0));
-    var carousel = { className: cx('movements-carousel', p.wide && 'is-enhanced') };
-    var track = { className: 'movements-carousel__track' };
-    if (p.wide) {
-      carousel.style = { '--slide-basis': '100%' };
-      if (active > 0) track.style = { transform: 'translateX(' + (-100 * active) + '%)' };
-    }
-    var attrs = rest(p, ['wide', 'active', 'className']);
-    attrs.className = cx('homepage-stops', p.className);
-    return h('section', attrs,
-      h('div', carousel,
-        h('div', { className: 'movements-carousel__viewport' },
-          h('div', track, items.map(function (c, i) {
-            return h('div', { className: 'movements-carousel__slide', key: i, 'aria-hidden': p.wide && i !== active ? 'true' : undefined }, c);
-          })))));
   };
 
   function InstitutionCard(p) {
@@ -596,8 +546,7 @@
   /* The small arrow disc that ends "More" (_includes/home/lists.html's svg.go), 24px. Its label is
      visually hidden text before it, for the link it sits in; className and other props go on the svg. */
   function ArrowDisc(p) {
-    var attrs = Object.assign(rest(p, ['label', 'className']), { width: '24', height: '24', viewBox: '-18 -18 36 36', 'aria-hidden': 'true' });
-    attrs.className = cx('go', p.className);
+    var attrs = Object.assign({ className: cx('go', p.className) }, rest(p, ['label', 'className']), { width: '24', height: '24', viewBox: '-18 -18 36 36', 'aria-hidden': 'true' });
     return frag(
       p.label ? h('span', { className: 'visually-hidden' }, p.label) : null,
       h('svg', attrs, discParts('2')));
@@ -608,6 +557,56 @@
   function Link(p) {
     return h('a', rest(p, []), p.children);
   }
+
+  /* A card below the band, as _layouts/homepage.html writes one of page.movements: an eyebrow,
+     the heading, which is the card's link (its ::after covers the card), and the body as children.
+     HomeCard.Grid is the row of cards, <div class="cards">. */
+  function HomeCard(p) {
+    var attrs = rest(p, ['eyebrow', 'title', 'href', 'className']);
+    attrs.className = cx('cd', p.className);
+    var title = h('span', null, p.title);
+    return h('article', attrs,
+      p.eyebrow ? h('span', { className: 'eb' }, p.eyebrow) : null,
+      h('h3', { className: 'serif hd' }, p.href ? h('a', { href: p.href }, title) : title),
+      p.children != null && p.children !== '' ? h('p', { className: 'bo' }, p.children) : null);
+  }
+  HomeCard.Grid = function HomeCardGrid(p) {
+    var attrs = rest(p, ['className']);
+    attrs.className = cx('cards', p.className);
+    return h('div', attrs, p.children);
+  };
+
+  /* A row of the front page's lists, as _includes/home/lists.html writes one: the date (month as
+     %b over the day as %-d), the title, which is the row's link, and for an event its place.
+     ListRow.List is one list with its heading line and "More"; ListRow.Lists holds the two. */
+  var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  function ListRow(p) {
+    var ymd = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(p.date || '')) || [];
+    var attrs = rest(p, ['date', 'title', 'href', 'place', 'className']);
+    attrs.className = cx('row', p.className);
+    return h('article', attrs,
+      h('p', { className: 'date' }, h('span', null, MONTHS[+ymd[2] - 1]), h('b', { className: 'serif' }, ymd[3] ? String(+ymd[3]) : null)),
+      h('div', null,
+        h('h3', { className: 'row__title' }, h('a', { href: p.href }, h('span', null, p.title))),
+        p.place ? h('p', { className: 'where' }, p.place) : null));
+  }
+  ListRow.List = function ListRowList(p) {
+    var attrs = rest(p, ['title', 'moreHref', 'moreLabel']);
+    return h('div', attrs,
+      h('div', { className: 'lhead' },
+        h('h2', { className: 'serif ltitle' }, p.title),
+        h('a', { className: 'more', href: p.moreHref },
+          'More',
+          p.moreLabel ? h('span', { className: 'visually-hidden' }, ' ' + p.moreLabel) : null,
+          h('i', { className: 'more__dots' }),
+          h(ArrowDisc, null))),
+      h('div', { className: 'rows' }, p.children));
+  };
+  ListRow.Lists = function ListRowLists(p) {
+    var attrs = rest(p, ['className']);
+    attrs.className = cx('lists', p.className);
+    return h('section', attrs, p.children);
+  };
 
   /* Content ------------------------------------------------------------------ */
 
@@ -1053,13 +1052,14 @@
     Note: Note,
     ArrowDisc: ArrowDisc,
     Link: Link,
+    HomeCard: HomeCard,
+    ListRow: ListRow,
     ActionLink: ActionLink,
     ContactBlock: ContactBlock,
     Postit: Postit,
     Callout: Callout,
     NewsCard: NewsCard,
     ArchiveCard: ArchiveCard,
-    MovementCard: MovementCard,
     InstitutionCard: InstitutionCard,
     ProjectCard: ProjectCard,
     PeopleGrid: PeopleGrid,

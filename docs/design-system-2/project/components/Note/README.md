@@ -1,6 +1,6 @@
 The front page's note: one timely message, such as a position statement, that lies on top of the band. It is not part of the band; the band is complete without it, and the front page can switch it off.
 
-Use at most one, as `Band`'s children, inside `FrontPage`. It renders `_includes/home/note.html`'s own markup. From 1280px it hangs from the band's anchor on paper with a tab; below 1280px it is plain text in the niche under the band's shallow side. Both forms are in the markup, and the stylesheet shows the one that fits the width.
+Use at most one, as `Band`'s children, inside `FrontPage`. It renders `_includes/home/note.html`'s own markup. From 1280px it hangs from the band's anchor on paper with a tab; below 1280px it is plain text in the niche under the band's shallow side. Both forms are in the markup, and the stylesheet shows the one that fits the width. The site renders the note only when it is enabled and has a non-empty title; the component always renders what it is given, so the caller decides whether to mount it.
 
 ## What you provide
 

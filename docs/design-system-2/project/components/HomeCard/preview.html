@@ -1,0 +1,21 @@
+<!-- @dsCard group="Cards" height=200 width=1152 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>HomeCard — preview</title></head>
+<body class="site-shell layout--homepage">
+<div id="root"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h(D.FrontPage, null,
+      h(D.HomeCard.Grid, null,
+        h(D.HomeCard, { eyebrow: 'Learn more', title: 'What is data donation?', href: '#' },
+          'Data donation allows researchers to collect digital traces by asking participants to donate their own data.'),
+        h(D.HomeCard, { eyebrow: 'Planning ahead', title: 'Prepare a study', href: '#' },
+          'Guidance for preparing your study, from design to ethics to FAIR practices.'),
+        h(D.HomeCard, { eyebrow: 'Ready to start', title: 'Open-source software', href: '#' },
+          "Free, open-source tools that collect donated data right in the participant's browser.")))
+  );
+</script>
+</body>
+</html>
