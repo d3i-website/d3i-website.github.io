@@ -21,4 +21,4 @@ Pictures are uploads in this system: find the id on `api/assets/<Group>.md`, fet
 - `.hub__movement-number` is the disc: 48px (off the token scale, from the chosen mockup: between `disc`, 39.6px, and the slides' plan), `blue`, with the number in `numeral` (the serif, provisional) in `on-sky`. It is hidden from screen readers, as on the site.
 - `.hub__movement-image img` is letterboxed in a 5:4 box at up to 20rem (`object-fit: contain`).
 - `.hub__movement-title` is `title-sm` in the serif (provisional), in `heading`. Its words carry the dotted `sky` link underline at `line-underline-offset-title`, solid on hover and on keyboard focus. `.hub__movement-body` is `body` in `text`, at most 32rem.
-- The hub hero above the steps is carried over unchanged: a title in the display face with a `lead` line in `text-muted`, beside an image at up to 32rem.
+- The hub hero above the steps is still in the earlier look, because the mockups never designed it: a title in the display face with a `lead` line in `text-muted`, beside an image at up to 32rem.

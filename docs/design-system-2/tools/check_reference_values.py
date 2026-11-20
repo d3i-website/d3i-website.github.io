@@ -14,8 +14,9 @@ styles (the Slides groups are left out, since the reference is a web page).
 
 With --site it instead scans the site's own Sass for the redone surfaces (the front
 page, header, footer, content pages and news article) and prints each hex colour that
-no token matches. Colours that belong only to pages not yet redone are listed in
-ALLOWED_UNREDONE below, each with its page. It also resolves each $name those files use
+no token matches. Colours that the site's Sass still draws in the old look, because the page has not
+adopted the redone component yet, are listed in ALLOWED_UNREDONE below, each with its
+surface. It also resolves each $name those files use
 to its hex in _sass/_variables.scss and checks that value the same way. It does not see
 rgba() or hsl() colours, named colours (white, black), or a colour built by a Sass function.
 
@@ -40,16 +41,18 @@ SITE_ROOT = HERE.parent.parent.parent
 VARIABLES = SITE_ROOT / "_sass" / "_variables.scss"
 SITE_FILES = ("_site", "_pages", "_nav", "_footer", "_news-post", "_home-band", "_home-content")
 
-# Colours in the scanned Sass that have no token because they belong only to pages the
-# rebrand has not redone. Each is six lowercase digits, with the page that uses it.
+# Colours in the scanned Sass that have no token. The system's components no longer use
+# them: they are the site's old styling, which stays until the page adopts the new
+# markup and the rule is deleted from the Sass. Each is six lowercase digits, with the
+# rule that uses it. None belongs to InstitutionCard or the network page.
 ALLOWED_UNREDONE = {
     "#4f5560": "_footer.scss: .site-footer__label base colour, overridden by --small on every label in use",
-    "#50545d": "_pages.scss: sidebar panel title and links (sidebar, not yet redone)",
-    "#fbfbfc": "_pages.scss: sidebar panel ground (sidebar, not yet redone)",
-    "#fafbfd": "_pages.scss: table of contents ground (not yet redone)",
-    "#fafcff": "_pages.scss: featured archive card ground (archive pages, not yet redone)",
-    "#f6f8fc": "_site.scss: media grid image ground (media pages, not yet redone)",
-    "#f0f8ff": "_site.scss: callout ground (callouts, not yet redone)",
+    "#50545d": "_pages.scss: sidebar panel title and links; SidebarPanel's new look replaces the rule when the site adopts it",
+    "#fbfbfc": "_pages.scss: sidebar panel ground; same rule set, goes with it",
+    "#fafbfd": "_pages.scss: table of contents ground; TableOfContents keeps it, approximated by surface-tint, since no decision redesigned it",
+    "#fafcff": "_pages.scss: featured archive card ground; ArchiveCard's new look has no ground, the rule goes when archive pages adopt it",
+    "#f6f8fc": "_site.scss: media grid image ground; no system component draws the media grid",
+    "#f0f8ff": "_site.scss: callout ground; Callout's new look has no ground, the rule goes when the site adopts it",
 }
 
 
