@@ -611,6 +611,13 @@ test('every slide is one section of inline styles', () => {
       assert.ok(!/\sclass=/.test(html), `${name}: no class=`);
     }
   }
+  // the previews render SlideCover in its default layout; the band-title layout is checked here
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.SlideCover, { layout: 'band-title', title: 'T', subtitle: 'S' }));
+  assert.ok(html.startsWith('<section style="') && html.endsWith('</section>'), 'SlideCover band-title: a <section>');
+  assert.equal(count(html, '<section'), 1, 'SlideCover band-title: one <section>');
+  assert.ok(!html.includes('<style'), 'SlideCover band-title: no <style>');
+  assert.ok(!/\sclass=/.test(html), 'SlideCover band-title: no class=');
 });
 
 test('the funnel and the meter in the new look', () => {

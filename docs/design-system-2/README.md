@@ -4,7 +4,7 @@ The new look of the datadonation.eu website, begun with the front page on 2026-1
 
 `docs/design-system/` is the earlier system. Slides are still made from it, and it is not edited.
 
-This folder has no claude.ai artifact yet. Its slide parts are carried over from the earlier system and are not yet revised.
+This folder has no claude.ai artifact yet. Its slides are in the new look.
 
 Start with `project/README.md`, the brand book: what every token is for, the slide rules, the slide palette in hex, and the components.
 

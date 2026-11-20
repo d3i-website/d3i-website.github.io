@@ -1,13 +1,13 @@
 datadonation.eu is the website of D3I, the Dutch digital data donation infrastructure, and the hub of an international community of researchers. The new look, begun with the front page, is a white page with dark ink text, blue as the one working colour, one sky-blue band at the top of the front page, a condensed serif for large headings, and a drawing of lines and nodes that every piece sits on. The serif is provisional (see Shared · Type). Everything below names tokens in `tokens.json`, text styles in its `type.groups`, class names in `components/bundle.css`, components in `components/bundle.js` (`window.D3I`) and files under `assets/`.
 
-The system is small: 26 colours, 18 text styles for the website and 12 for slides, one 4px spacing scale, square corners, and one shadow on the front page. Most website tokens describe the front page, the first page in the new look. A token whose note says "carried over" serves the pages not yet redone, or slides. Use what is here; when something seems missing, the answer is almost always an existing token used as its note says, not a new value.
+The system is small: 26 colours, 18 text styles for the website and 12 for slides, one 4px spacing scale, square corners, and one shadow on the front page. Most website tokens describe the front page, the first page in the new look. A token whose note says "carried over" serves the pages not yet redone. Use what is here; when something seems missing, the answer is almost always an existing token used as its note says, not a new value.
 
 ## How this book is organised
 
 The system serves two media from one set of tokens: the website, and slides (1920 × 1080, read from the back of a room). The website's tokens were set from the front page reference in `docs/front-page-reference/`. Its README's "What was decided" is the source for the Shared and Website sections; where this book and the reference differ, the reference leads.
 
 - **Shared** sections (Colour, Type, Space and shape) describe the tokens both media read.
-- **Slides** sections cover voice for talks, the slide idioms and rules, the slide palette in hex, and the slide components. They are carried over from the earlier system and not yet revised.
+- **Slides** sections cover voice for talks, the slide idioms and rules, the slide palette in hex, and the slide components. They are in the new look: slides took it with the front page, and nothing keeps the old one.
 - **Website** sections cover voice, links and the arrow disc, lines and nodes, the band, the note, what sits below the band, layout, what shows at each width, imagery and icons, motion, and the components.
 - **Builders** closes with the files and asset ids a deck or page builder copies by hand.
 
@@ -37,7 +37,7 @@ The website is white with one colour block. Learn the roles and you know every t
 
 **Carried over.**
 
-- `surface-tint`, `surface-strong` and `border-strong` are not on the front page. They serve the pages not yet redone (panels, pills, outlines of controls, chart axes) and slides. `on-accent` is text on a `blue` fill, such as an active chip or tab.
+- `surface-tint`, `surface-strong` and `border-strong` are not on the front page. They serve the pages not yet redone (panels, pills, outlines of controls, chart axes). On a slide only `border-strong` still appears, as the axis rule of a bar chart. `on-accent` is text on a `blue` fill, such as an active chip or tab.
 - `blue-tint`, `coral-tint`, `yellow-text`, `yellow-tint` and `road` are not in the new look: it has no tinted panels and no road. No slide uses them any more; on the website only the pages not yet redone do (the callout, the post-it, the featured archive card).
 - `focus` is the keyboard focus ring: 2px solid at 2px offset.
 - `chart-1` to `chart-5` colour data series in that order (blue, coral, orange, teal, violet). Every mark carries its value as text.
@@ -64,7 +64,7 @@ Two faces, both wired as font files: Libre Caslon Condensed (`serif`) for large 
 
 The content pages' heading levels (h1 to h4) are not in the tokens; their sizes are set when those pages are redone.
 
-**Slide scale: 24, 28, 36, 48, 64, 96, 200px.** Twelve styles in the Slides group: `slide-numeral`, `slide-display`, `slide-title`, `slide-stat`, `slide-heading`, `slide-subheading`, `slide-lead`, `slide-item`, `slide-body`, `slide-small`, `slide-label`, `slide-eyebrow`. Nothing on a slide is under 24px. They are carried over: they take the `display` family, now the serif, at the sizes, weights and tracking drawn for the rounded Nunito.
+**Slide scale: 24, 28, 36, 48, 64, 96, 200px.** Twelve styles in the Slides group: `slide-numeral`, `slide-display`, `slide-title`, `slide-stat`, `slide-heading`, `slide-subheading`, `slide-lead`, `slide-item`, `slide-body`, `slide-small`, `slide-label`, `slide-eyebrow`. Nothing on a slide is under 24px. Titles, the part number and stat numerals are the serif at 420 with no tracking, as on the website. Text is Nunito Sans. Two styles keep the rounded Nunito, `slide-item` and `slide-label` (the footer row); it is for slides only. `slide-eyebrow` is Nunito Sans at 800, tracked 3px.
 
 Use the styles as they are. A size that is not on the scale for its medium is a mistake to fix, not a variant.
 
@@ -72,12 +72,12 @@ Use the styles as they are. A size that is not on the scale for its medium is a 
 
 - Spacing is one 4px-based scale: `space-4`, `space-8`, `space-12`, `space-16`, `space-24`, `space-32`, `space-48`, `space-64`, `space-96`, `space-128`. Pages mostly use 8 to 64; slides use 24 to 128. The front page's gutter, gaps and section spaces have their own layout tokens (see Website · Layout). Paddings and gaps come from the scale or those tokens; widths and heights of drawn things are free.
 - **Shape.** If something is curved, it is a line or a node. Everything else has square corners: cards, the note's paper, buttons, chips, images. The radius tokens `radius-sm`, `radius-md`, `radius-lg`, `radius-xl` and `radius-pill` are kept at 0, so anything that reads them takes the square corner. `radius-circle` (50%) is for nodes, discs and portraits, and for the carried-over photos, avatars, route stops and bullets.
-- No borders round cards, and no shadows under them. Hairlines in `border` divide list rows and the footer. The one shadow on the front page is `shadow-note`, under the note's paper, set as `filter: drop-shadow(var(--shadow-note))` so it follows the tab's shape. `shadow-sm`, `shadow-md` and `shadow-lg` are carried over for the pages not yet redone and for slides.
+- No borders round cards, and no shadows under them. Hairlines in `border` divide list rows and the footer. The one shadow on the front page is `shadow-note`, under the note's paper, set as `filter: drop-shadow(var(--shadow-note))` so it follows the tab's shape. `shadow-sm`, `shadow-md` and `shadow-lg` are carried over for the pages not yet redone. Slides draw no shadow.
 - No left-border cards. On the pages not yet redone, the only left rules are the callout (4px `blue`), the blockquote (3px `blue`), the route rail (3px accent) and the prose definition (2px `border`).
 
 ## Slides
 
-Slides are being brought into the new look. The road is retired: where a slide showed a sequence on the road, it now shows a blue line with a node per step. All nine slide components are redone, and every slide shares one title block: the eyebrow in `text-muted` caps and the title in the serif at 420 (the serif is provisional). SlideCover has two layouts: `network`, the front page's network across a sky band over the title on white, and `band-title`, the website band with the title in it over the speakers and a row of logos. The content slides have white surfaces, square corners and 2px `border` hairlines; `blue` is their one working colour, and `coral` and `yellow` appear only as small spots (a node, a disc, the funnel bar that marks the point). Their text is Nunito Sans; only the footer row, unchanged, still names Nunito. SlideStats, SlideFunnel, SlideWindow and SlideQuestions follow these rules as Claude extended them from the three slides Danielle decided (cover, frame, section stop), for her to check.
+Slides are in the new look. The road is retired: where a slide showed a sequence on the road, it now shows a blue line with a node per step. All nine slide components are redone, and every slide shares one title block: the eyebrow in `text-muted` caps and the title in the serif at 420 (the serif is provisional). SlideCover has two layouts: `network`, the front page's network across a sky band over the title on white, and `band-title`, the website band with the title in it over the speakers and a row of logos. The content slides have white surfaces, square corners and 2px `border` hairlines; `blue` is their one working colour, and `coral` and `yellow` appear only as small spots (a node, a disc, the funnel bar that marks the point). Their text is Nunito Sans; only the footer row, unchanged, still names Nunito. SlideStats, SlideFunnel, SlideWindow and SlideQuestions follow these rules as Claude extended them from the three slides Danielle decided (cover, frame, section stop), for her to check.
 
 ## Slides · Voice for talks and decks
 
@@ -88,14 +88,14 @@ The site's voice (plain, second person, short declaratives) carries into slides,
 - No antithesis for effect. Not "Error moves, it does not vanish", not "links, not content", not "It's not X, it's Y". Say what is the case: "The record itself can still be wrong"; "A watch history consists of links; the content must be retrieved."
 - Numbers carry their base and their status: "29 to 36% in LISS", "270 usable donations of 2,600 invited", "preliminary". Hedge with "may", "to date", "in this study"; never "unprecedented", "powerful", "seamless", "unlock", "leverage".
 - Name a study by what it measures, not by its headline topic: "crime and policing content on TikTok", if that is what the codebook codes, even when the public page says "online hate".
-- Options are numbered neutrally ("Option 1, 2, 3"), and the one the project recommends is shown by layout (the highlighted card), not by adjectives.
+- Options are numbered neutrally ("Option 1, 2, 3"), and the one the project recommends is shown by layout (the card framed in `blue`), not by adjectives.
 - The limits of a method get the same weight and the same plain sentences as its advantages. Put them on the slide that makes the claim, not in an appendix.
 - A closing slide asks the audience's questions, starting from their own problems and their own prior work, rather than offering a service. For a research audience, "Where could donation help a survey office?" with three open questions; never "Want to run a study?" with three routes. Access routes and contact go in the speaker notes or the footer.
 - Speaker notes carry the long version. Anything the presenter will say aloud comes off the slide and into the `<aside>`.
 
 ## Slides · Idioms and components
 
-Decks use the Slides artifact type: 1920 × 1080, one `<section>` per slide, inline styles from a closed CSS subset, hex values rather than tokens. The idioms settled so far are components in the **Slides** group of the same bundle (`window.D3I.SlideFrame` …), so a new deck starts from them rather than from a blank slide. Each renders one `<section>` with inline styles in this system's hex values, from props that hold the slide's content: a deck is a list of props.
+Decks use the Slides artifact type: 1920 × 1080, one `<section>` per slide, inline styles from a closed CSS subset, hex values rather than tokens. The idioms are are components in the **Slides** group of the same bundle (`window.D3I.SlideFrame` …), so a new deck starts from them rather than from a blank slide. Each renders one `<section>` with inline styles in this system's hex values, from props that hold the slide's content: a deck is a list of props.
 
 - In a design canvas, mount the component (`D3I.SlideFrame` with its props).
 - For a Slides deck, `D3I.slideMarkup(D3I.SlideFrame, props)` returns the slide as markup to paste: one `<section>`, hex colours, `data-fit` attributes kept. It needs React and ReactDOM 18 on the page, as `components/lib/` provides.
@@ -125,30 +125,23 @@ Rules every slide follows, whether a component draws it or you do:
 
 ## Slides · Palette in hex
 
-Slides take hex values. These are the light theme's values; use nothing else.
+Slides take hex values. These are the light theme's values, and the only colours a slide uses. Slides have no dark theme.
 
 | token | hex | on a slide |
 | --- | --- | --- |
-| `surface` | #ffffff | the ground, every card and panel |
-| `surface-tint` | #f5f7fb | code set by hand only; no component tints a slide |
-| `surface-strong` | #eceff5 | none |
+| `surface` | #ffffff | the ground, every card, panel, window and option |
 | `border` | #d5dae3 | 2px hairlines: frames, row dividers, window chrome, window dots |
-| `border-strong` | #878e9b | chart axes |
-| `heading` | #252a34 | titles, item titles |
+| `border-strong` | #878e9b | the axis rule of a bar chart |
+| `heading` | #252a34 | titles, item titles, numerals that are not blue |
 | `text` | #363b46 | body text |
-| `text-muted` | #626976 | footer, captions, secondary lines, eyebrows |
-| `blue` | #4272ef | lines and their nodes, numerals, the cover's eyebrow, the argued-for column's header and rule, links, bars, meter fills, active tabs, the recommended option's frame |
-| `blue-tint` | #eef3fe | none |
-| `coral` | #ff5e5e | spots only: the current node on a line, the funnel bar that marks the point, a coral row's or case's disc |
-| `coral-tint` | #ffefef | none |
-| `yellow` | #ffcf60 | spots only: a yellow case's disc |
-| `yellow-text` | #e8b53c | none |
-| `yellow-tint` | #fff6d6 | none |
-| `road` | #c6d5fa | muted bars only; the road band is retired |
-| `on-accent` | #ffffff | text on blue fills |
-| `chart-3` | #f4a52b | third series |
-| `chart-4` | #27b3a3 | fourth series |
-| `chart-5` | #8b5cf6 | fifth series |
+| `text-muted` | #626976 | eyebrows, footer, captions, secondary lines, earlier build rows |
+| `sky` | #87c5eb | the cover's band |
+| `blue` | #4272ef | lines and their nodes, numerals, the cover's eyebrow, the band-title cover's subtitle, bars, meter fills, the recommended option's frame, the argued-for column's rule |
+| `coral` | #ff5e5e | spots only: the current node on a line, the funnel bar that marks the point, a case's disc |
+| `yellow` | #ffcf60 | spots only: a case's disc |
+| `on-accent` | #ffffff | text on blue fills and on the band |
+
+No slide uses the tints, `yellow-text`, `road`, `surface-tint`, `surface-strong` or the chart colours. Code set by hand is the one exception: `'Courier New', monospace` on `surface-tint` (#f5f7fb), since no component sets code.
 
 ## Website · Voice and content
 

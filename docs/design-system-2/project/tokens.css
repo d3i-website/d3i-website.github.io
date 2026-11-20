@@ -156,6 +156,7 @@
   --font-display: "Libre Caslon Condensed", serif;
   --font-serif: "Libre Caslon Condensed", serif;
   --font-sans: "Nunito Sans", system-ui, sans-serif;
+  --font-rounded: "Nunito", system-ui, sans-serif;
   --font-mono: Monaco, Consolas, "Lucida Console", monospace;
   --text-title: 420 50px/1.03 var(--font-serif);
   --text-title-md: 420 40px/1.03 var(--font-serif);
@@ -175,18 +176,18 @@
   --text-note-label: 800 14px/18px var(--font-sans);
   --text-link: 700 16px/1.6 var(--font-sans);
   --text-code: 400 14px/1.6 var(--font-mono);
-  --text-slide-numeral: 900 200px/1 var(--font-display);
-  --text-slide-display: 900 96px/1.05 var(--font-display);
-  --text-slide-title: 800 64px/1.1 var(--font-display);
-  --text-slide-stat: 900 64px/1 var(--font-display);
-  --text-slide-heading: 800 48px/1.2 var(--font-display);
-  --text-slide-subheading: 800 36px/1.2 var(--font-display);
+  --text-slide-numeral: 420 200px/0.9 var(--font-display);
+  --text-slide-display: 420 96px/1.02 var(--font-display);
+  --text-slide-title: 420 64px/1.08 var(--font-display);
+  --text-slide-stat: 420 96px/1 var(--font-display);
+  --text-slide-heading: 420 48px/1.18 var(--font-display);
+  --text-slide-subheading: 420 36px/1.15 var(--font-display);
   --text-slide-lead: 400 36px/1.4 var(--font-sans);
-  --text-slide-item: 800 28px/1.3 var(--font-display);
+  --text-slide-item: 800 28px/1.3 var(--font-rounded);
   --text-slide-body: 400 28px/1.4 var(--font-sans);
   --text-slide-small: 400 24px/1.4 var(--font-sans);
-  --text-slide-label: 700 24px/1.3 var(--font-display);
-  --text-slide-eyebrow: 800 24px/1.2 var(--font-display);
+  --text-slide-label: 700 24px/1.3 var(--font-rounded);
+  --text-slide-eyebrow: 800 24px/1.2 var(--font-sans);
 }
 .title { font: var(--text-title); letter-spacing: 0; }
 .title-md { font: var(--text-title-md); letter-spacing: 0; }
@@ -206,18 +207,18 @@
 .note-label { font: var(--text-note-label); letter-spacing: 0; }
 .link { font: var(--text-link); letter-spacing: 0; }
 .code { font: var(--text-code); letter-spacing: 0; }
-.slide-numeral { font: var(--text-slide-numeral); letter-spacing: -0.03em; }
-.slide-display { font: var(--text-slide-display); letter-spacing: -0.02em; }
-.slide-title { font: var(--text-slide-title); letter-spacing: -0.015em; }
-.slide-stat { font: var(--text-slide-stat); letter-spacing: -0.015em; }
-.slide-heading { font: var(--text-slide-heading); letter-spacing: -0.01em; }
+.slide-numeral { font: var(--text-slide-numeral); letter-spacing: 0; }
+.slide-display { font: var(--text-slide-display); letter-spacing: 0; }
+.slide-title { font: var(--text-slide-title); letter-spacing: 0; }
+.slide-stat { font: var(--text-slide-stat); letter-spacing: 0; }
+.slide-heading { font: var(--text-slide-heading); letter-spacing: 0; }
 .slide-subheading { font: var(--text-slide-subheading); letter-spacing: 0; }
 .slide-lead { font: var(--text-slide-lead); letter-spacing: 0; }
 .slide-item { font: var(--text-slide-item); letter-spacing: 0; }
 .slide-body { font: var(--text-slide-body); letter-spacing: 0; }
 .slide-small { font: var(--text-slide-small); letter-spacing: 0; }
 .slide-label { font: var(--text-slide-label); letter-spacing: 0; }
-.slide-eyebrow { font: var(--text-slide-eyebrow); letter-spacing: 0.125em; }
+.slide-eyebrow { font: var(--text-slide-eyebrow); letter-spacing: 3px; }
 @font-face { font-family: "Nunito"; src: url("fonts/Nunito.woff2") format("woff2"); font-weight: 200 900; font-style: normal; font-display: swap; }
 @font-face { font-family: "Nunito Sans"; src: url("fonts/NunitoSans-VariableFont_wght.woff2") format("woff2"); font-weight: 200 1000; font-style: normal; font-display: swap; }
 @font-face { font-family: "Nunito Sans"; src: url("fonts/NunitoSans-Italic-VariableFont_wght.woff2") format("woff2"); font-weight: 200 1000; font-style: italic; font-display: swap; }

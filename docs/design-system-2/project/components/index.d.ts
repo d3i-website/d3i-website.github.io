@@ -952,8 +952,8 @@ export interface SlideFunnelProps extends SlideFooterProps {
   eyebrow?: string;
   heading: string;
   /** Shrinking shares against one base, in a card framed by a 2px hairline; blue bars scale to the first stage at 400px.
-      The last bar is coral, marking the point, unless markLast is false. color is ignored: every funnel is blue. */
-  funnel?: { eyebrow?: string; base?: string; stages: Array<{ label: string; pct: number }>; note?: string; markLast?: boolean; color?: 'coral' | 'blue' };
+      The last bar is coral, marking the point, unless markLast is false. Every funnel is blue. */
+  funnel?: { eyebrow?: string; base?: string; stages: Array<{ label: string; pct: number }>; note?: string; markLast?: boolean; /** @deprecated Ignored: every funnel is blue. */ color?: 'coral' | 'blue' };
   /** Options that differ in how much arrives: all (a blue fill), promise (a dashed blue outline, arrives then deleted), strip (a blue strip, the selected part only). The recommended option's frame is 2px blue. */
   meter?: { options: Array<{ eyebrow: string; fill: 'all' | 'promise' | 'strip'; fillLabel: string; text?: string; recommended?: boolean }> };
   children?: React.ReactNode;
