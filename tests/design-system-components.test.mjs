@@ -429,3 +429,86 @@ test('news article without a rail has no aside', () => {
   assert.ok(!html.includes('news-rail'), 'no rail');
   assert.ok(html.startsWith('<article class="content-page content-page--news"><div class="content-page__grid content-page__grid--full"><div class="content-page__main">'), 'the article column');
 });
+
+/* Slides ----------------------------------------------------------------------------------- */
+
+const slidePreviews = previews.filter((n) => n.startsWith('Slide'));
+
+// The light value of every colour token in tokens.json, lower case, with {references} resolved:
+// slides carry the light theme's hex values.
+function lightColours() {
+  const tokens = JSON.parse(readFileSync(join(root, 'docs/design-system-2/project/tokens.json'), 'utf8')).color.tokens;
+  const byName = Object.fromEntries(tokens.map((t) => [t.name, t.value]));
+  const light = (v) => {
+    const s = typeof v === 'string' ? v : v.light;
+    const ref = s.match(/^\{(.+)\}$/);
+    return ref ? light(byName[ref[1]]) : s.toLowerCase();
+  };
+  return { byName: Object.fromEntries(tokens.map((t) => [t.name, light(t.value)])), values: new Set(tokens.map((t) => light(t.value))) };
+}
+
+// Every colour a slide writes: its #hex values, and each rgb() as the #hex slideMarkup turns it into.
+function slideColours(html) {
+  const hex = (n) => (+n).toString(16).padStart(2, '0');
+  return [...html.matchAll(/#[0-9a-fA-F]{3,8}\b/g)].map((m) => m[0].toLowerCase())
+    .concat([...html.matchAll(/rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/g)].map((m) => '#' + hex(m[1]) + hex(m[2]) + hex(m[3])));
+}
+
+test('slide colours are tokens', () => {
+  const { values } = lightColours();
+  assert.ok(slidePreviews.length >= 9, 'every Slide preview');
+  const bad = [];
+  for (const name of slidePreviews) {
+    for (const c of new Set(slideColours(runPreview(previewPath(name), bundle())))) if (!values.has(c)) bad.push(`${name} → ${c}`);
+  }
+  assert.deepEqual(bad, [], `slide colours that are no token's value:\n  ${bad.join('\n  ')}`);
+});
+
+test('no slide draws the road', () => {
+  const src = readFileSync(join(components, 'bundle.js'), 'utf8');
+  assert.ok(!src.includes('SlideRoad'), 'SlideRoad is gone from the bundle');
+  const road = lightColours().byName.road;
+  const found = slidePreviews.filter((name) => slideColours(runPreview(previewPath(name), bundle())).includes(road));
+  assert.deepEqual(found, [], `slides drawing the road's ${road}`);
+});
+
+// The nodes a slide draws: each <circle>, by its fill and stroke. Filled is a blue disc, a ring is a
+// surface disc with a blue ring, and the current part is a coral disc.
+function slideNodes(html) {
+  const { byName } = lightColours();
+  const out = { filled: 0, ring: 0, coral: 0, other: 0 };
+  for (const m of html.matchAll(/<circle\b([^>]*)>/g)) {
+    const attr = (k) => (m[1].match(new RegExp(`\\s${k}="([^"]*)"`)) || [])[1]?.toLowerCase();
+    const fill = attr('fill'), stroke = attr('stroke');
+    if (fill === byName.blue && !stroke) out.filled++;
+    else if (fill === byName.surface && stroke === byName.blue) out.ring++;
+    else if (fill === byName.coral) out.coral++;
+    else out.other++;
+  }
+  return out;
+}
+
+const STOPS = ['The data', 'The method', 'Use to date', 'One case in depth', 'For official statistics'];
+
+test('section stop marks the current part', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.SlideSectionStop,
+    { part: 'Part II', heading: 'The method', stepNumber: '02', sentence: 'x', stops: STOPS, current: 1, number: 8 }));
+  assert.deepEqual(slideNodes(html), { filled: 1, ring: 3, coral: 1, other: 0 }, 'one passed, the current one, three ahead');
+  STOPS.forEach((s) => assert.ok(html.includes('>' + s + '</p>'), `the label ${s}`));
+});
+
+test('frame cards hang from a line', () => {
+  const { D3I, React } = bundle();
+  const blue = lightColours().byName.blue;
+  for (const n of [2, 3]) {
+    const cards = Array.from({ length: n }, (_, i) => ({ eyebrow: 'E' + i, title: 'T' + i, body: 'B' + i }));
+    const html = renderToHtml(React.createElement(D3I.SlideFrame, { heading: 'H', cards, number: 5 }));
+    assert.match(html, new RegExp(`<path[^>]*stroke="${blue}"`, 'i'), `${n} cards: a blue line`);
+    const nodes = slideNodes(html);
+    assert.equal(nodes.filled, n, `${n} cards: a filled node above each card`);
+    assert.equal(nodes.ring, 2, `${n} cards: a ring node at each end of the line`);
+  }
+  const bare = renderToHtml(React.createElement(D3I.SlideFrame, { heading: 'H', number: 5 }));
+  assert.ok(!bare.includes('<circle'), 'no cards, no line');
+});

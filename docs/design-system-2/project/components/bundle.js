@@ -736,15 +736,18 @@
      included) cannot change a slide's geometry. Pictures are props. */
 
   var C = {
-    surface: '#ffffff', tint: '#f5f7fb', strong: '#eceff5', border: '#e2e6ed', borderStrong: '#878e9b',
-    heading: '#252a34', text: '#363b46', muted: '#626976',
+    surface: '#ffffff', tint: '#f5f7fb', strong: '#eceff5', border: '#d5dae3', borderStrong: '#878e9b',
+    heading: '#252a34', text: '#363b46', muted: '#626976', sky: '#87c5eb',
     blue: '#4272ef', blueTint: '#eef3fe', coral: '#ff5e5e', coralTint: '#ffefef',
-    yellow: '#ffcf60', yellowText: '#e8b53c', yellowTint: '#fff6d6', road: '#c6d5fa', onAccent: '#ffffff',
+    yellow: '#ffcf60', yellowText: '#e8b53c', yellowTint: '#fff6d6', onAccent: '#ffffff',
     chart: ['#4272ef', '#ff5e5e', '#f4a52b', '#27b3a3', '#8b5cf6']
   };
-  var NUNITO = "'Nunito', Arial, sans-serif", SANS = "'Nunito Sans', Arial, sans-serif";
-  /* the three tints in sibling order, each with the colour of its eyebrow */
-  var TINTS = [{ bg: C.blueTint, fg: C.blue }, { bg: C.coralTint, fg: C.coral }, { bg: C.yellowTint, fg: C.yellowText }];
+  /* the serif is provisional (tokens.json, Web · Headings) */
+  var NUNITO = "'Nunito', Arial, sans-serif", SANS = "'Nunito Sans', Arial, sans-serif", SERIF = "'Libre Caslon Condensed', serif";
+  /* the width between the slide's 128px margins */
+  var WIDE = 1664;
+  /* hairlines are 2px on a slide: 1px thins out on a projector */
+  var HAIR = '2px solid ' + C.border;
 
   function st() {
     var o = {};
@@ -752,20 +755,20 @@
     return o;
   }
   var TXT = { margin: 0, padding: 0 };
-  /* the Slides styles in tokens.json, as inline styles */
+  /* the Slides styles in tokens.json, as inline styles; titles, headings and numerals take the serif at 420 */
   var T = {
-    numeral: st(TXT, { fontFamily: NUNITO, fontSize: '200px', lineHeight: 1, fontWeight: 900, letterSpacing: '-6px', color: C.coral }),
+    numeral: st(TXT, { fontFamily: SERIF, fontSize: '200px', lineHeight: 0.9, fontWeight: 420, letterSpacing: 0, color: C.blue }),
     display: st(TXT, { fontFamily: NUNITO, fontSize: '96px', lineHeight: 1.05, fontWeight: 900, letterSpacing: '-2px', color: C.heading }),
-    title: st(TXT, { fontFamily: NUNITO, fontSize: '64px', lineHeight: 1.1, fontWeight: 800, letterSpacing: '-1px', color: C.heading }),
+    title: st(TXT, { fontFamily: SERIF, fontSize: '64px', lineHeight: 1.08, fontWeight: 420, letterSpacing: 0, color: C.heading }),
     stat: st(TXT, { fontFamily: NUNITO, fontSize: '64px', lineHeight: 1, fontWeight: 900, letterSpacing: '-1px' }),
-    heading: st(TXT, { fontFamily: NUNITO, fontSize: '48px', lineHeight: 1.2, fontWeight: 800, letterSpacing: '-0.5px', color: C.heading }),
-    subheading: st(TXT, { fontFamily: NUNITO, fontSize: '36px', lineHeight: 1.2, fontWeight: 800, color: C.heading }),
+    heading: st(TXT, { fontFamily: SERIF, fontSize: '48px', lineHeight: 1.18, fontWeight: 420, letterSpacing: 0, color: C.heading }),
+    subheading: st(TXT, { fontFamily: SERIF, fontSize: '36px', lineHeight: 1.15, fontWeight: 420, letterSpacing: 0, color: C.heading }),
     lead: st(TXT, { fontFamily: SANS, fontSize: '36px', lineHeight: 1.4, fontWeight: 400, color: C.muted }),
     item: st(TXT, { fontFamily: NUNITO, fontSize: '28px', lineHeight: 1.3, fontWeight: 800, color: C.heading }),
     body: st(TXT, { fontFamily: SANS, fontSize: '28px', lineHeight: 1.4, fontWeight: 400 }),
     small: st(TXT, { fontFamily: SANS, fontSize: '24px', lineHeight: 1.4, fontWeight: 400 }),
     label: st(TXT, { fontFamily: NUNITO, fontSize: '24px', lineHeight: 1.3, fontWeight: 700 }),
-    eyebrow: st(TXT, { fontFamily: NUNITO, fontSize: '24px', lineHeight: 1.2, fontWeight: 800, letterSpacing: '3px', textTransform: 'uppercase', color: C.blue })
+    eyebrow: st(TXT, { fontFamily: SANS, fontSize: '24px', lineHeight: 1.2, fontWeight: 800, letterSpacing: '3px', textTransform: 'uppercase', color: C.blue })
   };
   var COL = { display: 'flex', flexDirection: 'column' }, ROW = { display: 'flex', flexDirection: 'row' };
   function section(extra) {
@@ -779,10 +782,10 @@
     return (i < 9 ? '0' : '') + (i + 1);
   }
 
-  /* eyebrow and title at the top margin; data-fit="none" stops the Slides canvas from shrinking them */
+  /* eyebrow (text-muted caps) and title (the serif) at the top margin; data-fit="none" stops the Slides canvas from shrinking them */
   function SlideHead(p) {
     return h('div', { style: st(COL, { gap: '16px' }) },
-      p.eyebrow ? h('p', { 'data-fit': 'none', style: T.eyebrow }, p.eyebrow) : null,
+      p.eyebrow ? h('p', { 'data-fit': 'none', style: st(T.eyebrow, { color: C.muted }) }, p.eyebrow) : null,
       h('h2', { 'data-fit': 'none', style: T.title }, p.heading));
   }
   function SlideFooter(p) {
@@ -790,58 +793,55 @@
       h('p', { style: p.source ? st(T.small, { color: C.muted }) : st(T.label, { color: C.muted }) }, p.source || p.site || 'datadonation.eu'),
       h('p', { style: st(T.label, { color: C.muted }) }, p.number != null ? String(p.number) : ''));
   }
-  function dash(color) {
-    return h('div', { style: { flex: 1, height: 0, borderTop: '6px dashed ' + color } });
-  }
-  function stop(size, fill, ring) {
-    return h('div', { style: { width: size + 'px', height: size + 'px', boxSizing: 'border-box', border: '4px solid ' + ring, borderRadius: '50%', background: fill, flex: 'none' } });
+  /* a node on a slide's line: a blue disc, a coral disc, or (with ring) a surface disc in a 3px blue ring */
+  function dot(key, x, y, r, fill, ring) {
+    return h('circle', { key: key, cx: x, cy: y, r: r, fill: fill, stroke: ring, strokeWidth: ring ? 3 : null });
   }
 
-  /* the road with one stop per part: numbered on the plan, passed / current / ahead on a section opener */
-  function SlideRoad(p) {
-    var stops = list(p.stops), n = stops.length || 1;
-    return h('div', { style: st(COL, { gap: p.numbered ? '16px' : '12px' }) },
-      h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + n + ', 1fr)', background: C.road, borderRadius: '16px', padding: p.numbered ? '16px 0' : '8px 0' } },
-        stops.map(function (label, i) {
-          var mark;
-          if (p.numbered) {
-            var last = i === n - 1;
-            mark = h('div', { style: st(COL, { width: '80px', height: '80px', borderRadius: '50%', background: last ? C.coral : C.blue, justifyContent: 'center', alignItems: 'center', flex: 'none' }) },
-              h('p', { style: st(T.item, { fontWeight: 900, color: last ? C.heading : C.onAccent }) }, two(i)));
-          } else {
-            mark = i < p.current ? stop(28, C.blue, C.blue) : i === p.current ? stop(40, C.coral, C.coral) : stop(28, C.surface, C.blue);
-          }
-          return h('div', { key: i, style: st(ROW, { alignItems: 'center' }) }, dash(i === 0 ? C.surface : C.blue), mark, dash(i === n - 1 ? C.surface : C.blue));
+  /* One blue line across the slide with a node at the centre of each stop's column, the labels under the nodes.
+     Stops before current are blue nodes, current is a coral node and stops after it are rings; with no current every
+     node is blue. step: the line steps down at the current node, as the band's edge steps, so the parts behind sit
+     on the upper level and the parts ahead on the lower one. numbered: the two-digit number over each label. */
+  function SlideRail(p) {
+    var stops = list(p.stops), n = stops.length || 1, cw = WIDE / n;
+    var cur = p.current == null ? -1 : p.current;
+    var step = !!p.step && cur >= 0 && cur < n;
+    var UP = 20, LOW = step ? 60 : UP, MID = (UP + LOW) / 2, sx = Math.min(70, cw / 2);
+    function x(i) { return Math.round(cw * i + cw / 2); }
+    var first = x(0), last = x(n - 1), xc = x(cur), d;
+    if (step) {
+      /* the band's step, a curve from (xc - sx, UP) to (xc + sx, LOW) through the current node, drawn in its two halves */
+      d = cur > 0 ? 'M' + first + ' ' + UP + ' H' + (xc - sx) + ' C' + (xc - sx / 2) + ' ' + UP + ' ' + (xc - sx / 4) + ' ' + (3 * UP + LOW) / 4 + ' ' + xc + ' ' + MID
+        : 'M' + xc + ' ' + MID;
+      if (cur < n - 1) d += ' C' + (xc + sx / 4) + ' ' + (UP + 3 * LOW) / 4 + ' ' + (xc + sx / 2) + ' ' + LOW + ' ' + (xc + sx) + ' ' + LOW + ' H' + last;
+    } else {
+      d = 'M' + first + ' ' + UP + ' H' + last;
+    }
+    var H = LOW + 24;
+    return h('div', { style: st(COL, { gap: '12px' }) },
+      h('svg', { width: WIDE, height: H, viewBox: '0 0 ' + WIDE + ' ' + H, 'aria-hidden': 'true', style: { display: 'block', flex: 'none', maxWidth: 'none' } },
+        h('path', { d: d, fill: 'none', stroke: C.blue, strokeWidth: 3 }),
+        stops.map(function (_, i) {
+          var y = !step ? UP : i < cur ? UP : i === cur ? MID : LOW;
+          if (i === cur) return dot(i, x(i), y, 15, C.coral);
+          if (cur < 0 || i < cur) return dot(i, x(i), y, 11, C.blue);
+          return dot(i, x(i), y, 10, C.surface, C.blue);
         })),
-      h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + n + ', 1fr)', gap: p.numbered ? '16px' : 0 } },
-        stops.map(function (label, i) {
-          if (p.numbered) return h('p', { key: i, style: st(T.subheading, { textAlign: 'center' }) }, label);
-          var current = i === p.current;
-          return h('p', { key: i, style: st(T.label, { textAlign: 'center', fontWeight: current ? 800 : 700, color: current ? C.coral : i < p.current ? C.heading : C.muted }) }, label);
-        })));
+      h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + n + ', 1fr)' } }, stops.map(function (label, i) {
+        if (p.numbered) return h('div', { key: i, style: st(COL, { alignItems: 'center', gap: '8px' }) },
+          h('p', { style: st(T.heading, { lineHeight: 1, color: C.blue }) }, two(i)),
+          h('p', { style: st(T.subheading, { textAlign: 'center' }) }, label));
+        var ahead = cur >= 0 && i > cur;
+        return h('p', { key: i, style: st(T.label, { fontFamily: SANS, textAlign: 'center', fontWeight: i === cur ? 800 : 700, color: ahead ? C.muted : C.heading }) }, label);
+      })));
   }
 
   function SlideCover(p) {
-    var dots = [[1271, 46], [1224, 42], [1177, 38], [1130, 36], [1083, 36], [1036, 36], [942, 41], [896, 45], [849, 51], [803, 58], [757, 66], [710, 76], [664, 87], [618, 99]];
-    var band = h('svg', {
-      'aria-label': p.bandLabel || 'The datadonation.eu road: the four columns of the D3I mark at left; at right a phone on the road, from which one small piece of its data travels in an arc to the mark while the rest stays beside the phone; three travellers at the far right',
-      style: { position: 'absolute', left: 0, top: 0, width: '1920px', height: '224px' }, viewBox: '0 0 1920 224', width: '1920', height: '224'
-    },
-      h('rect', { fill: C.heading, x: 192, y: 48, width: 64, height: 112, rx: 32 }),
-      h('rect', { fill: C.blue, x: 288, y: -64, width: 64, height: 224, rx: 32 }),
-      h('rect', { fill: C.coral, x: 384, y: 16, width: 64, height: 144, rx: 32 }),
-      h('rect', { fill: C.yellow, x: 480, y: -16, width: 64, height: 176, rx: 32 }),
-      dots.map(function (d, i) { return h('circle', { key: 'a' + i, fill: C.blue, opacity: 0.4, cx: d[0], cy: d[1], r: 6 }); }),
-      h('rect', { fill: C.coral, x: 975, y: 26, width: 24, height: 24, rx: 5, transform: 'rotate(12 987 38)' }),
-      h('rect', { fill: C.surface, stroke: C.heading, strokeWidth: 4, x: 1316, y: 40, width: 68, height: 120, rx: 10 }),
-      [[68, 28], [84, 40], [100, 20], [116, 34]].map(function (l, i) { return h('rect', { key: 'l' + i, fill: C.blue, x: 1330, y: l[0], width: l[1], height: 7, rx: 3 }); }),
-      h('rect', { fill: C.heading, x: 1340, y: 146, width: 20, height: 4, rx: 2 }),
-      [[1404, 112], [1404, 138], [1430, 138]].map(function (q, i) { return h('rect', { key: 's' + i, fill: C.blueTint, stroke: C.road, strokeWidth: 2, x: q[0], y: q[1], width: 22, height: 22, rx: 5 }); }),
-      h('rect', { fill: C.coral, x: 1520, y: 80, width: 64, height: 80, rx: 32 }),
-      h('rect', { fill: C.blue, x: 1616, y: 32, width: 64, height: 128, rx: 32 }),
-      h('rect', { fill: C.yellow, x: 1712, y: 96, width: 64, height: 64, rx: 32 }),
-      h('rect', { fill: C.road, x: 0, y: 160, width: 1920, height: 48 }),
-      [0, 176, 352, 528, 704, 880, 1056, 1232, 1408, 1584, 1760].map(function (x) { return h('rect', { key: 'd' + x, fill: C.blue, x: x, y: 181, width: 60, height: 6 }); }));
+    /* a plain sky band with its blue edge, in place of the road */
+    var band = h('svg', st({ style: { position: 'absolute', left: 0, top: 0, width: '1920px', height: '224px' }, viewBox: '0 0 1920 224', width: '1920', height: '224' },
+      p.bandLabel ? { role: 'img', 'aria-label': p.bandLabel } : { 'aria-hidden': 'true' }),
+      h('rect', { fill: C.sky, x: 0, y: 0, width: 1920, height: 200 }),
+      h('path', { d: 'M0 200 H1920', fill: 'none', stroke: C.blue, strokeWidth: 3 }));
     /* the slide format caps padding at 256px, so the last 64px of offset sit on the title block */
     return h('section', { style: section({ padding: '256px 128px 128px', justifyContent: 'space-between', gap: '24px' }) },
       band,
@@ -852,21 +852,34 @@
       p.byline ? h('p', { style: T.item }, p.byline) : null);
   }
 
+  /* the cards hang from one blue line: it starts at a ring node 48px into the left margin, a blue node sits over
+     each card's first 48px (its icon), and it ends at a ring node on the right margin */
+  function cardLine(n) {
+    var col = (WIDE - 24 * (n - 1)) / n, nodes = [];
+    for (var i = 0; i < n; i++) nodes.push(dot(i, Math.round(i * (col + 24) + 24), 12, 10, C.blue));
+    return h('svg', { width: WIDE + 72, height: 24, viewBox: '-60 0 ' + (WIDE + 72) + ' 24', 'aria-hidden': 'true', style: { position: 'absolute', left: '-60px', top: 0, display: 'block', maxWidth: 'none' } },
+      h('path', { d: 'M-48 12 H' + WIDE, fill: 'none', stroke: C.blue, strokeWidth: 3 }),
+      dot('s', -48, 12, 8, C.surface, C.blue),
+      dot('e', WIDE, 12, 8, C.surface, C.blue),
+      nodes);
+  }
+
   function SlideFrame(p) {
     var cards = list(p.cards), panel = list(p.panel);
     return h('section', { style: section(p.gap ? { gap: p.gap } : null) },
       h(SlideHead, { eyebrow: p.eyebrow, heading: p.heading }),
-      cards.length ? h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + cards.length + ', 1fr)', gap: '24px' } }, cards.map(function (c, i) {
-        var t = c.plain ? null : TINTS[i % 3];
-        return h('div', { key: i, style: st(COL, { gap: '12px', background: t ? t.bg : C.surface, border: t ? 'none' : '1px solid ' + C.border, borderRadius: '16px', padding: '32px' }) },
-          c.iconSrc ? h('img', { src: c.iconSrc, alt: c.iconAlt || '', style: { width: '48px', height: '48px', objectFit: 'contain', display: 'block' } }) : null,
-          c.eyebrow ? h('p', { style: st(T.eyebrow, { color: t ? t.fg : C.muted }) }, c.eyebrow) : null,
-          h('h3', { style: T.subheading }, c.title),
-          c.body ? h('p', { style: T.body }, c.body) : null);
-      })) : null,
+      cards.length ? h('div', { style: { position: 'relative', paddingTop: '40px' } },
+        cardLine(cards.length),
+        h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + cards.length + ', 1fr)', gap: '24px' } }, cards.map(function (c, i) {
+          return h('div', { key: i, style: st(COL, { gap: '12px', padding: '0 32px 0 0' }) },
+            c.iconSrc ? h('img', { src: c.iconSrc, alt: c.iconAlt || '', style: { width: '48px', height: '48px', objectFit: 'contain', display: 'block', marginBottom: '4px' } }) : null,
+            c.eyebrow ? h('p', { style: st(T.eyebrow, { color: C.muted }) }, c.eyebrow) : null,
+            h('h3', { style: T.subheading }, c.title),
+            c.body ? h('p', { style: T.body }, c.body) : null);
+        }))) : null,
       p.children,
-      panel.length ? h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + panel.length + ', 1fr)', gap: '48px', background: C.tint, borderRadius: '16px', padding: '32px 40px' } }, panel.map(function (col, i) {
-        return h('div', { key: i, style: st(COL, { gap: '12px' }) },
+      panel.length ? h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + panel.length + ', 1fr)', background: C.surface, border: HAIR } }, panel.map(function (col, i) {
+        return h('div', { key: i, style: st(COL, { gap: '12px', padding: '32px 40px', borderLeft: i ? HAIR : 'none' }) },
           h('p', { style: st(T.eyebrow, { color: C.muted }) }, col.eyebrow),
           h('p', { style: T.body }, col.text));
       })) : null,
@@ -876,7 +889,7 @@
   function SlidePlan(p) {
     return h('section', { style: section({ justifyContent: 'center', gap: '64px' }) },
       h(SlideHead, { eyebrow: p.eyebrow || 'Overview', heading: p.heading }),
-      h(SlideRoad, { stops: p.stops, numbered: true }),
+      h(SlideRail, { stops: p.stops, numbered: true }),
       h(SlideFooter, { number: p.number }));
   }
 
@@ -886,7 +899,7 @@
       h('div', { style: st(ROW, { flex: 1, gap: '48px', alignItems: 'center' }) },
         h('p', { style: st(T.numeral, { width: '300px', flex: 'none' }) }, p.stepNumber),
         h('p', { style: st(T.heading, { flex: 1 }) }, p.sentence)),
-      h(SlideRoad, { stops: p.stops, current: p.current || 0 }),
+      h(SlideRail, { stops: p.stops, current: p.current || 0, step: true }),
       h(SlideFooter, { number: p.number }));
   }
 
@@ -894,31 +907,22 @@
     var steps = list(p.steps), rows = list(p.rows), cols = p.columns || {};
     var shown = p.shown == null ? rows.length : p.shown;
     var cur = p.current == null ? shown - 1 : p.current;
-    function line(color) { return h('div', { style: { flex: 1, height: '3px', background: color } }); }
     function cell(c, tinted, coral) {
-      return h('div', { style: st(COL, { gap: '8px', padding: tinted ? '16px 24px' : '16px 0', background: tinted ? (coral ? C.coralTint : C.blueTint) : 'transparent', borderRadius: '16px' }) },
+      return h('div', { style: st(COL, { gap: '8px', padding: tinted ? '16px 24px' : '16px 0', background: tinted ? (coral ? C.coralTint : C.blueTint) : 'transparent' }) },
         h('p', { style: T.item }, c.title),
         c.text ? h('p', { style: st(T.small, { color: C.muted }) }, c.text) : null);
     }
     return h('section', { style: section({ gap: '40px' }) },
       h(SlideHead, { eyebrow: p.eyebrow, heading: p.heading }),
-      steps.length ? h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + steps.length + ', 1fr)' } }, steps.map(function (label, i) {
-        var passed = i < cur, current = i === cur, last = i === steps.length - 1;
-        return h('div', { key: i, style: st(COL, { gap: '8px' }) },
-          h('div', { style: st(ROW, { alignItems: 'center' }) },
-            line(i === 0 ? C.surface : passed || current ? C.blue : C.road),
-            h('div', { style: { width: '24px', height: '24px', boxSizing: 'border-box', border: '3px solid ' + (passed ? C.blue : current ? C.coral : C.road), borderRadius: '50%', background: passed ? C.blue : current ? C.coral : C.surface, flex: 'none' } }),
-            line(last ? C.surface : passed ? C.blue : C.road)),
-          h('p', { style: st(T.label, { textAlign: 'center', fontWeight: current ? 800 : 700, color: current ? C.coral : passed ? C.heading : C.muted }) }, (i + 1) + ' · ' + label));
-      })) : null,
+      steps.length ? h(SlideRail, { stops: steps.map(function (label, i) { return (i + 1) + ' · ' + label; }), current: cur }) : null,
       h('div', { style: COL },
-        h('div', { style: { display: 'grid', gridTemplateColumns: '200px 1fr 1fr', gap: '32px', alignItems: 'end', paddingBottom: '16px', borderBottom: '1px solid ' + C.border } },
-          h('p', { style: T.small }, ' '),
+        h('div', { style: { display: 'grid', gridTemplateColumns: '200px 1fr 1fr', gap: '32px', alignItems: 'end', paddingBottom: '16px', borderBottom: HAIR } },
+          h('p', { style: T.small }, ' '),
           h('p', { style: st(T.eyebrow, { color: C.muted }) }, cols.left),
           h('p', { style: T.eyebrow }, cols.right)),
         rows.slice(0, shown).map(function (r, i) {
           var coral = r.tone === 'coral';
-          return h('div', { key: i, style: { display: 'grid', gridTemplateColumns: '200px 1fr 1fr', gap: '32px', alignItems: 'start', padding: '24px 0', borderTop: i ? '1px solid ' + C.border : 'none', opacity: i < shown - 1 ? 0.35 : 1 } },
+          return h('div', { key: i, style: { display: 'grid', gridTemplateColumns: '200px 1fr 1fr', gap: '32px', alignItems: 'start', padding: '24px 0', borderTop: i ? HAIR : 'none', opacity: i < shown - 1 ? 0.35 : 1 } },
             h('p', { style: st(T.eyebrow, { color: coral ? C.coral : C.heading, paddingTop: '16px' }) }, r.label),
             cell(r.left || {}, false), cell(r.right || {}, true, coral));
         })),
@@ -981,7 +985,7 @@
           })),
           f.note ? h('p', { style: T.small }, f.note) : null) : null,
         m ? h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + list(m.options).length + ', 1fr)', gap: '16px' } }, list(m.options).map(function (o, i) {
-          return h('div', { key: i, style: st(COL, { gap: '16px', background: o.recommended ? C.blueTint : C.surface, border: '1px solid ' + (o.recommended ? C.road : C.border), borderRadius: '16px', padding: '24px' }) },
+          return h('div', { key: i, style: st(COL, { gap: '16px', background: o.recommended ? C.blueTint : C.surface, border: '1px solid ' + (o.recommended ? C.blue : C.border), borderRadius: '16px', padding: '24px' }) },
             h('p', { style: st(T.eyebrow, { color: o.recommended ? C.blue : C.muted }) }, o.eyebrow),
             h('div', { style: st(COL, { height: '180px', background: o.recommended ? C.surface : C.strong, borderRadius: '8px', justifyContent: 'flex-end' }) }, meterBox(o)),
             o.text ? h('p', { style: T.small }, o.text) : null);

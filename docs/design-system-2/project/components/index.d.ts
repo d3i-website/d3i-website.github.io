@@ -829,12 +829,12 @@ export interface SlideCoverProps {
   lead?: string;
   /** "Name · Affiliation · Venue, Month D, YYYY". */
   byline?: string;
-  /** The road band's accessible description. */
+  /** The band's accessible description; without it the band is aria-hidden decoration. */
   bandLabel?: string;
   /** Replaces the title block, for a closing slide that keeps the band. */
   children?: React.ReactNode;
 }
-/** The cover and closing slide: the road band with the mark, the phone and the arc, over the title. */
+/** The cover and closing slide: a sky band (a placeholder; the road is retired) over the title. */
 export declare function SlideCover(props: SlideCoverProps): React.ReactElement;
 
 export interface SlideFrameCard {
@@ -844,32 +844,32 @@ export interface SlideFrameCard {
   /** 48px above the eyebrow: a mark from assets/Platforms, or a concept glyph from assets/Glyphs in the card's accent. */
   iconSrc?: string;
   iconAlt?: string;
-  /** A white card with a border, for parallel items of one kind; otherwise cards take the blue, coral, yellow tints in order. */
+  /** Ignored: cards are no longer framed or tinted; every card hangs from the line. */
   plain?: boolean;
 }
 export interface SlideFrameProps extends SlideFooterProps {
   eyebrow?: string;
   heading: string;
-  /** Up to three cards in a row. */
+  /** Up to three cards in a row, hanging from one blue line with a node over each. */
   cards?: SlideFrameCard[];
-  /** Columns of the statement panel on surface-tint. */
+  /** Columns of the statement panel: white, framed and divided by 2px border hairlines. */
   panel?: Array<{ eyebrow: string; text: string }>;
   /** The section's gap; default 48px. */
   gap?: string;
   /** Any further body, between the cards and the panel. */
   children?: React.ReactNode;
 }
-/** The frame every content slide shares, with three tint cards and a statement panel as its commonest body. */
+/** The frame every content slide shares, with three cards on a line and a statement panel as its commonest body. */
 export declare function SlideFrame(props: SlideFrameProps): React.ReactElement;
 
 export interface SlidePlanProps extends SlideFooterProps {
   /** Default "Overview". */
   eyebrow?: string;
   heading: string;
-  /** Three to six part headers of one to three words. The last stop is coral. */
+  /** Three to six part headers of one to three words, numbered under one node each. */
   stops: string[];
 }
-/** The overview: the road with one numbered stop per part, in place of an agenda. */
+/** The overview: a line with one numbered node per part, in place of an agenda. */
 export declare function SlidePlan(props: SlidePlanProps): React.ReactElement;
 
 export interface SlideSectionStopProps extends SlideFooterProps {
@@ -881,12 +881,12 @@ export interface SlideSectionStopProps extends SlideFooterProps {
   stepNumber: string;
   /** The part's claim in one sentence of about fifteen words. */
   sentence: string;
-  /** Every part's name, for the road labels. */
+  /** Every part's name, for the labels under the line's nodes. */
   stops: string[];
   /** Index of this part in `stops`. */
   current: number;
 }
-/** The opener of a part: its number, its claim and the road with the current stop. */
+/** The opener of a part: its number, its claim and the line, stepping down at the current part's coral node. */
 export declare function SlideSectionStop(props: SlideSectionStopProps): React.ReactElement;
 
 export interface SlideBuildRow {
@@ -899,9 +899,9 @@ export interface SlideBuildRow {
 export interface SlideBuildProps extends SlideFooterProps {
   eyebrow?: string;
   heading: string;
-  /** The rail's step names. */
+  /** The step names, one node each on the line across the top. */
   steps?: string[];
-  /** Index of the current rail stop; default the last row shown. */
+  /** Index of the current step, its node coral; default the last row shown. */
   current?: number;
   /** Header of the plain column and of the argued-for column. */
   columns?: { left?: string; right?: string };

@@ -38,7 +38,7 @@ The website is white with one colour block. Learn the roles and you know every t
 **Carried over.**
 
 - `surface-tint`, `surface-strong` and `border-strong` are not on the front page. They serve the pages not yet redone (panels, pills, outlines of controls, chart axes) and slides. `on-accent` is text on a `blue` fill, such as an active chip or tab.
-- `blue-tint`, `coral-tint`, `yellow-text`, `yellow-tint` and `road` are for slides only. The website's new look has no tinted panels and no road.
+- `blue-tint`, `coral-tint`, `yellow-text`, `yellow-tint` and `road` are for slides only. The website's new look has no tinted panels and no road, and no slide draws the road any more.
 - `focus` is the keyboard focus ring: 2px solid at 2px offset.
 - `chart-1` to `chart-5` colour data series in that order (blue, coral, orange, teal, violet). Every mark carries its value as text.
 
@@ -77,7 +77,7 @@ Use the styles as they are. A size that is not on the scale for its medium is a 
 
 ## Slides
 
-The Slides sections below are carried over from the earlier system and not yet revised: slide headings now render in the provisional serif through the shared display token (`--font-display`), while their sizes, weights and radii are still the earlier system's, and the slide components in `components/bundle.js` still name Nunito in their inline styles.
+Slides are being brought into the new look. The road is retired: where a slide showed a sequence on the road, it now shows a blue line with a node per step. SlideFrame, SlidePlan, SlideSectionStop and SlideBuild are redone, and every slide shares their title block: the eyebrow in `text-muted` caps and the title in the serif at 420 (the serif is provisional). SlideCover's band is a plain sky placeholder until the cover is redone; SlideStats, SlideFunnel, SlideWindow and SlideQuestions keep the earlier system's bodies until they are redone, and the slide text not yet redone still names Nunito in its inline styles.
 
 ## Slides · Voice for talks and decks
 
@@ -101,11 +101,11 @@ Decks use the Slides artifact type: 1920 × 1080, one `<section>` per slide, inl
 - For a Slides deck, `D3I.slideMarkup(D3I.SlideFrame, props)` returns the slide as markup to paste: one `<section>`, hex colours, `data-fit` attributes kept. It needs React and ReactDOM 18 on the page, as `components/lib/` provides.
 - By hand, follow the component's README: it lists every value the component draws. Pictures (platform marks, glyphs, logos) are props in every case; each README's "What you provide" says which asset and how to fetch it.
 
-- SlideCover: the cover and the closing slide, with the road as a band across the top (the mark, a phone sending one piece of its data along an arc to the mark, the travellers).
-- SlideFrame: the frame every content slide shares (eyebrow, title, pinned footer row) with the two commonest bodies, three tint cards and a statement panel.
-- SlidePlan: the overview, a road with numbered stops and part headers, in place of an agenda.
-- SlideSectionStop: the opener for each part, the big part number, one sentence and the road with the current stop highlighted.
-- SlideBuild: one step of a build, same-numbered slides adding one row at a time with earlier rows dimmed and a step rail on top.
+- SlideCover: the cover and the closing slide, a sky band across the top (a placeholder for now) over the title.
+- SlideFrame: the frame every content slide shares (eyebrow, title, pinned footer row) with the two commonest bodies, three cards hanging from one line and a statement panel framed by hairlines.
+- SlidePlan: the overview, a line with one numbered node per part and the part headers under it, in place of an agenda.
+- SlideSectionStop: the opener for each part, the big part number in the serif, one sentence, and the line stepping down at the current part's coral node.
+- SlideBuild: one step of a build, same-numbered slides adding one row at a time with earlier rows dimmed and a line with a node per step on top.
 - SlideStats: stat tiles in the chart colours, a mini bar chart in a tile, and a list panel.
 - SlideFunnel: layout that makes the point, a funnel with the value at the end of each bar and a meter of three options.
 - SlideWindow: a drawn browser window for showing software beside a numbered list.
@@ -114,11 +114,12 @@ Decks use the Slides artifact type: 1920 × 1080, one `<section>` per slide, inl
 Rules every slide follows, whether a component draws it or you do:
 
 - The section has `slide-margin` (128px) on three sides and 136px at the bottom, and a base line height of 1.4. The footer row is pinned 64px from the bottom: site name (or a source line) left, slide number right, `slide-label` in `text-muted`.
-- The title block is `slide-eyebrow` in `blue`, 16px above `slide-title` in `heading`, at the top margin on every slide, both with `data-fit="none"`. Blocks below it are 32 to 48px apart (`space-32`, `space-48`).
+- The title block is `slide-eyebrow` in `text-muted` caps (Nunito Sans 800), 16px above `slide-title` in `heading`, in the serif at 420, 64px (provisional), at the top margin on every slide, both with `data-fit="none"`. Blocks below it are 32 to 48px apart (`space-32`, `space-48`).
 - Budget: the flow between the margins is 816px tall and ends about 40px above the footer. The Slides canvas does not scroll an over-full slide: it squeezes every box and shrinks each box's text on its own, so headings end up at different sizes from slide to slide. `data-fit="none"` keeps the eyebrow and title at their size whatever the body does; measure with the real faces, and split a slide that does not fit rather than letting it squeeze.
 - A build's steps share one geometry: the same gaps and paddings on every step, so a new row appears and nothing else moves.
-- Cards: `surface` with a 1px `border` at `radius-lg` for parallel items; the three tints for a row of three siblings, each eyebrow in its accent's text colour; `surface-tint` for panels and code. Card padding is 32px; lines inside a card are 8 to 12px apart. Dividers rather than borders for lists.
-- Let layout make the point: a meter for options, a funnel with the value at the end of its bar, a rail with stops for a sequence, a statement in a tint panel for a finding. Avoid three identical cards in a row when the three things differ in kind.
+- Hairlines on a slide are 2px `border`: 1px thins out on a projector. Corners are square.
+- Cards: a row of sibling cards has no frames or fills; it hangs from one 3px `blue` line with a filled node over each card and a ring node at each end (SlideFrame). Card eyebrows are `text-muted`: coral and yellow are not text in the new look. A statement panel is `surface` framed and divided by hairlines. Lines inside a card are 8 to 12px apart. Dividers rather than borders for lists. SlideStats, SlideFunnel and SlideQuestions still draw the earlier tinted cards until they are redone.
+- Let layout make the point: a meter for options, a funnel with the value at the end of its bar, a line with a node per step for a sequence, a statement in a framed panel for a finding. Avoid three identical cards in a row when the three things differ in kind.
 - Charts use `chart-1` to `chart-5` in order; muted bars are `road`; every bar carries its value as text at its end or top; axes are a 1px `border-strong` rule with `slide-label` text. Platform marks appear at 32 to 48px beside the name they stand for, never alone.
 - The slide format caps padding at 256px and drops a larger value entirely; images are referenced as `/_blob/<id>`; fonts are declared in `deck.json` from the files listed under Builders. Code and file names use `'Courier New', monospace` on `surface-tint`, since the site's mono stack is not a web font.
 
@@ -135,15 +136,15 @@ Slides take hex values. These are the light theme's values; use nothing else.
 | `border-strong` | #878e9b | axes, window dots |
 | `heading` | #252a34 | titles, item titles, text on coral and yellow |
 | `text` | #363b46 | body text |
-| `text-muted` | #626976 | footer, captions, secondary lines, neutral eyebrows |
-| `blue` | #4272ef | eyebrows, links, stops, dashes, bars, active tabs |
+| `text-muted` | #626976 | footer, captions, secondary lines, eyebrows in title blocks and cards |
+| `blue` | #4272ef | lines and their nodes, part numerals, the cover's eyebrow, links, bars, active tabs, the recommended option's border |
 | `blue-tint` | #eef3fe | blue card, recommended option |
-| `coral` | #ff5e5e | numerals, current stop, meter fills, coral-card eyebrow, action links, current-stop label |
+| `coral` | #ff5e5e | the current node on a line, numbered-list numerals, meter fills, coral-card eyebrow, action links |
 | `coral-tint` | #ffefef | coral card |
 | `yellow` | #ffcf60 | fills only |
 | `yellow-text` | #e8b53c | yellow-card eyebrow and link |
 | `yellow-tint` | #fff6d6 | yellow card |
-| `road` | #c6d5fa | the road band, muted bars, recommended-card border |
+| `road` | #c6d5fa | muted bars only; the road band is retired |
 | `on-accent` | #ffffff | text on blue fills |
 | `chart-3` | #f4a52b | third series |
 | `chart-4` | #27b3a3 | fourth series |
@@ -297,7 +298,7 @@ Where the system and the live site differ, the system leads and the site is to b
 Namespace: `D3I`, the components' global (`window.D3I`). Every uploaded asset's id is on the generated cards `api/assets/<Group>.md`, and `design-system.json` under `assetGroups` maps every uploaded file name to its id. Pictures are uploaded assets referenced as `/_blob/<id>`, not files at their folder paths.
 
 - A page or design canvas mounts the components: `tokens.css` and `components/bundle.css` first, then React 18 (the files in `components/lib/`, or the canvas's own), then `components/bundle.js`. `tokens.css` declares the font faces, Libre Caslon Condensed included. Upload the assets a component shows and pass their URLs as its props.
-- A deck declares the two families in `deck.json` `faces` as `nunito` and `nunito-sans`, from `fonts/Nunito.woff2` and `fonts/NunitoSans-VariableFont_wght.woff2`; the italic file is optional.
+- A deck declares the three families in `deck.json` `faces` as `nunito`, `nunito-sans` and `libre-caslon-condensed`, from `fonts/Nunito.woff2`, `fonts/NunitoSans-VariableFont_wght.woff2` and `fonts/LibreCaslonCondensed-latin.woff2` (with `-latin-ext` for accented names); the italic file is optional. The serif is provisional.
 - A deck made from the Slide components loads React, ReactDOM and `components/bundle.js` only to produce markup with `D3I.slideMarkup`; the deck itself holds plain `<section>` markup.
 - Platform marks are under Platforms (17 files), partner and funder logos under Logos and Partners, the recoloured unDraw figures under Illustrations and unDraw, the earlier hero's travellers under Sprites, and the front page band's pieces under Network (21 SVG files, with a README). The Network pieces are files in this folder only: they are not uploaded yet and have no ids in `design-system.json`.
 - The three glyph PNGs under Glyphs (`chat-coral`, `train-yellow`, `card-blue`) are white glyphs recoloured in a single accent, 512px, for concept examples that have no platform mark. Use them at 44 to 48px above a card's eyebrow, in the card's own accent; they are for slides, not the website.
