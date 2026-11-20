@@ -77,21 +77,28 @@ Use the styles as they are. A size that is not on the scale for its medium is a 
 
 ## Slides
 
-Slides are in the new look. The road is retired: where a slide showed a sequence on the road, it now shows a blue line with a node per step. All nine slide components are redone, and every slide shares one title block: the eyebrow in `text-muted` caps and the title in the serif at 420 (the serif is provisional). SlideCover has two layouts: `network`, the front page's network across a sky band over the title on white, and `band-title`, the website band with the title in it over the speakers and a row of logos. The content slides have white surfaces, square corners and 2px `border` hairlines; `blue` is their one working colour, and `coral` and `yellow` appear only as small spots (a node, a disc, the funnel bar that marks the point). Their text is Nunito Sans. The footer row too. SlideStats, SlideFunnel, SlideWindow and SlideQuestions follow these rules as Claude extended them from the three slides Danielle decided (cover, frame, section stop), for her to check.
+Slides are in the new look. The road is retired: where a slide showed a sequence on the road, it now shows a blue line with a node per step. All nine slide components are redone, and every slide shares one title block: the eyebrow in `text-muted` caps and the title in the serif at 420 (the serif is provisional). SlideCover has two layouts: `network`, the front page's network across a sky band over the title on white, and `band-title`, the website band with the title in it over the speakers and a row of logos. The content slides have white surfaces, square corners and 2px `border` hairlines; `blue` is their one working colour, and `coral` and `yellow` appear only as small spots (a node, a disc, the funnel bar that marks the point). Their text is Nunito Sans. The footer row too. Slides are not read: about 20 words a slide, and the drawing carries the point (Slides · Voice). SlideStats, SlideFunnel, SlideWindow and SlideQuestions follow these rules as Claude extended them from the three slides Danielle decided (cover, frame, section stop), for her to check.
 
 ## Slides · Voice for talks and decks
 
+**Slides are not read.** A slide carries only enough words to cue the presenter, and it supports the point visually: the drawing, the line and its nodes, the numbers and the layout carry it. The argument is spoken, and it lives in the speaker notes.
+
+- About 20 words a slide is the default for every slide and every component preview. Count every visible word except the footer row (site name or source, slide number); numerals count.
+- 50 words is a hard ceiling, and only for a text-only slide, one where no drawing does the work: SlideFrame with a statement panel or children and no cards, a SlideBuild table, or SlideQuestions. Every other slide type has a drawing and stays at about 20.
+- When a slide has too many words, replace them with a device the system already has (nodes on a line, a stat numeral, bars, a meter) before you delete them, and move the rest to the speaker notes.
+- Optional props that add words (a card's body, a statement panel, a list under the stats, descriptions under steps, captions) are off in every preview. Turning one on does not lift the 20 words.
+
 The site's voice (plain, second person, short declaratives) carries into slides, with these additions, learned from an academic deck for Statistics Netherlands. The audience for a talk is usually researchers or methodologists; write for them, not for a buyer.
 
-- A slide title states a finding or names a topic. It is a sentence or a noun phrase, never an imperative or a slogan: "Retrieval timing: feeds are recent and content disappears", not "Fetch fast: feeds are fresh and videos disappear"; "Each export covers at most six months of viewing", not "What a six-month export gives you".
-- Say a problem in a full sentence from the researcher's standpoint, not as a compressed phrase: "We do not control what the platform delivers", not "The window is the platform's"; "We only have data from people who donate", not "Who donates is a selection". Fragments read as jargon to anyone outside the project.
+- A slide title states a finding or names a topic, in as few words as carry it. It is a sentence or a noun phrase, never an imperative or a slogan: "Retrieval timing: feeds are recent and content disappears", not "Fetch fast: feeds are fresh and videos disappear"; "Each export covers at most six months of viewing", not "What a six-month export gives you".
+- In a title, and in the speaker notes, say a problem in a full sentence from the researcher's standpoint, not as a compressed phrase: "We do not control what the platform delivers", not "The window is the platform's"; "We only have data from people who donate", not "Who donates is a selection". Fragments read as jargon to anyone outside the project.
 - No antithesis for effect. Not "Error moves, it does not vanish", not "links, not content", not "It's not X, it's Y". Say what is the case: "The record itself can still be wrong"; "A watch history consists of links; the content must be retrieved."
-- Numbers carry their base and their status: "29 to 36% in LISS", "270 usable donations of 2,600 invited", "preliminary". Hedge with "may", "to date", "in this study"; never "unprecedented", "powerful", "seamless", "unlock", "leverage".
+- Numbers carry their base and their status, on the slide in a few words ("LISS panel, aged 50+") and in full in the notes: "29 to 36% in LISS", "270 usable donations of 2,600 invited", "preliminary". Hedge with "may", "to date", "in this study"; never "unprecedented", "powerful", "seamless", "unlock", "leverage".
 - Name a study by what it measures, not by its headline topic: "crime and policing content on TikTok", if that is what the codebook codes, even when the public page says "online hate".
 - Options are numbered neutrally ("Option 1, 2, 3"), and the one the project recommends is shown by layout (the card framed in `blue`), not by adjectives.
-- The limits of a method get the same weight and the same plain sentences as its advantages. Put them on the slide that makes the claim, not in an appendix.
-- A closing slide asks the audience's questions, starting from their own problems and their own prior work, rather than offering a service. For a research audience, "Where could donation help a survey office?" with three open questions; never "Want to run a study?" with three routes. Access routes and contact go in the speaker notes or the footer.
-- Speaker notes carry the long version. Anything the presenter will say aloud comes off the slide and into the `<aside>`.
+- The limits of a method get the same weight and the same plain sentences as its advantages. Cue them on the slide that makes the claim and say them there, not in an appendix.
+- A closing slide asks the audience's questions, starting from their own problems and their own prior work, rather than offering a service. For a research audience, "Where could donation help a survey office?" with three open questions of a few words each; never "Want to run a study?" with three routes. Access routes and contact go in the speaker notes or the footer row.
+- Speaker notes carry the long version. Anything the presenter will say aloud comes off the slide and into the `<aside>`: definitions, descriptions of steps, the list behind a number.
 
 ## Slides · Idioms and components
 
@@ -102,25 +109,26 @@ Decks use the Slides artifact type: 1920 × 1080, one `<section>` per slide, inl
 - By hand, follow the component's README: it lists every value the component draws. Pictures (platform marks, glyphs, logos) are props in every case; each README's "What you provide" says which asset and how to fetch it.
 
 - SlideCover: the cover and the closing slide, in two layouts: `network`, the network band with no words over the title, subtitle and speaker line on white; and `band-title`, the website band with the title in it over the speakers, venue and logo row.
-- SlideFrame: the frame every content slide shares (eyebrow, title, pinned footer row) with the two commonest bodies, three cards hanging from one line and a statement panel framed by hairlines.
+- SlideFrame: the frame every content slide shares (eyebrow, title, pinned footer row) with its commonest body, three cards hanging from one line, each a picture and a few words; a statement panel framed by hairlines is optional and adds words.
 - SlidePlan: the overview, a line with one numbered node per part and the part headers under it, in place of an agenda.
-- SlideSectionStop: the opener for each part, the big part number in the serif, one sentence, and the line stepping down at the current part's coral node.
-- SlideBuild: one step of a build, same-numbered slides adding one row at a time with earlier rows dimmed and a line with a node per step on top.
-- SlideStats: stat numerals in the serif in `blue`, in columns divided by hairlines, a mini bar chart in a column, and the list they summarise under a hairline.
-- SlideFunnel: layout that makes the point, a funnel with the value at the end of each bar (the last bar `coral` when it marks the point) and a meter of three options, the recommended one framed in `blue`.
-- SlideWindow: a drawn browser window, square and framed by hairlines, for showing software beside a numbered list with serif numerals.
-- SlideQuestions: the closing or discussion slide for a research audience: problem, change, question, with framed cases marked by a coloured spot, contact and logos.
+- SlideSectionStop: the opener for each part, the big part number in the serif, a few words of claim, and the line stepping down at the current part's coral node.
+- SlideBuild: one step of a build, same-numbered slides adding one row at a time with earlier rows dimmed, a word or two a cell in the serif; a line with a node per step on top is optional.
+- SlideStats: stat numerals in the serif in `blue`, a word each, in columns divided by hairlines, with a bar chart or a grid of platform marks in a column; the list they summarise, under a hairline, is optional.
+- SlideFunnel: layout that makes the point, a funnel with the value at the end of each bar (the last bar `coral` when it marks the point) and a meter of three options, the recommended one framed in `blue`; side by side, or each alone on a slide, where it fills the slide.
+- SlideWindow: a drawn browser window, square and framed by hairlines, for showing software beside its steps, which hang on a vertical line with a node each.
+- SlideQuestions: the closing or discussion slide for a research audience: up to three short questions hanging from one line, contact and logos in the footer row; problems, changes and framed cases are optional.
 
 Rules every slide follows, whether a component draws it or you do:
 
 - The section has `slide-margin` (128px) on three sides and 136px at the bottom, and a base line height of 1.4. The footer row is pinned 64px from the bottom: site name (or a source line) left, slide number right, `slide-label` in `text-muted`.
 - The title block is `slide-eyebrow` in `text-muted` caps (Nunito Sans 800), 16px above `slide-title` in `heading`, in the serif at 420, 64px (provisional), at the top margin on every slide, both with `data-fit="none"`. Blocks below it are 32 to 48px apart (`space-32`, `space-48`).
+- Words: about 20 a slide, the footer row not counted; 50 at the very most on a text-only slide (Slides · Voice). A body of few words sits in the middle of the space under the title block, except a build's table, which stays put so that nothing moves between steps.
 - Budget: the flow between the margins is 816px tall and ends about 40px above the footer. The Slides canvas does not scroll an over-full slide: it squeezes every box and shrinks each box's text on its own, so headings end up at different sizes from slide to slide. `data-fit="none"` keeps the eyebrow and title at their size whatever the body does; measure with the real faces, and split a slide that does not fit rather than letting it squeeze.
 - A build's steps share one geometry: the same gaps and paddings on every step, so a new row appears and nothing else moves.
 - Hairlines on a slide are 2px `border`: 1px thins out on a projector. Corners are square.
 - Cards: a row of sibling cards has no frames or fills; it hangs from one 3px `blue` line with a filled node over each card and a ring node at each end (SlideFrame). Card eyebrows are `text-muted`: coral and yellow are not text in the new look. A statement panel is `surface` framed and divided by hairlines. Lines inside a card are 8 to 12px apart. Dividers rather than borders for lists. A card that must stand alone (a funnel, a meter option, a case) is `surface` framed by a 2px `border` hairline, never tinted; the recommended option's frame is 2px `blue`.
 - Let layout make the point: a meter for options, a funnel with the value at the end of its bar, a line with a node per step for a sequence, a statement in a framed panel for a finding. Avoid three identical cards in a row when the three things differ in kind.
-- Bars are `blue` and square; one `coral` bar may mark the point. Every bar carries its value as text at its end or top; axes are a 2px `border-strong` rule with `slide-label` text. Platform marks appear at 32 to 48px beside the name they stand for, never alone.
+- Bars are `blue` and square; one `coral` bar may mark the point. Every bar in a chart the audience reads carries its value as text at its end or top; axes are a 2px `border-strong` rule with `slide-label` text. The bars in a drawn software window are a picture of the software and need no values. Platform marks appear at 32 to 48px beside the name they stand for, never alone.
 - The slide format caps padding at 256px and drops a larger value entirely; images are referenced as `/_blob/<id>`; fonts are declared in `deck.json` from the files listed under Builders. Code and file names use `'Courier New', monospace` on `surface-tint`, since the site's mono stack is not a web font.
 
 ## Slides · Palette in hex

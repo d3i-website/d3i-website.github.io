@@ -1,4 +1,4 @@
-<!-- @dsCard group="Slides" height=540 width=960 subtitle="Closing or discussion slide: problem, what changes, the question; contact and logos in the last row" -->
+<!-- @dsCard group="Slides" height=540 width=960 subtitle="Closing or discussion slide: the audience's questions hanging from a line; contact and logos in the footer row" -->
 <!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><title>SlideQuestions — preview</title>
@@ -8,57 +8,17 @@
 <script>
 var D = window.D3I, h = React.createElement;
 ReactDOM.createRoot(document.getElementById('root')).render(h(D.SlideQuestions, {
- "eyebrow": "Part V · For official statistics",
  "heading": "Where could donation help a survey office?",
- "headers": [
-  "The problem",
-  "What donation changes",
-  "The question"
- ],
  "rows": [
-  {
-   "problem": "Falling response, little interest",
-   "change": "One share of an existing record, months of data per donation, and participants see it before deciding.",
-   "question": "Willingness in LISS was 29 to 36%. Does a donation task lift or lower participation?"
-  },
-  {
-   "problem": "Web-only collection",
-   "change": "Port runs in the browser. The burden moves from answering questions to exporting a file.",
-   "question": "Which burden do respondents tolerate better, and who drops out of each?"
-  },
-  {
-   "problem": "Non-probability panels",
-   "change": "Donation scales where recruitment is cheap.",
-   "question": "Could donated records supply the auxiliary variables an adjustment needs?"
-  }
- ],
- "casesLabel": "Two surveys to test it on",
- "cases": [
-  {
-   "title": "Household Budget Survey",
-   "text": "Donated supermarket loyalty data to check reported spending, item by item.",
-   "tint": "blue"
-  },
-  {
-   "title": "ODiN travel survey",
-   "text": "Donated Google Location History to augment the travel diary, or replace it.",
-   "tint": "yellow"
-  }
+  { "question": "Does donating lift response?" },
+  { "question": "Which burden is lighter?" },
+  { "question": "Can records correct panel bias?" }
  ],
  "email": "DataDonation@uu.nl",
  "site": "datadonation.eu",
- "credit": "A service provided by ODISSEI and supported by Eyra",
  "logos": [
-  {
-   "src": "/_blob/693138a09fb55860252fdf53cdfdee18",
-   "alt": "ODISSEI",
-   "width": 140
-  },
-  {
-   "src": "/_blob/87afcf44ac9de2aea316b5c81eda8dd5",
-   "alt": "Eyra",
-   "width": 100
-  }
+  { "src": "/_blob/693138a09fb55860252fdf53cdfdee18", "alt": "ODISSEI", "width": 140 },
+  { "src": "/_blob/87afcf44ac9de2aea316b5c81eda8dd5", "alt": "Eyra", "width": 100 }
  ]
 }));
 </script>

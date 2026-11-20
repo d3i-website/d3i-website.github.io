@@ -810,9 +810,11 @@ export declare const UsageFigures: ((props: UsageFiguresProps) => React.ReactEle
 /* Slides -------------------------------------------------------------------- */
 /* Each renders one 1920 × 1080 <section> with inline styles in the system's light-theme hex values.
    Mount it in a design canvas, or get its markup for a Slides deck with D3I.slideMarkup(D3I.SlideFrame, props).
-   Eyebrows and titles carry data-fit="none" so the Slides canvas never shrinks them. */
+   Eyebrows and titles carry data-fit="none" so the Slides canvas never shrinks them.
+   Slides are not read: a slide carries about 20 words (the footer row not counted), enough to cue the presenter,
+   and its drawing carries the point. Props marked "adds words" are off in the previews; the 20 words still apply. */
 
-/** The footer row every slide but the cover and SlideQuestions carries. */
+/** The footer row every slide but the cover carries (marked data-footer; SlideQuestions' contact row is its footer row). */
 export interface SlideFooterProps {
   /** The slide number, right of the footer. Builds repeat one number on every step. */
   number?: number | string;
@@ -853,10 +855,13 @@ export interface SlideCoverProps {
 export declare function SlideCover(props: SlideCoverProps): React.ReactElement;
 
 export interface SlideFrameCard {
+  /** Text-muted caps over the title; names the platform when the picture is a platform mark, which never stands alone. */
   eyebrow?: string;
+  /** A word or three, in the serif at 48px. */
   title: string;
+  /** Adds words: one line of slide-body under the title. Off by default; say it aloud instead. */
   body?: string;
-  /** 48px above the eyebrow: a mark from assets/Platforms, or a concept glyph from assets/Glyphs in the card's accent. */
+  /** 64px above the title, under the card's node: a mark from assets/Platforms, or a concept glyph from assets/Glyphs in the card's accent. */
   iconSrc?: string;
   iconAlt?: string;
   /** Ignored: cards are no longer framed or tinted; every card hangs from the line. */
@@ -867,18 +872,18 @@ export interface SlideFrameProps extends SlideFooterProps {
   heading: string;
   /** Up to three cards in a row, hanging from one blue line with a node over each. */
   cards?: SlideFrameCard[];
-  /** Columns of the statement panel: white, framed and divided by 2px border hairlines. */
-  panel?: Array<{ eyebrow: string; text: string }>;
+  /** Adds words: columns of the statement panel, white, framed and divided by 2px border hairlines. A slide with only a panel is text-only: at most 50 words. */
+  panel?: Array<{ eyebrow?: string; text: string }>;
   /** The section's gap; default 48px. */
   gap?: string;
-  /** Any further body, between the cards and the panel. */
+  /** Any further body, between the cards and the panel. The body is centred in the space under the title block. */
   children?: React.ReactNode;
 }
 /** The frame every content slide shares, with three cards on a line and a statement panel as its commonest body. */
 export declare function SlideFrame(props: SlideFrameProps): React.ReactElement;
 
 export interface SlidePlanProps extends SlideFooterProps {
-  /** Default "Overview". */
+  /** No default: the line says it is an overview. */
   eyebrow?: string;
   heading: string;
   /** Three to six part headers of one to three words, numbered under one node each. */
@@ -888,14 +893,14 @@ export interface SlidePlanProps extends SlideFooterProps {
 export declare function SlidePlan(props: SlidePlanProps): React.ReactElement;
 
 export interface SlideSectionStopProps extends SlideFooterProps {
-  /** The eyebrow: "Part II". */
-  part: string;
+  /** The eyebrow: "Part II". Adds words the numeral already says; off in the preview. */
+  part?: string;
   /** The part's name: "The method". */
   heading: string;
   /** Two digits: "02". */
   stepNumber: string;
-  /** The part's claim in one sentence of about fifteen words. */
-  sentence: string;
+  /** The part's claim in a few words (about seven), beside the numeral. Without it the numeral stands alone. */
+  sentence?: string;
   /** Every part's name, for the labels under the line's nodes. */
   stops: string[];
   /** Index of this part in `stops`. */
@@ -906,6 +911,7 @@ export declare function SlideSectionStop(props: SlideSectionStopProps): React.Re
 
 export interface SlideBuildRow {
   label: string;
+  /** title: a word or two, in the serif at 48px. text adds words: a slide-small line under it, off by default. */
   left: { title: string; text?: string };
   right: { title: string; text?: string };
   /** coral: a row that makes a different kind of point, marked by a small coral disc before its label. */
@@ -914,7 +920,7 @@ export interface SlideBuildRow {
 export interface SlideBuildProps extends SlideFooterProps {
   eyebrow?: string;
   heading: string;
-  /** The step names, one node each on the line across the top. */
+  /** Adds words: the step names, one numbered node each on the line across the top. The row labels already name the steps; off in the preview. */
   steps?: string[];
   /** Index of the current step, its node coral; default the last row shown. */
   current?: number;
@@ -931,9 +937,9 @@ export declare function SlideBuild(props: SlideBuildProps): React.ReactElement;
 export interface SlideStatsTile {
   value?: string | number;
   label?: string;
-  /** A mini bar chart inside the tile: years and counts. */
+  /** A bar chart inside the tile, the tallest bar 160px: years and counts, each bar with its value. */
   series?: Array<{ label: string; value: number }>;
-  /** Marks from assets/Platforms, 32px, eight to a row. */
+  /** Marks from assets/Platforms, 48px, six to a row. */
   marks?: Picture[];
 }
 export interface SlideStatsProps extends SlideFooterProps {
@@ -941,7 +947,7 @@ export interface SlideStatsProps extends SlideFooterProps {
   heading: string;
   /** Up to four tiles, in columns divided by 2px hairlines; every numeral is the serif in blue. */
   tiles: SlideStatsTile[];
-  /** Up to three columns of the list the numbers summarise, under a 2px hairline. */
+  /** Adds words: up to three columns of the list the numbers summarise, under a 2px hairline. Off in the preview; the list belongs in the speaker notes. */
   panel?: Array<{ title: string; items: string[] }>;
   children?: React.ReactNode;
 }
@@ -951,58 +957,62 @@ export declare function SlideStats(props: SlideStatsProps): React.ReactElement;
 export interface SlideFunnelProps extends SlideFooterProps {
   eyebrow?: string;
   heading: string;
-  /** Shrinking shares against one base, in a card framed by a 2px hairline; blue bars scale to the first stage at 400px.
-      The last bar is coral, marking the point, unless markLast is false. Every funnel is blue. */
+  /** Shrinking shares against one base, in a card framed by a 2px hairline; blue bars scale to the first stage (400px
+      beside a meter; alone, 1100px and 64px tall with the labels in a column on their left). The last bar is coral,
+      marking the point, unless markLast is false. eyebrow and note add words and are off in the preview; base is a few words. */
   funnel?: { eyebrow?: string; base?: string; stages: Array<{ label: string; pct: number }>; note?: string; markLast?: boolean; /** @deprecated Ignored: every funnel is blue. */ color?: 'coral' | 'blue' };
-  /** Options that differ in how much arrives: all (a blue fill), promise (a dashed blue outline, arrives then deleted), strip (a blue strip, the selected part only). The recommended option's frame is 2px blue. */
+  /** Options that differ in how much arrives: all (a blue fill), promise (a dashed blue outline, arrives then deleted), strip (a blue strip, the selected part only). The recommended option's frame is 2px blue. Alone, the meter boxes fill the slide's height. text adds words and is off in the preview. */
   meter?: { options: Array<{ eyebrow: string; fill: 'all' | 'promise' | 'strip'; fillLabel: string; text?: string; recommended?: boolean }> };
   children?: React.ReactNode;
 }
-/** Layout that carries the argument: a funnel and a meter. */
+/** Layout that carries the argument: a funnel and a meter, side by side or (the default in the preview) each on its own slide. */
 export declare function SlideFunnel(props: SlideFunnelProps): React.ReactElement;
 
 export interface SlideWindowProps extends SlideFooterProps {
   eyebrow?: string;
   heading: string;
-  /** The numbered list left of the window. */
+  /** The steps left of the window, hanging on a vertical blue line with a node each, title in the serif at 36px. text adds words: a slide-small line, off by default. */
   steps: Array<{ title: string; text?: string }>;
-  /** A link line under the list; the arrow is added. */
+  /** Adds words: a link line under the list; the arrow is added. */
   link?: string;
   window: {
     url: string;
     title?: string;
+    /** tabs, stat and chartLabel add words and are off in the preview. */
     tabs?: Array<{ label: string; active?: boolean }>;
     stat?: string;
     chartLabel?: string;
-    bars?: Array<{ label: string; value: number }>;
+    /** The bars fill the window's body. A label adds a word under its bar; with no labels there is no label row. */
+    bars?: Array<{ label?: string; value: number }>;
     /** A real screenshot replaces the drawn body. */
     imageSrc?: string;
     imageAlt?: string;
   };
-  /** Under the window; say when the body is drawn, not a screenshot. */
+  /** Adds words: a line under the window, to say when the body is drawn, not a screenshot (or say it aloud). */
   caption?: string;
 }
-/** A drawn browser window for software, square and framed by 2px hairlines, beside a list numbered in the serif. */
+/** A drawn browser window for software, square and framed by 2px hairlines, beside steps on a line with a node each. */
 export declare function SlideWindow(props: SlideWindowProps): React.ReactElement;
 
 export interface SlideQuestionsProps {
   eyebrow?: string;
   heading: string;
-  /** Default ["The problem", "What changes", "The question"]. */
+  /** @deprecated Ignored: the slide shows the questions, not a table. */
   headers?: [string, string, string];
-  rows: Array<{ problem: string; change: string; question: string }>;
+  /** Up to three questions hanging from one blue line, a node over each, in the serif at 48px. problem (an eyebrow over the question) and change (a line under it) add words and are off in the preview. */
+  rows: Array<{ problem?: string; change?: string; question: string }>;
   casesLabel?: string;
-  /** Up to two case cards, framed by 2px hairlines; tint is the colour of the small disc before the title, blue then yellow by default. */
-  cases?: Array<{ title: string; text: string; tint?: 'blue' | 'coral' | 'yellow' }>;
+  /** Adds words: up to two case cards, framed by 2px hairlines; tint is the colour of the small disc before the title, blue then yellow by default. */
+  cases?: Array<{ title: string; text?: string; tint?: 'blue' | 'coral' | 'yellow' }>;
   email?: string;
   /** Default "datadonation.eu". */
   site?: string;
-  /** "A service provided by ODISSEI and supported by Eyra". */
+  /** "A service provided by ODISSEI and supported by Eyra". In the footer row; the logos say it too. */
   credit?: string;
   /** assets/Logos, 44px tall; width defaults to 120. */
   logos?: Array<Picture & { width?: number }>;
 }
-/** The closing or discussion slide for a research audience. */
+/** The closing or discussion slide for a research audience: its questions on a line, contact and logos in the footer row. */
 export declare function SlideQuestions(props: SlideQuestionsProps): React.ReactElement;
 
 /** One slide as markup for a Slides deck: one <section>, inline styles with hex colours, data-fit kept. Needs ReactDOM 18 on window. */

@@ -630,11 +630,58 @@ test('no slide sets the rounded Nunito', () => {
   assert.equal(bad.length, 0, `${bad.length} slide font-family declarations are the rounded Nunito`);
 });
 
+// The words a slide shows: its visible text, less the footer row (the element marked data-footer: site
+// name and slide number, or a closing slide's contact row), split on whitespace. A word is a token with a
+// letter or a digit in it, so numerals count and a lone "·" or "→" does not.
+function dropFooter(html) {
+  const start = html.search(/<[a-z]+ data-footer="true"/);
+  if (start < 0) return html;
+  const tag = html.slice(start + 1).match(/^[a-z]+/)[0];
+  const re = new RegExp(`<(/?)${tag}\\b[^>]*>`, 'g');
+  re.lastIndex = start;
+  let depth = 0, m;
+  while ((m = re.exec(html))) {
+    depth += m[1] ? -1 : 1;
+    if (!depth) return dropFooter(html.slice(0, start) + html.slice(re.lastIndex));
+  }
+  throw new Error('the footer row is not closed');
+}
+function slideWords(html) {
+  const text = dropFooter(html).replace(/<[^>]*>/g, ' ')
+    .replace(/&(amp|lt|gt|quot|#x27);/g, (_, e) => ({ amp: '&', lt: '<', gt: '>', quot: '"', '#x27': "'" })[e]);
+  return text.split(/\s+/).filter((t) => /[\p{L}\p{N}]/u.test(t));
+}
+
+test('slide words are counted without the footer row', () => {
+  const html = '<section><p>Two words</p><p>51 · 2025 →</p><div data-footer="true"><div><p>datadonation.eu</p></div><p>13</p></div><p>end</p></section>';
+  assert.deepEqual(slideWords(html), ['Two', 'words', '51', '2025', 'end']);
+  const { D3I, React } = bundle();
+  const frame = renderToHtml(React.createElement(D3I.SlideFrame, { heading: 'One two three', number: 7 }));
+  assert.deepEqual(slideWords(frame), ['One', 'two', 'three'], 'the footer row is marked data-footer');
+  const questions = renderToHtml(React.createElement(D3I.SlideQuestions, { heading: 'H', rows: [{ question: 'Q?' }], email: 'a@b.nl' }));
+  assert.deepEqual(slideWords(questions), ['H', 'Q?'], "the closing slide's contact row is its footer row");
+});
+
+// Slides are not read: about 20 words cue the presenter, and the drawing carries the point (README, Slides · Voice).
+// Every preview shows that default, each of its slides (both cover layouts, each funnel form).
+test('slides stay under 20 words', () => {
+  const bad = [];
+  for (const name of slidePreviews) {
+    const b = bundle();
+    runPreview(previewPath(name), b);
+    b.ReactDOM.roots.forEach((r, i) => {
+      const words = slideWords(renderToHtml(r.tree));
+      if (words.length > 20) bad.push(`${name} #${i + 1}: ${words.length} words`);
+    });
+  }
+  assert.deepEqual(bad, [], `slides over 20 words:\n  ${bad.join('\n  ')}`);
+});
+
 test('the funnel and the meter in the new look', () => {
   const { D3I, React } = bundle();
   const { byName } = lightColours();
   const stages = [{ label: 'a', pct: 30 }, { label: 'b', pct: 20 }, { label: 'c', pct: 10 }];
-  const bars = (html) => [...html.matchAll(/<div style="height:26px;width:\d+px;background:(#[0-9a-f]{6})"/gi)].map((m) => m[1].toLowerCase());
+  const bars = (html) => [...html.matchAll(/<div style="height:\d+px;width:\d+px;background:(#[0-9a-f]{6})"/gi)].map((m) => m[1].toLowerCase());
   const marked = renderToHtml(React.createElement(D3I.SlideFunnel, { heading: 'H', funnel: { stages } }));
   assert.deepEqual(bars(marked), [byName.blue, byName.blue, byName.coral], 'blue bars, the last one coral: it marks the point');
   const plain = renderToHtml(React.createElement(D3I.SlideFunnel, { heading: 'H', funnel: { stages, markLast: false } }));

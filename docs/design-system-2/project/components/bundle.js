@@ -789,7 +789,7 @@
       h('h2', { 'data-fit': 'none', style: T.title }, p.heading));
   }
   function SlideFooter(p) {
-    return h('div', { style: st(ROW, { position: 'absolute', left: '128px', right: '128px', bottom: '64px', justifyContent: 'space-between' }) },
+    return h('div', { 'data-footer': 'true', style: st(ROW, { position: 'absolute', left: '128px', right: '128px', bottom: '64px', justifyContent: 'space-between' }) },
       h('p', { style: p.source ? st(T.small, { color: C.muted }) : st(T.label, { color: C.muted }) }, p.source || p.site || 'datadonation.eu'),
       h('p', { style: st(T.label, { color: C.muted }) }, p.number != null ? String(p.number) : ''));
   }
@@ -1126,10 +1126,10 @@
   }
 
   /* the cards hang from one blue line: it starts at a ring node 48px into the left margin, a blue node sits over
-     each card's first 48px (its icon), and it ends at a ring node on the right margin */
+     each card's first 64px (its icon), and it ends at a ring node on the right margin */
   function cardLine(n) {
     var col = (WIDE - 24 * (n - 1)) / n, nodes = [];
-    for (var i = 0; i < n; i++) nodes.push(dot(i, Math.round(i * (col + 24) + 24), 12, 10, C.blue));
+    for (var i = 0; i < n; i++) nodes.push(dot(i, Math.round(i * (col + 24) + 32), 12, 10, C.blue));
     return h('svg', { width: WIDE + 72, height: 24, viewBox: '-60 0 ' + (WIDE + 72) + ' 24', 'aria-hidden': 'true', style: { position: 'absolute', left: '-60px', top: 0, display: 'block', maxWidth: 'none' } },
       h('path', { d: 'M-48 12 H' + WIDE, fill: 'none', stroke: C.blue, strokeWidth: 3 }),
       dot('s', -48, 12, 8, C.surface, C.blue),
@@ -1137,31 +1137,39 @@
       nodes);
   }
 
+  /* A row of cards hanging from cardLine: each a 64px picture, an optional eyebrow, the title in the serif at 48px and
+     an optional line of body. The picture and the title carry a card; the body is off by default (minimal text). */
+  function cardRow(cards) {
+    return h('div', { style: { position: 'relative', paddingTop: '40px' } },
+      cardLine(cards.length),
+      h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + cards.length + ', 1fr)', gap: '24px' } }, cards.map(function (c, i) {
+        return h('div', { key: i, style: st(COL, { gap: '12px', padding: '0 32px 0 0' }) },
+          c.iconSrc ? h('img', { src: c.iconSrc, alt: c.iconAlt || '', style: { width: '64px', height: '64px', objectFit: 'contain', display: 'block', marginBottom: '12px' } }) : null,
+          c.eyebrow ? h('p', { style: st(T.eyebrow, { color: C.muted }) }, c.eyebrow) : null,
+          h('h3', { style: T.heading }, c.title),
+          c.body ? h('p', { style: T.body }, c.body) : null);
+      })));
+  }
+
+  /* the body sits in the middle of the space under the title block, so a slide of few words is not top-heavy */
   function SlideFrame(p) {
-    var cards = list(p.cards), panel = list(p.panel);
-    return h('section', { style: section(p.gap ? { gap: p.gap } : null) },
+    var cards = list(p.cards), panel = list(p.panel), gap = p.gap || '48px';
+    return h('section', { style: section({ gap: gap }) },
       h(SlideHead, { eyebrow: p.eyebrow, heading: p.heading }),
-      cards.length ? h('div', { style: { position: 'relative', paddingTop: '40px' } },
-        cardLine(cards.length),
-        h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + cards.length + ', 1fr)', gap: '24px' } }, cards.map(function (c, i) {
-          return h('div', { key: i, style: st(COL, { gap: '12px', padding: '0 32px 0 0' }) },
-            c.iconSrc ? h('img', { src: c.iconSrc, alt: c.iconAlt || '', style: { width: '48px', height: '48px', objectFit: 'contain', display: 'block', marginBottom: '4px' } }) : null,
-            c.eyebrow ? h('p', { style: st(T.eyebrow, { color: C.muted }) }, c.eyebrow) : null,
-            h('h3', { style: T.subheading }, c.title),
-            c.body ? h('p', { style: T.body }, c.body) : null);
-        }))) : null,
-      p.children,
-      panel.length ? h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + panel.length + ', 1fr)', background: C.surface, border: HAIR } }, panel.map(function (col, i) {
-        return h('div', { key: i, style: st(COL, { gap: '12px', padding: '32px 40px', borderLeft: i ? HAIR : 'none' }) },
-          h('p', { style: st(T.eyebrow, { color: C.muted }) }, col.eyebrow),
-          h('p', { style: T.body }, col.text));
-      })) : null,
+      h('div', { style: st(COL, { flex: 1, justifyContent: 'center', gap: gap }) },
+        cards.length ? cardRow(cards) : null,
+        p.children,
+        panel.length ? h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + panel.length + ', 1fr)', background: C.surface, border: HAIR } }, panel.map(function (col, i) {
+          return h('div', { key: i, style: st(COL, { gap: '12px', padding: '32px 40px', borderLeft: i ? HAIR : 'none' }) },
+            col.eyebrow ? h('p', { style: st(T.eyebrow, { color: C.muted }) }, col.eyebrow) : null,
+            h('p', { style: T.body }, col.text));
+        })) : null),
       h(SlideFooter, { number: p.number, source: p.source }));
   }
 
   function SlidePlan(p) {
     return h('section', { style: section({ justifyContent: 'center', gap: '64px' }) },
-      h(SlideHead, { eyebrow: p.eyebrow || 'Overview', heading: p.heading }),
+      h(SlideHead, { eyebrow: p.eyebrow, heading: p.heading }),
       h(SlideRail, { stops: p.stops, numbered: true }),
       h(SlideFooter, { number: p.number }));
   }
@@ -1171,7 +1179,7 @@
       h(SlideHead, { eyebrow: p.part, heading: p.heading }),
       h('div', { style: st(ROW, { flex: 1, gap: '48px', alignItems: 'center' }) },
         h('p', { style: st(T.numeral, { width: '300px', flex: 'none' }) }, p.stepNumber),
-        h('p', { style: st(T.heading, { flex: 1 }) }, p.sentence)),
+        p.sentence ? h('p', { style: st(T.heading, { flex: 1 }) }, p.sentence) : null),
       h(SlideRail, { stops: p.stops, current: p.current || 0, step: true }),
       h(SlideFooter, { number: p.number }));
   }
@@ -1193,11 +1201,12 @@
     /* the argued-for cell is marked by a 3px blue rule on its left, as the slide's line is drawn, not by a tint */
     function cell(c, argued) {
       return h('div', { style: st(COL, { gap: '8px', padding: argued ? '8px 24px' : '8px 0', borderLeft: argued ? '3px solid ' + C.blue : 'none' }) },
-        h('p', { style: ITEM }, c.title),
+        h('p', { style: T.heading }, c.title),
         c.text ? h('p', { style: st(T.small, { color: C.muted }) }, c.text) : null);
     }
-    /* sized so four rows of up to two lines a cell fit the 816px flow at the last step: 240px holds a two-word
-       label ("NOT ASKABLE") on one line, rows are 16px apart, cells padded 8px */
+    /* a cell is a word or two in the serif at 48px: sized so four rows of one-line cells and the step line fit the
+       816px flow at the last step (about 725px); 240px holds a two-word label ("NOT ASKABLE") on one line, rows are
+       padded 16px, cells 8px, and the label drops 22px so it sits level with the cell's first line */
     var GRID = { display: 'grid', gridTemplateColumns: '240px 1fr 1fr', gap: '24px' };
     return h('section', { style: section({ gap: '32px' }) },
       h(SlideHead, { eyebrow: p.eyebrow, heading: p.heading }),
@@ -1208,21 +1217,23 @@
           h('p', { style: MUTED_EYEBROW }, cols.left),
           h('p', { style: T.eyebrow }, cols.right)),
         rows.slice(0, shown).map(function (r, i) {
-          return h('div', { key: i, style: st(GRID, { alignItems: 'start', padding: '12px 0', borderTop: i ? HAIR : 'none', opacity: i < shown - 1 ? 0.35 : 1 }) },
+          return h('div', { key: i, style: st(GRID, { alignItems: 'start', padding: '16px 0', borderTop: i ? HAIR : 'none', opacity: i < shown - 1 ? 0.35 : 1 }) },
             /* a coral row's spot hangs 12px left of its label, in the margin, so the label keeps the column's width */
-            h('p', { style: st(MUTED_EYEBROW, { position: 'relative', paddingTop: '8px' }) },
-              r.tone === 'coral' ? h('span', { style: { position: 'absolute', left: '-26px', top: '15px', display: 'flex' } }, spot(C.coral)) : null, r.label),
+            h('p', { style: st(MUTED_EYEBROW, { position: 'relative', paddingTop: '22px' }) },
+              r.tone === 'coral' ? h('span', { style: { position: 'absolute', left: '-26px', top: '29px', display: 'flex' } }, spot(C.coral)) : null, r.label),
             cell(r.left || {}, false), cell(r.right || {}, true));
         })),
       p.children,
       h(SlideFooter, { number: p.number }));
   }
 
-  /* the tiles sit in columns divided by 2px hairlines; the list they summarise sits under one */
+  /* the tiles sit in columns divided by 2px hairlines, in the middle of the space under the title block; the list
+     they summarise, when given, sits under one */
   function SlideStats(p) {
     var tiles = list(p.tiles), panel = list(p.panel);
     return h('section', { style: section({ gap: '48px' }) },
       h(SlideHead, { eyebrow: p.eyebrow, heading: p.heading }),
+      h('div', { style: st(COL, { flex: 1, justifyContent: 'center', gap: '48px' }) },
       h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + (tiles.length || 1) + ', 1fr)' } }, tiles.map(function (t, i) {
         var series = list(t.series), max = series.length ? Math.max.apply(null, series.map(function (s) { return s.value; })) : 1;
         return h('div', { key: i, style: st(COL, { gap: '12px', padding: i ? '0 32px' : '0 32px 0 0', borderLeft: i ? HAIR : 'none' }) },
@@ -1231,11 +1242,11 @@
           series.length ? h('div', { style: st(ROW, { alignItems: 'flex-end', gap: '12px', paddingTop: '16px' }) }, series.map(function (s, j) {
             return h('div', { key: j, style: st(COL, { flex: 1, alignItems: 'center', gap: '4px' }) },
               h('p', { style: st(LABEL, { fontWeight: 800, color: C.heading }) }, s.value),
-              h('div', { style: { width: '48px', height: Math.max(2, Math.round(56 * s.value / max)) + 'px', background: C.blue } }),
+              h('div', { style: { width: '48px', height: Math.max(2, Math.round(160 * s.value / max)) + 'px', background: C.blue } }),
               h('p', { style: st(T.small, { color: C.muted }) }, s.label));
           })) : null,
-          t.marks ? h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', gap: '12px', paddingTop: '8px' } }, list(t.marks).map(function (m, j) {
-            return h('img', { key: j, src: m.src, alt: m.alt || '', style: { width: '32px', height: '32px', objectFit: 'contain', display: 'block' } });
+          t.marks ? h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(6, 48px)', gap: '12px', paddingTop: '16px' } }, list(t.marks).map(function (m, j) {
+            return h('img', { key: j, src: m.src, alt: m.alt || '', style: { width: '48px', height: '48px', objectFit: 'contain', display: 'block' } });
           })) : null);
       })),
       panel.length ? h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + panel.length + ', 1fr)', gap: '32px', paddingTop: '32px', borderTop: HAIR } }, panel.map(function (col, i) {
@@ -1243,117 +1254,128 @@
           h('p', { style: ITEM }, col.title),
           list(col.items).map(function (it, j) { return h('p', { key: j, style: T.small }, it); }));
       })) : null,
-      p.children,
+      p.children),
       h(SlideFooter, { number: p.number, source: p.source }));
   }
 
+  /* A funnel and a meter side by side, or either alone. Alone, a form takes the slide's width and height: the bars
+     and the meter grow so the drawing carries the point and the words can stay few. */
   function SlideFunnel(p) {
-    var f = p.funnel, m = p.meter;
+    var f = p.funnel, m = p.meter, both = !!(f && m);
     var stages = f ? list(f.stages) : [];
     /* the last bar is the coral spot when it marks the point; markLast: false keeps every bar blue */
     var mark = f && f.markLast !== false && stages.length > 1;
+    var BAR = both ? { h: 26, w: 400 } : { h: 64, w: 1100 };
+    var PCT = st(LABEL, { fontWeight: 800, color: C.heading }, both ? null : { fontSize: '36px' });
+    /* alone, the meter's labels are slide-item size (28px), as its boxes are */
+    var FILL = st(LABEL, { fontWeight: 800 }, both ? null : { fontSize: '28px' });
     function meterBox(o) {
       var centre = { justifyContent: 'center', alignItems: 'center' };
       if (o.fill === 'all') return h('div', { style: st(COL, centre, { flex: 1, background: C.blue }) },
-        h('p', { style: st(LABEL, { fontWeight: 800, color: C.onAccent, textAlign: 'center' }) }, o.fillLabel));
+        h('p', { style: st(FILL, { color: C.onAccent, textAlign: 'center' }) }, o.fillLabel));
       if (o.fill === 'promise') return h('div', { style: st(COL, centre, { flex: 1, padding: '0 12px', border: '3px dashed ' + C.blue }) },
-        h('p', { style: st(LABEL, { fontWeight: 800, color: C.blue, textAlign: 'center' }) }, o.fillLabel));
-      return h('div', { style: st(COL, centre, { height: '28px', background: C.blue }) },
-        h('p', { style: st(LABEL, { fontWeight: 800, color: C.onAccent }) }, o.fillLabel));
+        h('p', { style: st(FILL, { color: C.blue, textAlign: 'center' }) }, o.fillLabel));
+      return h('div', { style: st(COL, centre, { height: both ? '28px' : '56px', background: C.blue }) },
+        h('p', { style: st(FILL, { color: C.onAccent }) }, o.fillLabel));
     }
     return h('section', { style: section({ gap: '40px' }) },
       h(SlideHead, { eyebrow: p.eyebrow, heading: p.heading }),
-      h('div', { style: { display: 'grid', gridTemplateColumns: f && m ? '1fr 1.4fr' : '1fr', gap: '24px' } },
-        f ? h('div', { style: st(COL, { gap: '16px', background: C.surface, border: HAIR, padding: '32px' }) },
+      h('div', { style: { flex: both ? 'none' : 1, display: 'grid', gridTemplateColumns: both ? '1fr 1.4fr' : '1fr', gap: '24px' } },
+        f ? h('div', { style: st(COL, { gap: both ? '16px' : '32px', justifyContent: both ? 'flex-start' : 'center', background: C.surface, border: HAIR, padding: both ? '32px' : '48px' }) },
           f.eyebrow ? h('p', { style: MUTED_EYEBROW }, f.eyebrow) : null,
           f.base ? h('p', { style: st(T.small, { color: C.muted }) }, f.base) : null,
-          h('div', { style: st(COL, { gap: '16px' }) }, stages.map(function (s, i) {
-            return h('div', { key: i, style: st(COL, { gap: '8px' }) },
-              h('p', { style: st(T.small, { color: C.heading }) }, s.label),
-              h('div', { style: st(ROW, { alignItems: 'center', gap: '12px' }) },
-                h('div', { style: { height: '26px', width: Math.round(400 * s.pct / (stages[0].pct || 1)) + 'px', background: mark && i === stages.length - 1 ? C.coral : C.blue } }),
-                h('p', { style: st(LABEL, { fontWeight: 800, color: C.heading }) }, s.pct + '%')));
+          h('div', { style: st(COL, { gap: both ? '16px' : '32px' }) }, stages.map(function (s, i) {
+            return h('div', { key: i, style: both ? st(COL, { gap: '8px' }) : st(ROW, { alignItems: 'center', gap: '24px' }) },
+              h('p', { style: both ? st(T.small, { color: C.heading }) : st(ITEM, { width: '240px', flex: 'none' }) }, s.label),
+              h('div', { style: st(ROW, { alignItems: 'center', gap: '16px' }) },
+                h('div', { style: { height: BAR.h + 'px', width: Math.round(BAR.w * s.pct / (stages[0].pct || 1)) + 'px', background: mark && i === stages.length - 1 ? C.coral : C.blue } }),
+                h('p', { style: PCT }, s.pct + '%')));
           })),
           f.note ? h('p', { style: T.small }, f.note) : null) : null,
-        m ? h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + list(m.options).length + ', 1fr)', gap: '16px' } }, list(m.options).map(function (o, i) {
+        m ? h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + list(m.options).length + ', 1fr)', gap: both ? '16px' : '24px' } }, list(m.options).map(function (o, i) {
           return h('div', { key: i, style: st(COL, { gap: '16px', background: C.surface, border: o.recommended ? '2px solid ' + C.blue : HAIR, padding: '24px' }) },
             h('p', { style: o.recommended ? T.eyebrow : MUTED_EYEBROW }, o.eyebrow),
-            h('div', { style: st(COL, { height: '180px', boxSizing: 'border-box', background: C.surface, border: HAIR, justifyContent: 'flex-end' }) }, meterBox(o)),
+            h('div', { style: st(COL, { height: both ? '180px' : 'auto', flex: both ? 'none' : 1, boxSizing: 'border-box', background: C.surface, border: HAIR, justifyContent: 'flex-end' }) }, meterBox(o)),
             o.text ? h('p', { style: T.small }, o.text) : null);
         })) : null),
       p.children,
       h(SlideFooter, { number: p.number, source: p.source }));
   }
 
+  /* The steps hang on a vertical blue line with a filled node at each title, spread down the window's height: the
+     line counts them, so they carry no numerals. The window fills the height under the title block; its bars grow
+     into whatever its title, tabs and captions leave. */
   function SlideWindow(p) {
     var steps = list(p.steps), w = p.window || {}, bars = list(w.bars);
     var max = bars.length ? Math.max.apply(null, bars.map(function (b) { return b.value; })) : 1;
+    var labelled = bars.some(function (b) { return b.label; });
     var pill = { padding: '4px 16px', border: HAIR };
+    /* the node sits on the title's first line: 36px serif at 1.15, so its middle is 21px down */
+    var NODE = 21;
+    function rail(i) {
+      var seg = { position: 'absolute', left: '10px', width: '3px', background: C.blue };
+      return h('div', { style: { position: 'relative', width: '24px', flex: 'none', alignSelf: 'stretch' } },
+        i ? h('div', { style: st(seg, { top: 0, height: NODE + 'px' }) }) : null,
+        i < steps.length - 1 ? h('div', { style: st(seg, { top: NODE + 'px', bottom: 0 }) }) : null,
+        h('svg', { width: 24, height: 24, viewBox: '0 0 24 24', 'aria-hidden': 'true', style: { position: 'absolute', left: 0, top: (NODE - 12) + 'px', display: 'block', maxWidth: 'none' } },
+          dot('n', 11.5, 12, 11, C.blue)));
+    }
     return h('section', { style: section({ gap: '40px' }) },
       h(SlideHead, { eyebrow: p.eyebrow, heading: p.heading }),
-      h('div', { style: st(ROW, { gap: '32px', alignItems: 'stretch' }) },
+      h('div', { style: st(ROW, { flex: 1, minHeight: 0, gap: '48px', alignItems: 'stretch' }) },
         h('div', { style: st(COL, { width: '520px', flex: 'none' }) },
           steps.map(function (s, i) {
-            return h('div', { key: i, style: st(ROW, { gap: '16px', alignItems: 'flex-start', padding: i ? '24px 0' : '0 0 24px 0', borderTop: i ? HAIR : 'none' }) },
-              h('p', { style: st(T.stat, { fontSize: '48px', width: '64px', flex: 'none' }) }, two(i)),
-              h('div', { style: st(COL, { gap: '8px', flex: 1 }) },
-                h('p', { style: ITEM }, s.title),
+            return h('div', { key: i, style: st(ROW, { flex: i < steps.length - 1 ? 1 : 'none', gap: '24px', alignItems: 'flex-start' }) },
+              rail(i),
+              h('div', { style: st(COL, { gap: '8px', flex: 1, paddingBottom: i < steps.length - 1 ? '32px' : 0 }) },
+                h('p', { style: T.subheading }, s.title),
                 s.text ? h('p', { style: T.small }, s.text) : null));
           }),
-          h('div', { style: { flex: 1 } }),
-          p.link ? h('p', { style: st(LABEL, { color: C.blue }) }, p.link + ' →') : null),
+          p.link ? h('p', { style: st(LABEL, { color: C.blue, paddingTop: '32px' }) }, p.link + ' →') : null),
         h('div', { style: st(COL, { flex: 1, background: C.surface, border: HAIR, overflow: 'hidden' }) },
           h('div', { style: st(ROW, { gap: '12px', alignItems: 'center', padding: '12px 16px', borderBottom: HAIR }) },
             [0, 1, 2].map(function (i) { return h('div', { key: i, style: { width: '14px', height: '14px', borderRadius: '50%', background: C.border, flex: 'none' } }); }),
             h('p', { style: st(T.small, pill, { color: C.muted, flex: 1 }) }, w.url)),
           w.imageSrc ? h('img', { src: w.imageSrc, alt: w.imageAlt || '', style: { width: '100%', display: 'block' } })
-            : h('div', { style: st(COL, { gap: '16px', padding: '24px 32px 32px' }) },
-              h('div', { style: st(ROW, { justifyContent: 'space-between', alignItems: 'center' }) },
+            : h('div', { style: st(COL, { flex: 1, gap: '16px', padding: '24px 32px 32px' }) },
+              w.title || w.tabs ? h('div', { style: st(ROW, { justifyContent: 'space-between', alignItems: 'center' }) },
                 h('p', { style: ITEM }, w.title),
                 w.tabs ? h('div', { style: st(ROW, { gap: '8px' }) }, list(w.tabs).map(function (t, i) {
                   return h('p', { key: i, style: st(LABEL, pill, t.active ? { color: C.onAccent, background: C.blue, border: '2px solid ' + C.blue } : { color: C.heading }) }, t.label);
-                })) : null),
+                })) : null) : null,
               w.stat ? h('p', { style: st(T.small, { color: C.muted }) }, w.stat) : null,
               w.chartLabel ? h('p', { style: st(T.small, { paddingTop: '8px' }) }, w.chartLabel) : null,
-              bars.length ? h('div', { style: st(ROW, { alignItems: 'flex-end', gap: '8px', height: '150px' }) }, bars.map(function (b, i) {
-                return h('div', { key: i, style: { flex: 1, height: Math.max(2, Math.round(150 * b.value / max)) + 'px', background: C.blue } });
+              bars.length ? h('div', { style: st(ROW, { flex: 1, minHeight: '150px', alignItems: 'flex-end', gap: '8px', paddingTop: '16px' }) }, bars.map(function (b, i) {
+                return h('div', { key: i, style: { flex: 1, height: Math.max(1, Math.round(100 * b.value / max)) + '%', background: C.blue } });
               })) : null,
-              bars.length ? h('div', { style: { height: '2px', background: C.borderStrong } }) : null,
-              bars.length ? h('div', { style: st(ROW, { gap: '8px' }) }, bars.map(function (b, i) {
+              bars.length ? h('div', { style: { height: '2px', flex: 'none', background: C.borderStrong } }) : null,
+              labelled ? h('div', { style: st(ROW, { gap: '8px' }) }, bars.map(function (b, i) {
                 return h('p', { key: i, style: st(T.small, { flex: 1, textAlign: 'center', color: C.muted }) }, b.label);
               })) : null))),
       p.caption ? h('p', { style: st(T.small, { color: C.muted }) }, p.caption) : null,
       h(SlideFooter, { number: p.number, source: p.source }));
   }
 
+  /* The questions hang from the cards' line, one node each, in the serif, in the middle of the slide: the slide puts
+     them to the audience and nothing else competes. A row's problem (an eyebrow over the question) and change (a line
+     under it), and the cases and the credit, are there when a deck needs them; the contact row is the footer row. */
   function SlideQuestions(p) {
-    var headers = p.headers || ['The problem', 'What changes', 'The question'];
-    var cases = list(p.cases), logos = list(p.logos);
-    var GRID = { display: 'grid', gridTemplateColumns: '300px 1fr 1fr', gap: '32px' };
+    var rows = list(p.rows), cases = list(p.cases), logos = list(p.logos);
     var SPOT = { coral: C.coral, yellow: C.yellow, blue: C.blue };
-    return h('section', { style: section({ padding: '128px', gap: '32px' }) },
+    return h('section', { style: section({ padding: '128px', gap: '48px' }) },
       h(SlideHead, { eyebrow: p.eyebrow, heading: p.heading }),
-      h('div', { style: COL },
-        /* the question's header is blue: the column the slide puts to the audience */
-        h('div', { style: st(GRID, { alignItems: 'end', paddingBottom: '16px', borderBottom: HAIR }) },
-          headers.map(function (t, i) { return h('p', { key: i, style: i === 2 ? T.eyebrow : MUTED_EYEBROW }, t); })),
-        list(p.rows).map(function (r, i) {
-          return h('div', { key: i, style: st(GRID, { alignItems: 'start', padding: '16px 0', borderTop: i ? HAIR : 'none' }) },
-            h('p', { style: st(ITEM, { lineHeight: 1.25 }) }, r.problem),
-            h('p', { style: T.small }, r.change),
-            h('p', { style: T.small }, r.question));
-        })),
-      cases.length ? h('div', { style: st(COL, { gap: '12px' }) },
-        p.casesLabel ? h('p', { style: MUTED_EYEBROW }, p.casesLabel) : null,
-        h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + cases.length + ', 1fr)', gap: '24px' } }, cases.map(function (c, i) {
-          return h('div', { key: i, style: st(COL, { gap: '8px', background: C.surface, border: HAIR, padding: '24px 32px' }) },
-            h('div', { style: st(ROW, { gap: '12px', alignItems: 'center' }) },
-              spot(SPOT[c.tint] || (i % 2 ? C.yellow : C.blue)),
-              h('p', { style: st(ITEM, { lineHeight: 1.25 }) }, c.title)),
-            h('p', { style: T.small }, c.text));
-        }))) : null,
-      h('div', { style: { flex: 1 } }),
-      h('div', { style: st(ROW, { justifyContent: 'space-between', alignItems: 'center' }) },
+      h('div', { style: st(COL, { flex: 1, justifyContent: 'center', gap: '48px' }) },
+        rows.length ? cardRow(rows.map(function (r) { return { eyebrow: r.problem, title: r.question, body: r.change }; })) : null,
+        cases.length ? h('div', { style: st(COL, { gap: '12px' }) },
+          p.casesLabel ? h('p', { style: MUTED_EYEBROW }, p.casesLabel) : null,
+          h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + cases.length + ', 1fr)', gap: '24px' } }, cases.map(function (c, i) {
+            return h('div', { key: i, style: st(COL, { gap: '8px', background: C.surface, border: HAIR, padding: '24px 32px' }) },
+              h('div', { style: st(ROW, { gap: '12px', alignItems: 'center' }) },
+                spot(SPOT[c.tint] || (i % 2 ? C.yellow : C.blue)),
+                h('p', { style: st(ITEM, { lineHeight: 1.25 }) }, c.title)),
+              c.text ? h('p', { style: T.small }, c.text) : null);
+          }))) : null),
+      h('div', { 'data-footer': 'true', style: st(ROW, { justifyContent: 'space-between', alignItems: 'center' }) },
         h('div', { style: st(ROW, { gap: '32px', alignItems: 'center' }) },
           p.email ? h('p', { style: st(ITEM, { color: C.blue }) }, 'Email ' + p.email + ' →') : null,
           h('p', { style: ITEM }, p.site || 'datadonation.eu')),

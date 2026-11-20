@@ -1,4 +1,4 @@
-<!-- @dsCard group="Slides" height=540 width=960 subtitle="Stat tiles with serif numerals in blue, a mini bar chart, a tile of platform marks, and the list under a hairline" -->
+<!-- @dsCard group="Slides" height=540 width=960 subtitle="Stat tiles with serif numerals in blue, a bar chart with its values, a tile of platform marks; a list under a hairline when a deck needs one" -->
 <!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><title>SlideStats — preview</title>
@@ -8,13 +8,13 @@
 <script>
 var D = window.D3I, h = React.createElement;
 ReactDOM.createRoot(document.getElementById('root')).render(h(D.SlideStats, {
- "eyebrow": "Part III · Use to date",
- "heading": "Adoption since the first deployment in 2022",
+ "eyebrow": "Uptake",
+ "heading": "Adoption since 2022",
  "number": 13,
  "tiles": [
   {
    "value": 51,
-   "label": "studies, 2022 to 2025",
+   "label": "studies",
    "series": [
     {
      "label": "2022",
@@ -44,7 +44,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(h(D.SlideStats, {
   },
   {
    "value": 16,
-   "label": "platforms studied",
+   "label": "platforms",
    "marks": [
     {
      "src": "/_blob/1e0edff50600a0e8962a93d02f4d98de",
@@ -110,33 +110,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(h(D.SlideStats, {
      "src": "/_blob/e83806238efb46d9baf0271bb88684da",
      "alt": "samsung-health"
     }
-   ]
-  }
- ],
- "panel": [
-  {
-   "title": "Netherlands · 7",
-   "items": [
-    "University of Amsterdam",
-    "Utrecht University",
-    "Radboud University Nijmegen",
-    "VU Amsterdam"
-   ]
-  },
-  {
-   "title": "Germany · 5",
-   "items": [
-    "Weizenbaum Institute",
-    "GESIS Leibniz Institute",
-    "University of Mannheim"
-   ]
-  },
-  {
-   "title": "United States · 4",
-   "items": [
-    "Cornell University",
-    "Harvard University",
-    "Johns Hopkins University"
    ]
   }
  ]
