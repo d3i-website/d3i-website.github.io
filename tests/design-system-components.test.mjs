@@ -620,6 +620,16 @@ test('every slide is one section of inline styles', () => {
   assert.ok(!/\sclass=/.test(html), 'SlideCover band-title: no class=');
 });
 
+// The rounded Nunito is retired: slides set headings in the serif and everything else in Nunito Sans.
+test('no slide sets the rounded Nunito', () => {
+  const { D3I, React } = bundle();
+  const htmls = slideHtml().map(([, h]) => h);
+  for (const layout of ['network', 'band-title']) htmls.push(renderToHtml(React.createElement(D3I.SlideCover, { layout, title: 'T', subtitle: 'S' })));
+  const bad = [];
+  for (const html of htmls) for (const m of html.matchAll(/font-family:\s*(?:'|&#x27;)Nunito(?:'|&#x27;)/g)) bad.push(m[0]);
+  assert.equal(bad.length, 0, `${bad.length} slide font-family declarations are the rounded Nunito`);
+});
+
 test('the funnel and the meter in the new look', () => {
   const { D3I, React } = bundle();
   const { byName } = lightColours();

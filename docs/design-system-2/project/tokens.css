@@ -156,7 +156,6 @@
   --font-display: "Libre Caslon Condensed", serif;
   --font-serif: "Libre Caslon Condensed", serif;
   --font-sans: "Nunito Sans", system-ui, sans-serif;
-  --font-rounded: "Nunito", system-ui, sans-serif;
   --font-mono: Monaco, Consolas, "Lucida Console", monospace;
   --text-title: 420 50px/1.03 var(--font-serif);
   --text-title-md: 420 40px/1.03 var(--font-serif);
@@ -183,10 +182,10 @@
   --text-slide-heading: 420 48px/1.18 var(--font-display);
   --text-slide-subheading: 420 36px/1.15 var(--font-display);
   --text-slide-lead: 400 36px/1.4 var(--font-sans);
-  --text-slide-item: 800 28px/1.3 var(--font-rounded);
+  --text-slide-item: 800 28px/1.3 var(--font-sans);
   --text-slide-body: 400 28px/1.4 var(--font-sans);
   --text-slide-small: 400 24px/1.4 var(--font-sans);
-  --text-slide-label: 700 24px/1.3 var(--font-rounded);
+  --text-slide-label: 700 24px/1.3 var(--font-sans);
   --text-slide-eyebrow: 800 24px/1.2 var(--font-sans);
 }
 .title { font: var(--text-title); letter-spacing: 0; }

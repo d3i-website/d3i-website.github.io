@@ -743,7 +743,7 @@
     chart: ['#4272ef', '#ff5e5e', '#f4a52b', '#27b3a3', '#8b5cf6']
   };
   /* the serif is provisional (tokens.json, Web · Headings) */
-  var NUNITO = "'Nunito', Arial, sans-serif", SANS = "'Nunito Sans', Arial, sans-serif", SERIF = "'Libre Caslon Condensed', serif";
+  var SANS = "'Nunito Sans', Arial, sans-serif", SERIF = "'Libre Caslon Condensed', serif";
   /* the width between the slide's 128px margins */
   var WIDE = 1664;
   /* hairlines are 2px on a slide: 1px thins out on a projector */
@@ -764,10 +764,10 @@
     heading: st(TXT, { fontFamily: SERIF, fontSize: '48px', lineHeight: 1.18, fontWeight: 420, letterSpacing: 0, color: C.heading }),
     subheading: st(TXT, { fontFamily: SERIF, fontSize: '36px', lineHeight: 1.15, fontWeight: 420, letterSpacing: 0, color: C.heading }),
     lead: st(TXT, { fontFamily: SANS, fontSize: '36px', lineHeight: 1.4, fontWeight: 400, color: C.muted }),
-    item: st(TXT, { fontFamily: NUNITO, fontSize: '28px', lineHeight: 1.3, fontWeight: 800, color: C.heading }),
+    item: st(TXT, { fontFamily: SANS, fontSize: '28px', lineHeight: 1.3, fontWeight: 800, color: C.heading }),
     body: st(TXT, { fontFamily: SANS, fontSize: '28px', lineHeight: 1.4, fontWeight: 400 }),
     small: st(TXT, { fontFamily: SANS, fontSize: '24px', lineHeight: 1.4, fontWeight: 400 }),
-    label: st(TXT, { fontFamily: NUNITO, fontSize: '24px', lineHeight: 1.3, fontWeight: 700 }),
+    label: st(TXT, { fontFamily: SANS, fontSize: '24px', lineHeight: 1.3, fontWeight: 700 }),
     eyebrow: st(TXT, { fontFamily: SANS, fontSize: '24px', lineHeight: 1.2, fontWeight: 800, letterSpacing: '3px', textTransform: 'uppercase', color: C.blue })
   };
   var COL = { display: 'flex', flexDirection: 'column' }, ROW = { display: 'flex', flexDirection: 'row' };
@@ -832,7 +832,7 @@
           h('p', { style: st(T.heading, { lineHeight: 1, color: C.blue }) }, two(i)),
           h('p', { style: st(T.subheading, { textAlign: 'center' }) }, label));
         var ahead = cur >= 0 && i > cur;
-        return h('p', { key: i, style: st(T.label, { fontFamily: SANS, textAlign: 'center', fontWeight: i === cur ? 800 : 700, color: ahead ? C.muted : C.heading }) }, label);
+        return h('p', { key: i, style: st(T.label, { textAlign: 'center', fontWeight: i === cur ? 800 : 700, color: ahead ? C.muted : C.heading }) }, label);
       })));
   }
 
@@ -1178,8 +1178,8 @@
 
   /* The content slides' new look (the spec's "Extended by Claude"): white surfaces, square corners, 2px border
      hairlines, text-muted eyebrows, blue as the one working colour, coral and yellow only as small spots. Their
-     text is Nunito Sans; the footer row keeps T.label, unchanged. */
-  var ITEM = st(T.item, { fontFamily: SANS }), LABEL = st(T.label, { fontFamily: SANS });
+     text is Nunito Sans, as the footer row's is. */
+  var ITEM = T.item, LABEL = T.label;
   var MUTED_EYEBROW = st(T.eyebrow, { color: C.muted });
   /* a small coloured disc: the one place coral and yellow appear on a content slide */
   function spot(color, size) {
