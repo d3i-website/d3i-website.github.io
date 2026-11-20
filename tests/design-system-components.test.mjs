@@ -455,6 +455,8 @@ function slideColours(html) {
 }
 
 // Pictures are never recoloured (like logos), so the band artwork's own colours (the portraits') are allowed too.
+// That lets a slide use an artwork colour (say the portrait's #f15f60) as a UI colour unnoticed; accepted, because
+// the new-look tests below catch the likely slip (coral or yellow as text, a tint) and a review sees the rest.
 function artworkColours() {
   const dir = join(root, 'docs/design-system-2/project/assets/Network');
   const out = new Set();
@@ -534,6 +536,98 @@ test('frame cards hang from a line', () => {
   assert.ok(!bare.includes('<circle'), 'no cards, no line');
 });
 
+/* The new look on every slide (docs/superpowers/specs/2026-11-20-slides-new-look-design.md) ---- */
+
+const slideHtml = () => slidePreviews.map((name) => [name, runPreview(previewPath(name), bundle())]);
+// A slide's inline style declarations, as [property, value]; SVG attributes are not styles.
+const declarations = (html) => [...html.matchAll(/\sstyle="([^"]*)"/g)]
+  .flatMap((m) => m[1].split(';').map((d) => d.split(/:(.*)/s).slice(0, 2).map((x) => x.trim())));
+
+// Square corners: a circle (50%) is the only rounding a slide draws.
+test('no slide has rounded corners', () => {
+  const bad = [];
+  for (const [name, html] of slideHtml()) {
+    for (const [k, v] of declarations(html)) if (k === 'border-radius' && v !== '50%') bad.push(`${name} → border-radius:${v}`);
+  }
+  assert.deepEqual(bad, [], `rounded corners:\n  ${bad.join('\n  ')}`);
+});
+
+// No tints: a slide's surfaces are white; the band's sky is the one colour block, and only on the cover.
+test('no slide paints a tint or a shadow', () => {
+  const { byName } = lightColours();
+  const tints = ['surface-tint', 'surface-strong', 'blue-tint', 'coral-tint', 'yellow-tint', 'paper'].map((n) => byName[n]);
+  const bad = [];
+  for (const [name, html] of slideHtml()) {
+    for (const c of tints) if (slideColours(html).includes(c)) bad.push(`${name} → ${c}`);
+    for (const [k, v] of declarations(html)) if (k === 'box-shadow') bad.push(`${name} → box-shadow:${v}`);
+  }
+  assert.deepEqual(bad, [], `tints and shadows on slides:\n  ${bad.join('\n  ')}`);
+});
+
+// Hairlines are 2px, because 1px thins out on a projector.
+test('slide hairlines are 2px', () => {
+  const bad = [];
+  for (const [name, html] of slideHtml()) {
+    for (const [k, v] of declarations(html)) if (/^border/.test(k) && /^1px\b/.test(v)) bad.push(`${name} → ${k}:${v}`);
+  }
+  assert.deepEqual(bad, [], `1px rules on slides:\n  ${bad.join('\n  ')}`);
+});
+
+// Coral and yellow are spots (nodes, a bar that marks the point), never text.
+test('coral and yellow are never slide text', () => {
+  const { byName } = lightColours();
+  const spots = new Set(['coral', 'yellow', 'yellow-text'].map((n) => byName[n]));
+  const bad = [];
+  for (const [name, html] of slideHtml()) {
+    for (const [k, v] of declarations(html)) if (k === 'color' && spots.has(v.toLowerCase())) bad.push(`${name} → color:${v}`);
+  }
+  assert.deepEqual(bad, [], `coral or yellow text:\n  ${bad.join('\n  ')}`);
+});
+
+// Every slide's heading is the serif at 420; its eyebrow is text-muted caps.
+test('slide titles are the serif', () => {
+  const { byName } = lightColours();
+  for (const [name, html] of slideHtml().filter(([n]) => n !== 'SlideCover')) {
+    const h2 = html.match(/<h2 [^>]*style="([^"]*)"/);
+    assert.ok(h2, `${name}: a title`);
+    assert.match(h2[1], /font-family:(?:'|&#x27;)Libre Caslon Condensed(?:'|&#x27;), serif;[^"]*font-weight:420/, `${name}: the title in the serif at 420`);
+    const eyebrow = html.match(/<p data-fit="none" style="([^"]*text-transform:uppercase[^"]*)"/);
+    if (eyebrow) assert.match(eyebrow[1], new RegExp(`color:${byName['text-muted']}`, 'i'), `${name}: the eyebrow in text-muted`);
+  }
+});
+
+// slideMarkup needs ReactDOM 18 and a DOM, which the stub has not, so this checks what it would turn
+// into markup: each slide is one <section> of inline styles, with no stylesheet and no class to need one.
+test('every slide is one section of inline styles', () => {
+  assert.equal(slidePreviews.length, 9, 'nine slides');
+  for (const name of slidePreviews) {
+    const b = bundle();
+    runPreview(previewPath(name), b);
+    assert.ok(b.ReactDOM.roots.length > 0, `${name}: renders a slide`);
+    for (const html of b.ReactDOM.roots.map((r) => renderToHtml(r.tree))) {
+      assert.ok(html.startsWith('<section style="') && html.endsWith('</section>'), `${name}: a <section>`);
+      assert.equal(count(html, '<section'), 1, `${name}: one <section> per slide`);
+      assert.ok(!html.includes('<style'), `${name}: no <style>`);
+      assert.ok(!/\sclass=/.test(html), `${name}: no class=`);
+    }
+  }
+});
+
+test('the funnel and the meter in the new look', () => {
+  const { D3I, React } = bundle();
+  const { byName } = lightColours();
+  const stages = [{ label: 'a', pct: 30 }, { label: 'b', pct: 20 }, { label: 'c', pct: 10 }];
+  const bars = (html) => [...html.matchAll(/<div style="height:26px;width:\d+px;background:(#[0-9a-f]{6})"/gi)].map((m) => m[1].toLowerCase());
+  const marked = renderToHtml(React.createElement(D3I.SlideFunnel, { heading: 'H', funnel: { stages } }));
+  assert.deepEqual(bars(marked), [byName.blue, byName.blue, byName.coral], 'blue bars, the last one coral: it marks the point');
+  const plain = renderToHtml(React.createElement(D3I.SlideFunnel, { heading: 'H', funnel: { stages, markLast: false } }));
+  assert.deepEqual(bars(plain), [byName.blue, byName.blue, byName.blue], 'markLast: false, every bar blue');
+  const options = [{ eyebrow: 'A', fill: 'all', fillLabel: 'x' }, { eyebrow: 'B', fill: 'strip', fillLabel: 'y', recommended: true }];
+  const meter = renderToHtml(React.createElement(D3I.SlideFunnel, { heading: 'H', meter: { options } }));
+  const frames = [...meter.matchAll(/background:(#[0-9a-f]{6});border:2px solid (#[0-9a-f]{6});padding:24px"/gi)].map((m) => m.slice(1).join(' ').toLowerCase());
+  assert.deepEqual(frames, [`${byName.surface} ${byName.border}`, `${byName.surface} ${byName.blue}`], 'white cards in 2px frames, the recommended one blue');
+});
+
 /* SlideCover ------------------------------------------------------------------------------- */
 
 // The network cover's band is project/assets/Slides/cover-network.svg, copied into bundle.js by
@@ -583,16 +677,34 @@ test('cover layouts', () => {
   assert.ok(!/border-top:2px/.test(bare), "'band-title' without logos: no hairline");
 });
 
-// The logo row uses SiteFooter's equal-ink-area sizes (bundle.css's site-footer__cell--<key>) at 1rem = 19.2px.
+// The logo row uses SiteFooter's equal-ink-area sizes (bundle.css's site-footer__cell--<key> and the
+// img rule under it) at 1rem = 19.2px, for every logo the footer measures, one logo per row so each
+// is drawn at the full 19.2px.
 test('cover logos are sized as the footer sizes them', () => {
   const css = readFileSync(join(components, 'bundle.css'), 'utf8');
-  const rem = (key, prop) => +css.match(new RegExp(`\\.site-footer__cell--${key}\\{width:calc\\(var\\(--logo-scale, 1\\)\\*([\\d.]+)rem\\);height:calc\\(var\\(--logo-scale, 1\\)\\*([\\d.]+)rem\\)`))[prop === 'width' ? 1 : 2];
-  const html = cover({ layout: 'band-title', logos: LOGOS });
-  for (const key of ['uu', 'eyra']) {
-    const w = (rem(key, 'width') * 19.2).toFixed(1), h = (rem(key, 'height') * 19.2).toFixed(1);
-    assert.ok(html.includes(`width:${w}px;height:${h}px`), `${key}: its cell is ${w} × ${h}px`);
+  const keys = [...css.matchAll(/\.site-footer__cell--([a-z]+)\{/g)].map((m) => m[1]);
+  assert.ok(keys.length >= 8, 'every footer logo key');
+  const px = (v) => (v * 19.2).toFixed(1) + 'px';
+  for (const key of keys) {
+    const cell = css.match(new RegExp(`\\.site-footer__cell--${key}\\{width:calc\\(var\\(--logo-scale, 1\\)\\*([\\d.]+)rem\\);height:calc\\(var\\(--logo-scale, 1\\)\\*([\\d.]+)rem\\)`));
+    const img = css.match(new RegExp(`\\.site-footer__cell--${key} img\\{[^}]*height:calc\\(var\\(--logo-scale, 1\\)\\*([\\d.]+)rem\\);margin-left:calc\\(var\\(--logo-scale, 1\\)\\*-?([\\d.]+)rem\\);margin-top:calc\\(var\\(--logo-scale, 1\\)\\*-?([\\d.]+)rem\\)`));
+    assert.ok(cell && img, `${key}: its cell and img rules in bundle.css`);
+    const html = cover({ layout: 'band-title', logos: [{ key, src: '/_blob/1' }] });
+    assert.ok(html.includes(`width:${px(+cell[1])};height:${px(+cell[2])}`), `${key}: its cell is ${px(+cell[1])} × ${px(+cell[2])}`);
+    const style = html.match(/<img src="\/_blob\/1" alt="" style="([^"]*)"/)[1];
+    const [, imgH, left, top] = img.map(Number);
+    assert.match(style, new RegExp(`;height:${px(imgH)};`), `${key}: the image is ${px(imgH)} tall`);
+    assert.match(style, new RegExp(`margin:-${px(top)} 0 0 -${px(left)}$`), `${key}: the image sits ${px(top)} up and ${px(left)} left`);
   }
   assert.throws(() => cover({ layout: 'band-title', logos: [{ key: 'x', src: '/_blob/1' }] }), /_footer\.scss/);
+});
+
+// The cover fills markSrc and bandLabel into a markup string; a replacement pattern ($&, $1, $`)
+// in either must come out as written, not as the text it would match.
+test('cover keeps $ patterns in its text literally', () => {
+  const html = cover({ markSrc: '/_blob/$&x$1', bandLabel: 'a $& b $` c' });
+  assert.match(bandOf(html).inner, /<image href="\/_blob\/\$&amp;x\$1"/, 'markSrc, literally');
+  assert.ok(bandOf(html).inner.includes('aria-label="a $&amp; b $` c"'), 'bandLabel, literally');
 });
 
 // The cover fills its text and the mark's URL into markup, so it must escape them, as the Band does.

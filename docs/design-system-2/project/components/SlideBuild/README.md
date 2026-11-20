@@ -6,7 +6,7 @@ Pass `heading`, `eyebrow`, `steps` (the rail's names), `columns` (`left` for the
 
 - Every step has the same geometry: the same gaps and paddings, so a new row appears and nothing else moves.
 - Earlier rows carry `opacity: 0.35`; the newest is in full colour. Rows are 24px apart vertically, divided by a 2px `border` hairline; the header row has 16px below it and the same rule.
-- Headers are `slide-eyebrow`: the plain column in `text-muted`, the argued-for column in `blue`. Row labels are `slide-eyebrow` in `heading` (`coral` for a coral row).
-- Cells: a `slide-item` line over a `slide-small` line in `text-muted`, 8px apart. The argued-for cell sits on `blue-tint` (`coral-tint` for a coral row), square, padding 16px 24px.
+- Headers are `slide-eyebrow`: the plain column in `text-muted`, the argued-for column in `blue`. Row labels are `slide-eyebrow` in `text-muted`; a coral row's label has a 14px `coral` disc 12px to its left, hanging in the margin so the label keeps the column's width: the row's one spot of colour.
+- Cells: a Nunito Sans 800 line at 28px over a `slide-small` line in `text-muted`, 8px apart. The argued-for cell has no fill: a 3px `blue` rule on its left marks it, as the step line is drawn, with padding 16px 24px; the plain cell has padding 16px 0. Corners are square and nothing is tinted.
 - The title block: the eyebrow in `text-muted` caps, the title in the serif (Libre Caslon Condensed, provisional) at 420, 64px.
 - The step line: The line is an inline `<svg>` 1664px wide (the width between the margins), with one node at the centre of each part's column (1664 / the number of parts), 3px `blue`, straight, from the first node to the last. Passed steps are 22px `blue` discs, the current step a 30px `coral` disc, steps ahead 20px `surface` discs in a 3px `blue` ring. Labels ("2 · Timing") 12px under the line, centred, Nunito Sans 700 at 24px: passed in `heading`, current in `heading` at 800, ahead in `text-muted`.

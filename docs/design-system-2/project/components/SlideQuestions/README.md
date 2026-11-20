@@ -4,10 +4,12 @@ Mount `D3I.SlideQuestions` in a design canvas; for a Slides deck, `D3I.slideMark
 
 Pass three `rows` (a `problem` of a few words, a `change` and a `question` of at most two lines each), up to two `cases`, the `email`, the `credit` line and the `logos`. Wording follows "Voice for talks and decks": full sentences for problems, numbers with their base, questions the audience can actually answer.
 
-- Column headers: `slide-eyebrow`: the problem in `text-muted`, the change in `blue`, the question in `coral`. A 1px `border` under the header row and between rows; rows have 16px vertical padding.
-- Cells: the problem in `slide-item`; the other two in `slide-small`. Two lines per cell at most, or the rows collide: the column is 824px tall on this slide, which has no footer.
-- Case cards: `blue-tint` then `yellow-tint`, `radius-lg`, padding 24px 32px, a `slide-item` title and one `slide-small` line.
-- A spacer pushes the contact row to the bottom margin: the email in `slide-item` `coral`, the site in `slide-item` `blue`, then the credit in `slide-small` `text-muted` beside the logos at 44px tall.
+- The title block: the eyebrow in `text-muted` caps, the title in the serif (Libre Caslon Condensed, provisional) at 420, 64px.
+- Column headers: `slide-eyebrow`: the problem and the change in `text-muted`, the question in `blue`, the column the slide puts to the audience. A 2px `border` hairline under the header row and between rows; rows have 16px vertical padding.
+- Cells: the problem in Nunito Sans 800 at 28px; the other two in `slide-small`. Two lines per cell at most, or the rows collide: the column is 824px tall on this slide, which has no footer.
+- Case cards: `surface`, square, framed by a 2px `border` hairline, padding 24px 32px; a 14px disc before the title is the card's one spot of colour, `blue` then `yellow` by default (`tint` picks `blue`, `coral` or `yellow`); the title in Nunito Sans 800 at 28px and one `slide-small` line.
+- A spacer pushes the contact row to the bottom margin: the email in Nunito Sans 800 at 28px in `blue`, the site in the same in `heading`, then the credit in `slide-small` `text-muted` beside the logos at 44px tall.
+- Nothing is tinted or shadowed.
 
 ## What you provide
 

@@ -908,7 +908,7 @@ export interface SlideBuildRow {
   label: string;
   left: { title: string; text?: string };
   right: { title: string; text?: string };
-  /** coral: a row that makes a different kind of point. */
+  /** coral: a row that makes a different kind of point, marked by a small coral disc before its label. */
   tone?: 'default' | 'coral';
 }
 export interface SlideBuildProps extends SlideFooterProps {
@@ -939,21 +939,22 @@ export interface SlideStatsTile {
 export interface SlideStatsProps extends SlideFooterProps {
   eyebrow?: string;
   heading: string;
-  /** Up to four tiles; numerals take chart-1 to chart-4 in order. */
+  /** Up to four tiles, in columns divided by 2px hairlines; every numeral is the serif in blue. */
   tiles: SlideStatsTile[];
-  /** Up to three columns of the list the numbers summarise. */
+  /** Up to three columns of the list the numbers summarise, under a 2px hairline. */
   panel?: Array<{ title: string; items: string[] }>;
   children?: React.ReactNode;
 }
-/** Stat tiles in the chart colours over a list panel. */
+/** Stat tiles with serif numerals in blue, over the list they summarise. */
 export declare function SlideStats(props: SlideStatsProps): React.ReactElement;
 
 export interface SlideFunnelProps extends SlideFooterProps {
   eyebrow?: string;
   heading: string;
-  /** Shrinking shares against one base; bars scale to the first stage at 400px. */
-  funnel?: { eyebrow?: string; base?: string; stages: Array<{ label: string; pct: number }>; note?: string; color?: 'coral' | 'blue' };
-  /** Options that differ in how much arrives: all (coral fill), promise (dashed, arrives then deleted), strip (a blue strip, the selected part only). */
+  /** Shrinking shares against one base, in a card framed by a 2px hairline; blue bars scale to the first stage at 400px.
+      The last bar is coral, marking the point, unless markLast is false. color is ignored: every funnel is blue. */
+  funnel?: { eyebrow?: string; base?: string; stages: Array<{ label: string; pct: number }>; note?: string; markLast?: boolean; color?: 'coral' | 'blue' };
+  /** Options that differ in how much arrives: all (a blue fill), promise (a dashed blue outline, arrives then deleted), strip (a blue strip, the selected part only). The recommended option's frame is 2px blue. */
   meter?: { options: Array<{ eyebrow: string; fill: 'all' | 'promise' | 'strip'; fillLabel: string; text?: string; recommended?: boolean }> };
   children?: React.ReactNode;
 }
@@ -981,7 +982,7 @@ export interface SlideWindowProps extends SlideFooterProps {
   /** Under the window; say when the body is drawn, not a screenshot. */
   caption?: string;
 }
-/** A drawn browser window for software, beside a numbered list. */
+/** A drawn browser window for software, square and framed by 2px hairlines, beside a list numbered in the serif. */
 export declare function SlideWindow(props: SlideWindowProps): React.ReactElement;
 
 export interface SlideQuestionsProps {
@@ -991,7 +992,7 @@ export interface SlideQuestionsProps {
   headers?: [string, string, string];
   rows: Array<{ problem: string; change: string; question: string }>;
   casesLabel?: string;
-  /** Up to two case cards; tints default to blue then yellow. */
+  /** Up to two case cards, framed by 2px hairlines; tint is the colour of the small disc before the title, blue then yellow by default. */
   cases?: Array<{ title: string; text: string; tint?: 'blue' | 'coral' | 'yellow' }>;
   email?: string;
   /** Default "datadonation.eu". */

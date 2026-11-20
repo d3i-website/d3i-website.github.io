@@ -4,9 +4,11 @@ Mount `D3I.SlideWindow` in a design canvas; for a Slides deck, `D3I.slideMarkup(
 
 Pass the numbered `steps` (`title`, `text`), an optional `link` line, and `window`: `url`, `title`, `tabs`, a `stat` line, a `chartLabel` and `bars` drawn from real numbers, or `imageSrc` for a screenshot. Say in `caption` when the body is drawn.
 
-- The list: two-digit numbers in `slide-stat` at 48px in `coral`, a `slide-item` title and one `slide-small` line, rows 24px apart divided by `border`; the link closes the column in `slide-label` `coral`.
-- Frame: `surface`, 1px `border`, `radius-lg`, `shadow-md`, clipped. Chrome bar: `surface-tint` with three 14px `border-strong` dots and the URL in a `surface` pill in `slide-small` `text-muted`.
-- Body: padding 24px 32px 32px, 16px between lines; a `slide-item` title, pill tabs in `slide-label` (the active one `blue` with `on-accent` text, the others `surface-strong`), `slide-small` captions, bars in `chart-1` with `radius-sm` tops over a 1px `border-strong` axis.
+- The title block: the eyebrow in `text-muted` caps, the title in the serif (Libre Caslon Condensed, provisional) at 420, 64px.
+- The list: two-digit numbers in the serif (provisional) at 420, 48px, in `blue`, as the section stop's numeral; a Nunito Sans 800 title at 28px and one `slide-small` line; rows 24px apart divided by a 2px `border` hairline. The link closes the column in Nunito Sans 700 at 24px in `blue`.
+- Frame: `surface`, square, framed by a 2px `border` hairline, no shadow, clipped. Chrome bar: `surface` over a 2px `border` hairline, with three 14px `border` dots and the URL in a square box framed by a 2px `border` hairline, in `slide-small` `text-muted`.
+- Body: padding 24px 32px 32px, 16px between lines; a Nunito Sans 800 title at 28px, square tabs in Nunito Sans 700 at 24px (the active one `blue` with `on-accent` text, the others `surface` framed by a 2px `border` hairline), `slide-small` captions, square bars in `blue` over a 2px `border-strong` axis.
+- Nothing is tinted or shadowed.
 
 ## What you provide
 

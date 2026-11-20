@@ -760,7 +760,7 @@
     numeral: st(TXT, { fontFamily: SERIF, fontSize: '200px', lineHeight: 0.9, fontWeight: 420, letterSpacing: 0, color: C.blue }),
     display: st(TXT, { fontFamily: SERIF, fontSize: '96px', lineHeight: 1.02, fontWeight: 420, letterSpacing: 0, color: C.heading, textWrap: 'balance' }),
     title: st(TXT, { fontFamily: SERIF, fontSize: '64px', lineHeight: 1.08, fontWeight: 420, letterSpacing: 0, color: C.heading }),
-    stat: st(TXT, { fontFamily: NUNITO, fontSize: '64px', lineHeight: 1, fontWeight: 900, letterSpacing: '-1px' }),
+    stat: st(TXT, { fontFamily: SERIF, fontSize: '96px', lineHeight: 1, fontWeight: 420, letterSpacing: 0, color: C.blue }),
     heading: st(TXT, { fontFamily: SERIF, fontSize: '48px', lineHeight: 1.18, fontWeight: 420, letterSpacing: 0, color: C.heading }),
     subheading: st(TXT, { fontFamily: SERIF, fontSize: '36px', lineHeight: 1.15, fontWeight: 420, letterSpacing: 0, color: C.heading }),
     lead: st(TXT, { fontFamily: SANS, fontSize: '36px', lineHeight: 1.4, fontWeight: 400, color: C.muted }),
@@ -1109,13 +1109,15 @@
           p.venue ? h('p', { style: T.lead }, p.venue) : null),
         list(p.logos).length ? logoRow(list(p.logos)) : null);
     }
-    var mark = p.markSrc ? SLIDE_COVER_NETWORK.replace('@@MARK_SRC@@', escapeHtml(p.markSrc)) : SLIDE_COVER_NETWORK.replace(/<image [^>]*\/>/, '');
+    /* function replacers: a $& or $1 in the URL or the label must land as written, not as a replacement pattern */
+    var mark = p.markSrc ? SLIDE_COVER_NETWORK.replace('@@MARK_SRC@@', function () { return escapeHtml(p.markSrc); }) : SLIDE_COVER_NETWORK.replace(/<image [^>]*\/>/, '');
+    var svgOpen = '<svg ' + (p.bandLabel ? 'role="img" aria-label="' + escapeHtml(p.bandLabel) + '"' : 'aria-hidden="true"') + ' style="display:block;max-width:none" ';
     var deep = SLIDE_COVER_NETWORK.match(/height="([\d.]+)"/)[1];
     var speakerLine = [p.speakers, p.venue].filter(Boolean).join(' · ');
     /* the slide format caps padding at 256px, so the rest of the 416px sits on the title block */
     return h('section', { style: section({ padding: '256px 128px 128px', justifyContent: 'space-between', gap: '24px' }) },
       h('div', { 'data-band': 'network', style: { position: 'absolute', left: 0, top: 0, width: '1920px', height: deep + 'px' },
-        dangerouslySetInnerHTML: { __html: mark.replace('<svg ', '<svg ' + (p.bandLabel ? 'role="img" aria-label="' + escapeHtml(p.bandLabel) + '"' : 'aria-hidden="true"') + ' style="display:block;max-width:none" ') } }),
+        dangerouslySetInnerHTML: { __html: mark.replace('<svg ', function () { return svgOpen; }) } }),
       p.children || h('div', { style: st(COL, { position: 'relative', gap: '24px', paddingTop: '160px' }) },
         eyebrow,
         h('h1', { 'data-fit': 'none', style: st(T.display, { width: '1500px' }) }, title),
@@ -1174,13 +1176,24 @@
       h(SlideFooter, { number: p.number }));
   }
 
+  /* The content slides' new look (the spec's "Extended by Claude"): white surfaces, square corners, 2px border
+     hairlines, text-muted eyebrows, blue as the one working colour, coral and yellow only as small spots. Their
+     text is Nunito Sans; the footer row keeps T.label, unchanged. */
+  var ITEM = st(T.item, { fontFamily: SANS }), LABEL = st(T.label, { fontFamily: SANS });
+  var MUTED_EYEBROW = st(T.eyebrow, { color: C.muted });
+  /* a small coloured disc: the one place coral and yellow appear on a content slide */
+  function spot(color, size) {
+    return h('span', { 'aria-hidden': 'true', style: { display: 'inline-block', flex: 'none', width: (size || 14) + 'px', height: (size || 14) + 'px', borderRadius: '50%', background: color } });
+  }
+
   function SlideBuild(p) {
     var steps = list(p.steps), rows = list(p.rows), cols = p.columns || {};
     var shown = p.shown == null ? rows.length : p.shown;
     var cur = p.current == null ? shown - 1 : p.current;
-    function cell(c, tinted, coral) {
-      return h('div', { style: st(COL, { gap: '8px', padding: tinted ? '16px 24px' : '16px 0', background: tinted ? (coral ? C.coralTint : C.blueTint) : 'transparent' }) },
-        h('p', { style: T.item }, c.title),
+    /* the argued-for cell is marked by a 3px blue rule on its left, as the slide's line is drawn, not by a tint */
+    function cell(c, argued) {
+      return h('div', { style: st(COL, { gap: '8px', padding: argued ? '16px 24px' : '16px 0', borderLeft: argued ? '3px solid ' + C.blue : 'none' }) },
+        h('p', { style: ITEM }, c.title),
         c.text ? h('p', { style: st(T.small, { color: C.muted }) }, c.text) : null);
     }
     return h('section', { style: section({ gap: '40px' }) },
@@ -1189,40 +1202,42 @@
       h('div', { style: COL },
         h('div', { style: { display: 'grid', gridTemplateColumns: '200px 1fr 1fr', gap: '32px', alignItems: 'end', paddingBottom: '16px', borderBottom: HAIR } },
           h('p', { style: T.small }, ' '),
-          h('p', { style: st(T.eyebrow, { color: C.muted }) }, cols.left),
+          h('p', { style: MUTED_EYEBROW }, cols.left),
           h('p', { style: T.eyebrow }, cols.right)),
         rows.slice(0, shown).map(function (r, i) {
-          var coral = r.tone === 'coral';
           return h('div', { key: i, style: { display: 'grid', gridTemplateColumns: '200px 1fr 1fr', gap: '32px', alignItems: 'start', padding: '24px 0', borderTop: i ? HAIR : 'none', opacity: i < shown - 1 ? 0.35 : 1 } },
-            h('p', { style: st(T.eyebrow, { color: coral ? C.coral : C.heading, paddingTop: '16px' }) }, r.label),
-            cell(r.left || {}, false), cell(r.right || {}, true, coral));
+            /* a coral row's spot hangs 12px left of its label, in the margin, so the label keeps the column's width */
+            h('p', { style: st(MUTED_EYEBROW, { position: 'relative', paddingTop: '16px' }) },
+              r.tone === 'coral' ? h('span', { style: { position: 'absolute', left: '-26px', top: '23px', display: 'flex' } }, spot(C.coral)) : null, r.label),
+            cell(r.left || {}, false), cell(r.right || {}, true));
         })),
       p.children,
       h(SlideFooter, { number: p.number }));
   }
 
+  /* the tiles sit in columns divided by 2px hairlines; the list they summarise sits under one */
   function SlideStats(p) {
     var tiles = list(p.tiles), panel = list(p.panel);
-    return h('section', { style: section({ gap: '40px' }) },
+    return h('section', { style: section({ gap: '48px' }) },
       h(SlideHead, { eyebrow: p.eyebrow, heading: p.heading }),
-      h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + (tiles.length || 1) + ', 1fr)', gap: '24px' } }, tiles.map(function (t, i) {
+      h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + (tiles.length || 1) + ', 1fr)' } }, tiles.map(function (t, i) {
         var series = list(t.series), max = series.length ? Math.max.apply(null, series.map(function (s) { return s.value; })) : 1;
-        return h('div', { key: i, style: st(COL, { gap: '8px', background: C.surface, border: '1px solid ' + C.border, borderRadius: '16px', padding: '32px' }) },
-          t.value != null ? h('p', { style: st(T.stat, { color: C.chart[i % 5] }) }, t.value) : null,
+        return h('div', { key: i, style: st(COL, { gap: '12px', padding: i ? '0 32px' : '0 32px 0 0', borderLeft: i ? HAIR : 'none' }) },
+          t.value != null ? h('p', { style: T.stat }, t.value) : null,
           t.label ? h('p', { style: st(T.small, { lineHeight: 1.3, color: C.muted }) }, t.label) : null,
           series.length ? h('div', { style: st(ROW, { alignItems: 'flex-end', gap: '12px', paddingTop: '16px' }) }, series.map(function (s, j) {
             return h('div', { key: j, style: st(COL, { flex: 1, alignItems: 'center', gap: '4px' }) },
-              h('p', { style: st(T.label, { fontWeight: 800, color: C.heading }) }, s.value),
-              h('div', { style: { width: '48px', height: Math.max(2, Math.round(56 * s.value / max)) + 'px', background: C.chart[0], borderRadius: '4px 4px 0 0' } }),
+              h('p', { style: st(LABEL, { fontWeight: 800, color: C.heading }) }, s.value),
+              h('div', { style: { width: '48px', height: Math.max(2, Math.round(56 * s.value / max)) + 'px', background: C.blue } }),
               h('p', { style: st(T.small, { color: C.muted }) }, s.label));
           })) : null,
           t.marks ? h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', gap: '12px', paddingTop: '8px' } }, list(t.marks).map(function (m, j) {
             return h('img', { key: j, src: m.src, alt: m.alt || '', style: { width: '32px', height: '32px', objectFit: 'contain', display: 'block' } });
           })) : null);
       })),
-      panel.length ? h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + panel.length + ', 1fr)', gap: '32px', background: C.tint, borderRadius: '16px', padding: '32px' } }, panel.map(function (col, i) {
+      panel.length ? h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + panel.length + ', 1fr)', gap: '32px', paddingTop: '32px', borderTop: HAIR } }, panel.map(function (col, i) {
         return h('div', { key: i, style: st(COL, { gap: '8px' }) },
-          h('p', { style: T.item }, col.title),
+          h('p', { style: ITEM }, col.title),
           list(col.items).map(function (it, j) { return h('p', { key: j, style: T.small }, it); }));
       })) : null,
       p.children,
@@ -1231,34 +1246,36 @@
 
   function SlideFunnel(p) {
     var f = p.funnel, m = p.meter;
-    var blue = f && f.color === 'blue';
+    var stages = f ? list(f.stages) : [];
+    /* the last bar is the coral spot when it marks the point; markLast: false keeps every bar blue */
+    var mark = f && f.markLast !== false && stages.length > 1;
     function meterBox(o) {
       var centre = { justifyContent: 'center', alignItems: 'center' };
-      if (o.fill === 'all') return h('div', { style: st(COL, centre, { height: '180px', background: C.coral, borderRadius: '8px' }) },
-        h('p', { style: st(T.label, { fontWeight: 800, color: C.heading, textAlign: 'center' }) }, o.fillLabel));
-      if (o.fill === 'promise') return h('div', { style: st(COL, centre, { height: '180px', boxSizing: 'border-box', background: C.coralTint, border: '3px dashed ' + C.coral, borderRadius: '8px' }) },
-        h('p', { style: st(T.label, { fontWeight: 800, color: C.coral, textAlign: 'center' }) }, o.fillLabel));
-      return h('div', { style: st(COL, centre, { height: '28px', background: C.blue, borderRadius: '0 0 8px 8px' }) },
-        h('p', { style: st(T.label, { fontWeight: 800, color: C.onAccent }) }, o.fillLabel));
+      if (o.fill === 'all') return h('div', { style: st(COL, centre, { flex: 1, background: C.blue }) },
+        h('p', { style: st(LABEL, { fontWeight: 800, color: C.onAccent, textAlign: 'center' }) }, o.fillLabel));
+      if (o.fill === 'promise') return h('div', { style: st(COL, centre, { flex: 1, padding: '0 12px', border: '3px dashed ' + C.blue }) },
+        h('p', { style: st(LABEL, { fontWeight: 800, color: C.blue, textAlign: 'center' }) }, o.fillLabel));
+      return h('div', { style: st(COL, centre, { height: '28px', background: C.blue }) },
+        h('p', { style: st(LABEL, { fontWeight: 800, color: C.onAccent }) }, o.fillLabel));
     }
     return h('section', { style: section({ gap: '40px' }) },
       h(SlideHead, { eyebrow: p.eyebrow, heading: p.heading }),
       h('div', { style: { display: 'grid', gridTemplateColumns: f && m ? '1fr 1.4fr' : '1fr', gap: '24px' } },
-        f ? h('div', { style: st(COL, { gap: '16px', background: blue ? C.blueTint : C.coralTint, borderRadius: '16px', padding: '32px' }) },
-          f.eyebrow ? h('p', { style: st(T.eyebrow, { color: blue ? C.blue : C.coral }) }, f.eyebrow) : null,
+        f ? h('div', { style: st(COL, { gap: '16px', background: C.surface, border: HAIR, padding: '32px' }) },
+          f.eyebrow ? h('p', { style: MUTED_EYEBROW }, f.eyebrow) : null,
           f.base ? h('p', { style: st(T.small, { color: C.muted }) }, f.base) : null,
-          h('div', { style: st(COL, { gap: '16px' }) }, list(f.stages).map(function (s, i) {
+          h('div', { style: st(COL, { gap: '16px' }) }, stages.map(function (s, i) {
             return h('div', { key: i, style: st(COL, { gap: '8px' }) },
               h('p', { style: st(T.small, { color: C.heading }) }, s.label),
               h('div', { style: st(ROW, { alignItems: 'center', gap: '12px' }) },
-                h('div', { style: { height: '26px', width: Math.round(400 * s.pct / (f.stages[0].pct || 1)) + 'px', background: blue ? C.blue : C.coral, borderRadius: '8px' } }),
-                h('p', { style: st(T.label, { fontWeight: 800, color: C.heading }) }, s.pct + '%')));
+                h('div', { style: { height: '26px', width: Math.round(400 * s.pct / (stages[0].pct || 1)) + 'px', background: mark && i === stages.length - 1 ? C.coral : C.blue } }),
+                h('p', { style: st(LABEL, { fontWeight: 800, color: C.heading }) }, s.pct + '%')));
           })),
           f.note ? h('p', { style: T.small }, f.note) : null) : null,
         m ? h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + list(m.options).length + ', 1fr)', gap: '16px' } }, list(m.options).map(function (o, i) {
-          return h('div', { key: i, style: st(COL, { gap: '16px', background: o.recommended ? C.blueTint : C.surface, border: '1px solid ' + (o.recommended ? C.blue : C.border), borderRadius: '16px', padding: '24px' }) },
-            h('p', { style: st(T.eyebrow, { color: o.recommended ? C.blue : C.muted }) }, o.eyebrow),
-            h('div', { style: st(COL, { height: '180px', background: o.recommended ? C.surface : C.strong, borderRadius: '8px', justifyContent: 'flex-end' }) }, meterBox(o)),
+          return h('div', { key: i, style: st(COL, { gap: '16px', background: C.surface, border: o.recommended ? '2px solid ' + C.blue : HAIR, padding: '24px' }) },
+            h('p', { style: o.recommended ? T.eyebrow : MUTED_EYEBROW }, o.eyebrow),
+            h('div', { style: st(COL, { height: '180px', boxSizing: 'border-box', background: C.surface, border: HAIR, justifyContent: 'flex-end' }) }, meterBox(o)),
             o.text ? h('p', { style: T.small }, o.text) : null);
         })) : null),
       p.children,
@@ -1268,36 +1285,37 @@
   function SlideWindow(p) {
     var steps = list(p.steps), w = p.window || {}, bars = list(w.bars);
     var max = bars.length ? Math.max.apply(null, bars.map(function (b) { return b.value; })) : 1;
+    var pill = { padding: '4px 16px', border: HAIR };
     return h('section', { style: section({ gap: '40px' }) },
       h(SlideHead, { eyebrow: p.eyebrow, heading: p.heading }),
       h('div', { style: st(ROW, { gap: '32px', alignItems: 'stretch' }) },
         h('div', { style: st(COL, { width: '520px', flex: 'none' }) },
           steps.map(function (s, i) {
-            return h('div', { key: i, style: st(ROW, { gap: '16px', alignItems: 'flex-start', padding: i ? '24px 0' : '0 0 24px 0', borderTop: i ? '1px solid ' + C.border : 'none' }) },
-              h('p', { style: st(T.stat, { fontSize: '48px', color: C.coral, width: '64px', flex: 'none' }) }, two(i)),
+            return h('div', { key: i, style: st(ROW, { gap: '16px', alignItems: 'flex-start', padding: i ? '24px 0' : '0 0 24px 0', borderTop: i ? HAIR : 'none' }) },
+              h('p', { style: st(T.stat, { fontSize: '48px', width: '64px', flex: 'none' }) }, two(i)),
               h('div', { style: st(COL, { gap: '8px', flex: 1 }) },
-                h('p', { style: T.item }, s.title),
+                h('p', { style: ITEM }, s.title),
                 s.text ? h('p', { style: T.small }, s.text) : null));
           }),
           h('div', { style: { flex: 1 } }),
-          p.link ? h('p', { style: st(T.label, { color: C.coral }) }, p.link + ' →') : null),
-        h('div', { style: st(COL, { flex: 1, background: C.surface, border: '1px solid ' + C.border, borderRadius: '16px', overflow: 'hidden', boxShadow: '0 1px 2px rgba(37,42,52,.04), 0 8px 24px -12px rgba(66,114,239,.2)' }) },
-          h('div', { style: st(ROW, { gap: '12px', alignItems: 'center', background: C.tint, padding: '12px 16px', borderBottom: '1px solid ' + C.border }) },
-            [0, 1, 2].map(function (i) { return h('div', { key: i, style: { width: '14px', height: '14px', borderRadius: '50%', background: C.borderStrong, flex: 'none' } }); }),
-            h('p', { style: st(T.small, { color: C.muted, background: C.surface, borderRadius: '999px', padding: '4px 16px', flex: 1 }) }, w.url)),
+          p.link ? h('p', { style: st(LABEL, { color: C.blue }) }, p.link + ' →') : null),
+        h('div', { style: st(COL, { flex: 1, background: C.surface, border: HAIR, overflow: 'hidden' }) },
+          h('div', { style: st(ROW, { gap: '12px', alignItems: 'center', padding: '12px 16px', borderBottom: HAIR }) },
+            [0, 1, 2].map(function (i) { return h('div', { key: i, style: { width: '14px', height: '14px', borderRadius: '50%', background: C.border, flex: 'none' } }); }),
+            h('p', { style: st(T.small, pill, { color: C.muted, flex: 1 }) }, w.url)),
           w.imageSrc ? h('img', { src: w.imageSrc, alt: w.imageAlt || '', style: { width: '100%', display: 'block' } })
             : h('div', { style: st(COL, { gap: '16px', padding: '24px 32px 32px' }) },
               h('div', { style: st(ROW, { justifyContent: 'space-between', alignItems: 'center' }) },
-                h('p', { style: T.item }, w.title),
+                h('p', { style: ITEM }, w.title),
                 w.tabs ? h('div', { style: st(ROW, { gap: '8px' }) }, list(w.tabs).map(function (t, i) {
-                  return h('p', { key: i, style: st(T.label, { color: t.active ? C.onAccent : C.heading, background: t.active ? C.blue : C.strong, borderRadius: '999px', padding: '4px 16px' }) }, t.label);
+                  return h('p', { key: i, style: st(LABEL, pill, t.active ? { color: C.onAccent, background: C.blue, border: '2px solid ' + C.blue } : { color: C.heading }) }, t.label);
                 })) : null),
               w.stat ? h('p', { style: st(T.small, { color: C.muted }) }, w.stat) : null,
               w.chartLabel ? h('p', { style: st(T.small, { paddingTop: '8px' }) }, w.chartLabel) : null,
               bars.length ? h('div', { style: st(ROW, { alignItems: 'flex-end', gap: '8px', height: '150px' }) }, bars.map(function (b, i) {
-                return h('div', { key: i, style: { flex: 1, height: Math.max(2, Math.round(150 * b.value / max)) + 'px', background: C.chart[0], borderRadius: '4px 4px 0 0' } });
+                return h('div', { key: i, style: { flex: 1, height: Math.max(2, Math.round(150 * b.value / max)) + 'px', background: C.blue } });
               })) : null,
-              bars.length ? h('div', { style: { height: '1px', background: C.borderStrong } }) : null,
+              bars.length ? h('div', { style: { height: '2px', background: C.borderStrong } }) : null,
               bars.length ? h('div', { style: st(ROW, { gap: '8px' }) }, bars.map(function (b, i) {
                 return h('p', { key: i, style: st(T.small, { flex: 1, textAlign: 'center', color: C.muted }) }, b.label);
               })) : null))),
@@ -1307,32 +1325,35 @@
 
   function SlideQuestions(p) {
     var headers = p.headers || ['The problem', 'What changes', 'The question'];
-    var hc = [C.muted, C.blue, C.coral], cases = list(p.cases), logos = list(p.logos);
+    var cases = list(p.cases), logos = list(p.logos);
     var GRID = { display: 'grid', gridTemplateColumns: '300px 1fr 1fr', gap: '32px' };
+    var SPOT = { coral: C.coral, yellow: C.yellow, blue: C.blue };
     return h('section', { style: section({ padding: '128px', gap: '32px' }) },
       h(SlideHead, { eyebrow: p.eyebrow, heading: p.heading }),
       h('div', { style: COL },
-        h('div', { style: st(GRID, { alignItems: 'end', paddingBottom: '16px', borderBottom: '1px solid ' + C.border }) },
-          headers.map(function (t, i) { return h('p', { key: i, style: st(T.eyebrow, { color: hc[i] }) }, t); })),
+        /* the question's header is blue: the column the slide puts to the audience */
+        h('div', { style: st(GRID, { alignItems: 'end', paddingBottom: '16px', borderBottom: HAIR }) },
+          headers.map(function (t, i) { return h('p', { key: i, style: i === 2 ? T.eyebrow : MUTED_EYEBROW }, t); })),
         list(p.rows).map(function (r, i) {
-          return h('div', { key: i, style: st(GRID, { alignItems: 'start', padding: '16px 0', borderTop: i ? '1px solid ' + C.border : 'none' }) },
-            h('p', { style: st(T.item, { lineHeight: 1.25 }) }, r.problem),
+          return h('div', { key: i, style: st(GRID, { alignItems: 'start', padding: '16px 0', borderTop: i ? HAIR : 'none' }) },
+            h('p', { style: st(ITEM, { lineHeight: 1.25 }) }, r.problem),
             h('p', { style: T.small }, r.change),
             h('p', { style: T.small }, r.question));
         })),
       cases.length ? h('div', { style: st(COL, { gap: '12px' }) },
-        p.casesLabel ? h('p', { style: st(T.eyebrow, { color: C.muted }) }, p.casesLabel) : null,
+        p.casesLabel ? h('p', { style: MUTED_EYEBROW }, p.casesLabel) : null,
         h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + cases.length + ', 1fr)', gap: '24px' } }, cases.map(function (c, i) {
-          var bg = c.tint === 'coral' ? C.coralTint : c.tint === 'yellow' ? C.yellowTint : c.tint === 'blue' ? C.blueTint : (i % 2 ? C.yellowTint : C.blueTint);
-          return h('div', { key: i, style: st(COL, { gap: '8px', background: bg, borderRadius: '16px', padding: '24px 32px' }) },
-            h('p', { style: st(T.item, { lineHeight: 1.25 }) }, c.title),
+          return h('div', { key: i, style: st(COL, { gap: '8px', background: C.surface, border: HAIR, padding: '24px 32px' }) },
+            h('div', { style: st(ROW, { gap: '12px', alignItems: 'center' }) },
+              spot(SPOT[c.tint] || (i % 2 ? C.yellow : C.blue)),
+              h('p', { style: st(ITEM, { lineHeight: 1.25 }) }, c.title)),
             h('p', { style: T.small }, c.text));
         }))) : null,
       h('div', { style: { flex: 1 } }),
       h('div', { style: st(ROW, { justifyContent: 'space-between', alignItems: 'center' }) },
         h('div', { style: st(ROW, { gap: '32px', alignItems: 'center' }) },
-          p.email ? h('p', { style: st(T.item, { color: C.coral }) }, 'Email ' + p.email + ' →') : null,
-          h('p', { style: st(T.item, { color: C.blue }) }, p.site || 'datadonation.eu')),
+          p.email ? h('p', { style: st(ITEM, { color: C.blue }) }, 'Email ' + p.email + ' →') : null,
+          h('p', { style: ITEM }, p.site || 'datadonation.eu')),
         h('div', { style: st(ROW, { gap: '24px', alignItems: 'center' }) },
           p.credit ? h('p', { style: st(T.small, { color: C.muted }) }, p.credit) : null,
           logos.map(function (l, i) { return h('img', { key: i, src: l.src, alt: l.alt || '', style: { width: (l.width || 120) + 'px', height: '44px', objectFit: 'contain', display: 'block' } }); }))));

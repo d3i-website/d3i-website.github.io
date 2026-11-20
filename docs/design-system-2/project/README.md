@@ -38,7 +38,7 @@ The website is white with one colour block. Learn the roles and you know every t
 **Carried over.**
 
 - `surface-tint`, `surface-strong` and `border-strong` are not on the front page. They serve the pages not yet redone (panels, pills, outlines of controls, chart axes) and slides. `on-accent` is text on a `blue` fill, such as an active chip or tab.
-- `blue-tint`, `coral-tint`, `yellow-text`, `yellow-tint` and `road` are for slides only. The website's new look has no tinted panels and no road, and no slide draws the road any more.
+- `blue-tint`, `coral-tint`, `yellow-text`, `yellow-tint` and `road` are not in the new look: it has no tinted panels and no road. No slide uses them any more; on the website only the pages not yet redone do (the callout, the post-it, the featured archive card).
 - `focus` is the keyboard focus ring: 2px solid at 2px offset.
 - `chart-1` to `chart-5` colour data series in that order (blue, coral, orange, teal, violet). Every mark carries its value as text.
 
@@ -77,7 +77,7 @@ Use the styles as they are. A size that is not on the scale for its medium is a 
 
 ## Slides
 
-Slides are being brought into the new look. The road is retired: where a slide showed a sequence on the road, it now shows a blue line with a node per step. SlideCover, SlideFrame, SlidePlan, SlideSectionStop and SlideBuild are redone, and every slide shares their title block: the eyebrow in `text-muted` caps and the title in the serif at 420 (the serif is provisional). SlideCover has two layouts: `network`, the front page's network across a sky band over the title on white, and `band-title`, the website band with the title in it over the speakers and a row of logos. SlideStats, SlideFunnel, SlideWindow and SlideQuestions keep the earlier system's bodies until they are redone, and the slide text not yet redone still names Nunito in its inline styles.
+Slides are being brought into the new look. The road is retired: where a slide showed a sequence on the road, it now shows a blue line with a node per step. All nine slide components are redone, and every slide shares one title block: the eyebrow in `text-muted` caps and the title in the serif at 420 (the serif is provisional). SlideCover has two layouts: `network`, the front page's network across a sky band over the title on white, and `band-title`, the website band with the title in it over the speakers and a row of logos. The content slides have white surfaces, square corners and 2px `border` hairlines; `blue` is their one working colour, and `coral` and `yellow` appear only as small spots (a node, a disc, the funnel bar that marks the point). Their text is Nunito Sans; only the footer row, unchanged, still names Nunito. SlideStats, SlideFunnel, SlideWindow and SlideQuestions follow these rules as Claude extended them from the three slides Danielle decided (cover, frame, section stop), for her to check.
 
 ## Slides · Voice for talks and decks
 
@@ -106,10 +106,10 @@ Decks use the Slides artifact type: 1920 × 1080, one `<section>` per slide, inl
 - SlidePlan: the overview, a line with one numbered node per part and the part headers under it, in place of an agenda.
 - SlideSectionStop: the opener for each part, the big part number in the serif, one sentence, and the line stepping down at the current part's coral node.
 - SlideBuild: one step of a build, same-numbered slides adding one row at a time with earlier rows dimmed and a line with a node per step on top.
-- SlideStats: stat tiles in the chart colours, a mini bar chart in a tile, and a list panel.
-- SlideFunnel: layout that makes the point, a funnel with the value at the end of each bar and a meter of three options.
-- SlideWindow: a drawn browser window for showing software beside a numbered list.
-- SlideQuestions: the closing or discussion slide for a research audience: problem, change, question, with cases, contact and logos.
+- SlideStats: stat numerals in the serif in `blue`, in columns divided by hairlines, a mini bar chart in a column, and the list they summarise under a hairline.
+- SlideFunnel: layout that makes the point, a funnel with the value at the end of each bar (the last bar `coral` when it marks the point) and a meter of three options, the recommended one framed in `blue`.
+- SlideWindow: a drawn browser window, square and framed by hairlines, for showing software beside a numbered list with serif numerals.
+- SlideQuestions: the closing or discussion slide for a research audience: problem, change, question, with framed cases marked by a coloured spot, contact and logos.
 
 Rules every slide follows, whether a component draws it or you do:
 
@@ -118,9 +118,9 @@ Rules every slide follows, whether a component draws it or you do:
 - Budget: the flow between the margins is 816px tall and ends about 40px above the footer. The Slides canvas does not scroll an over-full slide: it squeezes every box and shrinks each box's text on its own, so headings end up at different sizes from slide to slide. `data-fit="none"` keeps the eyebrow and title at their size whatever the body does; measure with the real faces, and split a slide that does not fit rather than letting it squeeze.
 - A build's steps share one geometry: the same gaps and paddings on every step, so a new row appears and nothing else moves.
 - Hairlines on a slide are 2px `border`: 1px thins out on a projector. Corners are square.
-- Cards: a row of sibling cards has no frames or fills; it hangs from one 3px `blue` line with a filled node over each card and a ring node at each end (SlideFrame). Card eyebrows are `text-muted`: coral and yellow are not text in the new look. A statement panel is `surface` framed and divided by hairlines. Lines inside a card are 8 to 12px apart. Dividers rather than borders for lists. SlideStats, SlideFunnel and SlideQuestions still draw the earlier tinted cards until they are redone.
+- Cards: a row of sibling cards has no frames or fills; it hangs from one 3px `blue` line with a filled node over each card and a ring node at each end (SlideFrame). Card eyebrows are `text-muted`: coral and yellow are not text in the new look. A statement panel is `surface` framed and divided by hairlines. Lines inside a card are 8 to 12px apart. Dividers rather than borders for lists. A card that must stand alone (a funnel, a meter option, a case) is `surface` framed by a 2px `border` hairline, never tinted; the recommended option's frame is 2px `blue`.
 - Let layout make the point: a meter for options, a funnel with the value at the end of its bar, a line with a node per step for a sequence, a statement in a framed panel for a finding. Avoid three identical cards in a row when the three things differ in kind.
-- Charts use `chart-1` to `chart-5` in order; muted bars are `road`; every bar carries its value as text at its end or top; axes are a 1px `border-strong` rule with `slide-label` text. Platform marks appear at 32 to 48px beside the name they stand for, never alone.
+- Bars are `blue` and square; one `coral` bar may mark the point. Every bar carries its value as text at its end or top; axes are a 2px `border-strong` rule with `slide-label` text. Platform marks appear at 32 to 48px beside the name they stand for, never alone.
 - The slide format caps padding at 256px and drops a larger value entirely; images are referenced as `/_blob/<id>`; fonts are declared in `deck.json` from the files listed under Builders. Code and file names use `'Courier New', monospace` on `surface-tint`, since the site's mono stack is not a web font.
 
 ## Slides · Palette in hex
@@ -129,21 +129,21 @@ Slides take hex values. These are the light theme's values; use nothing else.
 
 | token | hex | on a slide |
 | --- | --- | --- |
-| `surface` | #ffffff | the ground, plain cards |
-| `surface-tint` | #f5f7fb | statement and list panels, window chrome |
-| `surface-strong` | #eceff5 | inactive tabs, empty meter tracks |
-| `border` | #d5dae3 | card borders, row dividers |
-| `border-strong` | #878e9b | axes, window dots |
-| `heading` | #252a34 | titles, item titles, text on coral and yellow |
+| `surface` | #ffffff | the ground, every card and panel |
+| `surface-tint` | #f5f7fb | code set by hand only; no component tints a slide |
+| `surface-strong` | #eceff5 | none |
+| `border` | #d5dae3 | 2px hairlines: frames, row dividers, window chrome, window dots |
+| `border-strong` | #878e9b | chart axes |
+| `heading` | #252a34 | titles, item titles |
 | `text` | #363b46 | body text |
-| `text-muted` | #626976 | footer, captions, secondary lines, eyebrows in title blocks and cards |
-| `blue` | #4272ef | lines and their nodes, part numerals, the cover's eyebrow, links, bars, active tabs, the recommended option's border |
-| `blue-tint` | #eef3fe | blue card, recommended option |
-| `coral` | #ff5e5e | the current node on a line, numbered-list numerals, meter fills, coral-card eyebrow, action links |
-| `coral-tint` | #ffefef | coral card |
-| `yellow` | #ffcf60 | fills only |
-| `yellow-text` | #e8b53c | yellow-card eyebrow and link |
-| `yellow-tint` | #fff6d6 | yellow card |
+| `text-muted` | #626976 | footer, captions, secondary lines, eyebrows |
+| `blue` | #4272ef | lines and their nodes, numerals, the cover's eyebrow, the argued-for column's header and rule, links, bars, meter fills, active tabs, the recommended option's frame |
+| `blue-tint` | #eef3fe | none |
+| `coral` | #ff5e5e | spots only: the current node on a line, the funnel bar that marks the point, a coral row's or case's disc |
+| `coral-tint` | #ffefef | none |
+| `yellow` | #ffcf60 | spots only: a yellow case's disc |
+| `yellow-text` | #e8b53c | none |
+| `yellow-tint` | #fff6d6 | none |
 | `road` | #c6d5fa | muted bars only; the road band is retired |
 | `on-accent` | #ffffff | text on blue fills |
 | `chart-3` | #f4a52b | third series |
