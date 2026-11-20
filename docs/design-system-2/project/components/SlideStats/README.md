@@ -1,6 +1,6 @@
 A row of stat tiles, the slide form of the website's UsageFigures: a big numeral in the serif with its label beneath, optionally a mini bar chart or a grid of platform marks in a tile, and, when a deck needs it, the list the numbers summarise under a hairline.
 
-**Words.** Slides are not read (brand book, Slides · Voice): about 20 words on the slide, the footer row not counted, enough to cue the presenter; the argument is spoken and lives in the speaker notes. The preview has 20: the title, four numerals with a word each, and the chart's four counts and years. Numerals count. `panel` adds words (the preview's earlier list of institutions was 30) and is off in the preview: name institutions aloud or in the notes.
+**Words.** About 20, counted as the brand book's Slides · Voice says. The preview has 20: the title, four numerals with a word each, and the chart's four counts and years. Numerals count. `panel` adds words (the preview's earlier list of institutions was 30) and is off in the preview: name institutions aloud or in the notes.
 
 Mount `D3I.SlideStats` in a design canvas; for a Slides deck, `D3I.slideMarkup(D3I.SlideStats, props)` returns the slide as one `<section>` with inline hex styles to paste. Its props are in `components/index.d.ts` and on its card; the values below are what it draws, for anyone writing a slide by hand.
 

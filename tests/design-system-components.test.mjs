@@ -630,11 +630,12 @@ test('no slide sets the rounded Nunito', () => {
   assert.equal(bad.length, 0, `${bad.length} slide font-family declarations are the rounded Nunito`);
 });
 
-// The words a slide shows: its visible text, less the footer row (the element marked data-footer: site
-// name and slide number, or a closing slide's contact row), split on whitespace. A word is a token with a
-// letter or a digit in it, so numerals count and a lone "·" or "→" does not.
-function dropFooter(html) {
-  const start = html.search(/<[a-z]+ data-footer="true"/);
+// The words a slide shows: its visible text, split on whitespace, less the parts marked data-uncounted (the
+// footer row's site name and slide number, and on SlideQuestions' contact row the site and the email address).
+// Any other footer text (a source, a credit line) counts. A word is a token with a letter or a digit in it, so
+// numerals count and a lone "·" or "→" does not.
+function dropUncounted(html) {
+  const start = html.search(/<[a-z]+ data-uncounted="true"/);
   if (start < 0) return html;
   const tag = html.slice(start + 1).match(/^[a-z]+/)[0];
   const re = new RegExp(`<(/?)${tag}\\b[^>]*>`, 'g');
@@ -642,24 +643,43 @@ function dropFooter(html) {
   let depth = 0, m;
   while ((m = re.exec(html))) {
     depth += m[1] ? -1 : 1;
-    if (!depth) return dropFooter(html.slice(0, start) + html.slice(re.lastIndex));
+    if (!depth) return dropUncounted(html.slice(0, start) + html.slice(re.lastIndex));
   }
-  throw new Error('the footer row is not closed');
+  throw new Error('an uncounted element is not closed');
 }
 function slideWords(html) {
-  const text = dropFooter(html).replace(/<[^>]*>/g, ' ')
+  const text = dropUncounted(html).replace(/<[^>]*>/g, ' ')
     .replace(/&(amp|lt|gt|quot|#x27);/g, (_, e) => ({ amp: '&', lt: '<', gt: '>', quot: '"', '#x27': "'" })[e]);
   return text.split(/\s+/).filter((t) => /[\p{L}\p{N}]/u.test(t));
 }
 
-test('slide words are counted without the footer row', () => {
-  const html = '<section><p>Two words</p><p>51 · 2025 →</p><div data-footer="true"><div><p>datadonation.eu</p></div><p>13</p></div><p>end</p></section>';
-  assert.deepEqual(slideWords(html), ['Two', 'words', '51', '2025', 'end']);
+test('slide words leave out only the site name, the slide number and the email address', () => {
+  const html = '<section><p>Two words</p><p>51 · 2025 →</p><div><p data-uncounted="true"><b>datadonation.eu</b></p><p>a credit</p></div><p>end</p></section>';
+  assert.deepEqual(slideWords(html), ['Two', 'words', '51', '2025', 'a', 'credit', 'end']);
   const { D3I, React } = bundle();
   const frame = renderToHtml(React.createElement(D3I.SlideFrame, { heading: 'One two three', number: 7 }));
-  assert.deepEqual(slideWords(frame), ['One', 'two', 'three'], 'the footer row is marked data-footer');
+  assert.deepEqual(slideWords(frame), ['One', 'two', 'three'], 'the site name and the slide number are uncounted');
+  const source = 'one two three four five six seven eight nine ten';
+  const cited = renderToHtml(React.createElement(D3I.SlideFrame, { heading: 'One two three', number: 7, source }));
+  assert.equal(slideWords(cited).length, 13, 'a source in the footer row counts');
   const questions = renderToHtml(React.createElement(D3I.SlideQuestions, { heading: 'H', rows: [{ question: 'Q?' }], email: 'a@b.nl' }));
-  assert.deepEqual(slideWords(questions), ['H', 'Q?'], "the closing slide's contact row is its footer row");
+  assert.deepEqual(slideWords(questions), ['H', 'Q?'], "the closing slide's email and site are uncounted");
+  const credited = renderToHtml(React.createElement(D3I.SlideQuestions, { heading: 'H', rows: [{ question: 'Q?' }], email: 'a@b.nl', credit: 'A service provided by ODISSEI and supported by Eyra' }));
+  assert.equal(slideWords(credited).length, 11, 'the credit line counts');
+});
+
+// A text-only slide has 50 words at the very most (README, Slides · Voice). SlideFrame's panel-only form, with the
+// panel the frame preview carried before Task 9.5 (real copy, not made up for the test), stays inside it.
+test('a panel-only frame stays under 50 words', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.SlideFrame, {
+    eyebrow: 'Part I · The data', heading: 'Digital trace data are by-products of platform use', number: 5,
+    panel: [
+      { eyebrow: 'Definition', text: 'The records that platforms, apps and services retain as a by-product of their use.' },
+      { eyebrow: 'Why they matter', text: 'Behaviour observed at a level of detail, and over durations, that self-report cannot provide.' },
+    ],
+  }));
+  assert.ok(slideWords(html).length <= 50, `${slideWords(html).length} words`);
 });
 
 // Slides are not read: about 20 words cue the presenter, and the drawing carries the point (README, Slides · Voice).

@@ -788,10 +788,14 @@
       p.eyebrow ? h('p', { 'data-fit': 'none', style: st(T.eyebrow, { color: C.muted }) }, p.eyebrow) : null,
       h('h2', { 'data-fit': 'none', style: T.title }, p.heading));
   }
+  /* The footer row. data-uncounted marks what a slide's word count leaves out: the site name and the slide number.
+     A source in the left slot is words on the slide and counts. */
+  var UNCOUNTED = { 'data-uncounted': 'true' };
   function SlideFooter(p) {
-    return h('div', { 'data-footer': 'true', style: st(ROW, { position: 'absolute', left: '128px', right: '128px', bottom: '64px', justifyContent: 'space-between' }) },
-      h('p', { style: p.source ? st(T.small, { color: C.muted }) : st(T.label, { color: C.muted }) }, p.source || p.site || 'datadonation.eu'),
-      h('p', { style: st(T.label, { color: C.muted }) }, p.number != null ? String(p.number) : ''));
+    return h('div', { style: st(ROW, { position: 'absolute', left: '128px', right: '128px', bottom: '64px', justifyContent: 'space-between' }) },
+      p.source ? h('p', { style: st(T.small, { color: C.muted }) }, p.source)
+        : h('p', st(UNCOUNTED, { style: st(T.label, { color: C.muted }) }), p.site || 'datadonation.eu'),
+      h('p', st(UNCOUNTED, { style: st(T.label, { color: C.muted }) }), p.number != null ? String(p.number) : ''));
   }
   /* a node on a slide's line: a blue disc, a coral disc, or (with ring) a surface disc in a 3px blue ring */
   function dot(key, x, y, r, fill, ring) {
@@ -1322,7 +1326,8 @@
     }
     return h('section', { style: section({ gap: '40px' }) },
       h(SlideHead, { eyebrow: p.eyebrow, heading: p.heading }),
-      h('div', { style: st(ROW, { flex: 1, minHeight: 0, gap: '48px', alignItems: 'stretch' }) },
+      /* 24px more above (64px under the title block) and 24px clear above the bottom margin, 64px over the footer */
+      h('div', { style: st(ROW, { flex: 1, minHeight: 0, gap: '48px', alignItems: 'stretch', margin: '24px 0' }) },
         h('div', { style: st(COL, { width: '520px', flex: 'none' }) },
           steps.map(function (s, i) {
             return h('div', { key: i, style: st(ROW, { flex: i < steps.length - 1 ? 1 : 'none', gap: '24px', alignItems: 'flex-start' }) },
@@ -1375,10 +1380,11 @@
                 h('p', { style: st(ITEM, { lineHeight: 1.25 }) }, c.title)),
               c.text ? h('p', { style: T.small }, c.text) : null);
           }))) : null),
-      h('div', { 'data-footer': 'true', style: st(ROW, { justifyContent: 'space-between', alignItems: 'center' }) },
+      /* the contact row is this slide's footer row: the email address and the site are uncounted, the credit counts */
+      h('div', { style: st(ROW, { justifyContent: 'space-between', alignItems: 'center' }) },
         h('div', { style: st(ROW, { gap: '32px', alignItems: 'center' }) },
-          p.email ? h('p', { style: st(ITEM, { color: C.blue }) }, 'Email ' + p.email + ' →') : null,
-          h('p', { style: ITEM }, p.site || 'datadonation.eu')),
+          p.email ? h('p', st(UNCOUNTED, { style: st(ITEM, { color: C.blue }) }), 'Email ' + p.email + ' →') : null,
+          h('p', st(UNCOUNTED, { style: ITEM }), p.site || 'datadonation.eu')),
         h('div', { style: st(ROW, { gap: '24px', alignItems: 'center' }) },
           p.credit ? h('p', { style: st(T.small, { color: C.muted }) }, p.credit) : null,
           logos.map(function (l, i) { return h('img', { key: i, src: l.src, alt: l.alt || '', style: { width: (l.width || 120) + 'px', height: '44px', objectFit: 'contain', display: 'block' } }); }))));

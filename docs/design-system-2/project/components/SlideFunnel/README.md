@@ -1,6 +1,6 @@
 Two forms that let a slide's layout make its point rather than a row of matching cards: a funnel, for a sequence of shrinking shares, and a meter, for options that differ in how much of something reaches someone. Use one when the things on a slide differ in kind or size; use plain cards only when they are parallel. Each form can stand alone on a slide, where it takes the slide's width and height; the preview shows each alone, as two slides.
 
-**Words.** Slides are not read (brand book, Slides · Voice): about 20 words on the slide, the footer row not counted, enough to cue the presenter; the argument is spoken and lives in the speaker notes. The preview's funnel has 17 and its meter 18: a few words of base, one word a stage, a percentage per bar; two words a meter option. The funnel's `eyebrow` and `note` and each option's `text` add words and are off in the preview.
+**Words.** About 20, counted as the brand book's Slides · Voice says. The preview's funnel has 17 and its meter 18: a few words of base, one word a stage, a percentage per bar; two words a meter option. The funnel's `eyebrow` and `note` and each option's `text` add words and are off in the preview.
 
 Mount `D3I.SlideFunnel` in a design canvas; for a Slides deck, `D3I.slideMarkup(D3I.SlideFunnel, props)` returns the slide as one `<section>` with inline hex styles to paste. Its props are in `components/index.d.ts` and on its card; the values below are what it draws, for anyone writing a slide by hand.
 

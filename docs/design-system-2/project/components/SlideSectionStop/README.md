@@ -1,6 +1,6 @@
 The slide that opens a part of a talk: the part's number at `slide-numeral` size in the serif, its claim in one sentence, and a line across the bottom with one node per part, so the audience sees where the talk is.
 
-**Words.** Slides are not read (brand book, Slides · Voice): about 20 words on the slide, the footer row not counted, enough to cue the presenter; the argument is spoken and lives in the speaker notes. The preview has 19: the title, the numeral, a seven-word sentence and five part names. `part` repeats what the numeral says and is off in the preview; `sentence` is a cue of a few words, not the part's argument.
+**Words.** About 20, counted as the brand book's Slides · Voice says. The preview has 19: the title, the numeral, a seven-word sentence and five part names. `part` repeats what the numeral says and is off in the preview; `sentence` is a cue of a few words, not the part's argument.
 
 Mount `D3I.SlideSectionStop` in a design canvas; for a Slides deck, `D3I.slideMarkup(D3I.SlideSectionStop, props)` returns the slide as one `<section>` with inline hex styles to paste. Its props are in `components/index.d.ts` and on its card; the values below are what it draws, for anyone writing a slide by hand.
 

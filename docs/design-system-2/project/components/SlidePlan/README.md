@@ -1,6 +1,6 @@
 The overview slide: a line with one node per part, and each part's number and header beneath its node, nothing else. It replaces a bulleted agenda; the same line returns on each section opener (SlideSectionStop), stepping down at the current part.
 
-**Words.** Slides are not read (brand book, Slides · Voice): about 20 words on the slide, the footer row not counted, enough to cue the presenter; the argument is spoken and lives in the speaker notes. The preview has 19: the title, five numerals and five part names. Numerals count, so keep part names to one or two words; with six parts, shorten the title.
+**Words.** About 20, counted as the brand book's Slides · Voice says. The preview has 19: the title, five numerals and five part names. Numerals count, so keep part names to one or two words; with six parts, shorten the title.
 
 Mount `D3I.SlidePlan` in a design canvas; for a Slides deck, `D3I.slideMarkup(D3I.SlidePlan, props)` returns the slide as one `<section>` with inline hex styles to paste. Its props are in `components/index.d.ts` and on its card; the values below are what it draws, for anyone writing a slide by hand.
 

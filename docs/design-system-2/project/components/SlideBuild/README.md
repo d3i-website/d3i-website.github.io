@@ -1,6 +1,6 @@
 One step of a build: several slides that share a title and a slide number, each adding one row to the same frame, so the audience sees one idea at a time while the earlier ones stay in view, dimmed. A line with a node per step across the top can show which step this is.
 
-**Words.** Slides are not read (brand book, Slides · Voice): about 20 words on the slide, the footer row not counted, enough to cue the presenter; the argument is spoken and lives in the speaker notes. The preview has 16 at its second step and 19 at its last: each cell is a word or two in the serif. `steps` (the line, a numeral and a name per step, which the row labels already give) and each cell's `text` add words and are off in the preview. A build is a text-only slide: whatever its rows, its last step stays under 50 words, and about 20 is the aim.
+**Words.** About 20, counted as the brand book's Slides · Voice says. The preview has 16 at its second step and 19 at its last: each cell is a word or two in the serif. `steps` (the line, a numeral and a name per step, which the row labels already give) and each cell's `text` add words and are off in the preview. A build is a text-only slide: whatever its rows, its last step stays under 50 words, and about 20 is the aim.
 
 Mount `D3I.SlideBuild` in a design canvas; for a Slides deck, `D3I.slideMarkup(D3I.SlideBuild, props)` returns the slide as one `<section>` with inline hex styles to paste. Its props are in `components/index.d.ts` and on its card; the values below are what it draws, for anyone writing a slide by hand.
 

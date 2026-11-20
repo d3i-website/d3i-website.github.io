@@ -811,10 +811,11 @@ export declare const UsageFigures: ((props: UsageFiguresProps) => React.ReactEle
 /* Each renders one 1920 × 1080 <section> with inline styles in the system's light-theme hex values.
    Mount it in a design canvas, or get its markup for a Slides deck with D3I.slideMarkup(D3I.SlideFrame, props).
    Eyebrows and titles carry data-fit="none" so the Slides canvas never shrinks them.
-   Slides are not read: a slide carries about 20 words (the footer row not counted), enough to cue the presenter,
+   Slides are not read: a slide carries about 20 words (only the parts marked data-uncounted, the site name, the slide
+   number and a closing slide's email, are left out of the count), enough to cue the presenter,
    and its drawing carries the point. Props marked "adds words" are off in the previews; the 20 words still apply. */
 
-/** The footer row every slide but the cover carries (marked data-footer; SlideQuestions' contact row is its footer row). */
+/** The footer row every slide but the cover carries; SlideQuestions' contact row is its footer row. The site name and the slide number are data-uncounted; a source counts as words. */
 export interface SlideFooterProps {
   /** The slide number, right of the footer. Builds repeat one number on every step. */
   number?: number | string;

@@ -3,7 +3,7 @@ The cover (and closing) slide, in two layouts. Both are title slides; pick one p
 - **`network`** (the default) carries the front page's network across a sky band with no words in it. The eyebrow, title, subtitle and speaker line sit under it on white.
 - **`band-title`** is the website band as it is, with the deck's title in it. The eyebrow, speakers and venue are centred under it, then a row of partner and provider logos.
 
-**Words.** Slides are not read (brand book, Slides · Voice): about 20 words, enough to cue the presenter. The band carries the cover; the preview's `network` cover has 18 words and its `band-title` cover 19. Keep the subtitle to a few words, the speakers to names and the venue to its name and year; the logos are pictures and do not count.
+**Words.** About 20, counted as the brand book's Slides · Voice says. The band carries the cover; the preview's `network` cover has 18 words and its `band-title` cover 19. Keep the subtitle to a few words, the speakers to names and the venue to its name and year; the logos are pictures and do not count.
 
 Mount `D3I.SlideCover` in a design canvas. For a Slides deck, `D3I.slideMarkup(D3I.SlideCover, props)` returns the slide as one `<section>` with inline hex styles to paste. Each band is one inline `<svg>` of about 16 KB, under the format's 52 KB. Its props are in `components/index.d.ts` and on its card. The values below are what it draws, for anyone writing a slide by hand.
 
