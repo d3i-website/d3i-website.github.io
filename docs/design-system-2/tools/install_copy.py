@@ -12,6 +12,10 @@ of a copy; Claude does the Artifact calls in between. INSTALL.md walks through t
             under project/ except the images, the preview image URLs pointed at the new
             uploads, a new index, and publish.json with the arguments for the publish call.
 
+A file recorded with "placeholder": true has an id that was never uploaded (the MD5 of its
+bytes), so that a preview can point at it. batches always lists it, and stage replaces its
+id like any other and drops the flag from the staged index.
+
   python3 -I docs/design-system/tools/install_copy.py batches
   python3 -I docs/design-system/tools/install_copy.py stage --uploads RESULTS.txt --out DIR --by "Name"
 """
@@ -51,15 +55,23 @@ def images(index):
             yield f"{group}/{name}", grp["files"][name]
 
 
+def placeholders(index):
+    """Images recorded with a placeholder id ("placeholder": true): never uploaded yet, though a
+    preview points at the id. A copy always uploads them, whatever an existing copy records."""
+    return {key for key, rec in images(index) if rec.get("placeholder")}
+
+
 def reusable(existing_path):
-    """Images whose name and size are unchanged in an existing copy keep that copy's upload."""
+    """Images whose name and size are unchanged in an existing copy keep that copy's upload,
+    except those this repository records with a placeholder id."""
     if not existing_path:
         return {}
     existing = json.loads(pathlib.Path(existing_path).read_text())
+    fresh = placeholders(repo_index())
     keep = {}
     for key, rec in images(existing):
         local = PROJECT / "assets" / key
-        if local.is_file() and local.stat().st_size == rec["size"]:
+        if key not in fresh and not rec.get("placeholder") and "blob" in rec and local.is_file() and local.stat().st_size == rec["size"]:
             keep[key] = rec["blob"]
     return keep
 
@@ -112,7 +124,8 @@ def cmd_stage(args):
     out = pathlib.Path(args.out).resolve()
     if (out / "project").exists():
         shutil.rmtree(out / "project")
-    # a file recorded before its first upload (no "blob" yet) has no old id for the text to point at
+    # a file recorded before its first upload (no "blob" yet) has no old id for the text to point at;
+    # a placeholder id is an old id like any other, and is replaced by the upload's
     old_to_new = {rec["blob"]: ids[key] for key, rec in images(src) if "blob" in rec}
 
     staged = []
@@ -152,6 +165,7 @@ def cmd_stage(args):
         for rec in grp["files"].values():
             rec["blob"] = ids[f"{name}/{rec['name']}"]
             rec.pop("sha256", None)
+            rec.pop("placeholder", None)
         groups[name] = grp
     index["assetGroups"] = groups
     index["lastChange"] = {"by": args.by, "at": now, "via": f"Claude Code · d3i-website/d3i-website.github.io@{git_ref()}", "note": note}

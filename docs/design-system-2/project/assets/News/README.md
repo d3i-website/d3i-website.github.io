@@ -1,6 +1,6 @@
 # News
 
-Pictures of the site's news items, for NewsCard's preview. Each is a copy of an `image` front-matter field in `_news/`, scaled to 1200px wide at most.
+Pictures of the site's news items, for NewsCard's preview. They are placeholders until the first publish: `design-system.json` records each with a placeholder id (the MD5 of the file, flagged `"placeholder": true`), not an upload, so they show only once a copy has uploaded them (`tools/install_copy.py`). Each is a copy of an `image` front-matter field in `_news/`, scaled to 1200px wide at most.
 
 - `export-study-crate-card.webp`: "Ready to reproduce: export your data donation study". This is a real social-sharing card, 1200 × 630, the 1.91:1 shape every item's `image` is meant to have. The site's file is `assets/images/news/export-study-crate-card.webp` (2048 × 1075).
 - `data-donation-symposium.webp`: "D3I and TDCC RIGHTS at the Data Donation Symposium 2026 in Berlin", a group photo, 16:9.
