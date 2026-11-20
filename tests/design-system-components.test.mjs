@@ -512,3 +512,75 @@ test('frame cards hang from a line', () => {
   const bare = renderToHtml(React.createElement(D3I.SlideFrame, { heading: 'H', number: 5 }));
   assert.ok(!bare.includes('<circle'), 'no cards, no line');
 });
+
+/* SlideCover ------------------------------------------------------------------------------- */
+
+// The network cover's band is project/assets/Slides/cover-network.svg, copied into bundle.js by
+// build_slide_cover.py.
+test('cover network markup is current', () => {
+  execFileSync('python3', ['-I', join(root, 'docs/design-system-2/tools/build_slide_cover.py'), '--check'], { stdio: 'pipe' });
+});
+
+const COVER_PROPS = {
+  eyebrow: 'D3I · datadonation.eu',
+  title: 'Data donation as a data collection method',
+  subtitle: 'Digital trace data, donated to science by citizens',
+  speakers: 'Niek de Schipper · Danielle McCool',
+  venue: 'ODISSEI Conference 2026',
+};
+const LOGOS = [{ key: 'uu', src: '/_blob/7d397e017f62efccfed2ba8d019a8c9c' }, { key: 'eyra', src: '/_blob/87afcf44ac9de2aea316b5c81eda8dd5' }];
+const cover = (props) => {
+  const { D3I, React } = bundle();
+  return renderToHtml(React.createElement(D3I.SlideCover, { ...COVER_PROPS, ...props }));
+};
+// The band is one <div data-band="…"> holding no other <div>: its drawing and, on the band-title
+// cover, the title and subtitle.
+const bandOf = (html) => {
+  const m = html.match(/<div data-band="([^"]*)"[^>]*>([\s\S]*?)<\/div>/);
+  return m ? { layout: m[1], inner: m[2] } : null;
+};
+
+test('cover layouts', () => {
+  const network = cover({ markSrc: '/_blob/be4813582be16fc83074c1ca7f78674a' });
+  assert.equal(bandOf(network)?.layout, 'network', "'network' by default");
+  assert.ok(!bandOf(network).inner.includes(COVER_PROPS.title), "'network': no title in the band");
+  assert.ok(network.includes('>' + COVER_PROPS.title + '</h1>'), "'network': the title, under the band");
+  assert.ok(network.includes('Niek de Schipper · Danielle McCool · ODISSEI Conference 2026'), "'network': speakers and venue on one line");
+  assert.match(bandOf(network).inner, /<image href="\/_blob\/be4813582be16fc83074c1ca7f78674a"/, "'network': the D3I mark from markSrc");
+  assert.ok(!bandOf(cover({})).inner.includes('<image'), "'network' without markSrc: no mark, no default picture");
+
+  const titled = cover({ layout: 'band-title', logos: LOGOS });
+  assert.equal(bandOf(titled)?.layout, 'band-title');
+  assert.ok(bandOf(titled).inner.includes(COVER_PROPS.title), "'band-title': the title in the band");
+  assert.ok(bandOf(titled).inner.includes(COVER_PROPS.subtitle), "'band-title': the subtitle in the band");
+  assert.equal(count(titled, '<img '), 2, "'band-title': a logo per entry");
+  assert.match(titled, /border-top:2px solid #d5dae3/i, "'band-title': the hairline over the logos");
+
+  const bare = cover({ layout: 'band-title' });
+  assert.ok(!bare.includes('<img'), "'band-title' without logos: no logo row");
+  assert.ok(!/border-top:2px/.test(bare), "'band-title' without logos: no hairline");
+});
+
+// The logo row uses SiteFooter's equal-ink-area sizes (bundle.css's site-footer__cell--<key>) at 1rem = 19.2px.
+test('cover logos are sized as the footer sizes them', () => {
+  const css = readFileSync(join(components, 'bundle.css'), 'utf8');
+  const rem = (key, prop) => +css.match(new RegExp(`\\.site-footer__cell--${key}\\{width:calc\\(var\\(--logo-scale, 1\\)\\*([\\d.]+)rem\\);height:calc\\(var\\(--logo-scale, 1\\)\\*([\\d.]+)rem\\)`))[prop === 'width' ? 1 : 2];
+  const html = cover({ layout: 'band-title', logos: LOGOS });
+  for (const key of ['uu', 'eyra']) {
+    const w = (rem(key, 'width') * 19.2).toFixed(1), h = (rem(key, 'height') * 19.2).toFixed(1);
+    assert.ok(html.includes(`width:${w}px;height:${h}px`), `${key}: its cell is ${w} × ${h}px`);
+  }
+  assert.throws(() => cover({ layout: 'band-title', logos: [{ key: 'x', src: '/_blob/1' }] }), /_footer\.scss/);
+});
+
+// The cover fills its text and the mark's URL into markup, so it must escape them, as the Band does.
+test('cover escapes its text', () => {
+  for (const layout of ['network', 'band-title']) {
+    const plain = cover({ layout });
+    const html = cover({ layout, title: 'A & <b>', subtitle: 'S & <i>', speakers: '<b>x</b>', markSrc: '/_blob/1" onload="x' });
+    assert.ok(html.includes('A &amp; &lt;b&gt;'), `${layout}: the title, escaped`);
+    assert.ok(html.includes('S &amp; &lt;i&gt;'), `${layout}: the subtitle, escaped`);
+    assert.equal(count(html, '<b>'), count(plain, '<b>'), `${layout}: no <b> element from the text`);
+    assert.ok(!html.includes('" onload="'), `${layout}: markSrc cannot add an attribute`);
+  }
+});

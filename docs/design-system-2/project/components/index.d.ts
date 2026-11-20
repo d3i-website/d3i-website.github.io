@@ -820,21 +820,36 @@ export interface SlideFooterProps {
   source?: string;
 }
 
+export interface SlideCoverLogo {
+  /** One of SiteFooter's measured logos: "odissei" | "eyra" | "uva" | "ru" | "uu" | "vu" | "tilburg" | "eur". It sets the logo's equal-ink-area size; any other key throws. */
+  key: string;
+  /** The logo's upload from the Logos or Partners group, as /_blob/<id>. */
+  src: string;
+  alt?: string;
+}
 export interface SlideCoverProps {
-  /** Default "D3I · datadonation.eu". */
+  /** Default 'network'. 'network': the network band (cover B9) with no words, the title block under it on white. 'band-title': the website band with the title in it, the speakers centred under it, then the logo row. */
+  layout?: 'network' | 'band-title';
+  /** Default "D3I · datadonation.eu"; blue caps. */
   eyebrow?: string;
-  /** At most two lines at slide-display. */
+  /** "\n" breaks the line. 'network': at most two lines of serif at 96px, 1500px wide. 'band-title': two short lines of serif at 66.67px in the band, white, centred. */
   title: string;
-  /** One line under the title. */
-  lead?: string;
-  /** "Name · Affiliation · Venue, Month D, YYYY". */
-  byline?: string;
+  /** 'network': one line of slide-lead under the title. 'band-title': under the title in the band, Nunito Sans 900 in blue. */
+  subtitle?: string;
+  /** "Name · Name" or "Name · Affiliation". 'network': the speaker line at the bottom margin, followed by the venue. 'band-title': large, centred under the band. */
+  speakers?: string;
+  /** "Venue, Month D, YYYY". 'network': after the speakers on their line. 'band-title': slide-lead, centred under the speakers. */
+  venue?: string;
+  /** 'network' only: the D3I mark (Logos/d3i-mark.svg) as /_blob/<id>, drawn in the white disc on the band's upper line. Without it the disc is empty. */
+  markSrc?: string;
+  /** 'band-title' only: the partner and provider logos in a row under a hairline, in the order given. Without any, no hairline and no row. */
+  logos?: SlideCoverLogo[];
   /** The band's accessible description; without it the band is aria-hidden decoration. */
   bandLabel?: string;
-  /** Replaces the title block, for a closing slide that keeps the band. */
+  /** Replaces the title block ('network') or the centred eyebrow, speakers and venue ('band-title'), for a closing slide that keeps the band. */
   children?: React.ReactNode;
 }
-/** The cover and closing slide: a sky band (a placeholder; the road is retired) over the title. */
+/** The cover and closing slide, in two layouts: the network band over the title, or the website band with the title in it over the speakers and logos. */
 export declare function SlideCover(props: SlideCoverProps): React.ReactElement;
 
 export interface SlideFrameCard {

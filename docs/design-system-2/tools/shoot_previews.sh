@@ -46,7 +46,8 @@ project, preview, harness = Path(sys.argv[1]), Path(sys.argv[2]), Path(sys.argv[
 blobs = {}
 for group, g in json.loads((project / 'design-system.json').read_text())['assetGroups'].items():
     for f in g['files'].values():
-        blobs[f['blob']] = (project / 'assets' / group / f['name']).as_uri()
+        if 'blob' in f:  # a file recorded before its first upload has no id yet
+            blobs[f['blob']] = (project / 'assets' / group / f['name']).as_uri()
 
 def blob(m):
     if m.group(1) not in blobs:

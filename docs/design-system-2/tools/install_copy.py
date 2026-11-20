@@ -112,7 +112,8 @@ def cmd_stage(args):
     out = pathlib.Path(args.out).resolve()
     if (out / "project").exists():
         shutil.rmtree(out / "project")
-    old_to_new = {rec["blob"]: ids[key] for key, rec in images(src)}
+    # a file recorded before its first upload (no "blob" yet) has no old id for the text to point at
+    old_to_new = {rec["blob"]: ids[key] for key, rec in images(src) if "blob" in rec}
 
     staged = []
     for path in sorted(PROJECT.rglob("*")):
