@@ -370,19 +370,23 @@
   function JourneyNext(p) {
     var id = R().useId();
     var labelId = 'journey-next-label' + id.replace(/:/g, '');
-    var attrs = rest(p, ['number', 'title', 'body', 'href', 'external', 'after', 'label', 'className']);
+    var attrs = rest(p, ['number', 'title', 'body', 'href', 'external', 'link', 'after', 'label', 'className']);
     attrs.className = cx('journey-next', p.className);
     attrs['aria-labelledby'] = labelId;
     var after = p.after;
     var title = h('span', null, p.title);
+    /* the deprecated link prop: its href and external, when href is not given */
+    var old = !p.href && p.link && p.link.href ? p.link : null;
+    var href = old ? old.href : p.href;
+    var external = old ? old.external : p.external;
     return h('aside', attrs,
       h('p', { className: 'journey-next__label', id: labelId }, p.label || 'Next step'),
       h('div', { className: 'journey-next__step' },
         p.number ? h('span', { className: 'journey-next__number', 'aria-hidden': 'true' }, p.number) : null,
         h('div', { className: 'journey-next__text' },
-          h('h2', { className: 'journey-next__title' }, p.href ? h('a', linkAttrs(p.href, p.external), title) : title),
+          h('h2', { className: 'journey-next__title' }, href ? h('a', linkAttrs(href, external), title) : title),
           p.body ? h('p', { className: 'journey-next__body' }, p.body) : null),
-        p.href ? h('svg', Object.assign({ className: 'journey-next__disc' }, NOTE_DISC), discParts('1.8')) : null),
+        href ? h('svg', Object.assign({ className: 'journey-next__disc' }, NOTE_DISC), discParts('1.8')) : null),
       after ? h('p', { className: 'journey-next__after' }, 'After that: ',
         after.number ? h('span', { className: 'journey-next__after-number' }, after.number) : null, after.number ? ' ' : null,
         after.href ? h('a', { href: after.href }, after.title) : after.title) : null);

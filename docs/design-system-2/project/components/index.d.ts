@@ -622,6 +622,8 @@ export interface JourneyNextProps {
   /** The next step's page. The title links to it and the step ends in the arrow disc; without it, neither. */
   href?: string;
   external?: boolean;
+  /** @deprecated Use `href` and `external`. When `href` is not given, `link.href` and `link.external` are used in its place; `link.label` is not shown. */
+  link?: LinkTarget;
   /** The step after that, as a quieter line. */
   after?: { number?: string; title: string; href?: string };
   /** Default "Next step". */

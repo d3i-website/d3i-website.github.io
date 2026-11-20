@@ -8,6 +8,7 @@ On the site it is rendered from the hub's step list: the step after the current 
 - `title`: the next step's title.
 - `body` (optional): one or two sentences.
 - `href`: the next step's page; `external` opens it in a new tab. The title links to it, its link's `::after` covers the step, and the step ends in the arrow disc. Without `href` there is neither link nor disc.
+- `link` (deprecated): the old `{ label, href, external }` was replaced by `href` and `external`. It still works: without `href`, its `href` and `external` are used, and its label is not shown.
 - `after` (optional): `{ number, title, href }` for the step after that.
 - `label` (optional): the eyebrow; default "Next step".
 

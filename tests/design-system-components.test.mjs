@@ -381,6 +381,19 @@ test('journey next ends in the arrow disc', () => {
   assert.ok(!/<a[\s>]/.test(bare) && !bare.includes('journey-next__disc'), 'without href, no link and no disc');
 });
 
+// `link` was replaced by `href`/`external`; an old caller's link still leads where it did.
+test('journey next accepts its old link prop', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.JourneyNext, { number: '02', title: 'Pick a platform', link: { label: 'Use it', href: '/pick/' } }));
+  assert.ok(html.includes('<h2 class="journey-next__title"><a href="/pick/"><span>Pick a platform</span></a></h2>'), 'the title links to link.href');
+  assert.equal(count(html, 'class="journey-next__disc"'), 1, 'and ends in the disc');
+  assert.ok(!/\slink=/.test(html), 'no link attribute on the root');
+  const ext = renderToHtml(React.createElement(D3I.JourneyNext, { title: 'x', link: { label: 'y', href: 'https://example.org/', external: true } }));
+  assert.ok(ext.includes('<a href="https://example.org/" target="_blank" rel="noopener noreferrer">'), 'link.external opens a new tab');
+  const both = renderToHtml(React.createElement(D3I.JourneyNext, { title: 'x', href: '/new/', link: { label: 'y', href: '/old/' } }));
+  assert.ok(both.includes('href="/new/"') && !both.includes('/old/'), 'href wins over link');
+});
+
 const ruleFor = (selector) => cssRules(readFileSync(join(components, 'bundle.css'), 'utf8'))
   .filter(([sel]) => sel.split(',').map((s) => s.trim()).includes(selector)).map(([, decl]) => decl).join(';');
 
