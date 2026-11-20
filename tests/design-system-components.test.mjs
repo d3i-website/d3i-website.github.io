@@ -454,14 +454,35 @@ function slideColours(html) {
     .concat([...html.matchAll(/rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/g)].map((m) => '#' + hex(m[1]) + hex(m[2]) + hex(m[3])));
 }
 
+// Pictures are never recoloured (like logos), so the band artwork's own colours (the portraits') are allowed too.
+function artworkColours() {
+  const dir = join(root, 'docs/design-system-2/project/assets/Network');
+  const out = new Set();
+  for (const f of readdirSync(dir).filter((f) => f.endsWith('.svg'))) {
+    for (const m of readFileSync(join(dir, f), 'utf8').matchAll(/#[0-9a-fA-F]{3,8}\b/g)) out.add(m[0].toLowerCase());
+  }
+  return out;
+}
+// The colours in html that are neither a token's light value nor one of the band artwork's own.
+function strayColours(html) {
+  const { values } = lightColours(), art = artworkColours();
+  return [...new Set(slideColours(html))].filter((c) => !values.has(c) && !art.has(c));
+}
+
 test('slide colours are tokens', () => {
-  const { values } = lightColours();
   assert.ok(slidePreviews.length >= 9, 'every Slide preview');
   const bad = [];
   for (const name of slidePreviews) {
-    for (const c of new Set(slideColours(runPreview(previewPath(name), bundle())))) if (!values.has(c)) bad.push(`${name} → ${c}`);
+    for (const c of strayColours(runPreview(previewPath(name), bundle()))) bad.push(`${name} → ${c}`);
   }
   assert.deepEqual(bad, [], `slide colours that are no token's value:\n  ${bad.join('\n  ')}`);
+});
+
+test('a stray slide colour is caught', () => {
+  assert.deepEqual(strayColours('<p style="color:#123456">x</p>'), ['#123456'], 'a hex that is no token and not in the artwork');
+  assert.deepEqual(strayColours('<p style="color:rgb(18, 52, 86)">x</p>'), ['#123456'], 'the same colour as rgb()');
+  assert.deepEqual(strayColours('<p style="color:rgb(66, 114, 239)">x</p>'), [], "blue's rgb() form");
+  assert.deepEqual(strayColours('<path fill="#ffd1d2"/>'), [], "the portraits' skin, from the artwork");
 });
 
 test('no slide draws the road', () => {
@@ -553,6 +574,7 @@ test('cover layouts', () => {
   assert.equal(bandOf(titled)?.layout, 'band-title');
   assert.ok(bandOf(titled).inner.includes(COVER_PROPS.title), "'band-title': the title in the band");
   assert.ok(bandOf(titled).inner.includes(COVER_PROPS.subtitle), "'band-title': the subtitle in the band");
+  assert.match(bandOf(titled).inner, /<p style="[^"]*font-size:24px[^"]*">Digital trace data/, "'band-title': the subtitle at 24px, the projector floor");
   assert.equal(count(titled, '<img '), 2, "'band-title': a logo per entry");
   assert.match(titled, /border-top:2px solid #d5dae3/i, "'band-title': the hairline over the logos");
 

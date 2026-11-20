@@ -26,7 +26,7 @@ Mount `D3I.SlideCover` in a design canvas. For a Slides deck, `D3I.slideMarkup(D
   - On that upper line sits the D3I mark, 34px, in a 45px white disc with a 1.5px `blue` ring.
   - The sky is 256px deep left of the step and 315px right of it. The drawing is 343px tall, down to the funnel's dotted circle.
 - **The drawing's source** is `assets/Slides/cover-network.svg`, one SVG in slide pixels. It was read from the approved mockup's rendered page, with every line at its drawn weight and no `vector-effect`. `tools/build_slide_cover.py` copies it into the bundle.
-- **Colours** are all token values. The portraits' hair, cheeks and skin are drawn in `text`, `coral` and `coral-tint`, the nearest tokens to the site artwork's own colours.
+- **Colours** are token values, except the portraits, which keep the designer's own colours (`#36354a`, `#f15f60`, `#ffd1d2`, as in `assets/Network`): pictures are never recoloured.
 - **The title block** starts at 416px. The section's padding is 256px 128px 128px, because the slide format caps padding at 256px, and the remaining 160px is padding on the block.
   - Eyebrow: `slide-eyebrow` in `blue`.
   - Title: the serif at 420, 96px/1.02, in `heading`, 1500px wide, balanced, `data-fit="none"`. The serif is provisional.
@@ -39,11 +39,12 @@ Mount `D3I.SlideCover` in a design canvas. For a Slides deck, `D3I.slideMarkup(D
 - **The band** is `BAND_MARKUP`, the front page band from `_includes/home/band.html`, at its 1280px+ layout drawn 1440px wide and scaled 4/3.
   - The site places the drawing with stylesheet rules, which a slide cannot carry. The bundle therefore resolves the rules that apply at 1440px into one `<svg>`.
   - The band follows the include: when `tools/build_band_markup.py` copies a changed band, the cover changes with it.
+  - The 1440px band's numbers (`BAND` in bundle.js: the sky's depth and drop, the title column's half-width and gap, the step's place and width, the thread's height) are copied from `_sass/_home-band.scss` and must be updated with it.
   - If the band uses an element or class the cover does not know, the cover throws rather than drawing it wrong.
   - Lines are at the projector weights: 2px story lines, dotted lines at 2.75px, and 2.75px below the band's edge.
 - **The title** is in the band: the serif at 420, 66.67px/1.03, in white, centred in a 677px column from 45px down.
   - Its line runs under it between two nodes, as on the front page.
-  - The subtitle follows 26.67px under the title, in Nunito Sans 900 22.67px/1.4 in `blue`.
+  - The subtitle follows 26.67px under the title, in Nunito Sans 900 24px/1.4 in `blue`, centred on one line. 24px is the projector floor; the website's 17px × 4/3 would be 22.67px.
 - **Under the band**, from 400px to 832px, the block is centred with 20px gaps:
   - The eyebrow, in `slide-eyebrow` and `blue`.
   - The speakers, in Nunito Sans 700 48px/1.2 in `heading`.
