@@ -47,10 +47,6 @@
   function linkAttrs(href, external) {
     return external ? { href: href, target: '_blank', rel: 'noopener noreferrer' } : { href: href };
   }
-  /* the arrow every action link ends with; the label never carries it */
-  function arrow() {
-    return h('span', { 'aria-hidden': 'true' }, '→');
-  }
   function list(v) {
     return Array.isArray(v) ? v : [];
   }
@@ -135,45 +131,116 @@
 
   /* Cards ------------------------------------------------------------------ */
 
-  function newsAccent(p) {
-    if (p.accent === 0 || p.accent === 1 || p.accent === 2) return p.accent;
-    return String(p.title || '').length % 3;
+  /* A date as the cards take it: ISO (2026-11-09), or folded as the site writes it ("September 8,
+     2026", "October 1-2, 2026", "September 30 - October 2, 2026"). { start, end } of { y, m, d }
+     (m from 0), end null for one day; null if it reads neither way. */
+  function datesOf(v) {
+    var s = String(v == null ? '' : v).trim(), m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s);
+    if (m) return { start: { y: +m[1], m: +m[2] - 1, d: +m[3] }, end: null };
+    m = /^([A-Za-z]+)\s+(\d{1,2})(?:\s*[-–]\s*(?:([A-Za-z]+)\s+)?(\d{1,2}))?,\s*(\d{4})$/.exec(s);
+    if (!m) return null;
+    var month = function (name) {
+      for (var i = 0; i < MONTH_NAMES.length; i++) if (MONTH_NAMES[i].toLowerCase() === name.toLowerCase()) return i;
+      return -1;
+    };
+    var sm = month(m[1]), em = m[3] ? month(m[3]) : sm;
+    if (sm < 0 || em < 0) return null;
+    return { start: { y: +m[5], m: sm, d: +m[2] }, end: m[4] ? { y: +m[5], m: em, d: +m[4] } : null };
   }
+  /* The date column of a list row, as ListRow draws it: the month (%b) over the day, a range's days
+     joined by "–", and its months too when they differ. */
+  function dateColumn(cls, start, end) {
+    var month = MONTHS[start.m], day = String(start.d);
+    if (end && (end.m !== start.m || end.d !== start.d)) {
+      if (end.m !== start.m) month += '–' + MONTHS[end.m];
+      day += '–' + end.d;
+    }
+    return h('p', { className: cls }, h('span', null, month), h('b', null, day));
+  }
+  /* A title that is its card's link: <a><span>, the span carrying the dotted underline. */
+  function titleLink(cls, title, href, external) {
+    return h('h3', { className: cls }, href ? h('a', linkAttrs(href, external), h('span', null, title)) : title);
+  }
+
+  /* A news item in the row form: the front page's list row with the summary kept. The month over
+     the day, then the title, which is the row's link, and the summary. accent, linkLabel and image
+     are the old card's and draw nothing. */
   function NewsCard(p) {
-    var link = linkAttrs(p.href, p.external);
+    var when = datesOf(p.date);
     var attrs = rest(p, ['title', 'href', 'external', 'date', 'summary', 'image', 'accent', 'linkLabel', 'className']);
     attrs.className = cx('news-card', 'news-card--row', p.className);
     return h('article', attrs,
-      h('a', Object.assign({ className: 'news-card__media news-card__media--accent-' + newsAccent(p), tabIndex: -1, 'aria-hidden': 'true' }, link),
-        p.image ? h('img', { src: p.image.src, alt: p.image.alt || '' }) : null),
+      when ? dateColumn('news-card__date', when.start) : p.date ? h('p', { className: 'news-card__date' }, h('span', null, p.date)) : null,
       h('div', { className: 'news-card__body' },
-        h('h3', { className: 'news-card__title' }, h('a', link, p.title)),
-        p.date ? h('p', { className: 'news-card__date' }, p.date) : null,
-        p.summary ? h('p', { className: 'news-card__summary' }, p.summary) : null,
-        h('a', Object.assign({ className: 'cta-link news-card__link' }, link), p.linkLabel || 'Read more', ' ', arrow())));
+        titleLink('news-card__title', p.title, p.href, p.external),
+        p.summary ? h('p', { className: 'news-card__summary' }, p.summary) : null));
   }
   NewsCard.List = function NewsCardList(p) {
     var attrs = rest(p, ['className']);
     attrs.className = cx('news-list', p.className);
     return h('div', attrs, p.children);
   };
+  /* The news page: the first item (the newest) is the lead story, its picture large and bleeding;
+     the rest form a grid three across. Each picture is the item's image, its social-sharing card,
+     shown at 1.91:1; an item without one shows its date (month over day) on a sky node in a
+     hairline frame. An external item says where it leads ("On odissei-data.nl"). */
+  function newsItem(it, lead, key) {
+    var link = linkAttrs(it.href, it.external);
+    var when = datesOf(it.date);
+    var media;
+    if (it.image) {
+      media = h('a', Object.assign({ className: 'news-card__media' }, link, { tabIndex: -1, 'aria-hidden': 'true' }),
+        h('img', { src: it.image, alt: it.image_alt || '' }));
+    } else {
+      media = h('a', Object.assign({ className: 'news-card__media news-card__media--date' }, link, { tabIndex: -1, 'aria-hidden': 'true' }),
+        h('i'), h('span', null, when ? MONTH_NAMES[when.start.m] : null), h('b', null, when ? String(when.start.d) : it.date));
+    }
+    var host = it.external ? /^https?:\/\/(?:www\.)?([^/:?#]+)/i.exec(String(it.href || '')) : null;
+    return h('article', { className: cx('news-card', lead && 'news-lead'), key: key },
+      media,
+      h('div', { className: 'news-card__body' },
+        it.date ? h('p', { className: 'news-card__date' },
+          when ? MONTH_NAMES[when.start.m] + ' ' + when.start.d + ', ' + when.start.y : it.date) : null,
+        titleLink('news-card__title', it.title, it.href, it.external),
+        lead && it.summary ? h('p', { className: 'news-card__summary' }, it.summary) : null,
+        host ? h('p', { className: 'news-card__where' }, 'On ' + host[1]) : null));
+  }
+  NewsCard.Index = function NewsCardIndex(p) {
+    var items = list(p.items);
+    var attrs = rest(p, ['items', 'className']);
+    attrs.className = cx('news-index', p.className);
+    return h('div', attrs,
+      items.length > 0 ? newsItem(items[0], true, 0) : null,
+      items.length > 1 ? h('div', { className: 'news-grid' }, items.slice(1).map(function (it, i) { return newsItem(it, false, i + 1); })) : null);
+  };
+
+  /* An event or archive entry as a list row: the date column (month over day, a range joined by
+     "–"), then the title, which is the entry's link, the place, the summary and the detail rows.
+     A featured entry carries a coral node under its date. Further actions take ActionLink's compact
+     form. A date the card cannot read stays in the meta line before the place. hrefLabel is the old
+     card's "View details" label and draws nothing. */
   function ArchiveCard(p) {
-    var actions = list(p.actions);
-    if (p.href) actions = [{ label: p.hrefLabel || 'View details', href: p.href, external: p.external }].concat(actions);
-    var meta = [p.date, p.location].filter(Boolean).join(' · ');
+    var when = datesOf(p.date);
+    if (when && p.endDate) {
+      var e = datesOf(p.endDate);
+      if (e) when.end = e.start;
+    }
+    var meta = [when ? null : p.date, p.location].filter(Boolean).join(' · ');
     var details = list(p.details);
-    var attrs = rest(p, ['title', 'date', 'location', 'summary', 'details', 'actions', 'href', 'hrefLabel', 'external', 'featured', 'className']);
+    var actions = list(p.actions);
+    var attrs = rest(p, ['title', 'date', 'endDate', 'location', 'summary', 'details', 'actions', 'href', 'hrefLabel', 'external', 'featured', 'className']);
     attrs.className = cx('archive-card', p.featured && 'archive-card--featured', p.className);
     return h('article', attrs,
+      when ? dateColumn('archive-card__date', when.start, when.end) : null,
       h('div', { className: 'archive-card__content' },
-        h('h3', { className: 'archive-card__title' }, p.title),
+        titleLink('archive-card__title', p.title, p.href, p.external),
         meta ? h('p', { className: 'archive-card__meta' }, meta) : null,
         p.summary ? h('p', { className: 'archive-card__summary' }, p.summary) : null,
         details.length > 0 ? h('dl', { className: 'archive-card__details' }, details.map(function (d, i) {
           return h('div', { className: 'archive-card__detail', key: i }, h('dt', null, d.label), h('dd', null, d.value));
         })) : null),
       actions.length > 0 ? h('div', { className: 'archive-card__actions' }, actions.map(function (a, i) {
-        return h('a', Object.assign({ className: 'cta-link', key: i }, linkAttrs(a.href, a.external)), a.label, ' ', arrow());
+        return h(ActionLink, { key: i, href: a.href, external: a.external, variant: 'compact' }, a.label);
       })) : null);
   }
   ArchiveCard.List = function ArchiveCardList(p) {
@@ -210,26 +277,41 @@
     });
     return out;
   }
+  /* A completed study as a dossier: a side column holds the picture at its own shape, uncropped,
+     and the key facts under it, the year first in the serif; the study's text sits beside it. The
+     side column is left out when there is no picture, year or fact. image as { src, alt } is the
+     old form and still works. */
   function ProjectCard(p) {
     var inv = list(p.investigators);
     var details = list(p.details);
     var refs = list(p.references);
-    var attrs = rest(p, ['title', 'image', 'investigators', 'institution', 'summary', 'details', 'references', 'referencesLabel', 'className']);
+    var facts = list(p.facts);
+    var img = p.image && typeof p.image === 'object' ? p.image : p.image ? { src: p.image, alt: p.image_alt } : null;
+    var hasYear = p.year != null && p.year !== '';
+    var attrs = rest(p, ['title', 'image', 'image_alt', 'year', 'facts', 'investigators', 'institution', 'summary', 'details', 'references', 'referencesLabel', 'className']);
     attrs.className = cx('project-card', p.className);
     var invLine = inv.length > 0 || p.institution
       ? h.apply(null, ['p', { className: 'project-card__investigators' }].concat(joinNames(inv), p.institution ? [(inv.length ? ', ' : '') + p.institution] : []))
       : null;
+    var aside = img || hasYear || facts.length > 0
+      ? h('div', { className: 'project-card__aside' },
+        img ? h('img', { className: 'project-card__image', src: img.src, alt: img.alt || '' }) : null,
+        hasYear || facts.length > 0 ? h('dl', { className: 'project-card__facts' },
+          hasYear ? h('div', { className: 'project-card__year' }, h('dt', null, 'Year'), h('dd', null, String(p.year))) : null,
+          facts.map(function (f, i) { return h('div', { key: i }, h('dt', null, f.label), h('dd', null, f.value)); })) : null)
+      : null;
     return h('article', attrs,
-      h('h3', { className: 'project-card__title' }, p.title),
-      p.image ? h('img', { className: 'project-card__image', src: p.image.src, alt: p.image.alt || '' }) : null,
-      invLine,
-      p.summary ? h('p', { className: 'project-card__summary' }, p.summary) : null,
-      details.length > 0 ? h.apply(null, ['dl', { className: 'project-card__details' }].concat(details.map(function (d, i) {
-        return frag(h('dt', { key: 't' + i }, d.label), h('dd', { key: 'd' + i }, d.value));
-      }))) : null,
-      refs.length > 0 ? h('details', { className: 'project-card__refs' },
-        h('summary', null, p.referencesLabel || 'References'),
-        h('ul', null, refs.map(function (r, i) { return h('li', { key: i }, r); }))) : null);
+      aside,
+      h('div', { className: 'project-card__body' },
+        h('h3', { className: 'project-card__title' }, p.title),
+        invLine,
+        p.summary ? h('p', { className: 'project-card__summary' }, p.summary) : null,
+        details.length > 0 ? h.apply(null, ['dl', { className: 'project-card__details' }].concat(details.map(function (d, i) {
+          return frag(h('dt', { key: 't' + i }, d.label), h('dd', { key: 'd' + i }, d.value));
+        }))) : null,
+        refs.length > 0 ? h('details', { className: 'project-card__refs' },
+          h('summary', null, p.referencesLabel || 'References'),
+          h('ul', null, refs.map(function (r, i) { return h('li', { key: i }, r); }))) : null));
   }
   ProjectCard.List = function ProjectCardList(p) {
     var attrs = rest(p, ['attribution', 'className']);

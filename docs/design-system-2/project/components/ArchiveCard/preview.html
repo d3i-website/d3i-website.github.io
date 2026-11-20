@@ -1,36 +1,44 @@
-<!-- @dsCard group="Cards" height=430 -->
+<!-- @dsCard group="Cards" height=580 -->
 <!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><title>ArchiveCard — preview</title>
-<style>.pv{padding:0.5rem 1.5rem 1rem}</style></head>
+<style>.pv{padding:1rem 1.5rem}</style></head>
 <body>
 <div id="root" class="pv"></div>
 <script>
   var D = window.D3I, h = React.createElement;
-  ReactDOM.createRoot(document.getElementById('root')).render(
-    h(D.ArchiveCard.List, null,
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h(D.ArchiveCard.List, { heading: 'Next up' },
       h(D.ArchiveCard, {
         featured: true,
-        title: 'Data Donation Symposium 2026',
-        date: 'October 1-2, 2026',
-        location: 'Weizenbaum Institute, Berlin, Germany',
-        summary: 'The 2026 symposium brings together applied researchers, methodologists, legal and ethical experts, research engineers, and software developers working with digital trace data.',
+        title: 'Unlocking Data: Exploring research opportunities on online platforms',
+        date: '2026-11-20',
+        location: 'Webinar',
+        summary: 'The Netherlands Authority for Consumers and Markets (ACM) explores how the Digital Services Act opens non-public platform data to eligible researchers.',
+        href: '#'
+      })),
+    h(D.ArchiveCard.List, { heading: 'Also upcoming' },
+      h(D.ArchiveCard, {
+        title: 'ODISSEI Conference 2026 – Special Edition: 10 Years of ODISSEI',
+        date: '2026-11-24',
+        location: 'Jaarbeurs, Utrecht',
+        summary: 'ODISSEI marks its 10th anniversary at Jaarbeurs, Utrecht. Join our interactive session.',
         details: [
-          { label: 'Date', value: 'October 1-2, 2026' },
-          { label: 'Location', value: 'Weizenbaum Institute, Berlin, Germany' }
+          { label: 'When', value: '24 November 2026, 10:30–12:00' },
+          { label: 'Where', value: 'Utrecht, Jaarbeurs - Session Room D' }
         ],
-        href: '#',
-        actions: [{ label: 'Call for abstracts', href: '#' }]
+        href: '#'
       }),
       h(D.ArchiveCard, {
-        title: 'Data Donation Symposium 2025',
-        date: 'October 9-10, 2025',
-        location: 'Bavarian Academy of Sciences and Humanities, Munich, Germany',
-        summary: 'Hosted by colleagues at the Bavarian Academy of Sciences and Humanities.',
-        href: '#'
-      })
-    )
-  );
+        title: 'New Directions in Social Media Research Conference',
+        date: '2026-12-07',
+        endDate: '2026-12-08',
+        location: "St John's College, University of Cambridge",
+        summary: 'A two-day conference for international researchers studying technology-mediated social experiences.',
+        href: '#',
+        actions: [{ label: 'Call for papers', href: '#' }]
+      }))
+  ));
 </script>
 </body>
 </html>

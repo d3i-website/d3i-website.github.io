@@ -122,11 +122,27 @@ const PENDING_SITE_CLASSES = {
     'postit__run', // new markup, site adopts on redo
     'postit__disc', // new markup, site adopts on redo
   ],
+  NewsCard: [
+    'news-index', // new markup, site adopts on redo
+    'news-lead', // new markup, site adopts on redo
+    'news-grid', // new markup, site adopts on redo
+    'news-card__media--date', // new markup, site adopts on redo
+    'news-card__where', // new markup, site adopts on redo
+  ],
+  ArchiveCard: [
+    'archive-card__date', // new markup, site adopts on redo
+  ],
+  ProjectCard: [
+    'project-card__aside', // new markup, site adopts on redo
+    'project-card__facts', // new markup, site adopts on redo
+    'project-card__year', // new markup, site adopts on redo
+    'project-card__body', // new markup, site adopts on redo
+  ],
 };
 
 const websitePreviews = () => previews.filter((n) => !n.startsWith('Slide'));
 // Components that draw another component inside them, and so emit its pending classes too.
-const DRAWS = { PageIntro: ['ActionLink'], Routes: ['ActionLink'] };
+const DRAWS = { PageIntro: ['ActionLink'], Routes: ['ActionLink'], ArchiveCard: ['ActionLink'] };
 const pendingFor = (name) => [name, ...(DRAWS[name] || [])].flatMap((n) => PENDING_SITE_CLASSES[n] || []);
 
 test('every class a website component emits is used by the site', () => {
@@ -531,6 +547,127 @@ test('section subnav carries the header bar', () => {
   assert.ok(html.includes('<li class="section-subnav__item is-active"><a href="/b/" aria-current="page">b</a></li>'), 'the current page');
   assert.match(ruleFor('.section-subnav__item a::after'), /height:4px;background:var\(--blue\)/, 'the bar');
   assert.doesNotMatch(ruleFor('.section-subnav'), /surface-tint/, 'no tinted strip');
+});
+
+/* NewsCard, ArchiveCard, ProjectCard, EventDetails ------------------------------------------- */
+
+const NEWS = [
+  { title: 'Ready to reproduce', date: '2026-11-09', href: '/news/ready/', image: '/_blob/1', image_alt: 'An RO-Crate preview.',
+    summary: 'Export the complete study setup.' },
+  { title: 'Building a Shared Knowledge Base', date: '2026-11-03', href: '/news/ddp/', image: '/_blob/2' },
+  { title: 'Data Donation Symposium Program Available', date: '2026-09-08', href: 'https://www.dds26.example.org/program', external: true },
+];
+const newsIndex = (items = NEWS) => {
+  const { D3I, React } = bundle();
+  return renderToHtml(React.createElement(D3I.NewsCard.Index, { items }));
+};
+
+// The news page (round 2 B): the first item, the newest, is the lead story; the rest a grid.
+test('news index leads with the newest', () => {
+  const html = newsIndex();
+  assert.ok(html.startsWith('<div class="news-index"><article class="news-card news-lead">'), 'the index opens with the lead');
+  const lead = html.slice(0, html.indexOf('<div class="news-grid">'));
+  assert.ok(lead.includes('<a class="news-card__media" href="/news/ready/" tabindex="-1" aria-hidden="true"><img src="/_blob/1" alt="An RO-Crate preview."/></a>'), 'its picture');
+  assert.ok(lead.includes('<p class="news-card__date">November 9, 2026</p>'), 'its date as the site writes it');
+  assert.ok(lead.includes('<h3 class="news-card__title"><a href="/news/ready/"><span>Ready to reproduce</span></a></h3>'), 'the title is the link');
+  assert.ok(lead.includes('<p class="news-card__summary">Export the complete study setup.</p>'), 'its summary');
+  assert.ok(!lead.includes('Building a Shared'), 'only the first item leads');
+  const grid = html.slice(html.indexOf('<div class="news-grid">'));
+  assert.equal(count(grid, '<article class="news-card">'), 2, 'the rest in the grid');
+  assert.ok(grid.indexOf('Building a Shared') < grid.indexOf('Symposium Program'), 'in the order given');
+  assert.ok(!/news-lead/.test(grid), 'no second lead');
+  assert.ok(!/cta-link|section-cta|→/.test(html), 'no action link, no text arrow');
+  assert.ok(html.includes('<a href="https://www.dds26.example.org/program" target="_blank" rel="noopener noreferrer"><span>Data Donation'), 'external opens a new tab');
+  assert.ok(html.includes('<p class="news-card__where">On dds26.example.org</p>'), 'and says where it leads');
+  assert.match(ruleFor('.news-grid'), /grid-template-columns:repeat\(3, minmax\(0, 1fr\)\)/, 'three across');
+});
+
+// Each picture is the item's social-sharing card, shown at 1.91:1 and cropped to it until it is one.
+test('news image at 1.91:1', () => {
+  const rule = ruleFor('.news-index .news-card__media');
+  assert.match(rule, /aspect-ratio:1200 ?\/ ?628/, 'the box is 1200 / 628');
+  assert.match(ruleFor('.news-index .news-card__media img'), /width:100%;height:100%;object-fit:cover/, 'the picture fills it');
+});
+
+test('news item without image shows its date node', () => {
+  const html = newsIndex();
+  assert.ok(html.includes('<a class="news-card__media news-card__media--date" href="https://www.dds26.example.org/program" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">'
+    + '<i></i><span>September</span><b>8</b></a>'), 'the month over the day, under a node');
+  assert.equal(count(html, '<img'), 2, 'no picture drawn for it');
+  assert.match(ruleFor('.news-card__media--date i'), /background:var\(--sky\)/, 'a sky node');
+  assert.match(ruleFor('.news-index .news-card__media--date'), /border:1px solid var\(--border\)/, 'in a hairline frame');
+  const solo = newsIndex([{ title: 'x', date: '2026-07-14', href: '/x/' }]);
+  assert.ok(solo.includes('<article class="news-card news-lead"><a class="news-card__media news-card__media--date" href="/x/" tabindex="-1" aria-hidden="true"><i></i><span>July</span><b>14</b></a>'), 'a lead without a picture too');
+  assert.ok(!solo.includes('news-grid'), 'one item, no grid');
+});
+
+// NewsCard keeps its row form: the list row with the summary, month over day, the title the link.
+test('news row is the list row', () => {
+  const { D3I, React } = bundle();
+  const h = React.createElement;
+  const html = renderToHtml(h(D3I.NewsCard, { title: 'LISS Panel Grant', date: '2026-07-14', href: '/liss/', summary: 's' }));
+  assert.equal(html, '<article class="news-card news-card--row"><p class="news-card__date"><span>Jul</span><b>14</b></p>'
+    + '<div class="news-card__body"><h3 class="news-card__title"><a href="/liss/"><span>LISS Panel Grant</span></a></h3>'
+    + '<p class="news-card__summary">s</p></div></article>');
+  // The old props: a folded date still parses; accent, linkLabel and image leave no trace.
+  const old = renderToHtml(h(D3I.NewsCard, { title: 't', date: 'September 8, 2026', href: '#', accent: 1, linkLabel: 'Read on', image: { src: '/_blob/1', alt: '' } }));
+  assert.ok(old.includes('<p class="news-card__date"><span>Sep</span><b>8</b></p>'), 'September 8, 2026 is Sep over 8');
+  assert.ok(!/accent|Read on|linklabel|<img|cta-link|→|\[object/i.test(old), 'no accent, link, picture or stray attribute');
+  assert.deepEqual(rulesWith(/news-card/, 'shadow'), [], 'no shadow');
+  assert.deepEqual(rulesWith(/news-card/, 'var(--yellow)').concat(rulesWith(/news-card/, 'var(--coral)')), [], 'no accent fields');
+});
+
+// Round 1: the list row with place, summary and details; the title is the link, and a coral node
+// under the date marks the featured entry. Other actions take ActionLink's compact form.
+test('archive card is a list row', () => {
+  const { D3I, React } = bundle();
+  const h = React.createElement;
+  const html = renderToHtml(h(D3I.ArchiveCard, {
+    featured: true, title: 'New Directions', date: '2026-12-07', endDate: '2026-12-08', location: "St John's College",
+    summary: 's', href: 'https://example.org/', external: true, actions: [{ label: 'Call for papers', href: '/cfp/' }],
+  }));
+  assert.ok(html.startsWith('<article class="archive-card archive-card--featured"><p class="archive-card__date"><span>Dec</span><b>7–8</b></p>'), 'the date column');
+  assert.ok(html.includes('<h3 class="archive-card__title"><a href="https://example.org/" target="_blank" rel="noopener noreferrer"><span>New Directions</span></a></h3>'), 'the title is the link');
+  assert.ok(html.includes('<p class="archive-card__meta">St John&#x27;s College</p>'), 'the place alone under it');
+  assert.ok(html.includes('<div class="archive-card__actions"><a class="cta-link" href="/cfp/">Call for <span class="more__end">papers<i class="more__dots"></i><svg class="go"'), 'actions in the More form');
+  assert.ok(!/View details|→/.test(html), '"View details" goes, and the text arrow');
+  assert.match(ruleFor('.archive-card--featured .archive-card__date::after'), /background:var\(--coral\)/, 'a coral node for the featured entry');
+  assert.deepEqual(rulesWith(/archive-card/, 'tint').concat(rulesWith(/archive-card/, 'shadow')), [], 'no tint, no shadow');
+  const across = renderToHtml(h(D3I.ArchiveCard, { title: 't', date: 'September 30 - October 2, 2026' }));
+  assert.ok(across.includes('<p class="archive-card__date"><span>Sep–Oct</span><b>30–2</b></p>'), 'an old folded range across months');
+  assert.ok(across.includes('<h3 class="archive-card__title">t</h3>') && !across.includes('archive-card__meta'), 'no href, no link; no place, no meta');
+  const label = renderToHtml(h(D3I.ArchiveCard, { title: 't', date: 'Spring 2027', location: 'Online', href: '/t/', hrefLabel: 'More' }));
+  assert.ok(!label.includes('archive-card__date') && label.includes('<p class="archive-card__meta">Spring 2027 · Online</p>'), 'a date it cannot read stays in the meta line');
+  assert.ok(!/hreflabel|More/i.test(label), 'hrefLabel leaves no trace');
+});
+
+// Round 2 B: a side column with the picture at its own shape and the key facts under it, the year
+// in the serif; the study's text beside it.
+test('project dossier keeps the picture uncropped', () => {
+  const { D3I, React } = bundle();
+  const h = React.createElement;
+  const html = renderToHtml(h(D3I.ProjectCard, {
+    title: 'HARMONY', image: '/_blob/1', image_alt: 'Students at desks.', year: 2026,
+    facts: [{ label: 'Collected', value: 'April 2025 – June 2026' }], summary: 's', details: [{ label: 'Ethics', value: 'e' }],
+  }));
+  assert.ok(html.startsWith('<article class="project-card"><div class="project-card__aside"><img class="project-card__image" src="/_blob/1" alt="Students at desks."/>'
+    + '<dl class="project-card__facts"><div class="project-card__year"><dt>Year</dt><dd>2026</dd></div><div><dt>Collected</dt><dd>April 2025 – June 2026</dd></div></dl></div>'
+    + '<div class="project-card__body"><h3 class="project-card__title">HARMONY</h3>'), 'the aside, then the body');
+  assert.ok(html.includes('<dl class="project-card__details"><dt>Ethics</dt><dd>e</dd></dl>'), 'details in the body');
+  assert.deepEqual(rulesWith(/project-card__image/, 'object-fit'), [], 'no object-fit on the picture');
+  assert.match(ruleFor('.project-card__image'), /width:100%;height:auto/, 'at its own shape');
+  assert.match(ruleFor('.project-card__year dd'), /font:var\(--text-title-sm\)/, 'the year in the serif');
+  const old = renderToHtml(h(D3I.ProjectCard, { title: 't', image: { src: '/_blob/2', alt: 'a' } }));
+  assert.ok(old.includes('<img class="project-card__image" src="/_blob/2" alt="a"/>') && !/\[object/.test(old), 'the old image object still works');
+  const bare = renderToHtml(h(D3I.ProjectCard, { title: 't' }));
+  assert.equal(bare, '<article class="project-card"><div class="project-card__body"><h3 class="project-card__title">t</h3></div></article>', 'nothing for the aside, no aside');
+});
+
+test('event details have no panel', () => {
+  assert.doesNotMatch(ruleFor('.event-details'), /surface-tint|radius/, 'no tinted panel');
+  assert.match(ruleFor('.event-details'), /border-top:1px solid var\(--border\).*border-bottom:1px solid var\(--border\)/, 'between hairlines');
+  assert.match(ruleFor('.event-details__label'), /font:var\(--text-label\).*color:var\(--text-muted\)/, 'labels muted and bold');
+  assert.match(ruleFor('.event-details__value a'), /text-decoration:underline dotted var\(--sky\)/, 'links as Links');
 });
 
 // Two illustrations had lost the <style> block their shapes' classes point at, and drew as black

@@ -364,14 +364,14 @@ export interface NewsCardProps {
   /** The item's own page, or the external one (then set external). */
   href: string;
   external?: boolean;
-  /** As the site writes it: "September 8, 2026". */
+  /** ISO, "2026-09-08"; drawn as the month (%b) over the day. The site's folded "September 8, 2026" also reads. */
   date?: string;
   summary?: string;
-  /** Optional photo; without one the accent field shows bare. */
+  /** @deprecated The row draws no picture: NewsCard.Index draws each item's image. Ignored. */
   image?: Picture;
-  /** Media field colour 0, 1, 2 (blue, coral, yellow); default: title length modulo 3, as the site does. */
+  /** @deprecated The accent field is gone. Ignored. */
   accent?: 0 | 1 | 2;
-  /** Default "Read more". */
+  /** @deprecated "Read more" is gone: the title is the link. Ignored. */
   linkLabel?: string;
   className?: string;
 }
@@ -380,47 +380,73 @@ export interface NewsCardListProps {
   children: React.ReactNode;
   className?: string;
 }
+/** One item on the news page. */
+export interface NewsIndexItem {
+  title: string;
+  /** ISO, "2026-11-09" (the site's folded "November 9, 2026" also reads). */
+  date: string;
+  /** The item's own page, or the external one (then set external). */
+  href: string;
+  /** The item's image front-matter field: its social-sharing card, 1200 × 628 (1.91:1). Shown at 1.91:1, cropped by object-fit: cover. Without one the date shows on a sky node. */
+  image?: string;
+  image_alt?: string;
+  /** Opens in a new tab, and the item says where it leads: "On odissei-data.nl". */
+  external?: boolean;
+  /** Shown on the lead story only. */
+  summary?: string;
+}
+export interface NewsCardIndexProps {
+  /** Newest first: the first item is the lead story. */
+  items: NewsIndexItem[];
+  className?: string;
+}
 /**
- * A news item as a row: an accent media slot at the left, title, date, summary and a "Read more →" link pinned to the bottom.
+ * A news item as the list row: the month over the day, the title, which is the row's link, and the summary, between hairlines.
+ * NewsCard.Index is the news page: the newest item as the lead story, the rest a grid three across.
  * @example
- * <NewsCard title="Data Donation Symposium Program Available" href="#" date="September 8, 2026" summary="The schedule for the 2026 symposium has been published." />
+ * <NewsCard.Index items={[{ title: "Ready to reproduce: export your data donation study", date: "2026-11-09", href: "#", image: cardUrl }]} />
+ * <NewsCard title="Data Donation Symposium Program Available" href="#" date="2026-09-08" summary="The schedule for the 2026 symposium has been published." />
  */
 export declare const NewsCard: ((props: NewsCardProps) => React.ReactElement) & {
   /** A stack of news rows. */
   List: (props: NewsCardListProps) => React.ReactElement;
+  /** The news page: a lead story and a grid three across. */
+  Index: (props: NewsCardIndexProps) => React.ReactElement;
 };
 
 export interface ArchiveCardProps {
   title: string;
-  /** Formatted as the site does: "October 1-2, 2026". */
+  /** ISO, "2026-12-07"; drawn as the month over the day. The site's folded forms ("October 1-2, 2026", "September 30 - October 2, 2026") also read; anything else ("Spring 2027") stays in the meta line before the place. */
   date?: string;
-  /** "Weizenbaum Institute, Berlin, Germany"; joined to the date with " · ". */
+  /** ISO; a later day makes a range ("7–8"). */
+  endDate?: string;
+  /** "Weizenbaum Institute, Berlin, Germany", under the title. */
   location?: string;
   summary?: string;
   /** Labelled rows under the summary. */
   details?: DetailRow[];
-  /** The entry's page (or its external site); adds "View details →" as the first action. */
+  /** The entry's page (or its external site): the title becomes the link. */
   href?: string;
-  /** Overrides "View details". */
+  /** @deprecated "View details" is gone: the title is the link. Ignored. */
   hrefLabel?: string;
   external?: boolean;
-  /** Further action links after the first. */
+  /** Further actions, in ActionLink's compact form. */
   actions?: LinkTarget[];
-  /** Upcoming or highlighted: blue-tint fill and a road border. */
+  /** Upcoming or highlighted: a coral node under the date. */
   featured?: boolean;
   className?: string;
 }
 export interface ArchiveCardListProps {
   /** Optional heading over the list ("Upcoming", "Past events"). */
   heading?: string;
-  /** ArchiveCards, stacked 1rem apart. */
+  /** ArchiveCards, between hairlines. */
   children: React.ReactNode;
   className?: string;
 }
 /**
- * An event or archive entry: title, date and place, summary, detail rows and action links.
+ * An event or archive entry as a list row: the date column, the title (the link), the place, summary, detail rows and further actions.
  * @example
- * <ArchiveCard featured title="Data Donation Symposium 2026" date="October 1-2, 2026" location="Weizenbaum Institute, Berlin, Germany" href="#" />
+ * <ArchiveCard featured title="Data Donation Symposium 2026" date="2026-10-01" endDate="2026-10-02" location="Weizenbaum Institute, Berlin, Germany" href="#" />
  */
 export declare const ArchiveCard: ((props: ArchiveCardProps) => React.ReactElement) & {
   /** The archive list, optionally under a heading. */
@@ -463,9 +489,14 @@ export interface ProjectCardProps {
   investigators?: Person[];
   institution?: string;
   summary?: string;
-  /** Under the title, at radius-sm. */
-  image?: Picture;
-  /** The fields that apply, in this order: Data collection, Recruitment, Instructions, Ethics, Software, Processing, Data, Funded by. */
+  /** The study's picture (its image field), shown uncropped at its own shape at the head of the side column. An object { src, alt } is the old form: deprecated (use image and image_alt), and it still works. */
+  image?: string | Picture;
+  image_alt?: string;
+  /** The first key fact, labelled "Year", its value in the serif. */
+  year?: string | number;
+  /** The key facts under the picture, label left and value right: Collected, Software. */
+  facts?: DetailRow[];
+  /** The other fields that apply, in this order, beside the side column: Data collection, Recruitment, Instructions, Ethics, Software, Processing, Data, Funded by (leave out what facts already shows). */
   details?: DetailRow[];
   /** Reference list, collapsed under a summary line. */
   references?: React.ReactNode[];
@@ -474,16 +505,16 @@ export interface ProjectCardProps {
   className?: string;
 }
 export interface ProjectCardListProps {
-  /** ProjectCards, divided by border rules. */
+  /** ProjectCards, divided by hairlines. */
   children: React.ReactNode;
   /** Closing line crediting the illustration sources. */
   attribution?: React.ReactNode;
   className?: string;
 }
 /**
- * A completed study: title, investigators, a paragraph, labelled details and a collapsible reference list.
+ * A completed study as a dossier: a side column with the picture uncropped and the key facts (the year in the serif), and beside it the title, investigators, a paragraph, labelled details and a collapsible reference list.
  * @example
- * <ProjectCard title="Behind the screens: Exploring Netflix via Data Donations" investigators={[{ name: "Dennis Nguyen" }, { name: "Karin van Es" }]} institution="Utrecht University" summary="This study used data donations to investigate Netflix viewing behaviours." />
+ * <ProjectCard title="Behind the screens: Exploring Netflix via Data Donations" image={bannerUrl} year={2024} facts={[{ label: "Collected", value: "January – February 2024" }, { label: "Software", value: "Port" }]} investigators={[{ name: "Dennis Nguyen" }, { name: "Karin van Es" }]} institution="Utrecht University" summary="This study used data donations to investigate Netflix viewing behaviours." />
  */
 export declare const ProjectCard: ((props: ProjectCardProps) => React.ReactElement) & {
   /** The completed-projects list. */
@@ -746,7 +777,7 @@ export interface EventDetailsProps {
   className?: string;
 }
 /**
- * The metadata box near the top of an event page: label and value rows on the panel tint.
+ * The metadata near the top of an event page: label and value rows between hairlines, with no panel.
  * @example
  * <EventDetails rows={[{ label: "Date", value: "October 1-2, 2026" }, { label: "Location", value: "Weizenbaum Institute, Berlin, Germany" }]} />
  */

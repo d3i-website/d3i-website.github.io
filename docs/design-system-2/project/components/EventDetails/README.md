@@ -1,7 +1,16 @@
-The metadata box near the top of an event page: label and value rows for date, location and the like, on the panel tint.
+The metadata near the top of an event page: label and value rows for the date, the location and the like. There is no panel: the rows sit between hairlines. It comes after the short summary and before the body.
 
-Pass the detail `rows` (label and value; a value may be an element carrying a link, such as the venue). The same rows appear on the event's ArchiveCard; here they stand alone, after the short summary and before the body.
+## What you provide
 
-- `.event-details` is `surface-tint`, `radius-md`, padding `space-4` by `space-24`, capped at `content-width`.
-- `.event-details__row` is an 8rem / 1fr grid with a `border` bottom rule (none on the last) and `space-12` vertical padding; below `bp-sm` it stacks.
-- `.event-details__label` is `text-muted`; `.event-details__value` is `text`, with links in `blue` and a 1px hover underline.
+- `rows`: label and value pairs. A value may be an element carrying a link, such as the venue.
+
+The same rows appear on the event's ArchiveCard. Here they stand alone. There are no pictures to pass.
+
+## The values it draws
+
+- `.event-details` is capped at `content-width`, `space-32` above and below. It has a `border` hairline above the first row and below the last. There is no tint, padding or radius.
+- `.event-details__row` is an 8rem / 1fr grid, `space-16` apart, with its label and value on one baseline.
+  - Rows are 10px above and below and divided by `border` hairlines.
+  - At 600px and below, each row stacks, `space-4` apart.
+- `.event-details__label` is `label` (700) in `text-muted`. `.event-details__value` is `body` in `text`.
+- Links in a value are Links: `text` colour, with a dotted `sky` underline that turns solid on hover and focus.
