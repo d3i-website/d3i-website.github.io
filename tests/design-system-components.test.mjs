@@ -103,6 +103,9 @@ test('every preview renders', () => {
 const PENDING_COMPONENTS = ['ActionLink', 'JourneyNext', 'Postit', 'HubStep', 'NewsCard', 'ArchiveCard',
   'ProjectCard', 'Callout', 'SidebarPanel', 'ContactBlock'];
 const PENDING_SITE_CLASSES = {
+  ActionLink: [
+    'more__end', // new markup, site adopts on redo
+  ],
   JourneyNext: [
     'journey-next__disc', // new markup, site adopts on redo
   ],
@@ -122,12 +125,15 @@ const PENDING_SITE_CLASSES = {
 };
 
 const websitePreviews = () => previews.filter((n) => !n.startsWith('Slide'));
+// Components that draw another component inside them, and so emit its pending classes too.
+const DRAWS = { PageIntro: ['ActionLink'], Routes: ['ActionLink'] };
+const pendingFor = (name) => [name, ...(DRAWS[name] || [])].flatMap((n) => PENDING_SITE_CLASSES[n] || []);
 
 test('every class a website component emits is used by the site', () => {
   const used = classesOfSite();
   const missing = [];
   for (const name of websitePreviews()) {
-    const pending = PENDING_SITE_CLASSES[name] || [];
+    const pending = pendingFor(name);
     for (const c of classesIn(runPreview(previewPath(name), bundle()))) {
       if (c.startsWith('pv')) continue; // preview scaffolding (pv, pv-row), not component output
       if (!used.has(c) && !pending.includes(c)) missing.push(`${name} → ${c}`);
@@ -152,7 +158,7 @@ test('pending site classes are new, used, and their own component\'s', () => {
   for (const name of websitePreviews()) {
     const emitted = classesIn(runPreview(previewPath(name), bundle()));
     for (const c of PENDING_SITE_CLASSES[name] || []) if (!emitted.has(c)) wrong.push(`${name} → ${c}: its preview does not emit it`);
-    for (const c of emitted) if (owner.has(c) && owner.get(c) !== name) wrong.push(`${name} → ${c}: pending for ${owner.get(c)} only`);
+    for (const c of emitted) if (owner.has(c) && !pendingFor(name).includes(c)) wrong.push(`${name} → ${c}: pending for ${owner.get(c)} only`);
   }
   assert.deepEqual(wrong, [], wrong.join('\n  '));
 });
@@ -355,14 +361,31 @@ test('action link is the More form', () => {
   const { D3I, React } = bundle();
   const h = React.createElement;
   const section = renderToHtml(h(D3I.ActionLink, { href: '#', hiddenLabel: ' about data donation' }, 'Learn more'));
-  assert.ok(section.startsWith('<a class="section-cta" href="#">Learn more<span class="visually-hidden"> about data donation</span><i class="more__dots"></i><svg class="go"'),
+  assert.ok(section.startsWith('<a class="section-cta" href="#">Learn <span class="more__end">more<span class="visually-hidden"> about data donation</span><i class="more__dots"></i><svg class="go"'),
     'the label, the hidden word, the dots and the disc');
   assert.equal(count(section, 'class="go"'), 1, 'one arrow disc');
   assert.ok(!section.includes('→'), 'no text arrow');
   const compact = renderToHtml(h(D3I.ActionLink, { href: '#', variant: 'compact' }, 'Read more'));
-  assert.ok(compact.startsWith('<a class="cta-link" href="#">Read more<i class="more__dots"></i><svg class="go"'), 'the compact form, no hidden word');
+  assert.ok(compact.startsWith('<a class="cta-link" href="#">Read <span class="more__end">more<i class="more__dots"></i><svg class="go"'), 'the compact form, no hidden word');
   const ext = renderToHtml(h(D3I.ActionLink, { href: 'https://example.org/', external: true }, 'x'));
   assert.ok(ext.includes('target="_blank" rel="noopener noreferrer"'), 'external opens a new tab');
+});
+
+// A long label wraps like text, but its last word, the dots and the disc never part: they share
+// one nowrap element. A label that is not plain text goes into that element whole.
+test('action link keeps its last word, dots and disc together', () => {
+  const { D3I, React } = bundle();
+  const h = React.createElement;
+  const html = renderToHtml(h(D3I.ActionLink, { href: '#' }, 'Read the ODISSEI user policy'));
+  assert.ok(html.startsWith('<a class="section-cta" href="#">Read the ODISSEI user <span class="more__end">policy<i class="more__dots"></i><svg class="go"'),
+    'the last word opens the end element');
+  assert.ok(html.endsWith('</svg></span></a>'), 'which closes after the disc');
+  const one = renderToHtml(h(D3I.ActionLink, { href: '#' }, ' More '));
+  assert.ok(one.startsWith('<a class="section-cta" href="#"><span class="more__end">More<i class="more__dots">'), 'a one-word label, trimmed');
+  const node = renderToHtml(h(D3I.ActionLink, { href: '#' }, h('b', null, 'x')));
+  assert.ok(node.startsWith('<a class="section-cta" href="#"><span class="more__end"><b>x</b><i class="more__dots">'), 'a node label, whole');
+  assert.match(ruleFor('.section-cta .more__end'), /white-space:nowrap/, 'nowrap');
+  assert.doesNotMatch(ruleFor('.section-cta'), /nowrap/, 'the rest of the label wraps');
 });
 
 // The title is the block's link, and the block ends in the 36px arrow disc; "After that" sits
@@ -489,10 +512,10 @@ test('page intro and routes act in the More form', () => {
   const { D3I, React } = bundle();
   const h = React.createElement;
   const intro = renderToHtml(h(D3I.PageIntro, { title: 't', actions: [{ label: 'Preview it on Next', href: '/next/' }, { label: 'Source', href: 'https://example.org/', external: true }] }));
-  assert.ok(intro.includes('<a class="cta-link" href="/next/">Preview it on Next<i class="more__dots"></i><svg class="go"'), 'intro actions');
-  assert.ok(intro.includes('<a class="cta-link" href="https://example.org/" target="_blank" rel="noopener noreferrer">Source<i class="more__dots"></i>'), 'external');
+  assert.ok(intro.includes('<a class="cta-link" href="/next/">Preview it on <span class="more__end">Next<i class="more__dots"></i><svg class="go"'), 'intro actions');
+  assert.ok(intro.includes('<a class="cta-link" href="https://example.org/" target="_blank" rel="noopener noreferrer"><span class="more__end">Source<i class="more__dots"></i>'), 'external');
   const routes = renderToHtml(h(D3I.Routes, { routes: [{ glyph: 'globe', question: 'q', steps: [{ text: 's', link: { label: 'Service and pricing', href: '/pricing/' } }] }] }));
-  assert.ok(routes.includes('<a class="section-cta route__step-link" href="/pricing/">Service and pricing<i class="more__dots"></i><svg class="go"'), 'route steps');
+  assert.ok(routes.includes('<a class="section-cta route__step-link" href="/pricing/">Service and <span class="more__end">pricing<i class="more__dots"></i><svg class="go"'), 'route steps');
   assert.ok(!/→/.test(intro + routes), 'no text arrow');
   assert.match(ruleFor('.route::before'), /width:var\(--line-page\).*background:var\(--blue\)/, 'each route a blue line');
   assert.match(ruleFor('.route__glyph'), /border-radius:var\(--radius-circle\).*background:var\(--blue\)/, 'headed by a glyph disc');

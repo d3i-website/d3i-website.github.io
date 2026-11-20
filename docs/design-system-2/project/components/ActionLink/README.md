@@ -6,14 +6,14 @@ PageIntro's actions and Routes' step links are ActionLinks. The site's action li
 
 - The label, as children: plain words, a verb phrase or "More" ("Learn about data donation", "Read more"). No arrow: the disc is added.
 - `href`, and `external` to open the link in a new tab (`target="_blank" rel="noopener noreferrer"`).
-- `hiddenLabel` (optional): words for screen readers only, in a `<span class="visually-hidden">` straight after the label, for what a short label leaves out: " news" after "More", so the link reads "More news".
+- `hiddenLabel` (optional): words for screen readers only, in a `<span class="visually-hidden">` straight after the label (inside `.more__end`), for what a short label leaves out: " news" after "More", so the link reads "More news".
 - `variant`: `section` (the default, `.section-cta`) for a call to action under a section, or `compact` (`.cta-link`) inside cards and section headers.
 
 There are no pictures to pass. The disc is `ArrowDisc`, drawn inline.
 
 ## The values it draws
 
-- `.section-cta` is `link` in `text` (Nunito Sans 700, 16px), with no underline: the label, the dots and the disc in a row, `space-8` apart, on one line.
+- `.section-cta` is `link` in `text` (Nunito Sans 700, 16px), with no underline. A long label wraps like text, but its last word, the dots and the disc sit in one `.more__end` span that never breaks (`white-space: nowrap`), `space-8` apart and centred on each other, so the disc never lands on a line of its own. A label that is not plain text goes into that span whole.
 - `.cta-link` is the same in `label` (14px).
 - `.more__dots` is 28px wide: a dot `line-dot-page` high every `line-dot-spacing`, in `sky`. On hover and on keyboard focus it turns into a solid `sky` line; the colour of the text never changes.
 - `.go` is the arrow disc at `disc-arrow-sm` (24px).

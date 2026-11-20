@@ -62,15 +62,24 @@
   /* Actions --------------------------------------------------------------- */
 
   /* The front page's "More" form off the front page: the label, a word for screen readers straight
-     after it (hiddenLabel), the short dotted line and the small arrow disc. */
+     after it (hiddenLabel), the short dotted line and the small arrow disc. A long label wraps like
+     text, but its last word, the dots and the disc share one nowrap span (more__end), so they never
+     part. A label that is not plain text goes into that span whole. */
   function ActionLink(p) {
     var attrs = Object.assign({ className: cx(p.variant === 'compact' ? 'cta-link' : 'section-cta', p.className) },
       rest(p, ['href', 'external', 'variant', 'hiddenLabel', 'className']), linkAttrs(p.href, p.external));
+    var head = null, last = p.children;
+    if (typeof p.children === 'string') {
+      var m = /^([\s\S]*\s)?(\S+)$/.exec(p.children.trim());
+      if (m) { head = m[1] || null; last = m[2]; }
+    }
     return h('a', attrs,
-      p.children,
-      p.hiddenLabel ? h('span', { className: 'visually-hidden' }, p.hiddenLabel) : null,
-      h('i', { className: 'more__dots' }),
-      h(ArrowDisc, null));
+      head,
+      h('span', { className: 'more__end' },
+        last,
+        p.hiddenLabel ? h('span', { className: 'visually-hidden' }, p.hiddenLabel) : null,
+        h('i', { className: 'more__dots' }),
+        h(ArrowDisc, null)));
   }
 
   function ContactBlock(p) {

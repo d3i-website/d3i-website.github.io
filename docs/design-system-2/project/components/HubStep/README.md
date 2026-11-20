@@ -16,9 +16,9 @@ Pictures are uploads in this system: find the id on `api/assets/<Group>.md`, fet
 
 - The hub is Nunito Sans (`.hub`). `.hub--journey` pads `space-32` by `space-24`, up to `space-64` by `space-32` from 900px.
 - `.hub__movements` stacks the steps `space-64` apart, `space-96` from 900px. Its `::before` is the line: `line-page` in `blue`. Ring nodes (`node-ring`, `surface` fill, 1.4px `blue` edge) close it at the top and the bottom.
-- From 900px the line runs down the middle. Each `.hub__movement` is two columns 128px apart, with the image and the text alternating sides, and the number's disc sits on the line, level with the middle of the step.
+- From 900px the line runs down the middle. Each `.hub__movement` is two columns 128px apart (off the spacing scale, from the chosen mockup: room for the 48px disc and 40px either side of it), with the image and the text alternating sides, and the number's disc sits on the line, level with the middle of the step.
 - Below 900px the line runs 24px in from the left and the steps are inset 68px, image first. The disc sits on the line, level with the top of the step.
-- `.hub__movement-number` is the disc: 48px, `blue`, with the number in `numeral` (the serif, provisional) in `on-sky`. It is hidden from screen readers, as on the site.
+- `.hub__movement-number` is the disc: 48px (off the token scale, from the chosen mockup: between `disc`, 39.6px, and the slides' plan), `blue`, with the number in `numeral` (the serif, provisional) in `on-sky`. It is hidden from screen readers, as on the site.
 - `.hub__movement-image img` is letterboxed in a 5:4 box at up to 20rem (`object-fit: contain`).
 - `.hub__movement-title` is `title-sm` in the serif (provisional), in `heading`. Its words carry the dotted `sky` link underline at `line-underline-offset-title`, solid on hover and on keyboard focus. `.hub__movement-body` is `body` in `text`, at most 32rem.
 - The hub hero above the steps is carried over unchanged: a title in the display face with a `lead` line in `text-muted`, beside an image at up to 32rem.

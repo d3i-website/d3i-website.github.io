@@ -169,7 +169,7 @@ No slide uses the tints, `yellow-text`, `road`, `surface-tint`, `surface-strong`
 - A title that is a whole-line link (card headings, news and event titles) keeps its own weight (`card-heading`, `row-title`) and takes the same underline, at `line-underline-offset-title`.
 - The note's link text on its tab is `blue`, in `note-label`.
 - **The arrow disc** is a `blue` disc with a white arrow. It marks the few things that lead somewhere as a whole: the note and the Postit (`disc-arrow`, 36px), the next step at the foot of a journey page (JourneyNext, `disc-arrow`), and "More" and every action link (`disc-arrow-sm`, 24px). Nothing else carries it; a card or a row is a link through its title.
-- "More" is `label` in `text`, followed by a short dotted `sky` line (a repeating dot `line-dot-page` high, one every `line-dot-spacing`) and the arrow disc. The dotted line turns solid on hover and on keyboard focus. Off the front page an action link (ActionLink) takes the same form: `link` in its section form, `label` in its compact form, `space-8` between the parts. It is the thing to click, one per card or section; there are no buttons.
+- "More" is `label` in `text`, followed by a short dotted `sky` line (a repeating dot `line-dot-page` high, one every `line-dot-spacing`) and the arrow disc. The dotted line turns solid on hover and on keyboard focus. Off the front page an action link (ActionLink) takes the same form: `link` in its section form, `label` in its compact form, `space-8` between the parts. A long label wraps, but its last word stays with the dotted line and the disc. It is the thing to click, one per card or section; there are no buttons.
 
 ## Website · Lines and nodes
 

@@ -15,5 +15,5 @@ There are no pictures to pass. The glyphs are inline SVG.
 - `.route__glyph` is a `disc` (39.6px) in `blue`, with the glyph in `on-sky` 8px inside it.
 - `.route__question` is `list-heading` in the serif (provisional), in `heading` and balanced, set 7px down so its first line centres on the disc. `.route__answer` is `body` in `text`.
 - `.route__step::before` is the step's node: a `node` dot in `blue` on the line, level with the step's first line. `.route__step-text` is `body`.
-- `.route__step-link` is the ActionLink in its section form: the label, the dotted `sky` line and the small arrow disc. In a route it may wrap onto two lines, with the dots and the disc after the label.
+- `.route__step-link` is the ActionLink in its section form: the label, the dotted `sky` line and the small arrow disc. A long label wraps onto two lines, its last word staying with the dots and the disc.
 - `.routes__attribution` is `caption` in `text-muted`, with underlined links.
