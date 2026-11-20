@@ -1,6 +1,6 @@
-The arrow disc: a `blue` disc with a white arrow. It marks the few things on the front page that lead somewhere as a whole. Nothing else carries it; a card or a row is a link through its title.
+The arrow disc: a `blue` disc with a white arrow. It marks the few things that lead somewhere as a whole. Nothing else carries it; a card or a row is a link through its title.
 
-Put it at the end of the link it marks, inside `FrontPage`, which styles it. On the site it ends "More" on each list's heading line (`_includes/home/lists.html`'s `svg.go`), which `ListRow.List` draws with it. The note draws its own, larger disc, so do not put an ArrowDisc in a `Note`.
+Put it at the end of the link it marks, inside `FrontPage`, which styles it. On the site it ends "More" on each list's heading line (`_includes/home/lists.html`'s `svg.go`), which `ListRow.List` draws with it. Off the front page `ActionLink` draws it and styles it itself. The note, the Postit and JourneyNext draw their own, larger disc, so do not put an ArrowDisc in them.
 
 ## What you provide
 

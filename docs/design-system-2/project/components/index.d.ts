@@ -282,15 +282,17 @@ export declare const ListRow: ((props: ListRowProps) => React.ReactElement) & {
 
 export interface ActionLinkProps {
   href: string;
-  /** The label: a verb phrase, no arrow (the arrow is added). */
+  /** The label: plain words, a verb phrase or "More", with no arrow (the disc is added). */
   children: React.ReactNode;
-  /** section: the standard coral link (.section-cta); compact: inside cards and headers (.cta-link). */
+  /** Words for screen readers only, straight after the label, in a <span class="visually-hidden">: " news" after "More". */
+  hiddenLabel?: string;
+  /** section: in `link` (.section-cta); compact: in `label`, inside cards and headers (.cta-link). */
   variant?: 'section' | 'compact';
   external?: boolean;
   className?: string;
 }
 /**
- * The site's one call to action: a bold coral link with a trailing arrow. One per card or section; there are no buttons.
+ * The call to action, in the front page's "More" form: the label in text, a short dotted sky line and the small arrow disc. One per card or section; there are no buttons.
  * @example
  * <ActionLink href="#">Learn about data donation</ActionLink>
  */
@@ -323,21 +325,21 @@ export declare function ContactBlock(props: ContactBlockProps): React.ReactEleme
 /* Notes ----------------------------------------------------------------------- */
 
 export interface PostitProps {
-  /** One or two words; default "Updates". */
+  /** One to three words, in note-label and coral: "Outage". Left out, there is no eyebrow. */
   eyebrow?: string;
-  /** A short title. */
+  /** The message's name, in note-label and heading. */
   title: string;
-  /** One or two sentences (or pass them as children). */
-  body?: React.ReactNode;
-  children?: React.ReactNode;
-  /** Optional link; its label carries its own arrow: "Read our letter →". */
-  link?: LinkTarget;
-  /** The content-page form: no tape, floats right above 768px. */
+  /** One or two sentences, in note-text. Left out, there is no body paragraph. */
+  body?: string;
+  /** Where the postit leads. With an href the whole postit is one link (<a class="postit">) and carries the arrow disc; `label` is the text on the tab ("Read our letter"), and without it the tab is empty. Left out, the postit is an <aside class="postit"> with no disc. */
+  link?: { label?: string; href: string; external?: boolean };
+  /** The content-page form: floats right of the text from 768px. */
   inline?: boolean;
+  /** Added to the postit's root, which also takes the other unknown props. */
   className?: string;
 }
 /**
- * A cream sticky note for timely updates: a position, an outage, a deadline. One per page, only while timely.
+ * The front page's note on a content page or directory hub: a timely message (a position, an outage, a deadline) on paper with the tab, the dotted line from the coral corner node, and the arrow disc when it links. One per page, only while timely.
  * @example
  * <Postit eyebrow="Outage" title="Script selector is offline" body="SURF Research Cloud, which hosts the selector, is currently down." inline />
  */
@@ -349,7 +351,7 @@ export interface CalloutProps {
   className?: string;
 }
 /**
- * A quiet notice inside the reading column: a pale blue box with a blue rule on the left.
+ * A quiet notice inside the reading column, with no frame: it sits on a short blue line from a coral node to a ring node.
  * @example
  * <Callout>SURF Research Cloud, which hosts the script selector, is currently down.</Callout>
  */
@@ -613,20 +615,23 @@ export declare function Routes(props: RoutesProps): React.ReactElement;
 
 export interface JourneyNextProps {
   /** The next step's two-digit number, as on the hub: "02". */
-  number: string;
+  number?: string;
+  /** The next step's title, in card-heading; with href it is the block's link. */
   title: string;
   body?: string;
-  link?: LinkTarget;
+  /** The next step's page. The title links to it and the step ends in the arrow disc; without it, neither. */
+  href?: string;
+  external?: boolean;
   /** The step after that, as a quieter line. */
-  after?: { number: string; title: string; href: string };
+  after?: { number?: string; title: string; href?: string };
   /** Default "Next step". */
   label?: string;
   className?: string;
 }
 /**
- * The "Next step" block at the foot of a journey page: a coral number beside the next step's title. Not on the last step.
+ * The "Next step" block at the foot of a journey page: the number in the serif beside the next step's title, which is the link, ending in the arrow disc. Not on the last step.
  * @example
- * <JourneyNext number="02" title="Pick a platform" link={{ label: "Use our script selector", href: "#" }} after={{ number: "03", title: "Go further (optional)", href: "#" }} />
+ * <JourneyNext number="02" title="Pick a platform" href="#" after={{ number: "03", title: "Go further (optional)", href: "#" }} />
  */
 export declare function JourneyNext(props: JourneyNextProps): React.ReactElement;
 

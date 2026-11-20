@@ -61,10 +61,16 @@
 
   /* Actions --------------------------------------------------------------- */
 
+  /* The front page's "More" form off the front page: the label, a word for screen readers straight
+     after it (hiddenLabel), the short dotted line and the small arrow disc. */
   function ActionLink(p) {
-    var attrs = Object.assign(rest(p, ['href', 'external', 'variant', 'className']), linkAttrs(p.href, p.external));
-    attrs.className = cx(p.variant === 'compact' ? 'cta-link' : 'section-cta', p.className);
-    return h('a', attrs, p.children, ' ', arrow());
+    var attrs = Object.assign({ className: cx(p.variant === 'compact' ? 'cta-link' : 'section-cta', p.className) },
+      rest(p, ['href', 'external', 'variant', 'hiddenLabel', 'className']), linkAttrs(p.href, p.external));
+    return h('a', attrs,
+      p.children,
+      p.hiddenLabel ? h('span', { className: 'visually-hidden' }, p.hiddenLabel) : null,
+      h('i', { className: 'more__dots' }),
+      h(ArrowDisc, null));
   }
 
   function ContactBlock(p) {
@@ -89,21 +95,33 @@
 
   /* Notes ------------------------------------------------------------------ */
 
+  /* The front page's note brought to the content pages, in the site's postit classes: the text on
+     paper, the tab, and over the tab the dotted line from the coral corner node (noteTab and
+     noteOver, shared with Note). With link.href the whole postit is one link and carries the arrow
+     disc and, with link.label, the tab's text; without one it is an <aside> with neither. */
   function Postit(p) {
-    var body = p.body != null ? p.body : p.children;
+    var href = p.link && p.link.href ? p.link.href : null;
     var attrs = rest(p, ['eyebrow', 'title', 'body', 'link', 'inline', 'className']);
     attrs.className = cx('postit', p.inline && 'postit--inline', p.className);
-    return h('aside', attrs,
-      h('p', { className: 'postit__eyebrow' }, p.eyebrow || 'Updates'),
-      h('h3', { className: 'postit__title' }, p.title),
-      body != null ? h('p', { className: 'postit__body' }, body) : null,
-      p.link ? h('a', Object.assign({ className: 'postit__link' }, linkAttrs(p.link.href, p.link.external)), p.link.label) : null);
+    if (href) Object.assign(attrs, linkAttrs(href, p.link.external));
+    return h(href ? 'a' : 'aside', attrs,
+      h('div', { className: 'postit__paper' },
+        h('div', { className: 'postit__note' },
+          p.eyebrow ? h('p', { className: 'postit__eyebrow' }, p.eyebrow) : null,
+          h('h3', { className: 'postit__title' }, p.title),
+          p.body ? h('p', { className: 'postit__body' }, p.body) : null),
+        noteTab('postit__tab')),
+      noteOver('postit', href, href && p.link.label));
   }
 
+  /* A notice on a short blue line (.callout::before), from a coral node to a ring node. */
   function Callout(p) {
     var attrs = rest(p, ['className']);
     attrs.className = cx('callout', p.className);
-    return h('div', attrs, h('p', null, p.children));
+    return h('div', attrs,
+      h('i', { className: 'callout__node' }),
+      h('p', null, p.children),
+      h('i', { className: 'callout__ring' }));
   }
 
   /* Cards ------------------------------------------------------------------ */
@@ -346,24 +364,28 @@
       attribution ? h('p', { className: 'routes__attribution' }, attribution) : null);
   }
 
+  /* The next step leads somewhere as a whole: its title is the link (the link's ::after covers the
+     step) and the step ends in the arrow disc, as the note does. "After that" sits below the step,
+     outside what the title's link covers. */
   function JourneyNext(p) {
     var id = R().useId();
     var labelId = 'journey-next-label' + id.replace(/:/g, '');
-    var attrs = rest(p, ['number', 'title', 'body', 'link', 'after', 'label', 'className']);
+    var attrs = rest(p, ['number', 'title', 'body', 'href', 'external', 'after', 'label', 'className']);
     attrs.className = cx('journey-next', p.className);
     attrs['aria-labelledby'] = labelId;
     var after = p.after;
+    var title = h('span', null, p.title);
     return h('aside', attrs,
       h('p', { className: 'journey-next__label', id: labelId }, p.label || 'Next step'),
       h('div', { className: 'journey-next__step' },
-        h('span', { className: 'journey-next__number', 'aria-hidden': 'true' }, p.number),
+        p.number ? h('span', { className: 'journey-next__number', 'aria-hidden': 'true' }, p.number) : null,
         h('div', { className: 'journey-next__text' },
-          h('h2', { className: 'journey-next__title' }, p.title),
-          p.body ? h('p', { className: 'journey-next__body' }, p.body) : null,
-          p.link ? h('a', Object.assign({ className: 'section-cta journey-next__link' }, linkAttrs(p.link.href, p.link.external)), p.link.label, ' ', arrow()) : null,
-          after ? h('p', { className: 'journey-next__after' }, 'After that: ',
-            h('span', { className: 'journey-next__after-number' }, after.number), ' ',
-            h('a', { href: after.href }, after.title)) : null)));
+          h('h2', { className: 'journey-next__title' }, p.href ? h('a', linkAttrs(p.href, p.external), title) : title),
+          p.body ? h('p', { className: 'journey-next__body' }, p.body) : null),
+        p.href ? h('svg', Object.assign({ className: 'journey-next__disc' }, NOTE_DISC), discParts('1.8')) : null),
+      after ? h('p', { className: 'journey-next__after' }, 'After that: ',
+        after.number ? h('span', { className: 'journey-next__after-number' }, after.number) : null, after.number ? ' ' : null,
+        after.href ? h('a', { href: after.href }, after.title) : after.title) : null);
   }
 
   function HubStep(p) {
@@ -512,12 +534,29 @@
   /* The note that lies on the band, as _includes/home/note.html writes it. With link.href the whole
      note is one link and carries the arrow disc (note__go below 1280px, note__disc on the corner from
      1280px) and, with link.label, the tab's text; without one it is a plain div with neither. */
+  var NOTE_DISC = { width: '36', height: '36', viewBox: '-18 -18 36 36', 'aria-hidden': 'true' };
+  /* The paper's tab, under the note's text. */
+  function noteTab(className) {
+    return h('svg', { className: className, width: '169', height: '30', viewBox: '0 0 169 30', 'aria-hidden': 'true' },
+      h('path', { fill: '#f3f9fd', d: 'M0 0 H168.3 c-6.55 0 -12.47 3.9 -15.05 9.93 l-4.2 10.15 c-2.57 6.03 -8.5 9.93 -15.05 9.93 H0 Z' }));
+  }
+  /* What lies over the tab (<base>__over): the dotted line from the coral corner node to a ring
+     node, the run to the corner, and with an href the arrow disc there and the tab's label. */
+  function noteOver(base, href, label) {
+    return h('div', { className: base + '__over' },
+      h('svg', { className: base + '__route', width: '184', height: '30', viewBox: '0 0 184 30', 'aria-hidden': 'true' },
+        h('path', { className: 'dot', d: 'M0 30 H134 c6.55 0 12.48-3.9 15.05-9.93 l4.2-10.15 c2.58-6.03 8.5-9.93 15.05-9.93 H174' }),
+        h('circle', { cx: '0', cy: '30', r: '4.5', fill: '#ff5e5e' }),
+        h('circle', { cx: '178', cy: '0', r: '4.2', fill: '#fff', stroke: '#4272ef', strokeWidth: '1.4' })),
+      h('i', { className: base + '__run' }),
+      href ? h('svg', Object.assign({ className: base + '__disc' }, NOTE_DISC), discParts('1.8')) : null,
+      href && label ? h('span', { className: base + '__link' }, label) : null);
+  }
   function Note(p) {
     var href = p.link && p.link.href ? p.link.href : null;
     var attrs = rest(p, ['eyebrow', 'title', 'body', 'link', 'className']);
     attrs.className = cx('note', p.className);
     if (href) attrs.href = href;
-    var disc = { width: '36', height: '36', viewBox: '-18 -18 36 36', 'aria-hidden': 'true' };
     return h(href ? 'a' : 'div', attrs,
       h('div', { className: 'note__paper' },
         h('div', { className: 'note__body' },
@@ -525,17 +564,9 @@
             p.eyebrow ? h('p', { className: 'note__eyebrow' }, p.eyebrow) : null,
             h('p', { className: 'note__title' }, p.title)),
           p.body ? h('p', { className: 'note__text' }, p.body) : null,
-          href ? h('svg', Object.assign({ className: 'note__go' }, disc), discParts('1.8')) : null),
-        h('svg', { className: 'note__tab', width: '169', height: '30', viewBox: '0 0 169 30', 'aria-hidden': 'true' },
-          h('path', { fill: '#f3f9fd', d: 'M0 0 H168.3 c-6.55 0 -12.47 3.9 -15.05 9.93 l-4.2 10.15 c-2.57 6.03 -8.5 9.93 -15.05 9.93 H0 Z' }))),
-      h('div', { className: 'note__over' },
-        h('svg', { className: 'note__route', width: '184', height: '30', viewBox: '0 0 184 30', 'aria-hidden': 'true' },
-          h('path', { className: 'dot', d: 'M0 30 H134 c6.55 0 12.48-3.9 15.05-9.93 l4.2-10.15 c2.58-6.03 8.5-9.93 15.05-9.93 H174' }),
-          h('circle', { cx: '0', cy: '30', r: '4.5', fill: '#ff5e5e' }),
-          h('circle', { cx: '178', cy: '0', r: '4.2', fill: '#fff', stroke: '#4272ef', strokeWidth: '1.4' })),
-        h('i', { className: 'note__run' }),
-        href ? h('svg', Object.assign({ className: 'note__disc' }, disc), discParts('1.8')) : null,
-        href && p.link.label ? h('span', { className: 'note__link' }, p.link.label) : null));
+          href ? h('svg', Object.assign({ className: 'note__go' }, NOTE_DISC), discParts('1.8')) : null),
+        noteTab('note__tab')),
+      noteOver('note', href, href && p.link.label));
   }
 
   /* The small arrow disc that ends "More" (_includes/home/lists.html's svg.go), 24px. Its label is

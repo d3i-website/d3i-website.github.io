@@ -97,16 +97,64 @@ test('every preview renders', () => {
   }
 });
 
+// The system leads the site: a component whose new look changes its markup may emit classes the
+// built site does not have yet. Each is listed here under its component; the site adopts it when
+// that page is redone, and then it leaves the map. Only these components may have entries.
+const PENDING_COMPONENTS = ['ActionLink', 'JourneyNext', 'Postit', 'HubStep', 'NewsCard', 'ArchiveCard',
+  'ProjectCard', 'Callout', 'SidebarPanel', 'ContactBlock'];
+const PENDING_SITE_CLASSES = {
+  JourneyNext: [
+    'journey-next__disc', // new markup, site adopts on redo
+  ],
+  Callout: [
+    'callout__node', // new markup, site adopts on redo
+    'callout__ring', // new markup, site adopts on redo
+  ],
+  Postit: [
+    'postit__paper', // new markup, site adopts on redo
+    'postit__note', // new markup, site adopts on redo
+    'postit__tab', // new markup, site adopts on redo
+    'postit__over', // new markup, site adopts on redo
+    'postit__route', // new markup, site adopts on redo
+    'postit__run', // new markup, site adopts on redo
+    'postit__disc', // new markup, site adopts on redo
+  ],
+};
+
+const websitePreviews = () => previews.filter((n) => !n.startsWith('Slide'));
+
 test('every class a website component emits is used by the site', () => {
   const used = classesOfSite();
   const missing = [];
-  for (const name of previews.filter((n) => !n.startsWith('Slide'))) {
+  for (const name of websitePreviews()) {
+    const pending = PENDING_SITE_CLASSES[name] || [];
     for (const c of classesIn(runPreview(previewPath(name), bundle()))) {
       if (c.startsWith('pv')) continue; // preview scaffolding (pv, pv-row), not component output
-      if (!used.has(c)) missing.push(`${name} → ${c}`);
+      if (!used.has(c) && !pending.includes(c)) missing.push(`${name} → ${c}`);
     }
   }
   assert.deepEqual(missing, [], `classes the site does not use:\n  ${missing.join('\n  ')}`);
+});
+
+// A pending class is one the site does not have yet, that its own component emits, and that no
+// other component uses.
+test('pending site classes are new, used, and their own component\'s', () => {
+  const used = classesOfSite();
+  const wrong = [];
+  const owner = new Map();
+  for (const [name, classes] of Object.entries(PENDING_SITE_CLASSES)) {
+    if (!PENDING_COMPONENTS.includes(name)) wrong.push(`${name} may not have pending classes`);
+    for (const c of classes) {
+      if (used.has(c)) wrong.push(`${name} → ${c}: the site has it now, drop it from the map`);
+      owner.set(c, name);
+    }
+  }
+  for (const name of websitePreviews()) {
+    const emitted = classesIn(runPreview(previewPath(name), bundle()));
+    for (const c of PENDING_SITE_CLASSES[name] || []) if (!emitted.has(c)) wrong.push(`${name} → ${c}: its preview does not emit it`);
+    for (const c of emitted) if (owner.has(c) && owner.get(c) !== name) wrong.push(`${name} → ${c}: pending for ${owner.get(c)} only`);
+  }
+  assert.deepEqual(wrong, [], wrong.join('\n  '));
 });
 
 // mailto: and data: point at no file, so they pass too: ContactBlock builds its mailto: link from
@@ -298,6 +346,73 @@ test('external row opens in a new tab', () => {
   const own = renderToHtml(React.createElement(D3I.ListRow, { date: '2026-11-20', title: 'x', href: '#' }));
   assert.ok(ext.includes('<a href="https://example.org/" target="_blank" rel="noopener noreferrer"><span>x</span></a>'), 'target and rel');
   assert.ok(!/target=|rel=/.test(own), 'none without external');
+});
+
+/* ActionLink, JourneyNext, Callout, Postit ---------------------------------------------------- */
+
+// The front page's "More" form: the label, its hidden word straight after it, the dots, the disc.
+test('action link is the More form', () => {
+  const { D3I, React } = bundle();
+  const h = React.createElement;
+  const section = renderToHtml(h(D3I.ActionLink, { href: '#', hiddenLabel: ' about data donation' }, 'Learn more'));
+  assert.ok(section.startsWith('<a class="section-cta" href="#">Learn more<span class="visually-hidden"> about data donation</span><i class="more__dots"></i><svg class="go"'),
+    'the label, the hidden word, the dots and the disc');
+  assert.equal(count(section, 'class="go"'), 1, 'one arrow disc');
+  assert.ok(!section.includes('→'), 'no text arrow');
+  const compact = renderToHtml(h(D3I.ActionLink, { href: '#', variant: 'compact' }, 'Read more'));
+  assert.ok(compact.startsWith('<a class="cta-link" href="#">Read more<i class="more__dots"></i><svg class="go"'), 'the compact form, no hidden word');
+  const ext = renderToHtml(h(D3I.ActionLink, { href: 'https://example.org/', external: true }, 'x'));
+  assert.ok(ext.includes('target="_blank" rel="noopener noreferrer"'), 'external opens a new tab');
+});
+
+// The title is the block's link, and the block ends in the 36px arrow disc; "After that" sits
+// below the step, outside the area the title's link covers.
+test('journey next ends in the arrow disc', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.JourneyNext, {
+    number: '02', title: 'Pick a platform', body: 'b', href: '/pick/', after: { number: '03', title: 'Go further', href: '/further/' },
+  }));
+  assert.ok(html.includes('<h2 class="journey-next__title"><a href="/pick/"><span>Pick a platform</span></a></h2>'), 'the title is the link');
+  assert.equal(count(html, 'class="journey-next__disc"'), 1, 'one arrow disc');
+  assert.ok(html.includes('width="36"'), 'the note-sized disc');
+  assert.ok(!/section-cta|journey-next__link|→/.test(html), 'no action link');
+  assert.ok(html.includes('</svg></div><p class="journey-next__after">'), 'after that, below the step');
+  const bare = renderToHtml(React.createElement(D3I.JourneyNext, { number: '02', title: 'x' }));
+  assert.ok(!/<a[\s>]/.test(bare) && !bare.includes('journey-next__disc'), 'without href, no link and no disc');
+});
+
+const ruleFor = (selector) => cssRules(readFileSync(join(components, 'bundle.css'), 'utf8'))
+  .filter(([sel]) => sel.split(',').map((s) => s.trim()).includes(selector)).map(([, decl]) => decl).join(';');
+
+test('callout sits on a line', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.Callout, null, 'SURF is down.'));
+  assert.equal(html, '<div class="callout"><i class="callout__node"></i><p>SURF is down.</p><i class="callout__ring"></i></div>');
+  assert.match(ruleFor('.callout__node'), /background:var\(--coral\)/, 'a coral node');
+  assert.match(ruleFor('.callout__ring'), /background:var\(--surface\).*border:1\.4px solid var\(--blue\)/, 'a ring node');
+  assert.match(ruleFor('.callout::before'), /background:var\(--blue\)/, 'on a blue line');
+  assert.doesNotMatch(ruleFor('.callout'), /tint|border-left/, 'no panel, no left rule');
+});
+
+// The front page's note, in postit classes: paper, tab, dotted line, coral corner node, disc.
+test('postit renders the note', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.Postit, NOTE_PROPS));
+  assert.ok(html.startsWith('<a class="postit" href="#"><div class="postit__paper"><div class="postit__note">'), 'the whole postit is one link');
+  assert.ok(html.includes('<p class="postit__eyebrow">Position</p>'), 'eyebrow');
+  assert.ok(html.includes('<h3 class="postit__title">GDPR Omnibus Proposal</h3>'), 'title');
+  assert.ok(html.includes('<p class="postit__body">The European Omnibus Act poses a direct risk.</p>'), 'body');
+  assert.ok(html.includes('<svg class="postit__tab"'), 'the tab');
+  assert.ok(html.includes('fill="#ff5e5e"'), 'the coral corner node');
+  assert.equal(count(html, 'class="postit__disc"'), 1, 'one arrow disc');
+  assert.ok(html.includes('<span class="postit__link">Read our letter</span>'), 'the label on the tab');
+  const plain = renderToHtml(React.createElement(D3I.Postit, { ...NOTE_PROPS, link: { label: 'x' }, inline: true }));
+  assert.ok(plain.startsWith('<aside class="postit postit--inline">'), 'without link.href an aside, inline');
+  assert.ok(!/<a[\s>]/.test(plain) && !/postit__(disc|link)/.test(plain), 'not a link, no disc, no label');
+  const bare = renderToHtml(React.createElement(D3I.Postit, { title: 't' }));
+  assert.ok(!/postit__(eyebrow|body)/.test(bare), 'no eyebrow or body unless given');
+  assert.match(ruleFor('.postit__note'), /background:var\(--paper\)/, 'on paper');
+  assert.match(ruleFor('.postit__paper'), /drop-shadow\(var\(--shadow-note\)\)/, 'under the note shadow');
 });
 
 /* SiteHeader, SiteFooter ------------------------------------------------------------------- */
