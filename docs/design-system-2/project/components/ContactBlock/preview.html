@@ -1,4 +1,4 @@
-<!-- @dsCard group="Actions" height=470 -->
+<!-- @dsCard group="Actions" height=500 -->
 <!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><title>ContactBlock — preview</title>
@@ -11,6 +11,7 @@
     h(D.ContactBlock, {
       lead: 'Have a question or want to discuss your study?',
       email: 'DataDonation@uu.nl',
+      subject: 'Question about getting started with the data donation software',
       intro: 'We can answer your questions about:',
       topics: [
         'Which hosting option fits your project',
@@ -18,7 +19,7 @@
         'Whether data donation is a good fit for your research'
       ]
     }),
-    h(D.ContactBlock, { lead: 'Questions about privacy or consent?', email: 'DataDonation@uu.nl', constrained: true })
+    h(D.ContactBlock, { lead: 'Questions about privacy or consent?', email: 'DataDonation@uu.nl', subject: 'Question about privacy and consent' })
   ));
 </script>
 </body>

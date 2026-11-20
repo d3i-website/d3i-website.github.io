@@ -78,6 +78,9 @@
         h(ArrowDisc, null)));
   }
 
+  /* The live block's structure in the new style: the question and the address left, the topics right
+     on coral bullets (plain text, never links), or the question and the address centred where there
+     are no topics. The block is always 42rem and centred, so `constrained` (deprecated) does nothing. */
   function ContactBlock(p) {
     var subject = p.subject ? '?subject=' + encodeURIComponent(p.subject) : '';
     var email = h('p', { className: 'contact-cta__email' },
@@ -86,10 +89,10 @@
     var topics = list(p.topics);
     var attrs = rest(p, ['lead', 'email', 'subject', 'emailLabel', 'intro', 'topics', 'constrained', 'className']);
     if (topics.length === 0) {
-      attrs.className = cx('contact-cta', 'contact-cta--centered', p.constrained && 'contact-cta--constrained', p.className);
+      attrs.className = cx('contact-cta', 'contact-cta--centered', p.className);
       return h('section', attrs, lead, email);
     }
-    attrs.className = cx('contact-cta', p.constrained && 'contact-cta--constrained', p.className);
+    attrs.className = cx('contact-cta', p.className);
     return h('section', attrs,
       h('div', { className: 'contact-cta__row' },
         h('div', { className: 'contact-cta__left' }, lead, email),
@@ -835,12 +838,13 @@
       p.caption ? h('p', { className: 'usage-figure__cap' }, p.caption) : null,
       p.children);
   };
+  /* Numerals in ink; each label opens on a node in its series' colour, passed as --series. */
   UsageFigures.Stats = function UsageStats(p) {
     var attrs = rest(p, ['stats', 'className']);
     attrs.className = cx('usage-stat-row', p.className);
     return h('div', attrs, list(p.stats).map(function (s, i) {
-      return h('div', { className: 'usage-stat', key: i },
-        h('b', { style: { color: 'var(--chart-' + (s.series || ((i % 5) + 1)) + ')' } }, s.value),
+      return h('div', { className: 'usage-stat', key: i, style: { '--series': 'var(--chart-' + (s.series || ((i % 5) + 1)) + ')' } },
+        h('b', null, s.value),
         h('span', null, s.label));
     }));
   };

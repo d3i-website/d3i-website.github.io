@@ -299,7 +299,7 @@ export interface ActionLinkProps {
 export declare function ActionLink(props: ActionLinkProps): React.ReactElement;
 
 export interface ContactBlockProps {
-  /** The bold lead question: "Have a question or want to discuss your study?" */
+  /** The question, in the serif: "Have a question or want to discuss your study?" */
   lead: string;
   /** Shown in full: "Email DataDonation@uu.nl". */
   email: string;
@@ -309,14 +309,14 @@ export interface ContactBlockProps {
   emailLabel?: string;
   /** Line above the topics: "We can answer your questions about:". */
   intro?: string;
-  /** Two to four topics; with topics the block is a two-column row, without them it is centred. */
+  /** Two to four topics, as plain text (never links); with topics the block is two even columns, without them it is centred. */
   topics?: string[];
-  /** Caps the block at 42rem, inside a content page. */
+  /** @deprecated The block is always 42rem and centred; accepted and ignored. */
   constrained?: boolean;
   className?: string;
 }
 /**
- * The contact block that closes a hub or content page: a lead question and the team's email, optionally beside topics.
+ * The contact block that closes a hub or content page, 42rem and centred: the question in the serif and the team's email, optionally beside topics on coral bullets. No pictures.
  * @example
  * <ContactBlock lead="Have a question or want to discuss your study?" email="DataDonation@uu.nl" intro="We can answer your questions about:" topics={["Which hosting option fits your project", "Getting access for your university"]} />
  */
@@ -527,7 +527,7 @@ export interface Member {
   /** Profile page. */
   href?: string;
   external?: boolean;
-  /** URL of the photo; a member without one shows no image, as on the site. */
+  /** URL of the photo, shown as a 56px circle; a member without one shows no image, as on the site. */
   photo?: string;
   photoAlt?: string;
   /** Optional line under the name. */
@@ -541,7 +541,7 @@ export interface PeopleGridProps {
   tags?: string[];
   /** A tag to filter by on first render. */
   initialTag?: string;
-  /** Default true: chips and tag pills filter the grid. */
+  /** Default true: the tabs and the tags filter the list. */
   filterable?: boolean;
   /** Default "All". */
   allLabel?: string;
@@ -549,7 +549,7 @@ export interface PeopleGridProps {
   className?: string;
 }
 /**
- * The team page: round photos, names and tag pills, with filter chips; a chip or a pill filters the grid.
+ * The team page: a two-column list between hairlines, each row a small round photo beside the name and the tags as muted text, with filter tabs on a hairline above; a tab or a tag filters the list.
  * @example
  * <PeopleGrid tags={["Lead researcher", "Research engineer"]} members={[{ name: "Dr. L. (Laura) Boeschoten", href: "#", tags: ["Lead researcher", "D3I"] }]} />
  */
@@ -787,10 +787,10 @@ export declare function EventDetails(props: EventDetailsProps): React.ReactEleme
 export interface Stat {
   value: string;
   label: string;
-  /** Chart colour chart-1 to chart-5; default: position in the row. */
+  /** The node's colour, chart-1 to chart-5 (the numeral is in ink); default: position in the row. */
   series?: 1 | 2 | 3 | 4 | 5;
 }
-/** A platform pill. */
+/** A platform chip. */
 export interface Platform {
   name: string;
   /** URL of your upload of its file in assets/Platforms. */
@@ -835,18 +835,18 @@ export interface UsagePlatformsProps {
   groups: PlatformGroup[];
 }
 /**
- * The impact page's figures: bordered cards with big coloured numbers, the globe's controls and platform pills.
+ * The impact page's figures, each framed by one hairline: numerals in ink on nodes in the series colours, the globe's controls and square platform chips.
  * @example
  * <UsageFigures>…</UsageFigures>
  */
 export declare const UsageFigures: ((props: UsageFiguresProps) => React.ReactElement) & {
-  /** One bordered figure with a title and caption. */
+  /** One figure in a hairline frame, with a title and caption. */
   Figure: (props: UsageFigureProps) => React.ReactElement;
-  /** A row of numbers in the chart colours. */
+  /** A row of numbers in ink, each label on a node in its series' colour. */
   Stats: (props: UsageStatsProps) => React.ReactElement;
   /** The globe frame with its back and zoom controls and hint. */
   Globe: (props: UsageGlobeProps) => React.ReactElement;
-  /** Platform pills grouped by category. */
+  /** Square platform chips grouped by category. */
   Platforms: (props: UsagePlatformsProps) => React.ReactElement;
 };
 

@@ -670,6 +670,113 @@ test('event details have no panel', () => {
   assert.match(ruleFor('.event-details__value a'), /text-decoration:underline dotted var\(--sky\)/, 'links as Links');
 });
 
+// The declarations for a selector inside the @media blocks opened by query, such as '(min-width: 1024px)'.
+const mediaRuleFor = (query, selector) => {
+  const out = [];
+  for (const m of bundleCss().matchAll(/@media\s*([^{]*)\{((?:[^{}]*\{[^{}]*\})*)\}/g)) {
+    if (m[1].replace(/\s/g, '') !== query.replace(/\s/g, '')) continue;
+    for (const r of m[2].matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+      if (r[1].split(',').map((s) => s.trim()).includes(selector)) out.push(r[2]);
+    }
+  }
+  return out.join(';');
+};
+
+// Round 1 B: a list in two columns, each row a small portrait beside the name and the tags as muted
+// text, between hairlines. The filter chips are tabs on a hairline with the header's blue bar.
+test('people grid is a two-column list between hairlines', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.PeopleGrid, { tags: ['Methodologist'], members: [
+    { name: 'A', href: '/a/', photo: '/_blob/1', tags: ['Methodologist', 'D3I'] }, { name: 'B' }] }));
+  assert.ok(html.includes('<div class="people-grid__card"><img class="people-grid__photo" src="/_blob/1" alt=""/>'
+    + '<h3 class="people-grid__name"><a href="/a/">A</a></h3><ul class="people-grid__tags">'), 'the same markup');
+  assert.ok(html.includes('<div class="people-grid__card"><h3 class="people-grid__name">B</h3></div>'), 'no photo, no image');
+  assert.match(ruleFor('.people-grid'), /grid-template-columns:repeat\(2, minmax\(0, 1fr\)\);column-gap:var\(--list-gap\);row-gap:0/, 'two columns');
+  assert.match(mediaRuleFor('(max-width: 767px)', '.people-grid'), /grid-template-columns:1fr/, 'one below 768px');
+  assert.match(ruleFor('.people-grid__card'), /border-top:1px solid var\(--border\);border-bottom:1px solid var\(--border\);margin-bottom:-1px/,
+    'rows between hairlines, closed below whichever cards a filter leaves');
+  assert.match(ruleFor('.people-grid__photo'), /width:56px;height:56px/, 'a small portrait');
+  assert.match(ruleFor('.people-grid__name'), /grid-column:2/, 'the name keeps its column without a photo');
+  assert.match(ruleFor('.people-grid__name a'), /text-decoration:underline dotted var\(--sky\)/, 'the name is a Link');
+  assert.match(ruleFor('.people-grid__tag'), /background:none.*color:var\(--text-muted\)/, 'tags as muted text');
+  assert.match(ruleFor('.people-grid__tags li:not(:last-child)::after'), /content:"·"/, 'divided by a middle dot');
+  assert.match(ruleFor('.people-grid__chip::after'), /height:4px;background:var\(--blue\)/, 'chips are tabs with the blue bar');
+  for (const s of ['surface-tint', 'radius-pill', 'on-accent', 'radius-lg']) {
+    assert.deepEqual(rulesWith(/people-grid/, `var(--${s})`), [], `no ${s}: no pills, tints or fills`);
+  }
+});
+
+// Round 1 B, "with the colours": each figure framed by one hairline, numerals in ink, each label on a
+// node in its series' colour. A stat's series reaches the node as --series.
+test('usage figures framed by a hairline, ink numerals on series nodes', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.UsageFigures.Stats, { stats: [{ value: '18', label: 'institutions' }, { value: '3', label: 'x', series: 4 }] }));
+  assert.equal(html, '<div class="usage-stat-row"><div class="usage-stat" style="--series:var(--chart-1)"><b>18</b><span>institutions</span></div>'
+    + '<div class="usage-stat" style="--series:var(--chart-4)"><b>3</b><span>x</span></div></div>');
+  assert.match(ruleFor('.usage-figure'), /border:1px solid var\(--border\)/, 'framed by a hairline');
+  assert.match(ruleFor('.usage-figure__title'), /font:var\(--text-card-heading\)/, 'the title in the serif');
+  assert.match(ruleFor('.usage-stat b'), /font:var\(--text-title-md\);color:var\(--heading\)/, 'numerals in ink');
+  assert.match(ruleFor('.usage-stat span::before'), /border-radius:var\(--radius-circle\);background:var\(--series\)/, 'a node in the series colour');
+  assert.match(ruleFor('.usage-stat:nth-child(5n+3)'), /--series:var\(--chart-3\)/, 'the site\'s stats, which carry no series, by position');
+  assert.match(ruleFor('.usage-plat'), /background:var\(--surface\);border:1px solid var\(--border\)/, 'platforms as square hairline chips');
+  for (const s of ['shadow', 'surface-tint', 'radius-lg', 'radius-pill']) assert.deepEqual(rulesWith(/usage-/, s), [], `no ${s}`);
+});
+
+const CONTACT = {
+  lead: 'Have a question or want to discuss your study?', email: 'DataDonation@uu.nl', subject: 'Getting started',
+  intro: 'We can answer your questions about:', topics: ['Which hosting option fits your project', 'Getting access for your university'],
+};
+const contact = (props) => {
+  const { D3I, React } = bundle();
+  return renderToHtml(React.createElement(D3I.ContactBlock, props));
+};
+
+// Round 4 B: the live block's structure, weighting and centring in the new style. The topics are
+// plain text on coral round bullets; the address is the one link.
+test('contact topics are not links', () => {
+  const html = contact(CONTACT);
+  assert.equal(html, '<section class="contact-cta"><div class="contact-cta__row"><div class="contact-cta__left">'
+    + '<p class="contact-cta__lead">Have a question or want to discuss your study?</p>'
+    + '<p class="contact-cta__email"><a href="mailto:DataDonation@uu.nl?subject=Getting%20started">Email DataDonation@uu.nl</a></p></div>'
+    + '<div class="contact-cta__topics"><p class="contact-cta__intro">We can answer your questions about:</p>'
+    + '<ul><li>Which hosting option fits your project</li><li>Getting access for your university</li></ul></div></div></section>', 'the live structure');
+  const topics = html.slice(html.indexOf('<div class="contact-cta__topics">'));
+  assert.ok(!topics.includes('<a'), 'no link among the topics');
+  assert.equal(count(html, '<a '), 1, 'the address is the one link');
+  assert.match(ruleFor('.contact-cta__topics li::before'), /border-radius:var\(--radius-circle\);background:var\(--coral\)/, 'coral round bullets');
+  assert.match(ruleFor('.contact-cta__email a'), /color:var\(--text\);font-weight:700;text-decoration:underline dotted var\(--sky\)/, 'the address in the link style');
+  assert.match(ruleFor('.contact-cta__email a:hover'), /text-decoration-style:solid/, 'solid on hover');
+});
+
+test('contact without topics is centred', () => {
+  const html = contact({ lead: 'Questions about privacy or consent?', email: 'DataDonation@uu.nl' });
+  assert.equal(html, '<section class="contact-cta contact-cta--centered"><p class="contact-cta__lead">Questions about privacy or consent?</p>'
+    + '<p class="contact-cta__email"><a href="mailto:DataDonation@uu.nl">Email DataDonation@uu.nl</a></p></section>');
+  assert.match(ruleFor('.contact-cta--centered'), /text-align:center/, 'the centred modifier');
+  assert.match(ruleFor('.contact-cta'), /max-width:42rem;margin-left:auto;margin-right:auto/, '42rem wide and centred, always');
+  assert.match(ruleFor('.contact-cta__lead'), /font-size:26px/, 'the question at 26px without topics');
+  const old = contact({ lead: 'q', email: 'e@example.org', constrained: true });
+  assert.ok(!/constrained/.test(old), 'constrained is the block itself now, and leaves no trace');
+});
+
+test('contact has no pictures', () => {
+  for (const html of [contact(CONTACT), contact({ lead: 'q', email: 'e@example.org' }), runPreview(previewPath('ContactBlock'), bundle())]) {
+    assert.doesNotMatch(html, /<img|<image|<svg|<picture/, 'no photo, no device');
+  }
+  assert.deepEqual(rulesWith(/contact-cta/, 'url('), [], 'nor in its CSS');
+});
+
+// The question in the serif at 420, sized to the live question's weight: 41px, 36px at 768-1023px,
+// 31px below; the columns 1:1 from 600px, so it breaks in three lines.
+test('contact question in the serif, on even columns', () => {
+  assert.match(ruleFor('.contact-cta__lead'), /font-family:var\(--font-serif\);font-weight:420/, 'the serif at 420');
+  assert.match(ruleFor('.contact-cta__row .contact-cta__lead'), /font-size:31px/, '31px below 768px');
+  assert.match(mediaRuleFor('(min-width: 768px)', '.contact-cta__row .contact-cta__lead'), /font-size:36px/, '36px from 768px');
+  assert.match(mediaRuleFor('(min-width: 1024px)', '.contact-cta__row .contact-cta__lead'), /font-size:41px/, '41px from 1024px');
+  assert.match(mediaRuleFor('(min-width: 600px)', '.contact-cta__row'), /grid-template-columns:1fr 1fr/, '1:1 columns');
+  assert.deepEqual(rulesWith(/contact-cta/, 'font-display').concat(rulesWith(/contact-cta/, 'var(--blue)')), [], 'no rounded face, no blue address');
+});
+
 // Two illustrations had lost the <style> block their shapes' classes point at, and drew as black
 // shapes. A file passes with a style block that defines every class its shapes use, or with a fill
 // on every shape; unDraw's shadows, black at low opacity, are drawn without one on purpose.
