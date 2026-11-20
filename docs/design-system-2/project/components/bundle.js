@@ -1192,23 +1192,26 @@
     var cur = p.current == null ? shown - 1 : p.current;
     /* the argued-for cell is marked by a 3px blue rule on its left, as the slide's line is drawn, not by a tint */
     function cell(c, argued) {
-      return h('div', { style: st(COL, { gap: '8px', padding: argued ? '16px 24px' : '16px 0', borderLeft: argued ? '3px solid ' + C.blue : 'none' }) },
+      return h('div', { style: st(COL, { gap: '8px', padding: argued ? '8px 24px' : '8px 0', borderLeft: argued ? '3px solid ' + C.blue : 'none' }) },
         h('p', { style: ITEM }, c.title),
         c.text ? h('p', { style: st(T.small, { color: C.muted }) }, c.text) : null);
     }
-    return h('section', { style: section({ gap: '40px' }) },
+    /* sized so four rows of up to two lines a cell fit the 816px flow at the last step: 240px holds a two-word
+       label ("NOT ASKABLE") on one line, rows are 16px apart, cells padded 8px */
+    var GRID = { display: 'grid', gridTemplateColumns: '240px 1fr 1fr', gap: '24px' };
+    return h('section', { style: section({ gap: '32px' }) },
       h(SlideHead, { eyebrow: p.eyebrow, heading: p.heading }),
       steps.length ? h(SlideRail, { stops: steps.map(function (label, i) { return (i + 1) + ' · ' + label; }), current: cur }) : null,
       h('div', { style: COL },
-        h('div', { style: { display: 'grid', gridTemplateColumns: '200px 1fr 1fr', gap: '32px', alignItems: 'end', paddingBottom: '16px', borderBottom: HAIR } },
-          h('p', { style: T.small }, ' '),
+        h('div', { style: st(GRID, { alignItems: 'end', paddingBottom: '12px', borderBottom: HAIR }) },
+          h('div', null),
           h('p', { style: MUTED_EYEBROW }, cols.left),
           h('p', { style: T.eyebrow }, cols.right)),
         rows.slice(0, shown).map(function (r, i) {
-          return h('div', { key: i, style: { display: 'grid', gridTemplateColumns: '200px 1fr 1fr', gap: '32px', alignItems: 'start', padding: '24px 0', borderTop: i ? HAIR : 'none', opacity: i < shown - 1 ? 0.35 : 1 } },
+          return h('div', { key: i, style: st(GRID, { alignItems: 'start', padding: '12px 0', borderTop: i ? HAIR : 'none', opacity: i < shown - 1 ? 0.35 : 1 }) },
             /* a coral row's spot hangs 12px left of its label, in the margin, so the label keeps the column's width */
-            h('p', { style: st(MUTED_EYEBROW, { position: 'relative', paddingTop: '16px' }) },
-              r.tone === 'coral' ? h('span', { style: { position: 'absolute', left: '-26px', top: '23px', display: 'flex' } }, spot(C.coral)) : null, r.label),
+            h('p', { style: st(MUTED_EYEBROW, { position: 'relative', paddingTop: '8px' }) },
+              r.tone === 'coral' ? h('span', { style: { position: 'absolute', left: '-26px', top: '15px', display: 'flex' } }, spot(C.coral)) : null, r.label),
             cell(r.left || {}, false), cell(r.right || {}, true));
         })),
       p.children,
