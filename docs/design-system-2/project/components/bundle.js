@@ -286,11 +286,16 @@
             p.image ? h('figure', { className: 'section-page__hero' }, h('img', { src: p.image.src, alt: p.image.alt || '' })) : null,
             p.children),
           actions.length > 0 ? h('div', { className: 'content-page__actions' }, actions.map(function (a, i) {
-            return h('a', Object.assign({ className: 'cta-link', key: i }, linkAttrs(a.href, a.external)), a.label, ' ', arrow());
+            return h(ActionLink, { variant: 'compact', href: a.href, external: a.external, key: i }, a.label);
           })) : null)));
   }
 
+  /* The section's pages as nodes on a blue line between two ring nodes, the current page the one
+     coral node (all drawn by bundle.css). One page is current: the first marked active. */
   function SidebarPanel(p) {
+    var items = list(p.items);
+    var current = -1;
+    items.some(function (it, i) { if (it.active) current = i; return it.active; });
     var attrs = rest(p, ['title', 'href', 'items', 'label', 'className']);
     attrs.className = cx('section-nav', 'sidebar-panel', p.className);
     attrs['aria-label'] = p.label || (typeof p.title === 'string' ? p.title : undefined);
@@ -299,10 +304,11 @@
         h('li', { className: 'section-nav__item section-nav__item--parent' },
           h('a', { className: 'section-nav__heading sidebar-panel__title', href: p.href }, p.title),
           h('div', { className: 'sidebar-panel__body' },
-            h('ul', { className: 'section-nav__children' }, list(p.items).map(function (it, i) {
+            h('ul', { className: 'section-nav__children' }, items.map(function (it, i) {
               var subs = list(it.sections);
+              var here = i === current;
               return h('li', { className: 'section-nav__child', key: i },
-                h('a', { className: cx('section-nav__link', 'sidebar-panel__link', it.active && 'is-active'), href: it.href }, it.label),
+                h('a', { className: cx('section-nav__link', 'sidebar-panel__link', here && 'is-active'), href: it.href, 'aria-current': here ? 'page' : undefined }, it.label),
                 subs.length > 0 ? h('ul', { className: 'section-nav__grandchildren' }, subs.map(function (s, j) {
                   return h('li', { className: 'section-nav__grandchild', key: j }, h('a', { className: 'section-nav__sublink', href: s.href }, s.label));
                 })) : null);
@@ -358,7 +364,7 @@
           h('ul', { className: 'route__steps' }, list(r.steps).map(function (s, j) {
             return h('li', { className: 'route__step', key: j },
               h('p', { className: 'route__step-text' }, s.text),
-              s.link ? h('a', Object.assign({ className: 'section-cta route__step-link' }, linkAttrs(s.link.href, s.link.external)), s.link.label, ' ', arrow()) : null);
+              s.link ? h(ActionLink, { className: 'route__step-link', href: s.link.href, external: s.link.external }, s.link.label) : null);
           })));
       })),
       attribution ? h('p', { className: 'routes__attribution' }, attribution) : null);
@@ -392,18 +398,24 @@
         after.href ? h('a', { href: after.href }, after.title) : after.title) : null);
   }
 
+  /* A step of the journey hub. The title is the step's link; bundle.css puts the number in a blue
+     disc on the hub's one vertical line. */
   function HubStep(p) {
-    var attrs = rest(p, ['number', 'title', 'body', 'image', 'link', 'side', 'className']);
+    var attrs = rest(p, ['number', 'title', 'body', 'image', 'href', 'external', 'link', 'side', 'className']);
     attrs.className = cx('hub__movement', p.side === 'right' ? 'hub__movement--right' : 'hub__movement--left', p.className);
+    /* the deprecated link prop: its href and external, when href is not given */
+    var old = !p.href && p.link && p.link.href ? p.link : null;
+    var href = old ? old.href : p.href;
+    var external = old ? old.external : p.external;
+    var title = h('span', null, p.title);
     return h('article', attrs,
       h('div', { className: 'hub__movement-image' }, p.image ? h('img', { src: p.image.src, alt: p.image.alt || '' }) : null),
       h('div', { className: 'hub__movement-text' },
         p.number ? h('span', { className: 'hub__movement-number', 'aria-hidden': 'true' }, p.number) : null,
-        h('h2', { className: 'hub__movement-title' }, p.title),
-        p.body ? h('p', { className: 'hub__movement-body' }, p.body) : null,
-        p.link ? h('a', Object.assign({ className: 'hub__movement-link' }, linkAttrs(p.link.href, p.link.external)), p.link.label, ' ', arrow()) : null));
+        h('h2', { className: 'hub__movement-title' }, href ? h('a', linkAttrs(href, external), title) : p.title),
+        p.body ? h('p', { className: 'hub__movement-body' }, p.body) : null));
   }
-  /* The journey hub: optional hero, then the steps, alternating sides and numbered 01, 02 … unless a step sets its own. */
+  /* The journey hub: optional hero, then the steps on one line, alternating sides and numbered 01, 02 … unless a step sets its own. */
   HubStep.List = function HubStepList(p) {
     var R_ = R();
     var n = 0;
@@ -455,7 +467,7 @@
     return h('nav', attrs,
       h('div', { className: 'section-subnav__inner' },
         h('ul', { className: 'section-subnav__list' }, list(p.items).map(function (it, i) {
-          return h('li', { className: cx('section-subnav__item', it.active && 'is-active'), key: i }, h('a', { href: it.href }, it.label));
+          return h('li', { className: cx('section-subnav__item', it.active && 'is-active'), key: i }, h('a', { href: it.href, 'aria-current': it.active ? 'page' : undefined }, it.label));
         }))));
   }
 

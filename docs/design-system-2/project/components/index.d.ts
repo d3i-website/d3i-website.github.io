@@ -78,12 +78,12 @@ export declare function SiteHeader(props: SiteHeaderProps): React.ReactElement;
 export interface SectionSubnavProps {
   /** The section's name, used as the nav's accessible label. */
   label: string;
-  /** The section's child pages; mark the current one active. Five or six at most. */
+  /** The section's child pages; mark the current one active (it takes is-active and aria-current="page"). Five or six at most. */
   items: NavItem[];
   className?: string;
 }
 /**
- * The strip of a section's inner pages directly under the header, on hub pages without a sidebar.
+ * The strip of a section's inner pages directly under the header, on hub pages without a sidebar: white over a hairline, the current page on the header's 4px blue bar.
  * @example
  * <SectionSubnav label="Software" items={[{ label: "Getting started", href: "#" }, { label: "Script selector", href: "#", active: true }]} />
  */
@@ -533,16 +533,16 @@ export interface PageIntroProps {
   excerpt?: string;
   /** Opening paragraphs, rendered in the prose column. */
   children?: React.ReactNode;
-  /** A small illustration from assets/Illustrations, floated right of the prose. */
+  /** A small illustration from assets/Illustrations, in a hairline frame floated right of the prose. */
   image?: Picture;
-  /** A wrapping row of compact action links. */
+  /** A wrapping row of action links, drawn as ActionLinks in the compact form (label, dotted line, arrow disc). */
   actions?: LinkTarget[];
   /** A SidebarPanel: the page then takes the two-column grid with the sidebar left. */
   sidebar?: React.ReactNode;
   className?: string;
 }
 /**
- * The top of a content page: title, opening prose with a floated illustration, and optional action links.
+ * The top of a content page: title, opening prose with a hairline-framed illustration floated right, and optional action links in the "More" form.
  * @example
  * <PageIntro title="Getting started" actions={[{ label: "Preview it on Next", href: "#" }]}>…</PageIntro>
  */
@@ -557,14 +557,14 @@ export interface SidebarPanelProps {
   title: string;
   /** The section's landing page. */
   href: string;
-  /** The section's pages; mark the current one active. */
+  /** The section's pages; mark the current one active. One page is current (is-active, aria-current="page", the coral node): the first marked active. */
   items: SidebarPage[];
   /** Accessible label; default: title. */
   label?: string;
   className?: string;
 }
 /**
- * The left-hand section navigation on content pages: the section as title, its pages under a thin rail.
+ * The left-hand section navigation on content pages: the section as title, its pages as nodes on a blue line between two ring nodes, the current page the coral node.
  * @example
  * <SidebarPanel title="Software" href="#" items={[{ label: "Getting started", href: "#", active: true }, { label: "Script selector", href: "#" }]} />
  */
@@ -587,6 +587,7 @@ export declare function TableOfContents(props: TableOfContentsProps): React.Reac
 /** One step on a route: one line and one action. */
 export interface RouteStep {
   text: string;
+  /** Drawn as an ActionLink in its section form. */
   link?: LinkTarget;
 }
 /** One route: the reader's own question, the answer, and its steps. */
@@ -596,18 +597,18 @@ export interface Route {
   answer?: string;
   /** Two or three steps. */
   steps: RouteStep[];
-  /** A glyph at the head of the rail, inlined in the rail's accent. */
+  /** A glyph at the head of the route's line, inlined white on a blue disc. Without one the line starts at a ring node. */
   glyph?: 'netherlands' | 'globe';
 }
 export interface RoutesProps {
-  /** Two routes; rails alternate blue, yellow. */
+  /** Two routes, each on its own vertical blue line. */
   routes: Route[];
   /** Line under the routes; defaults to the EuroGeographics attribution when a route shows the netherlands glyph. */
   attribution?: React.ReactNode;
   className?: string;
 }
 /**
- * A fork the reader resolves by picking the question that fits them: rails with hollow stops, one action per step.
+ * A fork the reader resolves by picking the question that fits them: each route a blue line from a glyph disc to a ring node, a node per step, one action per step.
  * @example
  * <Routes routes={[{ glyph: "netherlands", question: "Are you a researcher in the Netherlands?", steps: [{ text: "Contact us for access.", link: { label: "Email datadonation@uu.nl", href: "mailto:datadonation@uu.nl" } }] }]} />
  */
@@ -643,8 +644,12 @@ export interface HubStepProps {
   body?: string;
   /** An illustration, letterboxed in a 5:4 box. */
   image?: Picture;
+  /** The step's page. The title links to it; without it the title is plain text. */
+  href?: string;
+  external?: boolean;
+  /** @deprecated Use `href` and `external`. When `href` is not given, `link.href` and `link.external` are used in its place; `link.label` is not shown. */
   link?: LinkTarget;
-  /** Two digits; inside HubStep.List it defaults to the step's position: "01", "02". */
+  /** Two digits, in the step's disc on the line; inside HubStep.List it defaults to the step's position: "01", "02". */
   number?: string;
   /** Image side above 900px; inside HubStep.List steps alternate left, right. */
   side?: 'left' | 'right';
@@ -662,12 +667,12 @@ export interface HubStepListProps {
   className?: string;
 }
 /**
- * One numbered step of a journey hub: an illustration on one side, a giant coral number, title, a sentence and a link. Always inside HubStep.List.
+ * One numbered step of a journey hub, on the hub's one vertical blue line with its number in a blue disc: an illustration on one side, the title (the step's link) and a sentence on the other. Always inside HubStep.List.
  * @example
- * <HubStep title="Get access" body="Pick the option that fits your project." link={{ label: "How to get started", href: "#" }} />
+ * <HubStep title="Get access" body="Pick the option that fits your project." href="#" />
  */
 export declare const HubStep: ((props: HubStepProps) => React.ReactElement) & {
-  /** The journey hub that numbers and alternates its steps. */
+  /** The journey hub that puts its steps on one line, numbering and alternating them. */
   List: (props: HubStepListProps) => React.ReactElement;
 };
 

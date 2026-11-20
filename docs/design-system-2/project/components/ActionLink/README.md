@@ -1,6 +1,6 @@
 The call to action, in the front page's "More" form: the label in text, a short dotted `sky` line and the small arrow disc. It is the thing to click, one per card or section; there are no buttons. On the front page itself "More" is drawn by `ListRow.List`, and the note carries its own disc.
 
-The site's action links (`.section-cta`, `.cta-link`) still end in a text arrow; they take this markup when their pages are redone.
+PageIntro's actions and Routes' step links are ActionLinks. The site's action links (`.section-cta`, `.cta-link`) still end in a text arrow; they take this markup when their pages are redone.
 
 ## What you provide
 

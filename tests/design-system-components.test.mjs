@@ -428,6 +428,114 @@ test('postit renders the note', () => {
   assert.match(ruleFor('.postit__paper'), /drop-shadow\(var\(--shadow-note\)\)/, 'under the note shadow');
 });
 
+/* SidebarPanel, HubStep, Routes, PageIntro, SectionSubnav ------------------------------------ */
+
+const bundleCss = () => readFileSync(join(components, 'bundle.css'), 'utf8');
+// The rules whose selector matches re and whose declarations hold s.
+const rulesWith = (re, s) => cssRules(bundleCss()).filter(([sel, decl]) => re.test(sel) && decl.includes(s)).map(([sel]) => sel);
+
+const SIDEBAR_ITEMS = [
+  { label: 'Getting started', href: '/start/', sections: [{ label: 'What the software does', href: '#what' }] },
+  { label: 'Script selector', href: '/selector/', active: true },
+  { label: 'Going further', href: '/further/' },
+];
+
+// The pages are nodes on a blue line between two ring nodes; the current page is the one coral node.
+test('sidebar marks the current page', () => {
+  const { D3I, React } = bundle();
+  const sidebar = (items) => renderToHtml(React.createElement(D3I.SidebarPanel, { title: 'Software', href: '/software/', items }));
+  const html = sidebar(SIDEBAR_ITEMS);
+  assert.equal(count(html, 'is-active'), 1, 'one current page');
+  assert.ok(html.includes('<a class="section-nav__link sidebar-panel__link is-active" href="/selector/" aria-current="page">Script selector</a>'),
+    'on the current item, which says so to screen readers');
+  assert.equal(count(html, 'aria-current'), 1, 'and only there');
+  const two = sidebar([{ ...SIDEBAR_ITEMS[0], active: true }, SIDEBAR_ITEMS[1]]);
+  assert.equal(count(two, 'is-active'), 1, 'two pages marked active: only the first is current');
+  assert.ok(two.includes('is-active" href="/start/"'), 'the first');
+  assert.match(ruleFor('.sidebar-panel__body::before'), /background:var\(--blue\)/, 'a blue line');
+  assert.match(ruleFor('.sidebar-panel__link::before'), /background:var\(--blue\)/, 'a blue node per page');
+  assert.match(ruleFor('.sidebar-panel__link.is-active::before'), /width:var\(--node-edge\).*background:var\(--coral\)/, 'the current page a coral node');
+  assert.deepEqual(rulesWith(/sidebar-panel|section-nav/, 'var(--coral)'), ['.sidebar-panel__link.is-active::before'], 'no other coral');
+  assert.equal(rulesWith(/sidebar-panel|section-nav/, 'border:1.4px solid var(--blue)').length, 1, 'ring nodes at the ends');
+  assert.doesNotMatch(ruleFor('.sidebar-panel'), /surface-tint|border:1px/, 'no panel');
+});
+
+// All steps on one vertical blue line, each number in a blue disc on it; the title is the step's link.
+test('hub steps on one line', () => {
+  const { D3I, React } = bundle();
+  const h = React.createElement;
+  const html = renderToHtml(h(D3I.HubStep.List, null,
+    h(D3I.HubStep, { title: 'Get access', body: 'b', href: '/access/' }),
+    h(D3I.HubStep, { title: 'Pick a platform', href: '/pick/' }),
+    h(D3I.HubStep, { title: 'Go further' })));
+  assert.equal(count(html, 'class="hub__movements"'), 1, 'one line');
+  const numbers = [...html.matchAll(/<span class="hub__movement-number" aria-hidden="true">([^<]*)<\/span>/g)].map((m) => m[1]);
+  assert.deepEqual(numbers, ['01', '02', '03'], 'numbered discs 1…n in order');
+  assert.ok(html.includes('<h2 class="hub__movement-title"><a href="/access/"><span>Get access</span></a></h2>'), 'the title is the link');
+  assert.ok(html.includes('<h2 class="hub__movement-title">Go further</h2>'), 'without href, no link');
+  assert.ok(!/hub__movement-link|section-cta|→/.test(html), 'no action link');
+  assert.match(ruleFor('.hub--journey .hub__movements::before'), /width:var\(--line-page\).*background:var\(--blue\)/, 'the line');
+  assert.match(ruleFor('.hub--journey .hub__movement-number'), /position:absolute.*border-radius:var\(--radius-circle\).*background:var\(--blue\)/, 'each number a disc on it');
+  assert.match(ruleFor('.hub--journey .hub__movements::after'), /border:1\.4px solid var\(--blue\)/, 'ring nodes at the ends');
+  assert.deepEqual(rulesWith(/hub--journey/, 'var(--coral)'), [], 'no coral number');
+  // `link` was replaced by `href`/`external`; an old caller's step still leads where it did.
+  const old = renderToHtml(h(D3I.HubStep, { title: 'Get access', link: { label: 'How to get started', href: '/old/', external: true } }));
+  assert.ok(old.includes('<a href="/old/" target="_blank" rel="noopener noreferrer"><span>Get access</span></a>'), 'the title links to link.href');
+  assert.ok(!/\slink=|How to get started/.test(old), 'no link attribute and no label');
+});
+
+// 10b.1 left these two writing the old action link with a text arrow; they now take ActionLink's form.
+test('page intro and routes act in the More form', () => {
+  const { D3I, React } = bundle();
+  const h = React.createElement;
+  const intro = renderToHtml(h(D3I.PageIntro, { title: 't', actions: [{ label: 'Preview it on Next', href: '/next/' }, { label: 'Source', href: 'https://example.org/', external: true }] }));
+  assert.ok(intro.includes('<a class="cta-link" href="/next/">Preview it on Next<i class="more__dots"></i><svg class="go"'), 'intro actions');
+  assert.ok(intro.includes('<a class="cta-link" href="https://example.org/" target="_blank" rel="noopener noreferrer">Source<i class="more__dots"></i>'), 'external');
+  const routes = renderToHtml(h(D3I.Routes, { routes: [{ glyph: 'globe', question: 'q', steps: [{ text: 's', link: { label: 'Service and pricing', href: '/pricing/' } }] }] }));
+  assert.ok(routes.includes('<a class="section-cta route__step-link" href="/pricing/">Service and pricing<i class="more__dots"></i><svg class="go"'), 'route steps');
+  assert.ok(!/→/.test(intro + routes), 'no text arrow');
+  assert.match(ruleFor('.route::before'), /width:var\(--line-page\).*background:var\(--blue\)/, 'each route a blue line');
+  assert.match(ruleFor('.route__glyph'), /border-radius:var\(--radius-circle\).*background:var\(--blue\)/, 'headed by a glyph disc');
+  assert.deepEqual(rulesWith(/route/, 'var(--yellow)'), [], 'no yellow rail');
+  assert.doesNotMatch(ruleFor('.section-page__hero'), /surface-tint|shadow/, 'the illustration has no panel');
+  assert.match(ruleFor('.section-page__hero img'), /border:1px solid var\(--border\)/, 'but a hairline frame');
+});
+
+// The header's look under the header: white over a hairline, the current page on the 4px blue bar.
+test('section subnav carries the header bar', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.SectionSubnav, { label: 'Software', items: [{ label: 'a', href: '/a/' }, { label: 'b', href: '/b/', active: true }] }));
+  assert.ok(html.includes('<li class="section-subnav__item is-active"><a href="/b/" aria-current="page">b</a></li>'), 'the current page');
+  assert.match(ruleFor('.section-subnav__item a::after'), /height:4px;background:var\(--blue\)/, 'the bar');
+  assert.doesNotMatch(ruleFor('.section-subnav'), /surface-tint/, 'no tinted strip');
+});
+
+// Two illustrations had lost the <style> block their shapes' classes point at, and drew as black
+// shapes. A file passes with a style block that defines every class its shapes use, or with a fill
+// on every shape; unDraw's shadows, black at low opacity, are drawn without one on purpose.
+// The adventure map's trail is a black line without a fill, in the site's copy too
+// (assets/images/hub/undraw_adventure-map_3e4p.svg); it reads as drawn, so it is allowed.
+const BLACK_ON_PURPOSE = { 'hub-adventure-map_3e4p.svg': 1 };
+test('illustrations are not black', () => {
+  const dir = join(root, 'docs/design-system-2/project/assets/Illustrations');
+  const bad = [];
+  for (const f of readdirSync(dir).filter((f) => f.endsWith('.svg')).sort()) {
+    const svg = readFileSync(join(dir, f), 'utf8');
+    const style = svg.match(/<style[^>]*>([\s\S]*?)<\/style>/);
+    if (style) {
+      const defined = new Set([...style[1].matchAll(/\.([A-Za-z][\w-]*)/g)].map((m) => m[1]));
+      const used = new Set([...svg.matchAll(/\sclass="([^"]*)"/g)].flatMap((m) => m[1].split(/\s+/).filter(Boolean)));
+      for (const c of used) if (!defined.has(c)) bad.push(`${f}: class ${c} has no rule`);
+      continue;
+    }
+    const unfilled = [...svg.matchAll(/<(?:path|rect|circle|ellipse|polygon|polyline)\b[^>]*>/g)].map((m) => m[0])
+      .filter((tag) => !/\sfill="/.test(tag) && !/style="[^"]*fill:/.test(tag))
+      .filter((tag) => !(+(tag.match(/\sopacity="([^"]*)"/) || [])[1] < 1));
+    if (unfilled.length !== (BLACK_ON_PURPOSE[f] || 0)) bad.push(`${f}: no style block, and ${unfilled.length} shapes without a fill`);
+  }
+  assert.deepEqual(bad, [], bad.join('\n  '));
+});
+
 /* SiteHeader, SiteFooter ------------------------------------------------------------------- */
 
 const HEADER_PROPS = {
