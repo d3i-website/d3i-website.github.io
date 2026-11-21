@@ -121,6 +121,7 @@ const PENDING_SITE_CLASSES = {
     'postit__route', // new markup, site adopts on redo
     'postit__run', // new markup, site adopts on redo
     'postit__disc', // new markup, site adopts on redo
+    'postit__disc--notice', // new markup, site adopts on redo
   ],
   NewsCard: [
     'news-index', // new markup, site adopts on redo
@@ -460,11 +461,31 @@ test('postit renders the note', () => {
   assert.ok(html.includes('<span class="postit__link">Read our letter</span>'), 'the label on the tab');
   const plain = renderToHtml(React.createElement(D3I.Postit, { ...NOTE_PROPS, link: { label: 'x' }, inline: true }));
   assert.ok(plain.startsWith('<aside class="postit postit--inline">'), 'without link.href an aside, inline');
-  assert.ok(!/<a[\s>]/.test(plain) && !/postit__(disc|link)/.test(plain), 'not a link, no disc, no label');
+  assert.ok(!/<a[\s>]/.test(plain) && !/postit__link/.test(plain), 'not a link, no label');
   const bare = renderToHtml(React.createElement(D3I.Postit, { title: 't' }));
   assert.ok(!/postit__(eyebrow|body)/.test(bare), 'no eyebrow or body unless given');
   assert.match(ruleFor('.postit__note'), /background:var\(--paper\)/, 'on paper');
   assert.match(ruleFor('.postit__paper'), /drop-shadow\(var\(--shadow-note\)\)/, 'under the note shadow');
+});
+
+// The arrow disc marks a postit that leads somewhere; one that leads nowhere is a notice, and in
+// the arrow disc's place (same size, same corner) carries a coral disc with a white "!", drawn as
+// shapes. The linked postit has no exclamation disc.
+const noticeDisc = (html) => html.match(/<svg class="postit__disc postit__disc--notice"[^>]*>(.*?)<\/svg>/);
+test('postit without a link shows the exclamation disc', () => {
+  const { D3I, React } = bundle();
+  const plain = renderToHtml(React.createElement(D3I.Postit, { ...NOTE_PROPS, link: { label: 'x' } }));
+  const disc = noticeDisc(plain);
+  assert.ok(disc, 'the exclamation disc, on the arrow disc\'s corner (postit__disc)');
+  assert.equal(count(plain, '<svg class="postit__disc'), 1, 'one disc');
+  assert.ok(disc[0].includes('width="36" height="36" viewBox="-18 -18 36 36" aria-hidden="true"'), 'the arrow disc\'s size, hidden from screen readers');
+  assert.ok(disc[1].startsWith('<circle r="18" fill="#ff5e5e">'), 'a coral disc');
+  assert.ok(!disc[1].includes('#4272ef') && !disc[1].includes('M-8 0 h16'), 'no blue, no arrow');
+  assert.ok(/stroke="#fff"/.test(disc[1]) && /<circle[^>]*fill="#fff"/.test(disc[1]), 'a white stem and dot');
+  assert.ok(!/<text[\s>]/.test(disc[1]) && !disc[1].includes('!'), 'shapes, not a text "!"');
+  const linked = renderToHtml(React.createElement(D3I.Postit, NOTE_PROPS));
+  assert.ok(!noticeDisc(linked) && !linked.includes('postit__disc--notice'), 'the linked postit has no exclamation disc');
+  assert.ok(linked.includes('M-8 0 h16'), 'it keeps the arrow');
 });
 
 /* SidebarPanel, HubStep, Routes, PageIntro, SectionSubnav ------------------------------------ */

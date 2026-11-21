@@ -106,7 +106,8 @@
   /* The front page's note brought to the content pages, in the site's postit classes: the text on
      paper, the tab, and over the tab the dotted line from the coral corner node (noteTab and
      noteOver, shared with Note). With link.href the whole postit is one link and carries the arrow
-     disc and, with link.label, the tab's text; without one it is an <aside> with neither. */
+     disc and, with link.label, the tab's text; without one it is an <aside>, a notice, with no
+     label and the coral exclamation disc in the arrow disc's place. */
   function Postit(p) {
     var href = p.link && p.link.href ? p.link.href : null;
     var attrs = rest(p, ['eyebrow', 'title', 'body', 'link', 'inline', 'className']);
@@ -119,7 +120,7 @@
           h('h3', { className: 'postit__title' }, p.title),
           p.body ? h('p', { className: 'postit__body' }, p.body) : null),
         noteTab('postit__tab')),
-      noteOver('postit', href, href && p.link.label));
+      noteOver('postit', href, href && p.link.label, true));
   }
 
   /* A notice on a short blue line (.callout::before), from a coral node to a ring node. */
@@ -650,16 +651,29 @@
     return h('svg', { className: className, width: '169', height: '30', viewBox: '0 0 169 30', 'aria-hidden': 'true' },
       h('path', { fill: '#f3f9fd', d: 'M0 0 H168.3 c-6.55 0 -12.47 3.9 -15.05 9.93 l-4.2 10.15 c-2.57 6.03 -8.5 9.93 -15.05 9.93 H0 Z' }));
   }
+  /* The notice disc: where a postit that leads nowhere would have its arrow disc, the coral disc
+     with a white "!" (a stem and a dot). The arrow disc marks what leads somewhere; this marks a
+     notice that leads nowhere. */
+  function noticeParts() {
+    return [
+      h('circle', { key: 'c', r: '18', fill: '#ff5e5e' }),
+      h('path', { key: 'p', d: 'M0 -7.5 V2', fill: 'none', stroke: '#fff', strokeWidth: '2.8', strokeLinecap: 'round' }),
+      h('circle', { key: 'd', cy: '7.2', r: '1.7', fill: '#fff' })
+    ];
+  }
   /* What lies over the tab (<base>__over): the dotted line from the coral corner node to a ring
-     node, the run to the corner, and with an href the arrow disc there and the tab's label. */
-  function noteOver(base, href, label) {
+     node, the run to the corner, and with an href the arrow disc there and the tab's label. With
+     notice and no href, the notice disc stands on the corner instead. */
+  function noteOver(base, href, label, notice) {
     return h('div', { className: base + '__over' },
       h('svg', { className: base + '__route', width: '184', height: '30', viewBox: '0 0 184 30', 'aria-hidden': 'true' },
         h('path', { className: 'dot', d: 'M0 30 H134 c6.55 0 12.48-3.9 15.05-9.93 l4.2-10.15 c2.58-6.03 8.5-9.93 15.05-9.93 H174' }),
         h('circle', { cx: '0', cy: '30', r: '4.5', fill: '#ff5e5e' }),
         h('circle', { cx: '178', cy: '0', r: '4.2', fill: '#fff', stroke: '#4272ef', strokeWidth: '1.4' })),
       h('i', { className: base + '__run' }),
-      href ? h('svg', Object.assign({ className: base + '__disc' }, NOTE_DISC), discParts('1.8')) : null,
+      href ? h('svg', Object.assign({ className: base + '__disc' }, NOTE_DISC), discParts('1.8'))
+        : notice ? h('svg', Object.assign({ className: base + '__disc ' + base + '__disc--notice' }, NOTE_DISC), noticeParts())
+        : null,
       href && label ? h('span', { className: base + '__link' }, label) : null);
   }
   function Note(p) {

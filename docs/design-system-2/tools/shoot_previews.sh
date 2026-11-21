@@ -4,11 +4,15 @@
 #   tools/shoot_previews.sh Postit                 390 and 1280px wide
 #   tools/shoot_previews.sh Postit 600 1000        the widths given
 #   OUT=/some/dir tools/shoot_previews.sh Postit   into /some/dir instead of a fresh temp dir
+#   HEIGHT=260 tools/shoot_previews.sh Postit 1280 in a window 260px tall instead of 4000
 #
 # Needs: firefox, ImageMagick (magick), python3.
 #
 # It writes $OUT/<Component>-<width>.png for each width, cut off 24px below the last thing on it,
-# and prints $OUT. The page it shoots is the preview with tokens.css, bundle.css, React and
+# prints a line per shot ("<Component>-<width>.png  <w>x<h>", with "  scrolls" after it when the
+# page overflowed the window) and then $OUT. A window of the card's height shows whether the
+# preview scrolls in its card; the shot is then only what the window shows.
+# The page it shoots is the preview with tokens.css, bundle.css, React and
 # bundle.js loaded first, as on the design system's page, and every /_blob/<id> in it pointed at
 # its file under project/assets/ (design-system.json's assetGroups say which file an id is).
 # React renders synchronously there, so the shot is taken after the preview has drawn.
@@ -86,12 +90,32 @@ PY
 
 for width in "${widths[@]}"; do
   png=$out/$name-$width.png
-  firefox --headless --no-remote --profile "$work/profile" --window-size="$width",4000 \
-    --screenshot "$work/shot.png" "file://$work/harness.html" >/dev/null 2>&1
-  # the preview ends where the last non-white pixel is; keep 24px below it
-  box=$(magick "$work/shot.png" -format '%@' info:)
-  bottom=$(awk -F'[x+]' '{ print $2 + $4 + 24 }' <<<"$box")
-  magick "$work/shot.png" -crop "${width}x${bottom}+0+0" +repage -strip "$png"
-  echo "$name-$width.png  ${width}x${bottom}"
+  # Now and then Firefox takes the shot before the page has drawn, and it is one colour; then it
+  # shoots again, up to three times.
+  for try in 1 2 3; do
+    firefox --headless --no-remote --profile "$work/profile" --window-size="$width","${HEIGHT:-4000}" \
+      --screenshot "$work/shot.png" "file://$work/harness.html" >/dev/null 2>&1
+    [ "$(magick "$work/shot.png" -format '%k' info:)" -gt 1 ] && break
+    if [ "$try" = 3 ]; then
+      echo "$name at $width: three blank shots" >&2
+      exit 1
+    fi
+  done
+  # A page that overflows the window gets a scrollbar, which the shot leaves transparent: the
+  # preview then scrolls in its card too (a first or last child's margin that collapses through
+  # the body, whose min-height is 100vh, is enough). Say so, and measure without it.
+  scrolls=
+  [ "$(magick "$work/shot.png" -format '%[opaque]' info:)" = True ] || scrolls='  scrolls'
+  # The preview ends where the last pixel not of the page's background is (the colour at the
+  # bottom of the 4000px window: white, or a slide preview's grey); keep 24px below it. The
+  # border makes that the colour the bounding box trims, whatever is in the corners.
+  page_bg=$(magick "$work/shot.png" -background white -alpha remove -alpha off \
+    -format '%[pixel:p{0,h-1}]' info:)
+  box=$(magick "$work/shot.png" -background white -alpha remove -alpha off \
+    -bordercolor "$page_bg" -border 1 -format '%@' info:)
+  bottom=$(awk -F'[x+]' '{ print $2 + $4 - 1 + 24 }' <<<"$box")
+  magick "$work/shot.png" -background white -alpha remove -alpha off \
+    -crop "${width}x${bottom}+0+0" +repage -strip "$png"
+  echo "$name-$width.png  ${width}x${bottom}$scrolls"
 done
 echo "$out"

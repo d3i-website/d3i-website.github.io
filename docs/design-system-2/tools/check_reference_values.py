@@ -49,7 +49,7 @@ ALLOWED_UNREDONE = {
     "#4f5560": "_footer.scss: .site-footer__label base colour, overridden by --small on every label in use",
     "#50545d": "_pages.scss: sidebar panel title and links; SidebarPanel's new look replaces the rule when the site adopts it",
     "#fbfbfc": "_pages.scss: sidebar panel ground; same rule set, goes with it",
-    "#fafbfd": "_pages.scss: table of contents ground; TableOfContents keeps it, approximated by surface-tint, since no decision redesigned it",
+    "#fafbfd": "_pages.scss: table of contents ground; the site's TOC draws #fafbfd, which has no token, and the system's TableOfContents approximates it with surface-tint (#f5f7fb) until the TOC is redesigned",
     "#fafcff": "_pages.scss: featured archive card ground; ArchiveCard's new look has no ground, the rule goes when archive pages adopt it",
     "#f6f8fc": "_site.scss: media grid image ground; no system component draws the media grid",
     "#f0f8ff": "_site.scss: callout ground; Callout's new look has no ground, the rule goes when the site adopts it",

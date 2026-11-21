@@ -331,7 +331,7 @@ export interface PostitProps {
   title: string;
   /** One or two sentences, in note-text. Left out, there is no body paragraph. */
   body?: string;
-  /** Where the postit leads. With an href the whole postit is one link (<a class="postit">) and carries the arrow disc; `label` is the text on the tab ("Read our letter"), and without it the tab is empty. Left out, the postit is an <aside class="postit"> with no disc. */
+  /** Where the postit leads. With an href the whole postit is one link (<a class="postit">) and carries the arrow disc; `label` is the text on the tab ("Read our letter"), and without it the tab is empty. Left out (or without an href), the postit is an <aside class="postit">, a notice that leads nowhere, with no label and the coral exclamation disc in the arrow disc's place. */
   link?: { label?: string; href: string; external?: boolean };
   /** The content-page form: floats right of the text from 768px. */
   inline?: boolean;
@@ -339,7 +339,7 @@ export interface PostitProps {
   className?: string;
 }
 /**
- * The front page's note on a content page or directory hub: a timely message (a position, an outage, a deadline) on paper with the tab, the dotted line from the coral corner node, and the arrow disc when it links. One per page, only while timely.
+ * The front page's note on a content page or directory hub: a timely message (a position, an outage, a deadline) on paper with the tab, the dotted line from the coral corner node, and the arrow disc when it links, the coral exclamation disc when it does not. One per page, only while timely.
  * @example
  * <Postit eyebrow="Outage" title="Script selector is offline" body="SURF Research Cloud, which hosts the selector, is currently down." inline />
  */

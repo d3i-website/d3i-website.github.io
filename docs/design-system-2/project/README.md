@@ -1,6 +1,6 @@
 datadonation.eu is the website of D3I, the Dutch digital data donation infrastructure, and the hub of an international community of researchers. The new look, begun with the front page, is a white page with dark ink text, blue as the one working colour, one sky-blue band at the top of the front page, a condensed serif for large headings, and a drawing of lines and nodes that every piece sits on. The serif is provisional (see Shared · Type). Everything below names tokens in `tokens.json`, text styles in its `type.groups`, class names in `components/bundle.css`, components in `components/bundle.js` (`window.D3I`) and files under `assets/`.
 
-The system is small: 26 colours, 18 text styles for the website and 12 for slides, one 4px spacing scale, square corners, and one shadow. Every website component is in this look except InstitutionCard, which keeps its old look until the network page leaves the site. A token whose note says it is unused by components is kept only for the site's own Sass, until each page adopts the new components. Use what is here; when something seems missing, the answer is almost always an existing token used as its note says, not a new value.
+The system is small: 26 colours, 18 text styles for the website and 12 for slides, one 4px spacing scale, square corners, and one shadow. Every website component is in this look except InstitutionCard, which keeps its old look until the network page leaves the site, and two pieces that keep theirs until they are redesigned: the TableOfContents panel and the journey hubs' hero above the HubStep steps. A token whose note says it is unused by components is kept only for the site's own Sass, until each page adopts the new components. Use what is here; when something seems missing, the answer is almost always an existing token used as its note says, not a new value.
 
 ## How this book is organised
 
@@ -30,10 +30,10 @@ The website is white with one colour block. Learn the roles and you know every t
 
 **Small spots.**
 
-- `coral` (#ff5e5e) and `yellow` (#ffcf60) appear only as small spots. Coral: the note's eyebrow, its corner node, the node in the band's step. Yellow: the node under the map pin on the band's edge.
+- `coral` (#ff5e5e) and `yellow` (#ffcf60) appear only as small spots. Coral: the note's eyebrow, its corner node, the node in the band's step, the Postit's exclamation disc. Yellow: the node under the map pin on the band's edge.
 - `yellow` is never text. `coral` is text only when bold (the note's eyebrow is 800). Text on a coral or yellow fill is `heading`.
 
-**One band.** The `sky` band at the top of the front page is the only colour block on the website. There are no tinted panels and no coloured cards.
+**One band.** The `sky` band at the top of the front page is the only colour block on the website. There are no coloured cards, and no tinted panels except the few in `surface-tint` that the `surface-tint` bullet below lists (inline code, the table of contents, the hub's sub-navigation, the active menu row).
 
 **Tokens the components no longer use.**
 
@@ -169,6 +169,7 @@ No slide uses the tints, `yellow-text`, `road`, `surface-tint`, `surface-strong`
 - A title that is a whole-line link (card headings, news and event titles) keeps its own weight (`card-heading`, `row-title`) and takes the same underline, at `line-underline-offset-title`.
 - The note's link text on its tab is `blue`, in `note-label`.
 - **The arrow disc** is a `blue` disc with a white arrow. It marks the few things that lead somewhere as a whole: the note and the Postit (`disc-arrow`, 36px), the next step at the foot of a journey page (JourneyNext, `disc-arrow`), and "More" and every action link (`disc-arrow-sm`, 24px). Nothing else carries it; a card or a row is a link through its title.
+- **The exclamation disc** is its counterpart for a notice that leads nowhere: a Postit without a link carries, in the arrow disc's place and at its size (`disc-arrow`), a `coral` disc with a white "!". The arrow disc marks what leads somewhere; the coral exclamation disc marks a notice that leads nowhere. Nothing else carries it.
 - "More" is `label` in `text`, followed by a short dotted `sky` line (a repeating dot `line-dot-page` high, one every `line-dot-spacing`) and the arrow disc. The dotted line turns solid on hover and on keyboard focus. Off the front page an action link (ActionLink) takes the same form: `link` in its section form, `label` in its compact form, `space-8` between the parts. A long label wraps, but its last word stays with the dotted line and the disc. It is the thing to click, one per card or section; there are no buttons.
 
 ## Website · Lines and nodes
@@ -203,7 +204,7 @@ The note carries one timely message, such as a position statement. It is not par
 - **Below 1280px:** no paper and no line. The eyebrow and title, the body sentence (down to 1000px only), and the arrow disc, as plain text in the niche under the band's shallow side, starting at `page-edge`. The niche is `band-niche-lg`, `band-niche-md` or `band-niche-sm` wide and ends `band-niche-gap` before the step. The parts are `note-gap` apart, `note-gap-sm` below 600px. The whole note is a link.
 - Type: the eyebrow is `note-label` in `coral`; the title is `note-label` in `heading`; the body is `note-text` in `heading`; the tab's link is `note-label` in `blue`.
 - What the niche shows below 1280px with the note switched off is not decided yet. The reference README lists this and the known, accepted flaws.
-- **Off the front page** the note is the Postit, on content pages and directory hubs: the paper form at every width, 16.25rem wide, with the same tab, dotted line, corner node, type and, when it links, the arrow disc and the tab's label. On a content page it floats right of the text from 768px; a directory hub pins it top right of its hero. One per page, only while timely.
+- **Off the front page** the note is the Postit, on content pages and directory hubs: the paper form at every width, 16.25rem wide, with the same tab, dotted line, corner node, type and, when it links, the arrow disc and the tab's label; when it does not, the coral exclamation disc on the corner and an empty tab. On a content page it floats right of the text from 768px; a directory hub pins it top right of its hero. One per page, only while timely.
 
 ## Website · Below the band
 
