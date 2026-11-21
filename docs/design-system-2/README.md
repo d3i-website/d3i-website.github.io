@@ -4,7 +4,7 @@ The new look of the datadonation.eu website, begun with the front page on 2026-1
 
 `docs/design-system/` is the earlier system, and it is not edited. Decks can now be made from this system: its slide components are in the new look. The earlier system remains for the decks already made from it.
 
-This folder has no claude.ai artifact yet.
+It is published as the claude.ai Design System artifact "datadonation.eu 2026", https://claude.ai/artifact/59zcpk1XLCNDTWQvqiq6uz (private to its owner). To use it in your own account, install a copy: see `INSTALL.md`.
 
 Start with `project/README.md`, the brand book: what every token is for, the slide rules, the slide palette in hex, and the components.
 
@@ -32,3 +32,9 @@ Not copied from the artifact: its `api/` cards and `manifest.json`, which the ar
 - **A web page:** link `project/tokens.css` and `project/components/bundle.css`, load `components/lib/react.production.min.js`, `react-dom.production.min.js` and then `components/bundle.js`, and mount the components (`D3I.NewsCard`, `D3I.Routes` …). Pictures are props: pass the URL of your copy of the asset. In a clone the image files are already here, under `project/assets/<Group>/`, so you don't need the artifact's upload ids that the component READMEs mention.
 - **A slide deck:** each slide component renders one 1920 × 1080 `<section>` with inline hex styles. `D3I.slideMarkup(D3I.SlideFrame, props)` returns it as markup to paste into a deck. Without running the bundle, follow the component's README, which lists every value it draws. Declare Nunito Sans and the serif, Libre Caslon Condensed (provisional), from `project/fonts/`.
 - **This website:** the site does not use these tokens yet. The front page is built towards `docs/front-page-reference/`.
+
+## Keeping the repository and the artifact in step
+
+Edits are made here, in the repository, and the artifact follows. To update the artifact, follow `INSTALL.md`, "Re-sync": read the copy's index, run `install_copy.py batches --existing-index <that index>`, upload what it lists, run `stage --existing-index <that index>`, then publish the files and the index last. Never publish `tokens.css`: the artifact compiles its own.
+
+After a re-sync, copy the artifact's index back into `project/design-system.json`, so the repository records every image's real upload id. The store normalizes SVGs on upload, which is why some records carry a `source_size` (the repository file's size) next to `size` (what the artifact holds). Tools and tests compare a file with `source_size` when it is present, else `size`.
