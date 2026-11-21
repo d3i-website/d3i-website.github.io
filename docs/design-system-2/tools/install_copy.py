@@ -39,7 +39,7 @@ IMAGE_TYPES = {".svg", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".mp4", ".webm"
 SKIP = {"tokens.css", "manifest.json"}
 # One line of an upload result:
 # - "/abs/…/project/assets/Logos/eyra.png" (16091 bytes, image/png) → "/_blob/<id>" (id <id>)
-RESULT = re.compile(r'"(?P<path>[^"]+)" \((?P<size>\d+) bytes, [^)]*\) → "/_blob/(?P<id1>[0-9a-f]{32})" \(id (?P<id2>[0-9a-f]{32})\)')
+RESULT = re.compile(r'"(?P<path>[^"]+)" \((?P<size>\d+) bytes, (?P<type>[^)]*)\) → "/_blob/(?P<id1>[0-9a-f]{32})" \(id (?P<id2>[0-9a-f]{32})\)')
 BLOB = re.compile(r"/_blob/([0-9a-f]{32})")
 
 
@@ -67,7 +67,8 @@ def placeholders(index):
 
 def reusable(existing_path):
     """Images whose name and size are unchanged in an existing copy keep that copy's upload,
-    except those this repository records with a placeholder id."""
+    except those this repository records with a placeholder id. "Unchanged" compares the file's
+    size with the record's source_size (an SVG the store normalized) or else its size."""
     if not existing_path:
         return {}
     existing = json.loads(pathlib.Path(existing_path).read_text())
@@ -75,8 +76,8 @@ def reusable(existing_path):
     keep = {}
     for key, rec in images(existing):
         local = PROJECT / "assets" / key
-        if key not in fresh and not rec.get("placeholder") and "blob" in rec and local.is_file() and local.stat().st_size == rec["size"]:
-            keep[key] = rec["blob"]
+        if key not in fresh and not rec.get("placeholder") and "blob" in rec and local.is_file() and local.stat().st_size == rec.get("source_size", rec["size"]):
+            keep[key] = rec
     return keep
 
 
@@ -89,7 +90,8 @@ def cmd_batches(args):
 
 
 def parse_uploads(text):
-    """Map "Group/name" -> new upload id from pasted upload results, checking each line."""
+    """Map "Group/name" -> (new upload id, stored size) from pasted upload results, checking each line.
+    The store normalizes SVGs on upload, so only an SVG may come back at a different size."""
     found = {}
     for m in RESULT.finditer(text):
         if m["id1"] != m["id2"]:
@@ -101,9 +103,9 @@ def parse_uploads(text):
         local = PROJECT / "assets" / key
         if not local.is_file():
             die(f"{key} was uploaded but is not in project/assets/")
-        if local.stat().st_size != int(m["size"]):
+        if local.stat().st_size != int(m["size"]) and m["type"] != "image/svg+xml":
             die(f"{key}: uploaded {m['size']} bytes, the repository file has {local.stat().st_size}")
-        found[key] = m["id1"]
+        found[key] = (m["id1"], int(m["size"]))
     return found
 
 
@@ -120,7 +122,8 @@ def cmd_stage(args):
     src = repo_index()
     new_ids = parse_uploads(pathlib.Path(args.uploads).read_text()) if args.uploads else {}
     keep = reusable(args.existing_index)
-    ids = {**keep, **new_ids}
+    ids = {**{k: (rec["blob"], rec["size"], rec.get("source_size")) for k, rec in keep.items()},
+           **{k: (i, size, None) for k, (i, size) in new_ids.items()}}
     missing = [key for key, _ in images(src) if key not in ids]
     if missing:
         die(f"{len(missing)} images have no upload id: {', '.join(missing)}; upload them and add their results")
@@ -130,7 +133,7 @@ def cmd_stage(args):
         shutil.rmtree(out / "project")
     # a file recorded before its first upload (no "blob" yet) has no old id for the text to point at;
     # a placeholder id is an old id like any other, and is replaced by the upload's
-    old_to_new = {rec["blob"]: ids[key] for key, rec in images(src) if "blob" in rec}
+    old_to_new = {rec["blob"]: ids[key][0] for key, rec in images(src) if "blob" in rec}
 
     staged = []
     for path in sorted(PROJECT.rglob("*")):
@@ -167,7 +170,12 @@ def cmd_stage(args):
     for name in src["groups"]:
         grp = json.loads(json.dumps(src["assetGroups"][name]))
         for rec in grp["files"].values():
-            rec["blob"] = ids[f"{name}/{rec['name']}"]
+            blob, size, _ = ids[f"{name}/{rec['name']}"]
+            repo_size = rec["size"]
+            rec["blob"] = blob
+            rec["size"] = size  # what the artifact holds
+            if size != repo_size:
+                rec["source_size"] = repo_size
             rec.pop("sha256", None)
             rec.pop("placeholder", None)
         groups[name] = grp

@@ -163,5 +163,64 @@ class Network(unittest.TestCase):
         self.assertIn(victim, r.stderr)
 
 
+class SvgNormalization(unittest.TestCase):
+    """The artifact store rewrites SVGs on upload, so the stored size can differ from the file's."""
+    SVG = "Network/lock.svg"
+    PNG = "Logos/eyra.png"
+
+    def uploads(self, tmp, key, reported, mime):
+        lines = []
+        for k, _ in records(repo_index()):
+            path = PROJECT / "assets" / k
+            i = fake_id(path)
+            size = reported if k == key else path.stat().st_size
+            kind = mime if k == key else "image/x"
+            lines.append(f'- "{path}" ({size} bytes, {kind}) \u2192 "/_blob/{i}" (id {i})')
+        f = pathlib.Path(tmp) / "uploads.txt"
+        f.write_text("\n".join(lines))
+        return f
+
+    def test_stage_accepts_svg_normalization(self):
+        repo_size = (PROJECT / "assets" / self.SVG).stat().st_size
+        with tempfile.TemporaryDirectory() as tmp:
+            uploads = self.uploads(tmp, self.SVG, repo_size + 27, "image/svg+xml")
+            out = pathlib.Path(tmp) / "out"
+            run("stage", "--uploads", str(uploads), "--out", str(out), "--by", "Test")
+            staged = json.loads((out / "project/design-system.json").read_text())
+        rec = dict(records(staged))[self.SVG]
+        self.assertEqual(rec["size"], repo_size + 27)
+        self.assertEqual(rec["source_size"], repo_size)
+        self.assertNotIn("source_size", dict(records(staged))["Network/globe.svg"])
+
+    def test_stage_rejects_raster_size_change(self):
+        repo_size = (PROJECT / "assets" / self.PNG).stat().st_size
+        with tempfile.TemporaryDirectory() as tmp:
+            uploads = self.uploads(tmp, self.PNG, repo_size + 1, "image/png")
+            r = subprocess.run([sys.executable, "-I", str(TOOL), "stage", "--uploads", str(uploads),
+                                "--out", str(pathlib.Path(tmp) / "out"), "--by", "Test"], capture_output=True, text=True)
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn(self.PNG, r.stderr)
+
+    def existing_listing(self, source_size):
+        existing = repo_index()
+        for key, rec in records(existing):
+            rec.pop("placeholder", None)
+            rec.setdefault("blob", "0" * 32)
+        rec = dict(records(existing))[self.SVG]
+        rec["size"] = rec["size"] + 27
+        rec["source_size"] = source_size(rec["size"] - 27)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = pathlib.Path(tmp) / "existing.json"
+            path.write_text(json.dumps(existing))
+            out = run("batches", "--existing-index", str(path)).stdout
+        return [p for line in out.splitlines() if line.startswith("[") for p in json.loads(line)]
+
+    def test_resync_reuses_normalized_svg(self):
+        self.assertNotIn(str(PROJECT / "assets" / self.SVG), self.existing_listing(lambda repo: repo))
+
+    def test_resync_reuploads_edited_svg(self):
+        self.assertIn(str(PROJECT / "assets" / self.SVG), self.existing_listing(lambda repo: repo - 5))
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -20,6 +20,8 @@ Claude creates the artifact, uploads the 130 images, publishes the files and giv
 
 A few pictures (News, Projects and Screens groups) are recorded in `design-system.json` with `"placeholder": true`: the id is the MD5 of the file, never a real upload, so that a preview can point at it. A copy always uploads these, even on a re-sync, `stage` swaps the id in every preview for the new upload, and the staged index drops the flag. Slides and Network pictures are recorded without an id at all and are uploaded the same way. If any image is left without an upload id, `stage` stops and names the file.
 
+The artifact store normalizes SVGs on upload (it strips editor metadata and adds declarations), so a stored SVG can differ in size from the repository file while the drawing is the same. `stage` accepts that for `image/svg+xml` only; any other size mismatch still stops it. The staged index records `size` as what the artifact holds and, when it differs, `source_size` as the repository file's size. A re-sync compares the repository file with `source_size` when present, so a normalized SVG is not uploaded again until the file is edited.
+
 ## Check the tooling
 
 `python3 -I -B -m unittest discover -s tests -p design_system_install_test.py` runs the install tooling's tests with synthetic upload results. No upload is made.
@@ -41,7 +43,7 @@ Run the commands from the repository root. `<scratch>` is your scratchpad direct
 1. Create the artifact: Artifact `publish` with `type_url` set to the Design System type (Artifact `list` with `scope: "types"` shows it), `title` set to `datadonation.eu 2026` unless the user names another, and no files. Keep the url it returns, and never pass `type_url` again.
 2. List the uploads: `python3 -I docs/design-system-2/tools/install_copy.py batches`. It prints JSON arrays of absolute image paths, 25 per array: 6 arrays and 130 images on a fresh install (the last array holds 5).
 3. Upload each array: Artifact `publish` with `url` set to the new artifact, `asset: true` and `file_paths` set to that array.
-4. Save the results: write every result line to `<scratch>/uploads.txt` exactly as the tool printed it, one per line (`- "<path>" (<size> bytes, <type>) → "/_blob/<id>" (id <id>)`). Don't retype ids. The next step stops if a line's two copies of the id differ or a size doesn't match the repository file.
+4. Save the results: write every result line to `<scratch>/uploads.txt` exactly as the tool printed it, one per line (`- "<path>" (<size> bytes, <type>) → "/_blob/<id>" (id <id>)`). Don't retype ids. The next step stops if a line's two copies of the id differ or a size doesn't match the repository file (an SVG may differ, see below).
 5. Stage: `python3 -I docs/design-system-2/tools/install_copy.py stage --uploads <scratch>/uploads.txt --out <scratch>/ds-install --by "<the user's name>"`. The title defaults to `datadonation.eu 2026`, the same as step 1; pass `--title "<name>"` only when the user named another. It writes the files, the new index and `<scratch>/ds-install/publish.json`.
 6. Publish the files: one Artifact `publish` with `url` set to the new artifact and `root`, `file_path` and `files` taken exactly from `publish.json` (`files` includes `index.d.ts` with its `contentType`).
 7. Publish the index last: Artifact `publish` with `url`, the same `root`, and `file_path` set to `publish.json`'s `index_file_path`.
