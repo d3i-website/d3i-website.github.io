@@ -198,7 +198,7 @@ def main():
     s = sub.add_parser("stage", help="stage the files and the index for publishing")
     s.add_argument("--uploads", help="a text file holding the upload results, copied exactly")
     s.add_argument("--out", required=True, help="the folder to stage in (the publish call's root)")
-    s.add_argument("--title", default="datadonation.eu", help="the new system's name (ignored on a re-sync)")
+    s.add_argument("--title", default="datadonation.eu 2026", help="the new system's name (ignored on a re-sync, which keeps the copy's title)")
     s.add_argument("--by", default="Claude", help="the person the copy is installed for")
     s.add_argument("--existing-index", help="the copy's project/design-system.json, read from it, for a re-sync")
     args = p.parse_args()

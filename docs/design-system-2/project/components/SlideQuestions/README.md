@@ -9,7 +9,7 @@ Pass up to three `rows`, each a `question` of a few words (optionally a `problem
 - The title block: the eyebrow in `text-muted` caps, the title in the serif (Libre Caslon Condensed, provisional) at 420, 64px.
 - The questions hang from the line SlideFrame's cards hang from (a ring node at each end, a filled `blue` node over each question) and are drawn as its cards are: the problem, if given, as a `text-muted` eyebrow, the question in the serif at 420, 48px, in `heading`, the change, if given, in `slide-body`. The questions (and the cases, 48px under them) are centred in the space between the title block and the contact row.
 - Case cards: `surface`, square, framed by a 2px `border` hairline, padding 24px 32px; a 14px disc before the title is the card's one spot of colour, `blue` then `yellow` by default (`tint` picks `blue`, `coral` or `yellow`); the title in Nunito Sans 800 at 28px and one `slide-small` line.
-- The contact row sits at the bottom margin; the email and the site carry `data-uncounted`, the attribute the word count leaves out: the email in Nunito Sans 800 at 28px in `blue`, the site in the same in `heading`, then the credit in `slide-small` `text-muted` beside the logos at 44px tall.
+- The contact row sits at the bottom margin; the email and the site carry `data-uncounted`, the attribute the word count leaves out: the email as "Email <address>", with no arrow, in Nunito Sans 800 at 28px in `blue`, the site in the same in `heading`, then the credit in `slide-small` `text-muted` beside the logos at 44px tall.
 - Nothing is tinted or shadowed.
 
 ## What you provide

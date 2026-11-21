@@ -17,6 +17,9 @@ const components = join(root, 'docs/design-system-2/project/components');
 const site = join(root, '_site');
 
 // Folders under components/ that hold no component: the React files, and the system's cover card.
+// Cover has no D3I export, so it is left out of the folder agreement below, but it is a preview: it
+// is under the checks that apply to one (it renders, points only at uploads, has a card height that
+// fits, and draws in the new look; see "the cover card").
 const NOT_COMPONENTS = ['lib', 'Cover'];
 
 const folders = readdirSync(components, { withFileTypes: true })
@@ -25,6 +28,8 @@ const folders = readdirSync(components, { withFileTypes: true })
   .sort();
 const previews = folders.filter((name) => existsSync(join(components, name, 'preview.html')));
 const previewPath = (name) => join(components, name, 'preview.html');
+// Every preview the artifact page shows: the components' and the system's cover card.
+const allPreviews = [...previews, 'Cover'];
 
 function bundle() {
   return loadBundle(join(components, 'bundle.js'));
@@ -90,7 +95,7 @@ test('bundle.css has no colour literals', () => {
 });
 
 test('every preview renders', () => {
-  for (const name of previews) {
+  for (const name of allPreviews) {
     let html;
     assert.doesNotThrow(() => { html = runPreview(previewPath(name), bundle()); }, `${name} preview throws`);
     assert.ok(html.length > 0, `${name} preview renders nothing`);
@@ -187,7 +192,7 @@ test('pending site classes are new, used, and their own component\'s', () => {
 // the address, and PeopleGrid's preview draws its placeholder photo as a data: URL.
 test('previews point only at uploads', () => {
   const bad = [];
-  for (const name of previews) {
+  for (const name of allPreviews) {
     const html = runPreview(previewPath(name), bundle());
     for (const m of html.matchAll(/\s(src|href)="([^"]*)"/g)) {
       const url = m[2];
@@ -196,6 +201,30 @@ test('previews point only at uploads', () => {
     }
   }
   assert.deepEqual(bad, [], `previews pointing elsewhere:\n  ${bad.join('\n  ')}`);
+});
+
+// The cards on the artifact's page are grouped as the brand book lists the components: each website
+// component's card is in the group whose line in Website · Components names it, and each slide's is in
+// the Slides group. The cover card has no group: it is the system's face.
+test('every preview\'s group is one the brand book names', () => {
+  const book = readFileSync(join(root, 'docs/design-system-2/project/README.md'), 'utf8');
+  const section = book.slice(book.indexOf('## Website · Components'), book.indexOf('\n## ', book.indexOf('## Website · Components') + 1));
+  const lines = Object.fromEntries([...section.matchAll(/^- ([A-Z][a-z]+(?: [a-z]+)*): (.*)$/gm)].map((m) => [m[1], m[2]]));
+  assert.ok(Object.keys(lines).length >= 7, 'the brand book lists its component groups');
+  assert.match(book, /components in the \*\*Slides\*\* group/, 'the brand book names the Slides group');
+  const wrong = [];
+  for (const name of previews) {
+    const group = (readFileSync(previewPath(name), 'utf8').split('\n')[0].match(/\sgroup="([^"]*)"/) || [])[1];
+    if (name.startsWith('Slide')) {
+      if (group !== 'Slides') wrong.push(`${name}: group "${group}", not Slides`);
+    } else if (!(group in lines)) {
+      wrong.push(`${name}: group "${group}" is not one the brand book names (${Object.keys(lines).join(', ')})`);
+    } else if (!new RegExp(`\\b${name}\\b`).test(lines[group])) {
+      wrong.push(`${name}: the brand book's ${group} line does not list it`);
+    }
+  }
+  assert.deepEqual(wrong, [], wrong.join('\n  '));
+  assert.ok(!/\sgroup=/.test(readFileSync(previewPath('Cover'), 'utf8').split('\n')[0]), 'the cover card has no group');
 });
 
 /* Band ------------------------------------------------------------------------------------ */
@@ -615,7 +644,7 @@ test('news index leads with the newest', () => {
   assert.ok(html.startsWith('<div class="news-index"><article class="news-card news-lead">'), 'the index opens with the lead');
   const lead = html.slice(0, html.indexOf('<div class="news-grid">'));
   assert.ok(lead.includes('<a class="news-card__media" href="/news/ready/" tabindex="-1" aria-hidden="true"><img src="/_blob/1" alt="An RO-Crate preview."/></a>'), 'its picture');
-  assert.ok(lead.includes('<p class="news-card__date">November 9, 2026</p>'), 'its date as the site writes it');
+  assert.ok(lead.includes('<p class="news-card__date">9 November 2026</p>'), 'its date day month year, as the news item prints it');
   assert.ok(lead.includes('<h3 class="news-card__title"><a href="/news/ready/"><span>Ready to reproduce</span></a></h3>'), 'the title is the link');
   assert.ok(lead.includes('<p class="news-card__summary">Export the complete study setup.</p>'), 'its summary');
   assert.ok(!lead.includes('Building a Shared'), 'only the first item leads');
@@ -660,6 +689,9 @@ test('news row is the list row', () => {
   const old = renderToHtml(h(D3I.NewsCard, { title: 't', date: 'September 8, 2026', href: '#', accent: 1, linkLabel: 'Read on', image: { src: '/_blob/1', alt: '' } }));
   assert.ok(old.includes('<p class="news-card__date"><span>Sep</span><b>8</b></p>'), 'September 8, 2026 is Sep over 8');
   assert.ok(!/accent|Read on|linklabel|<img|cta-link|→|\[object/i.test(old), 'no accent, link, picture or stray attribute');
+  // Day month year, as the system writes dates, reads too.
+  const dmy = renderToHtml(h(D3I.NewsCard, { title: 't', date: '8 September 2026', href: '#' }));
+  assert.ok(dmy.includes('<p class="news-card__date"><span>Sep</span><b>8</b></p>'), '8 September 2026 is Sep over 8');
   assert.deepEqual(rulesWith(/news-card/, 'shadow'), [], 'no shadow');
   assert.deepEqual(rulesWith(/news-card/, 'var(--yellow)').concat(rulesWith(/news-card/, 'var(--coral)')), [], 'no accent fields');
 });
@@ -683,6 +715,11 @@ test('archive card is a list row', () => {
   const across = renderToHtml(h(D3I.ArchiveCard, { title: 't', date: 'September 30 - October 2, 2026' }));
   assert.ok(across.includes('<p class="archive-card__date"><span>Sep–Oct</span><b>30–2</b></p>'), 'an old folded range across months');
   assert.ok(across.includes('<h3 class="archive-card__title">t</h3>') && !across.includes('archive-card__meta'), 'no href, no link; no place, no meta');
+  // Day month year, as the system writes dates, reads the same way.
+  for (const [date, col] of [['30 September - 2 October 2026', '<span>Sep–Oct</span><b>30–2</b>'], ['1-2 October 2026', '<span>Oct</span><b>1–2</b>'], ['7 December 2026', '<span>Dec</span><b>7</b>']]) {
+    const dmy = renderToHtml(h(D3I.ArchiveCard, { title: 't', date }));
+    assert.ok(dmy.includes(`<p class="archive-card__date">${col}</p>`), `${date}: ${col}`);
+  }
   const label = renderToHtml(h(D3I.ArchiveCard, { title: 't', date: 'Spring 2027', location: 'Online', href: '/t/', hrefLabel: 'More' }));
   assert.ok(!label.includes('archive-card__date') && label.includes('<p class="archive-card__meta">Spring 2027 · Online</p>'), 'a date it cannot read stays in the meta line');
   assert.ok(!/hreflabel|More/i.test(label), 'hrefLabel leaves no trace');
@@ -930,8 +967,21 @@ test('footer with no partners', () => {
   assert.ok(html.includes('<p class="site-footer__copyright">© 2026 datadonation.eu</p>'), 'the copyright line');
 });
 
-test('footer rejects a logo the site has not measured', () => {
-  assert.throws(() => footer({ partners: [{ name: 'X', key: 'x', logo: '/_blob/1' }] }), /_footer\.scss/);
+// A logo the site has not measured has no size: it is left out with a warning, and the rest draw.
+function warnings(fn) {
+  const said = [], warn = console.warn;
+  console.warn = (...a) => said.push(a.join(' '));
+  try { return { out: fn(), said }; } finally { console.warn = warn; }
+}
+test('footer leaves out a logo the site has not measured', () => {
+  const { out, said } = warnings(() => footer({ partners: [{ name: 'X', key: 'x', logo: '/_blob/1' }, { name: 'UU', key: 'uu', logo: '/_blob/2' }] }));
+  assert.ok(!out.includes('/_blob/1') && !out.includes('site-footer__cell--x'), 'the unmeasured logo is left out');
+  assert.ok(out.includes('site-footer__cell--uu') && out.includes('site-footer__cell--odissei'), 'the others draw');
+  assert.equal(said.length, 1, 'one warning');
+  assert.match(said[0], /SiteFooter: no logo "x" is measured/, 'it names the key');
+  assert.match(said[0], /odissei, eyra, uva, ru, uu, vu, tilburg, eur/, 'and the measured keys');
+  const first = warnings(() => footer({ providers: [{ name: 'X', key: 'x', logo: '/_blob/1' }, PROVIDERS[1]], partners: [] })).out;
+  assert.ok(first.includes('Supported by</p><div class="site-footer__cell site-footer__cell--eyra">'), 'a provider keeps its own label');
 });
 
 /* Figure, NewsArticle ---------------------------------------------------------------------- */
@@ -1408,7 +1458,12 @@ test('cover logos are sized as the footer sizes them', () => {
     assert.match(style, new RegExp(`;height:${px(imgH)};`), `${key}: the image is ${px(imgH)} tall`);
     assert.match(style, new RegExp(`margin:-${px(top)} 0 0 -${px(left)}$`), `${key}: the image sits ${px(top)} up and ${px(left)} left`);
   }
-  assert.throws(() => cover({ layout: 'band-title', logos: [{ key: 'x', src: '/_blob/1' }] }), /_footer\.scss/);
+  const { out, said } = warnings(() => cover({ layout: 'band-title', logos: [{ key: 'x', src: '/_blob/x' }, LOGOS[0]] }));
+  assert.ok(!out.includes('/_blob/x') && out.includes(LOGOS[0].src), 'an unmeasured logo is left out, the others draw');
+  assert.equal(said.length, 1, 'one warning');
+  assert.match(said[0], /SlideCover: no logo "x" is measured.*odissei, eyra, uva, ru, uu, vu, tilburg, eur/, 'naming the key and the measured keys');
+  const none = warnings(() => cover({ layout: 'band-title', logos: [{ key: 'x', src: '/_blob/x' }] })).out;
+  assert.ok(!/border-top:2px/.test(none), 'no measured logo: no logo row');
 });
 
 // The cover fills markSrc and bandLabel into a markup string; a replacement pattern ($&, $1, $`)
@@ -1429,4 +1484,47 @@ test('cover escapes its text', () => {
     assert.equal(count(html, '<b>'), count(plain, '<b>'), `${layout}: no <b> element from the text`);
     assert.ok(!html.includes('" onload="'), `${layout}: markSrc cannot add an attribute`);
   }
+});
+
+/* Text arrows ------------------------------------------------------------------------------ */
+
+// No component writes a text arrow: a label is plain words, and what leads somewhere as a whole draws
+// the arrow disc. The props that once added one (a slide's link line, its email line, the globe's back
+// button) are drawn here as well as every preview.
+test('no component writes a text arrow', () => {
+  const { D3I, React } = bundle();
+  const h = React.createElement;
+  const htmls = allPreviews.map((name) => [name, runPreview(previewPath(name), bundle())]);
+  htmls.push(['SlideWindow link', renderToHtml(h(D3I.SlideWindow, { heading: 'h', steps: [{ title: 's' }], link: 'Try it', window: { url: 'u' } }))]);
+  htmls.push(['SlideQuestions email', renderToHtml(h(D3I.SlideQuestions, { heading: 'h', rows: [{ question: 'q' }], email: 'a@example.org' }))]);
+  htmls.push(['UsageFigures.Globe', renderToHtml(h(D3I.UsageFigures.Globe, {}))]);
+  const bad = htmls.filter(([, html]) => /[→←]|&rarr;|&larr;/.test(html)).map(([name]) => name);
+  assert.deepEqual(bad, [], `text arrows in: ${bad.join(', ')}`);
+  assert.ok(htmls.at(-1)[1].includes('>Back to world</button>'), 'the globe\'s back button, plain words');
+  assert.ok(htmls.at(-2)[1].includes('>Email a@example.org</p>'), 'the email line, plain words');
+});
+
+/* The cover card --------------------------------------------------------------------------- */
+
+// Cover/preview.html is the system's face in the gallery: the network cover slide (SlideCover, its
+// 'network' layout) at half size, the name in the serif at 420 under the band, in the new look.
+test('the cover card', () => {
+  const file = readFileSync(previewPath('Cover'), 'utf8');
+  const html = runPreview(previewPath('Cover'), bundle());
+  assert.equal(bandOf(html)?.layout, 'network', 'the network band from cover-network.svg');
+  assert.match(bandOf(html).inner, /<image href="\/_blob\/be4813582be16fc83074c1ca7f78674a"/, 'the D3I mark on its disc, an upload');
+  const name = html.match(/<h1 [^>]*style="([^"]*)"[^>]*>datadonation\.eu<\/h1>/);
+  assert.ok(name, 'the name is the title');
+  assert.match(name[1], /font-family:(?:'|&#x27;)Libre Caslon Condensed(?:'|&#x27;), serif/, 'in the serif');
+  assert.match(name[1], /font-weight:420/, 'at 420');
+  assert.deepEqual(strayColours(html), [], 'every colour it draws is a token');
+  const style = file.match(/<style>([\s\S]*?)<\/style>/)[1];
+  assert.equal(style.match(/#[0-9a-fA-F]{3,8}\b|rgba?\(/g), null, 'its own <style> names colours by token only');
+  const { byName } = lightColours();
+  for (const t of ['road', 'blue-tint']) {
+    assert.ok(!file.includes(`var(--${t})`) && !slideColours(html).includes(byName[t]), `no ${t}`);
+  }
+  assert.ok(!/font-family:\s*(?:'|&#x27;)Nunito(?:'|&#x27;)|--font-rounded/.test(html + style), 'not the rounded Nunito');
+  assert.ok(!/font-weight:\s*900/.test(html + style), 'no heavy display name');
+  assert.ok(!/rx=|radius/.test(style), 'no rounded rects of its own');
 });

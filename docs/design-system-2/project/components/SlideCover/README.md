@@ -14,7 +14,7 @@ Mount `D3I.SlideCover` in a design canvas. For a Slides deck, `D3I.slideMarkup(D
 - `eyebrow`: the default is "D3I · datadonation.eu".
 - For `network`, `markSrc`: the upload of `Logos/d3i-mark.svg`. The mark is drawn as it is, not recoloured. Without `markSrc` the disc stays empty: no picture has a default.
 - For `band-title`, `logos`: `{ key, src, alt }` for each logo, in row order.
-  - `key` is one of SiteFooter's measured logos: `odissei`, `eyra`, `uva`, `ru`, `uu`, `vu`, `tilburg` or `eur`.
+  - `key` is one of SiteFooter's measured logos: `odissei`, `eyra`, `uva`, `ru`, `uu`, `vu`, `tilburg` or `eur`. A logo with any other key is left out, with a console warning that names the key and the measured keys; the other logos still draw.
   - `src` is the upload of that logo from the Logos or Partners group.
   - The order on the card is Utrecht, UvA, Radboud, Erasmus, Tilburg, VU, then ODISSEI and Eyra.
 - For a closing slide, pass the closing content as children. In `network` it replaces the title block; in `band-title` it replaces the centred eyebrow, speakers and venue. The band stays.

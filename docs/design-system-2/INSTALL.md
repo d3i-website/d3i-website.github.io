@@ -42,7 +42,7 @@ Run the commands from the repository root. `<scratch>` is your scratchpad direct
 2. List the uploads: `python3 -I docs/design-system-2/tools/install_copy.py batches`. It prints JSON arrays of absolute image paths, 25 per array: 6 arrays and 130 images on a fresh install (the last array holds 5).
 3. Upload each array: Artifact `publish` with `url` set to the new artifact, `asset: true` and `file_paths` set to that array.
 4. Save the results: write every result line to `<scratch>/uploads.txt` exactly as the tool printed it, one per line (`- "<path>" (<size> bytes, <type>) → "/_blob/<id>" (id <id>)`). Don't retype ids. The next step stops if a line's two copies of the id differ or a size doesn't match the repository file.
-5. Stage: `python3 -I docs/design-system-2/tools/install_copy.py stage --uploads <scratch>/uploads.txt --out <scratch>/ds-install --by "<the user's name>"`, adding `--title "datadonation.eu 2026"` (the default is only `datadonation.eu`, so always pass it unless the user named another). It writes the files, the new index and `<scratch>/ds-install/publish.json`.
+5. Stage: `python3 -I docs/design-system-2/tools/install_copy.py stage --uploads <scratch>/uploads.txt --out <scratch>/ds-install --by "<the user's name>"`. The title defaults to `datadonation.eu 2026`, the same as step 1; pass `--title "<name>"` only when the user named another. It writes the files, the new index and `<scratch>/ds-install/publish.json`.
 6. Publish the files: one Artifact `publish` with `url` set to the new artifact and `root`, `file_path` and `files` taken exactly from `publish.json` (`files` includes `index.d.ts` with its `contentType`).
 7. Publish the index last: Artifact `publish` with `url`, the same `root`, and `file_path` set to `publish.json`'s `index_file_path`.
 8. Give the user the link. Don't publish `tokens.css`, `manifest.json` or `api/` files: the artifact's page generates them.
@@ -51,5 +51,5 @@ Run the commands from the repository root. `<scratch>` is your scratchpad direct
 
 1. Read the copy's index right before you start: Artifact `read` with the copy's `url` and `path: "project/design-system.json"`, saved to `<scratch>`.
 2. Run `batches --existing-index <that file>`. It lists only images that are new or changed (by size). Upload them as in Install steps 3 and 4. If it lists none, skip `--uploads` in the next step.
-3. Run `stage --existing-index <that file> --uploads <scratch>/uploads.txt --out <scratch>/ds-install --by "<the user's name>"`. The copy keeps its title and creation date.
+3. Run `stage --existing-index <that file> --uploads <scratch>/uploads.txt --out <scratch>/ds-install --by "<the user's name>"`. The copy keeps its title and creation date: a re-sync ignores `--title`.
 4. Publish the files, then the index, as in Install steps 6 and 7, to the copy's url.

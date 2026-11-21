@@ -3,11 +3,11 @@ The news page, and a news item as a list row. `NewsCard.Index` is the news page 
 ## What you provide
 
 - `NewsCard.Index` takes `items`, newest first, so the first item is the lead story. Each item has:
-  - `title` and `date`. The date is ISO (`2026-11-09`); the site's folded form ("November 9, 2026") also reads.
+  - `title` and `date`. The date is ISO (`2026-11-09`) and prints day month year: "9 November 2026". "9 November 2026" and the site's folded form ("November 9, 2026") also read.
   - `href`: the item's own page or an external one. Set `external` for an external page: it opens in a new tab, and the item says where it leads ("On odissei-data.nl", from the address).
   - `image` and `image_alt`, optional: the item's `image` front-matter field. That field is meant to be the social-sharing card, 1200 × 628 (1.91:1); `assets/News/export-study-crate-card.webp` is one. Until every item has a proper card, other pictures are cropped to that shape.
   - `summary`, optional. Only the lead story shows it.
-- `NewsCard` (the row) takes `title`, `date` (ISO, or the folded form), `href`, `external` and `summary`. `NewsCard.List` holds the rows.
+- `NewsCard` (the row) takes `title`, `date` (ISO, day month year, or the folded form), `href`, `external` and `summary`. `NewsCard.List` holds the rows.
   - `image`, `accent` and `linkLabel` belonged to the old boxed card. They are deprecated and draw nothing: the row has no picture and no "Read more".
 - The title is always the link. The picture links to the same place, but it is hidden from screen readers and skipped by the keyboard, as on the site.
 

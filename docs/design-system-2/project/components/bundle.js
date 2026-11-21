@@ -135,21 +135,27 @@
 
   /* Cards ------------------------------------------------------------------ */
 
-  /* A date as the cards take it: ISO (2026-11-09), or folded as the site writes it ("September 8,
-     2026", "October 1-2, 2026", "September 30 - October 2, 2026"). { start, end } of { y, m, d }
-     (m from 0), end null for one day; null if it reads neither way. */
+  /* A date as the cards take it: ISO (2026-11-09); day month year, as the system writes it ("9 November
+     2026", "1-2 October 2026", "30 September - 2 October 2026"); or folded as the site's data still has
+     it ("September 8, 2026", "October 1-2, 2026", "September 30 - October 2, 2026"). { start, end } of
+     { y, m, d } (m from 0), end null for one day; null if it reads none of these ways. */
   function datesOf(v) {
     var s = String(v == null ? '' : v).trim(), m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s);
     if (m) return { start: { y: +m[1], m: +m[2] - 1, d: +m[3] }, end: null };
-    m = /^([A-Za-z]+)\s+(\d{1,2})(?:\s*[-–]\s*(?:([A-Za-z]+)\s+)?(\d{1,2}))?,\s*(\d{4})$/.exec(s);
-    if (!m) return null;
     var month = function (name) {
       for (var i = 0; i < MONTH_NAMES.length; i++) if (MONTH_NAMES[i].toLowerCase() === name.toLowerCase()) return i;
       return -1;
     };
-    var sm = month(m[1]), em = m[3] ? month(m[3]) : sm;
+    var sd, sm, ed, em, y;
+    if ((m = /^(\d{1,2})(?:\s+([A-Za-z]+))?(?:\s*[-–]\s*(\d{1,2}))?\s+([A-Za-z]+)\s+(\d{4})$/.exec(s))) {
+      sd = m[1]; sm = month(m[2] || m[4]); ed = m[3]; em = month(m[4]); y = m[5];
+    } else if ((m = /^([A-Za-z]+)\s+(\d{1,2})(?:\s*[-–]\s*(?:([A-Za-z]+)\s+)?(\d{1,2}))?,\s*(\d{4})$/.exec(s))) {
+      sd = m[2]; sm = month(m[1]); ed = m[4]; em = m[3] ? month(m[3]) : sm; y = m[5];
+    } else {
+      return null;
+    }
     if (sm < 0 || em < 0) return null;
-    return { start: { y: +m[5], m: sm, d: +m[2] }, end: m[4] ? { y: +m[5], m: em, d: +m[4] } : null };
+    return { start: { y: +y, m: sm, d: +sd }, end: ed ? { y: +y, m: em, d: +ed } : null };
   }
   /* The date column of a list row, as ListRow draws it: the month (%b) over the day, a range's days
      joined by "–", and its months too when they differ. */
@@ -204,7 +210,7 @@
       media,
       h('div', { className: 'news-card__body' },
         it.date ? h('p', { className: 'news-card__date' },
-          when ? MONTH_NAMES[when.start.m] + ' ' + when.start.d + ', ' + when.start.y : it.date) : null,
+          when ? when.start.d + ' ' + MONTH_NAMES[when.start.m] + ' ' + when.start.y : it.date) : null,
         titleLink('news-card__title', it.title, it.href, it.external),
         lead && it.summary ? h('p', { className: 'news-card__summary' }, it.summary) : null,
         host ? h('p', { className: 'news-card__where' }, 'On ' + host[1]) : null));
@@ -569,25 +575,37 @@
   /* The logos _sass/_footer.scss has measured ($footer-logos); each key is its cell's modifier,
      site-footer__cell--<key>, which sizes the logo by its ink box. */
   var FOOTER_LOGOS = ['odissei', 'eyra', 'uva', 'ru', 'uu', 'vu', 'tilburg', 'eur'];
+  /* A logo the site has not measured has no size: it is left out with a warning, and the rest draw. */
+  function measured(who, keys) {
+    return function (l) {
+      if (keys.indexOf(l.key) >= 0) return true;
+      if (typeof console !== 'undefined') {
+        console.warn(who + ': no logo "' + l.key + '" is measured, so it is left out; the measured keys are ' + keys.join(', ') +
+          '. Add it to $footer-logos in _sass/_footer.scss first.');
+      }
+      return false;
+    };
+  }
   function footerCell(l) {
-    if (FOOTER_LOGOS.indexOf(l.key) < 0) {
-      throw new Error('SiteFooter: no logo "' + l.key + '" is measured; add it to $footer-logos in _sass/_footer.scss first');
-    }
     var img = h('img', { src: l.logo, alt: l.name });
     return h('div', { className: 'site-footer__cell site-footer__cell--' + l.key, key: l.key }, l.href ? h('a', { href: l.href }, img) : img);
   }
   var PROVIDER_LABELS = ['Provided by', 'Supported by'];
   /* _includes/site-footer.html: the labelled provider pair, the partner grid, the copyright line. */
   function SiteFooter(p) {
-    var providers = list(p.providers), partners = list(p.partners);
+    var known = measured('SiteFooter', FOOTER_LOGOS);
+    /* a provider keeps the label of its place in the pair even when the other is left out */
+    var providers = list(p.providers).map(function (l, i) { return { l: l, label: l.label || PROVIDER_LABELS[i] }; })
+      .filter(function (x) { return known(x.l); });
+    var partners = list(p.partners).filter(known);
     var attrs = rest(p, ['providers', 'partners', 'copyright', 'className']);
     attrs.className = cx('site-footer', p.className);
     return h('footer', attrs,
       h('div', { className: 'site-footer__inner' },
-        providers.length > 0 ? h('div', { className: 'site-footer__providers' }, providers.map(function (l, i) {
+        providers.length > 0 ? h('div', { className: 'site-footer__providers' }, providers.map(function (x, i) {
           return h('div', { className: 'site-footer__provider', key: i },
-            h('p', { className: 'site-footer__label site-footer__label--small' }, l.label || PROVIDER_LABELS[i]),
-            footerCell(l));
+            h('p', { className: 'site-footer__label site-footer__label--small' }, x.label),
+            footerCell(x.l));
         })) : null,
         partners.length > 0 ? h('div', { className: 'site-footer__partners' },
           h('p', { className: 'site-footer__label site-footer__label--small' }, 'Project partners'),
@@ -896,7 +914,7 @@
       h('div', { className: cx('usage-globe-wrap', p.className) },
         p.children,
         p.showBack !== false ? h('div', { className: 'usage-gctl usage-gctl--back' },
-          h('button', { type: 'button', onClick: p.onBack }, p.backLabel || '← Back to world')) : null,
+          h('button', { type: 'button', onClick: p.onBack }, p.backLabel || 'Back to world')) : null,
         h('div', { className: 'usage-gctl usage-gctl--zoom' },
           h('button', { type: 'button', onClick: p.onZoomIn, 'aria-label': 'Zoom in' }, '+'),
           h('button', { type: 'button', onClick: p.onZoomOut, 'aria-label': 'Zoom out' }, '−'))),
@@ -921,11 +939,9 @@
      included) cannot change a slide's geometry. Pictures are props. */
 
   var C = {
-    surface: '#ffffff', tint: '#f5f7fb', strong: '#eceff5', border: '#d5dae3', borderStrong: '#878e9b',
+    surface: '#ffffff', border: '#d5dae3', borderStrong: '#878e9b',
     heading: '#252a34', text: '#363b46', muted: '#626976', sky: '#87c5eb',
-    blue: '#4272ef', blueTint: '#eef3fe', coral: '#ff5e5e', coralTint: '#ffefef',
-    yellow: '#ffcf60', yellowText: '#e8b53c', yellowTint: '#fff6d6', onAccent: '#ffffff',
-    chart: ['#4272ef', '#ff5e5e', '#f4a52b', '#27b3a3', '#8b5cf6']
+    blue: '#4272ef', coral: '#ff5e5e', yellow: '#ffcf60', onAccent: '#ffffff'
   };
   /* the serif is provisional (tokens.json, Web · Headings) */
   var SANS = "'Nunito Sans', Arial, sans-serif", SERIF = "'Libre Caslon Condensed', serif";
@@ -1253,15 +1269,12 @@
     tilburg: [9.4154683613, 2.3901921997, 2.4265173092, 0.0145300438, 0.0145300438, 0.0145300438, 1300 / 334],
     eur: [3.8288388929, 3.5886787473, 4.9335755627, 0.6518632524, 0.7136187184, 0.7410655922, 761 / 719]
   };
-  /* one gap between all logos, as wide as the widest clear zone and at least 1.5rem, as in the footer's row;
+  /* Every logo here is measured: SlideCover leaves out the others before it calls this.
+     One gap between all logos, as wide as the widest clear zone and at least 1.5rem, as in the footer's row;
      1rem is 19.2px (the footer's 16px at the band's scale, less a tenth so eight logos fit the margins),
      smaller still if the row would not fit */
   function logoRow(logos) {
-    var cells = logos.map(function (l) {
-      var m = LOGO_REM[l.key];
-      if (!m) throw new Error('SlideCover: no logo "' + l.key + '" is measured; add it to $footer-logos in _sass/_footer.scss first');
-      return { l: l, m: m };
-    });
+    var cells = logos.map(function (l) { return { l: l, m: LOGO_REM[l.key] }; });
     var gap = cells.reduce(function (g, c) { return Math.max(g, c.m[3], c.m[5]); }, 1.5);
     var total = cells.reduce(function (t, c) { return t + c.m[0]; }, 0) + gap * (cells.length - 1);
     var rem = Math.min(19.2, WIDE / total);
@@ -1284,6 +1297,7 @@
     var eyebrow = h('p', { 'data-fit': 'none', style: T.eyebrow }, p.eyebrow || 'D3I · datadonation.eu');
     var aria = p.bandLabel ? { role: 'img', 'aria-label': p.bandLabel } : { 'aria-hidden': 'true' };
     if (p.layout === 'band-title') {
+      var logos = list(p.logos).filter(measured('SlideCover', Object.keys(LOGO_REM)));
       /* the band's drawing pinned behind, the title and subtitle in flow over it, centred as on the front page;
          the subtitle is 24px, the projector floor, not the website's 17px × 4/3 */
       return h('section', { style: section() },
@@ -1296,7 +1310,7 @@
           eyebrow,
           p.speakers ? h('p', { style: st(TXT, { fontFamily: SANS, fontSize: '48px', lineHeight: 1.2, fontWeight: 700, color: C.heading }) }, p.speakers) : null,
           p.venue ? h('p', { style: T.lead }, p.venue) : null),
-        list(p.logos).length ? logoRow(list(p.logos)) : null);
+        logos.length ? logoRow(logos) : null);
     }
     /* function replacers: a $& or $1 in the URL or the label must land as written, not as a replacement pattern */
     var mark = p.markSrc ? SLIDE_COVER_NETWORK.replace('@@MARK_SRC@@', function () { return escapeHtml(p.markSrc); }) : SLIDE_COVER_NETWORK.replace(/<image [^>]*\/>/, '');
@@ -1521,7 +1535,7 @@
                 h('p', { style: T.subheading }, s.title),
                 s.text ? h('p', { style: T.small }, s.text) : null));
           }),
-          p.link ? h('p', { style: st(LABEL, { color: C.blue, paddingTop: '32px' }) }, p.link + ' →') : null),
+          p.link ? h('p', { style: st(LABEL, { color: C.blue, paddingTop: '32px' }) }, p.link) : null),
         h('div', { style: st(COL, { flex: 1, background: C.surface, border: HAIR, overflow: 'hidden' }) },
           h('div', { style: st(ROW, { gap: '12px', alignItems: 'center', padding: '12px 16px', borderBottom: HAIR }) },
             [0, 1, 2].map(function (i) { return h('div', { key: i, style: { width: '14px', height: '14px', borderRadius: '50%', background: C.border, flex: 'none' } }); }),
@@ -1568,7 +1582,7 @@
       /* the contact row is this slide's footer row: the email address and the site are uncounted, the credit counts */
       h('div', { style: st(ROW, { justifyContent: 'space-between', alignItems: 'center' }) },
         h('div', { style: st(ROW, { gap: '32px', alignItems: 'center' }) },
-          p.email ? h('p', st(UNCOUNTED, { style: st(ITEM, { color: C.blue }) }), 'Email ' + p.email + ' →') : null,
+          p.email ? h('p', st(UNCOUNTED, { style: st(ITEM, { color: C.blue }) }), 'Email ' + p.email) : null,
           h('p', st(UNCOUNTED, { style: ITEM }), p.site || 'datadonation.eu')),
         h('div', { style: st(ROW, { gap: '24px', alignItems: 'center' }) },
           p.credit ? h('p', { style: st(T.small, { color: C.muted }) }, p.credit) : null,

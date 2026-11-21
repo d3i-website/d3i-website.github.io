@@ -10,7 +10,7 @@ import type * as React from 'react';
 
 /* Shared shapes ------------------------------------------------------------- */
 
-/** A link: the visible label and where it goes. Action links add the arrow themselves; never put "→" in `label` (the Postit link is the one exception). */
+/** A link: the visible label and where it goes. The label is plain words: never put "→" in `label`. What leads somewhere as a whole draws the arrow disc itself (ActionLink, JourneyNext, the Note, the Postit). */
 export interface LinkTarget {
   /** Visible text, a verb phrase in sentence case: "Learn about data donation". */
   label: string;
@@ -92,8 +92,9 @@ export declare function SectionSubnav(props: SectionSubnavProps): React.ReactEle
 /**
  * The logos the site's footer has measured: `$footer-logos` in _sass/_footer.scss, each the modifier of
  * its cell, site-footer__cell--<key>, which sizes it by its ink box. odissei and eyra are sized as
- * providers, the other six as partners. Any other logo is not supported: SiteFooter throws. Add it to
- * $footer-logos (and the site's footer) first.
+ * providers, the other six as partners. Any other logo has no size: SiteFooter leaves it out, draws the
+ * rest and warns in the console, naming the key and the measured keys. Add it to $footer-logos (and the
+ * site's footer) first.
  */
 export type FooterLogoKey = 'odissei' | 'eyra' | 'uva' | 'ru' | 'uu' | 'vu' | 'tilburg' | 'eur';
 /** A logo in the footer. */
@@ -186,7 +187,7 @@ export interface ArrowDiscProps {
   className?: string;
 }
 /**
- * The arrow disc (disc-arrow-sm, 24px): a blue disc with a white arrow, the site's svg.go. It ends "More" on each list's heading line, which ListRow.List draws; nothing else carries it (the note draws its own 36px disc). Put it at the end of the link it marks, inside FrontPage, which styles it.
+ * The arrow disc (disc-arrow-sm, 24px): a blue disc with a white arrow, the site's svg.go. It ends "More" on each list's heading line, which ListRow.List draws. ActionLink and the news rail's "All" draw the same small disc themselves; the Note, the Postit and JourneyNext draw the 36px one. A card or a row carries none: its title is the link. Put it at the end of the link it marks, inside FrontPage, which styles it.
  * @example
  * <a className="more" href={newsUrl}>More<ArrowDisc label=" news" /></a>
  */
@@ -364,7 +365,7 @@ export interface NewsCardProps {
   /** The item's own page, or the external one (then set external). */
   href: string;
   external?: boolean;
-  /** ISO, "2026-09-08"; drawn as the month (%b) over the day. The site's folded "September 8, 2026" also reads. */
+  /** ISO, "2026-09-08"; drawn as the month (%b) over the day. "8 September 2026" and the site's folded "September 8, 2026" also read. */
   date?: string;
   summary?: string;
   /** @deprecated The row draws no picture: NewsCard.Index draws each item's image. Ignored. */
@@ -383,7 +384,7 @@ export interface NewsCardListProps {
 /** One item on the news page. */
 export interface NewsIndexItem {
   title: string;
-  /** ISO, "2026-11-09" (the site's folded "November 9, 2026" also reads). */
+  /** ISO, "2026-11-09"; printed day month year, "9 November 2026". "9 November 2026" and the site's folded "November 9, 2026" also read. */
   date: string;
   /** The item's own page, or the external one (then set external). */
   href: string;
@@ -416,7 +417,7 @@ export declare const NewsCard: ((props: NewsCardProps) => React.ReactElement) & 
 
 export interface ArchiveCardProps {
   title: string;
-  /** ISO, "2026-12-07"; drawn as the month over the day. The site's folded forms ("October 1-2, 2026", "September 30 - October 2, 2026") also read; anything else ("Spring 2027") stays in the meta line before the place. */
+  /** ISO, "2026-12-07"; drawn as the month over the day. Day month year ("1-2 October 2026", "30 September - 2 October 2026") and the site's folded forms ("October 1-2, 2026", "September 30 - October 2, 2026") also read; anything else ("Spring 2027") stays in the meta line before the place. */
   date?: string;
   /** ISO; a later day makes a range ("7–8"). */
   endDate?: string;
@@ -689,9 +690,9 @@ export interface HubStepProps {
 export interface HubStepListProps {
   /** The HubSteps, in order. */
   children: React.ReactNode;
-  /** The hub's title, in hub-title; adds the hub hero above the steps. */
+  /** The hub's title; adds the hub hero above the steps. The hero keeps the earlier look: the title in the display face at 900, 3rem from 900px (2.25rem below), in text. */
   title?: string;
-  /** The hero's line in lead-large. */
+  /** The hero's line, in the display face at 400, 1.125rem, in text-muted. */
   subtitle?: string;
   /** The hero image. */
   image?: Picture;
@@ -803,7 +804,7 @@ export interface EventDetailsProps {
 /**
  * The metadata near the top of an event page: label and value rows between hairlines, with no panel.
  * @example
- * <EventDetails rows={[{ label: "Date", value: "October 1-2, 2026" }, { label: "Location", value: "Weizenbaum Institute, Berlin, Germany" }]} />
+ * <EventDetails rows={[{ label: "Date", value: "1-2 October 2026" }, { label: "Location", value: "Weizenbaum Institute, Berlin, Germany" }]} />
  */
 export declare function EventDetails(props: EventDetailsProps): React.ReactElement;
 
@@ -849,7 +850,7 @@ export interface UsageGlobeProps {
   onZoomOut?: () => void;
   /** Default true; hide when not drilled into a country. */
   showBack?: boolean;
-  /** Default "← Back to world". */
+  /** Default "Back to world". No arrow: a label is plain words. */
   backLabel?: string;
   /** Default "Drag to spin · scroll or +/− to zoom · click a country to drill in"; null hides it. */
   hint?: string | null;
@@ -891,7 +892,7 @@ export interface SlideFooterProps {
 }
 
 export interface SlideCoverLogo {
-  /** One of SiteFooter's measured logos: "odissei" | "eyra" | "uva" | "ru" | "uu" | "vu" | "tilburg" | "eur". It sets the logo's equal-ink-area size; any other key throws. */
+  /** One of SiteFooter's measured logos: "odissei" | "eyra" | "uva" | "ru" | "uu" | "vu" | "tilburg" | "eur". It sets the logo's equal-ink-area size; a logo with any other key is left out with a console warning naming the key and the measured keys, and the others draw. */
   key: string;
   /** The logo's upload from the Logos or Partners group, as /_blob/<id>. */
   src: string;
@@ -1041,7 +1042,7 @@ export interface SlideWindowProps extends SlideFooterProps {
   heading: string;
   /** The steps left of the window, hanging on a vertical blue line with a node each, title in the serif at 36px. text adds words: a slide-small line, off by default. */
   steps: Array<{ title: string; text?: string }>;
-  /** Adds words: a link line under the list; the arrow is added. */
+  /** Adds words: a line under the list in blue naming where to try it, as plain words (no arrow). */
   link?: string;
   window: {
     url: string;
@@ -1072,6 +1073,7 @@ export interface SlideQuestionsProps {
   casesLabel?: string;
   /** Adds words: up to two case cards, framed by 2px hairlines; tint is the colour of the small disc before the title, blue then yellow by default. */
   cases?: Array<{ title: string; text?: string; tint?: 'blue' | 'coral' | 'yellow' }>;
+  /** Shown as "Email <email>" in blue, with no arrow. */
   email?: string;
   /** Default "datadonation.eu". */
   site?: string;

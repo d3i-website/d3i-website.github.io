@@ -135,6 +135,23 @@ class Network(unittest.TestCase):
         for path in (PROJECT / "assets/Network").glob("*.svg"):
             self.assertEqual(staged["assetGroups"]["Network"]["files"][path.name]["blob"], fake_id(path))
 
+    def test_title_defaults_and_resync_keeps_it(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            uploads = pathlib.Path(tmp) / "uploads.txt"
+            uploads.write_text(uploads_text())
+            out = pathlib.Path(tmp) / "out"
+            run("stage", "--uploads", str(uploads), "--out", str(out), "--by", "Test")
+            staged = json.loads((out / "project/design-system.json").read_text())
+            self.assertEqual(staged["title"], "datadonation.eu 2026", "the default title")
+            staged["title"] = "My copy"
+            existing = pathlib.Path(tmp) / "existing.json"
+            existing.write_text(json.dumps(staged))
+            again = pathlib.Path(tmp) / "again"
+            run("stage", "--existing-index", str(existing), "--uploads", str(uploads), "--out", str(again), "--by", "Test",
+                "--title", "Ignored")
+            resynced = json.loads((again / "project/design-system.json").read_text())
+        self.assertEqual(resynced["title"], "My copy", "a re-sync keeps the copy's title")
+
     def test_stage_refuses_missing_upload(self):
         victim = "Network/globe.svg"
         with tempfile.TemporaryDirectory() as tmp:

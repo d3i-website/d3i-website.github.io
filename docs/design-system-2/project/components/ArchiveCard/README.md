@@ -5,7 +5,7 @@ An event or archive entry as a list row, on the events and archive pages. The ro
 - `title`.
 - `date` and `endDate`:
   - Both are ISO (`2026-12-07`). A later end day makes a range, "7–8", and the months join too when they differ: "Sep–Oct" over "30–2".
-  - `date` also reads the site's folded forms: "October 1-2, 2026" and "September 30 - October 2, 2026".
+  - `date` also reads day month year ("1-2 October 2026", "30 September - 2 October 2026") and the site's folded forms ("October 1-2, 2026", "September 30 - October 2, 2026").
   - A date it can't read ("Spring 2027") has no date column; it stays in the meta line, before the place.
 - `location`: the place, under the title ("Webinar", "Jaarbeurs, Utrecht").
 - `summary`, and `details`: label and value rows ("When", "Where"). A value may carry a link.

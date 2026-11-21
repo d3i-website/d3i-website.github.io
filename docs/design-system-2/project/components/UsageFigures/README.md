@@ -10,7 +10,7 @@ The bars and the globe are drawn by JavaScript from `_data/usage.yml`; this is t
 Build it from its parts:
 - `UsageFigures.Figure`: `title` and `caption`, holding the rest.
 - `UsageFigures.Stats`: `stats`, each a `value`, a `label` and optionally a `series` (1 to 5). Without one, a stat takes its position in the row. Every number keeps its label as text.
-- `UsageFigures.Globe`: your globe drawing as children, with back and zoom handlers and the hint. The preview stands a plain ring in for the globe.
+- `UsageFigures.Globe`: your globe drawing as children, with back and zoom handlers and the hint. The back button reads "Back to world", with no arrow (the site's impact page still writes "← Back to world" until it is redone). The preview stands a plain ring in for the globe.
 - `UsageFigures.Platforms`: the platforms grouped by category, with the URLs of your uploads of `assets/Platforms` as `logo`.
 
 Pictures are uploads in this system: find the id on `api/assets/<Group>.md`, fetch the file with the Artifact tool's `read` (the id as `path`) or copy it into your own artifact's asset store, and pass the URL your page serves. `/_blob/…` URLs resolve only inside this system's previews.
