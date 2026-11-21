@@ -1613,7 +1613,7 @@ test('the cover card', () => {
   const file = readFileSync(previewPath('Cover'), 'utf8');
   const html = runPreview(previewPath('Cover'), bundle());
   assert.equal(bandOf(html)?.layout, 'network', 'the network band from cover-network.svg');
-  assert.match(bandOf(html).inner, /<image href="\/_blob\/be4813582be16fc83074c1ca7f78674a"/, 'the D3I mark on its disc, an upload');
+  assert.match(bandOf(html).inner, /<image href="\/_blob\/866ac59ea0ec14747c485ec480342ef0"/, 'the D3I mark on its disc, an upload');
   const name = html.match(/<h1 [^>]*style="([^"]*)"[^>]*>datadonation\.eu<\/h1>/);
   assert.ok(name, 'the name is the title');
   assert.match(name[1], /font-family:(?:'|&#x27;)Libre Caslon Condensed(?:'|&#x27;), serif/, 'in the serif');

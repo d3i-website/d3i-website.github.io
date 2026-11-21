@@ -24,7 +24,7 @@ The artifact store normalizes SVGs on upload (it strips editor metadata and adds
 
 ## Check the tooling
 
-`python3 -I -B -m unittest discover -s tests -p design_system_install_test.py` runs the install tooling's tests with synthetic upload results. No upload is made.
+`python3 -I -B -m unittest discover -s tests -p design_system_install_test.py` runs the install tooling's tests with synthetic upload results. No upload is made. They also fail if a preview or other file under `project/` points at an upload id that `design-system.json` does not record, which is what a missed `adopt` leaves behind.
 
 ## Update a copy you already have
 
@@ -47,7 +47,8 @@ Run the commands from the repository root. `<scratch>` is your scratchpad direct
 5. Stage: `python3 -I docs/design-system-2/tools/install_copy.py stage --uploads <scratch>/uploads.txt --out <scratch>/ds-install --by "<the user's name>"`. The title defaults to `datadonation.eu 2026`, the same as step 1; pass `--title "<name>"` only when the user named another. It writes the files, the new index and `<scratch>/ds-install/publish.json`.
 6. Publish the files: one Artifact `publish` with `url` set to the new artifact and `root`, `file_path` and `files` taken exactly from `publish.json` (`files` includes `index.d.ts` with its `contentType`).
 7. Publish the index last: Artifact `publish` with `url`, the same `root`, and `file_path` set to `publish.json`'s `index_file_path`.
-8. Give the user the link. Don't publish `tokens.css`, `manifest.json` or `api/` files: the artifact's page generates them.
+8. Bring the ids home: Artifact `read` the artifact's index (`path: "project/design-system.json"`), save it over `project/design-system.json`, then run `python3 -I docs/design-system-2/tools/install_copy.py adopt`. `adopt` joins the committed index (path to old id, read from git HEAD, so run it before committing the new index) with the new one (path to new id) and rewrites every `/_blob/<old id>` in the text files under `project/` to the published id. It refuses if one old id would become two. Commit the result, so a preview's images resolve in the repository and `stage`, `shoot_previews.sh` and the tests find every id in the index.
+9. Give the user the link. Don't publish `tokens.css`, `manifest.json` or `api/` files: the artifact's page generates them.
 
 **Re-sync**
 
@@ -55,3 +56,4 @@ Run the commands from the repository root. `<scratch>` is your scratchpad direct
 2. Run `batches --existing-index <that file>`. It lists only images that are new or changed (by size). Upload them as in Install steps 3 and 4. If it lists none, skip `--uploads` in the next step.
 3. Run `stage --existing-index <that file> --uploads <scratch>/uploads.txt --out <scratch>/ds-install --by "<the user's name>"`. The copy keeps its title and creation date: a re-sync ignores `--title`.
 4. Publish the files, then the index, as in Install steps 6 and 7, to the copy's url.
+5. Bring the ids home as in Install step 8: Artifact `read` the copy's index into `project/design-system.json`, then run `install_copy.py adopt` before committing.

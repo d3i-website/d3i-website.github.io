@@ -9,6 +9,7 @@ always uploads it, and the staged index keeps no placeholder flag.
 import hashlib
 import json
 import pathlib
+import re
 import subprocess
 import sys
 import tempfile
@@ -24,7 +25,15 @@ FIXTURE = ROOT / "tests/fixtures/design-system.prepublish.json"
 
 
 def repo_index():
-    return json.loads(FIXTURE.read_text())
+    """The pre-publish fixture with each record's id swapped for the id the preview files now carry
+    (adopted from the published index), so stage finds every id in the files in this index."""
+    index = json.loads(FIXTURE.read_text())
+    live = {key: rec["blob"] for key, rec in records(json.loads(LIVE_INDEX.read_text()))}
+    for key, rec in records(index):
+        if "blob" in rec:
+            rec["blob"] = live[key]
+    return index
+
 
 
 def records(index):
@@ -35,9 +44,14 @@ def records(index):
             yield f"{group}/{name}", grp["files"][name]
 
 
+_TMP = tempfile.TemporaryDirectory()
+INDEX = pathlib.Path(_TMP.name) / "design-system.json"
+INDEX.write_text(json.dumps(repo_index()))
+
+
 def command(*args):
     """The tool's command line, pointed at the fixture index."""
-    return [sys.executable, "-I", str(TOOL), args[0], "--index", str(FIXTURE), *args[1:]]
+    return [sys.executable, "-I", str(TOOL), args[0], "--index", str(INDEX), *args[1:]]
 
 
 def run(*args):
@@ -181,6 +195,58 @@ class LiveIndex(unittest.TestCase):
             on_disk = (PROJECT / "assets" / key).stat().st_size
             self.assertEqual(rec.get("source_size", rec["size"]), on_disk, key)
             self.assertRegex(rec.get("blob", ""), r"^[0-9a-f]{32}$", key)
+
+    def test_every_upload_id_used_in_project_files_is_in_the_index(self):
+        known = {rec["blob"] for _, rec in records(json.loads(LIVE_INDEX.read_text()))}
+        for path in sorted(PROJECT.rglob("*")):
+            if path.is_file() and path.suffix in {".html", ".md", ".js", ".ts", ".css", ".json"} and path.name != "design-system.json":
+                used = set(re.findall(r"/_blob/([0-9a-f]{32})", path.read_text()))
+                self.assertEqual(used - known, set(), path.relative_to(PROJECT).as_posix())
+
+
+class Adopt(unittest.TestCase):
+    """adopt maps the committed (old) ids to the published ones by joining the two indexes on path."""
+
+    def indexes(self, old_ids, new_ids):
+        def idx(ids):
+            return {"groups": ["G"], "assetGroups": {"G": {"files": {n: {"name": n, "blob": b} for n, b in ids.items()}}}}
+        return idx(old_ids), idx(new_ids)
+
+    def run_adopt(self, old_ids, new_ids, files):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = pathlib.Path(tmp)
+            old, new = self.indexes(old_ids, new_ids)
+            (tmp / "old.json").write_text(json.dumps(old))
+            (tmp / "project/components/X").mkdir(parents=True)
+            (tmp / "project/design-system.json").write_text(json.dumps(new))
+            for rel, content in files.items():
+                (tmp / "project" / rel).write_bytes(content)
+            (tmp / "outside.html").write_text('<img src="/_blob/' + "a" * 32 + '">')
+            r = subprocess.run([sys.executable, "-I", str(TOOL), "adopt", "--index", str(tmp / "project/design-system.json"),
+                                "--old-index", str(tmp / "old.json")], capture_output=True, text=True)
+            after = {rel: (tmp / "project" / rel).read_bytes() for rel in files}
+            return r, after, (tmp / "outside.html").read_text()
+
+    def test_rewrites_text_and_leaves_binary_and_outside_alone(self):
+        a, b, na, nb = "a" * 32, "b" * 32, "c" * 32, "d" * 32
+        text = f'<img src="/_blob/{a}"><img src="/_blob/{b}"><img src="/_blob/{a}">'.encode()
+        binary = f"/_blob/{a}".encode() + b"\xff\x00"
+        r, after, outside = self.run_adopt({"1.png": a, "2.png": b}, {"1.png": na, "2.png": nb},
+                                           {"components/X/preview.html": text, "components/X/pic.bin": binary})
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertEqual(after["components/X/preview.html"], f'<img src="/_blob/{na}"><img src="/_blob/{nb}"><img src="/_blob/{na}">'.encode())
+        self.assertEqual(after["components/X/pic.bin"], binary)
+        self.assertIn("/_blob/" + a, outside)
+        self.assertIn("3 ids rewritten in 1 files", r.stdout)
+
+    def test_refuses_one_old_id_for_two_new_ones(self):
+        a = "a" * 32
+        text = f'/_blob/{a}'.encode()
+        r, after, _ = self.run_adopt({"1.png": a, "2.png": a}, {"1.png": "c" * 32, "2.png": "d" * 32}, {"components/X/preview.html": text})
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn(a, r.stderr)
+        self.assertIn("2.png", r.stderr)
+        self.assertEqual(after["components/X/preview.html"], text)
 
 
 class SvgNormalization(unittest.TestCase):
