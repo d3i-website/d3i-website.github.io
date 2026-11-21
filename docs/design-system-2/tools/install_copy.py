@@ -47,8 +47,11 @@ def die(msg):
     sys.exit("install_copy: " + msg)
 
 
+INDEX = PROJECT / "design-system.json"  # --index overrides it (the tests use a fixture)
+
+
 def repo_index():
-    return json.loads((PROJECT / "design-system.json").read_text())
+    return json.loads(INDEX.read_text())
 
 
 def images(index):
@@ -202,14 +205,19 @@ def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = p.add_subparsers(dest="cmd", required=True)
     b = sub.add_parser("batches", help="print the image upload batches")
+    b.add_argument("--index", help="the repository's index to read (default: project/design-system.json)")
     b.add_argument("--existing-index", help="the copy's project/design-system.json, read from it, for a re-sync")
     s = sub.add_parser("stage", help="stage the files and the index for publishing")
     s.add_argument("--uploads", help="a text file holding the upload results, copied exactly")
     s.add_argument("--out", required=True, help="the folder to stage in (the publish call's root)")
     s.add_argument("--title", default="datadonation.eu 2026", help="the new system's name (ignored on a re-sync, which keeps the copy's title)")
     s.add_argument("--by", default="Claude", help="the person the copy is installed for")
+    s.add_argument("--index", help="the repository's index to read (default: project/design-system.json)")
     s.add_argument("--existing-index", help="the copy's project/design-system.json, read from it, for a re-sync")
     args = p.parse_args()
+    if args.index:
+        global INDEX
+        INDEX = pathlib.Path(args.index)
     {"batches": cmd_batches, "stage": cmd_stage}[args.cmd](args)
 
 

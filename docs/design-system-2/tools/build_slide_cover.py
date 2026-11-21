@@ -82,8 +82,9 @@ def check_index():
     rec = json.loads(INDEX.read_text())["assetGroups"].get("Slides", {}).get("files", {}).get(SOURCE.name)
     if not rec:
         fail(f"{INDEX.relative_to(ROOT)} records no Slides/{SOURCE.name}")
-    if rec["size"] != SOURCE.stat().st_size:
-        fail(f"{INDEX.relative_to(ROOT)} records Slides/{SOURCE.name} at {rec['size']} bytes; the file has {SOURCE.stat().st_size}")
+    recorded = rec.get("source_size", rec["size"])  # the store may have normalized the SVG
+    if recorded != SOURCE.stat().st_size:
+        fail(f"{INDEX.relative_to(ROOT)} records Slides/{SOURCE.name} at {recorded} bytes; the file has {SOURCE.stat().st_size}")
 
 
 def main():

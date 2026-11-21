@@ -17,10 +17,14 @@ import unittest
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 TOOL = ROOT / "docs/design-system-2/tools/install_copy.py"
 PROJECT = ROOT / "docs/design-system-2/project"
+LIVE_INDEX = PROJECT / "design-system.json"
+# The index as it was before the first publish (placeholder ids, sizes equal to the files'),
+# so these tests do not depend on the live index's publish state.
+FIXTURE = ROOT / "tests/fixtures/design-system.prepublish.json"
 
 
 def repo_index():
-    return json.loads((PROJECT / "design-system.json").read_text())
+    return json.loads(FIXTURE.read_text())
 
 
 def records(index):
@@ -31,8 +35,13 @@ def records(index):
             yield f"{group}/{name}", grp["files"][name]
 
 
+def command(*args):
+    """The tool's command line, pointed at the fixture index."""
+    return [sys.executable, "-I", str(TOOL), args[0], "--index", str(FIXTURE), *args[1:]]
+
+
 def run(*args):
-    return subprocess.run([sys.executable, "-I", str(TOOL), *args], capture_output=True, text=True, check=True)
+    return subprocess.run(command(*args), capture_output=True, text=True, check=True)
 
 
 def fake_id(path):
@@ -157,10 +166,21 @@ class Network(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             uploads = pathlib.Path(tmp) / "uploads.txt"
             uploads.write_text(uploads_text(skip={victim}))
-            r = subprocess.run([sys.executable, "-I", str(TOOL), "stage", "--uploads", str(uploads),
-                                "--out", str(pathlib.Path(tmp) / "out"), "--by", "Test"], capture_output=True, text=True)
+            r = subprocess.run(command("stage", "--uploads", str(uploads),
+                                "--out", str(pathlib.Path(tmp) / "out"), "--by", "Test"), capture_output=True, text=True)
         self.assertNotEqual(r.returncode, 0)
         self.assertIn(victim, r.stderr)
+
+
+class LiveIndex(unittest.TestCase):
+    """The published index, copied back from the artifact, still describes the repository."""
+
+    def test_records_match_files_and_carry_a_blob(self):
+        index = json.loads(LIVE_INDEX.read_text())
+        for key, rec in records(index):
+            on_disk = (PROJECT / "assets" / key).stat().st_size
+            self.assertEqual(rec.get("source_size", rec["size"]), on_disk, key)
+            self.assertRegex(rec.get("blob", ""), r"^[0-9a-f]{32}$", key)
 
 
 class SvgNormalization(unittest.TestCase):
@@ -196,8 +216,8 @@ class SvgNormalization(unittest.TestCase):
         repo_size = (PROJECT / "assets" / self.PNG).stat().st_size
         with tempfile.TemporaryDirectory() as tmp:
             uploads = self.uploads(tmp, self.PNG, repo_size + 1, "image/png")
-            r = subprocess.run([sys.executable, "-I", str(TOOL), "stage", "--uploads", str(uploads),
-                                "--out", str(pathlib.Path(tmp) / "out"), "--by", "Test"], capture_output=True, text=True)
+            r = subprocess.run(command("stage", "--uploads", str(uploads),
+                                "--out", str(pathlib.Path(tmp) / "out"), "--by", "Test"), capture_output=True, text=True)
         self.assertNotEqual(r.returncode, 0)
         self.assertIn(self.PNG, r.stderr)
 
