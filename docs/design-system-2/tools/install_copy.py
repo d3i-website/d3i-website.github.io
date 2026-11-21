@@ -237,7 +237,9 @@ def adopt(project, old_index, new_index):
         text = path.read_text()
         unknown = sorted({b for b in BLOB.findall(text) if b not in mapping and b not in known})
         if unknown:
-            die(f"{path.relative_to(project).as_posix()} points at {unknown[:3]}, which neither index records")
+            die(f"{path.relative_to(project).as_posix()} points at {unknown[:3]}, which neither index records. "
+                "If you already committed the new index, pass the previous one with --old-index "
+                "(e.g. `git show HEAD~1:docs/design-system-2/project/design-system.json > /tmp/old.json`).")
         count = sum(1 for b in BLOB.findall(text) if b in mapping and mapping[b] != b)
         if count:
             path.write_text(BLOB.sub(lambda m: "/_blob/" + mapping.get(m[1], m[1]), text))

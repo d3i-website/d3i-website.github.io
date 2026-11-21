@@ -279,6 +279,17 @@ const wideRules = (css) => {
   return out;
 };
 
+// Every @media block in bundle.css is a width query that breakpointOf reads, or a known other form,
+// so a width query written in a form it cannot read fails here rather than going unchecked.
+test('every @media block in bundle.css is read or known', () => {
+  const css = readFileSync(join(components, 'bundle.css'), 'utf8');
+  const queries = [...css.matchAll(/@media\s*([^{]*)\{/g)].map((m) => m[1].trim());
+  assert.ok(queries.length > 0, 'bundle.css has media queries');
+  const OTHER = /^\((?:prefers-reduced-motion|prefers-color-scheme|hover|pointer)\b[^)]*\)$|^print$/;
+  const unread = queries.filter((q) => breakpointOf(q) == null && !OTHER.test(q));
+  assert.deepEqual(unread, [], `unreadable media queries: ${unread.join(' | ')}`);
+});
+
 test('breakpoints are read in px', () => {
   assert.equal(breakpointOf('(max-width: 767px)'), 768);
   assert.equal(breakpointOf('(min-width: 48rem)'), 768);
@@ -325,6 +336,26 @@ test('each showcase page shows a component, in its group, at its own width', () 
     if (!Number(cardAttr(name, 'width'))) wrong.push(`${name}: no width=`);
     if (typeof cardAttr(name, 'subtitle') !== 'string') wrong.push(`${name}: no subtitle`);
   }
+  assert.deepEqual(wrong, [], wrong.join('\n  '));
+});
+
+// A phone card is a copy of its component's preview, so a change to one reaches the other. Dropping
+// line 1 (the @dsCard marker) and normalising the <title>, the two must be equal. If a card needs
+// different props on purpose, put the comment `<!-- phone-card-differs: reason -->` anywhere in its
+// preview to opt out of the comparison.
+test('each showcase page stays a copy of its component\'s preview', () => {
+  const body = (name) => readFileSync(previewPath(name), 'utf8').split('\n').slice(1).join('\n')
+    .replace(/<title>[\s\S]*?<\/title>/, '<title></title>');
+  const wrong = [];
+  let compared = 0;
+  for (const name of pages) {
+    const of = readFileSync(join(components, name, 'README.md'), 'utf8').match(/`components\/([A-Z]\w*)\/`/)?.[1];
+    if (!of || !existsSync(previewPath(of))) { wrong.push(`${name}: its README names no component with a preview`); continue; }
+    if (/<!--\s*phone-card-differs\b/.test(body(name))) continue;
+    compared += 1;
+    if (body(name) !== body(of)) wrong.push(`${name}: differs from ${of}/preview.html below line 1 (copy it again, or mark the card with <!-- phone-card-differs: reason -->)`);
+  }
+  assert.ok(compared > 0, 'some phone card is compared');
   assert.deepEqual(wrong, [], wrong.join('\n  '));
 });
 
@@ -1613,7 +1644,10 @@ test('the cover card', () => {
   const file = readFileSync(previewPath('Cover'), 'utf8');
   const html = runPreview(previewPath('Cover'), bundle());
   assert.equal(bandOf(html)?.layout, 'network', 'the network band from cover-network.svg');
-  assert.match(bandOf(html).inner, /<image href="\/_blob\/866ac59ea0ec14747c485ec480342ef0"/, 'the D3I mark on its disc, an upload');
+  const mark = JSON.parse(readFileSync(join(root, 'docs/design-system-2/project/design-system.json'), 'utf8'))
+    .assetGroups.Logos.files['d3i-mark.svg'].blob;
+  assert.match(mark, /^[0-9a-f]{32}$/, 'the index records the mark\'s upload id');
+  assert.ok(bandOf(html).inner.includes(`<image href="/_blob/${mark}"`), 'the D3I mark on its disc, an upload');
   const name = html.match(/<h1 [^>]*style="([^"]*)"[^>]*>datadonation\.eu<\/h1>/);
   assert.ok(name, 'the name is the title');
   assert.match(name[1], /font-family:(?:'|&#x27;)Libre Caslon Condensed(?:'|&#x27;), serif/, 'in the serif');
