@@ -297,6 +297,8 @@ Two things are not yet revised and still in the earlier look: InstitutionCard, w
 
 The cards on the artifact's page are grouped as this list is: Shell, Front page, Actions, Notes, Cards, Wayfinding and Content, and the slide components under Slides.
 
+A component whose layout changes at 768px or wider is previewed at 1280px, its desktop layout, scaled down to the card. SiteHeader, SiteFooter, FrontPage, ProjectCard and PeopleGrid also have a phone card at 390px, in the same group: `components/<Name>Phone/`, a showcase page rather than a component of its own.
+
 - Shell: SiteHeader (the name, the six links, and below 1000px the Menu drop-down, open, closed or without JavaScript), SectionSubnav (a section's pages under the header, white over a hairline, the current one on the header's blue bar), SiteFooter (the labelled provider pair, the partner grid and the copyright line; logos by the keys the site measured).
 - Front page: FrontPage (the `<div class="home">` wrapper every front-page style hangs off), Band (the sky-blue band: the drawing, the title and the subtitle, with the note as its children), Note (the timely message on the band), ArrowDisc (the small arrow disc that ends "More"), HomeCard (the three borderless cards below the band, in `HomeCard.Grid`), ListRow (a row of Latest news or Upcoming events, in `ListRow.List` with its heading and "More", the two lists in `ListRow.Lists`).
 - Actions: Link (a link in running text: a plain `<a>`), ActionLink (the "More" form off the front page: label, dotted line, arrow disc, in a section and a compact form), ContactBlock (the closing contact block, 42rem and centred: the question in the serif and the address as a Link, beside plain topics on coral bullets or centred without them; no photos).

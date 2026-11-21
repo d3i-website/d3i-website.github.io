@@ -1,0 +1,24 @@
+<!-- @dsCard group="Front page" height=288 width=390 page subtitle="phone, 390px" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>FrontPage — phone preview</title></head>
+<body class="site-shell layout--homepage">
+<div id="root"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h(D.FrontPage, null,
+      h(D.Band, {
+        titleLines: ['Open Infrastructure for', 'Data Donation Research'],
+        subtitle: 'Digital Trace Data, donated to science by citizens.'
+      },
+        h(D.Note, {
+          eyebrow: 'Position',
+          title: 'GDPR Omnibus Proposal',
+          body: 'The European Omnibus Act poses a direct risk to fundamental human rights and to data donation as a research method.',
+          link: { label: 'Read our letter', href: '#' }
+        })))
+  );
+</script>
+</body>
+</html>

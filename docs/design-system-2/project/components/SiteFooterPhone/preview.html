@@ -1,0 +1,29 @@
+<!-- @dsCard group="Shell" height=448 width=390 page subtitle="phone, 390px" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>SiteFooter — phone preview</title>
+<style>.site-footer{margin-top:0}</style></head>
+<body class="site-shell">
+<div id="root" style="display:contents"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h(D.SiteFooter, {
+      providers: [
+        { name: 'ODISSEI', key: 'odissei', logo: '/_blob/5005ef627b81c45a3f6ff88101350f08' },
+        { name: 'Eyra', key: 'eyra', logo: '/_blob/558998aea3b1792f43f9d85b0db0f79e' }
+      ],
+      partners: [
+        { name: 'University of Amsterdam', key: 'uva', logo: '/_blob/31d9730e776fab77442f493a24b3d50b' },
+        { name: 'Radboud University', key: 'ru', logo: '/_blob/628fa1307d0fcd4b3cf5672e6fd9ced8' },
+        { name: 'Utrecht University', key: 'uu', logo: '/_blob/7885723fd2ee23de873285ecb259b30a' },
+        { name: 'Vrije Universiteit Amsterdam', key: 'vu', logo: '/_blob/39e908fd99faecb01b425fcafe359a44' },
+        { name: 'Tilburg University', key: 'tilburg', logo: '/_blob/14f22e60cb9a39ca6305c656d7f985ed' },
+        { name: 'Erasmus University Rotterdam', key: 'eur', logo: '/_blob/8c63dd31f3f81407e760e66e109c11da' }
+      ],
+      copyright: '© 2026 datadonation.eu'
+    })
+  );
+</script>
+</body>
+</html>
