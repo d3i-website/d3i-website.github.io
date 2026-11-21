@@ -1,5 +1,7 @@
 A member institution of the network: the institution's name, its affiliated researcher, and the department, in a bordered card. Cards tile in an auto-fit grid at 15rem.
 
+This component is not yet revised and will not be: it keeps the old look until the network page, the only page that uses it, leaves the site.
+
 Pass `institution`, `affiliate` (name and profile `href`) and `department`, and tile the cards in `InstitutionCard.Grid`. The component emits the `.institution-card` classes this preview shows; the repository's `data-sections/institution-grid.html` emits a parallel set of `.institution-grid__*` names that the stylesheet does not style.
 
 - `.institution-grid` is `repeat(auto-fit, minmax(15rem, 1fr))` with a `space-16` gap, capped at `content-width`.

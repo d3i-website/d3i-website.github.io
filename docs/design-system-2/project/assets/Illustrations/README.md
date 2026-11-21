@@ -1,6 +1,6 @@
 # Illustrations
 
-The flat illustrations the site places on pages. Most are unDraw figures recoloured in the brand accents (the `_blue`, `_coral`, `_yellow` naming of the wider library); their line work is `#2f2e41` and `#3f3d56`, their skin tones `#ed9da0` and `#9f616a`, with the accent as the one strong colour. Place them in a tinted panel (`surface-tint`, or the tint of the accent it is drawn in) or flat on `surface`, at 13.5rem to 32rem wide, never stretched: the hub letterboxes each one in a 5:4 box with `object-fit: contain`.
+The flat illustrations the site places on pages. Most are unDraw figures recoloured in the brand accents (the `_blue`, `_coral`, `_yellow` naming of the wider library); their line work is `#2f2e41` and `#3f3d56`, their skin tones `#ed9da0` and `#9f616a`, with the accent as the one strong colour. Place them flat on `surface`, or in a square frame of one `border` hairline as the small Figure and PageIntro frame them, at 13.5rem to 32rem wide, never stretched: the hub letterboxes each one in a 5:4 box with `object-fit: contain`. Every file carries its colours: classed shapes have the `<style>` block that colours them, and the rest set `fill`.
 
 Homepage movement cards (in order):
 - `social-media-profile.svg` — "What is data donation?", blue.

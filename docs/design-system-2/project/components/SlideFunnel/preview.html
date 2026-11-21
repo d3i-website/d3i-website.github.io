@@ -1,54 +1,55 @@
-<!-- @dsCard group="Slides" height=540 width=960 subtitle="Layout that makes the point: a funnel with values at the bar ends, and a meter of three options" -->
+<!-- @dsCard group="Slides" height=1096 width=960 subtitle="Layout that makes the point, each form on its own slide: a funnel with values at the bar ends, its last bar coral; a meter of three options" -->
 <!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><title>SlideFunnel — preview</title>
-<style>html,body{margin:0;background:#f5f7fb}.stage{width:960px;height:540px;overflow:hidden}#root{width:1920px;height:1080px;transform:scale(.5);transform-origin:top left}</style></head>
+<style>html,body{margin:0;background:#f5f7fb}.stage{width:960px;height:540px;overflow:hidden}.stage+.stage{margin-top:16px}.slide{width:1920px;height:1080px;transform:scale(.5);transform-origin:top left}</style></head>
 <body>
-<div class="stage"><div id="root"></div></div>
+<div class="stage"><div class="slide" id="funnel"></div></div>
+<div class="stage"><div class="slide" id="meter"></div></div>
 <script>
 var D = window.D3I, h = React.createElement;
-ReactDOM.createRoot(document.getElementById('root')).render(h(D.SlideFunnel, {
- "eyebrow": "Part III · Use to date",
- "heading": "Two forms that carry the argument",
+ReactDOM.createRoot(document.getElementById('funnel')).render(h(D.SlideFunnel, {
+ "eyebrow": "Uptake",
+ "heading": "Fewer than half the willing complete",
  "number": 16,
  "funnel": {
-  "eyebrow": "Funnel",
-  "base": "Of 2,086 LISS panel members aged 50 and over",
+  "base": "LISS panel, aged 50+",
   "stages": [
    {
-    "label": "were willing to donate",
+    "label": "Willing",
     "pct": 29
    },
    {
-    "label": "started a donation",
+    "label": "Started",
     "pct": 17
    },
    {
-    "label": "completed one",
+    "label": "Completed",
     "pct": 12
    }
-  ],
-  "note": "Completers were more often employed, educated, higher-income and more active."
- },
+  ]
+ }
+}));
+ReactDOM.createRoot(document.getElementById('meter')).render(h(D.SlideFunnel, {
+ "eyebrow": "The method",
+ "heading": "What reaches the researcher",
+ "number": 9,
  "meter": {
   "options": [
    {
     "eyebrow": "Option 1",
     "fill": "all",
-    "fillLabel": "Everything arrives",
-    "text": "Send everything, select later."
+    "fillLabel": "Everything"
    },
    {
     "eyebrow": "Option 2",
     "fill": "promise",
-    "fillLabel": "Arrives, then deleted",
-    "text": "Send everything, select, delete the rest."
+    "fillLabel": "Everything, then deleted"
    },
    {
-    "eyebrow": "Option 3 · Port",
+    "eyebrow": "Option 3",
     "fill": "strip",
     "fillLabel": "Selected only",
-    "text": "Select on the participant's device.",
     "recommended": true
    }
   ]

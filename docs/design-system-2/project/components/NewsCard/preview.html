@@ -1,34 +1,41 @@
-<!-- @dsCard group="Cards" height=680 width=1152 -->
+<!-- @dsCard group="Cards" height=1192 width=1152 -->
 <!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><title>NewsCard — preview</title>
-<style>.pv-row{padding:1.5rem 1.5rem 1rem}</style></head>
+<style>.pv{padding:1.5rem}.pv-gap{height:3rem}</style></head>
 <body>
-<div id="root" style="display:contents"></div>
+<div id="root" class="pv"></div>
 <script>
   var D = window.D3I, h = React.createElement;
+  // The news page, newest first: the lead story, then the grid. "Data Donation Symposium Program
+  // Available" has no picture here, to show the date node.
   var items = [
-    { accent: 0, title: 'Data Donation Symposium Program Available', date: 'September 8, 2026',
-      summary: 'The schedule for the 2026 Data Donation symposium has been published, featuring a keynote from Jasper Tjaden and sessions on study design, chat bots, biases, quality and standards.' },
-    { accent: 1, title: 'Build your data donation study with our new Script Builder', date: 'July 14, 2026',
-      summary: 'The new Port Script Builder helps researchers quickly create tailored Python scripts for local data processing. Select your platform and the data you want to collect.' },
-    { accent: 2, title: 'LISS Panel Grant 2026: One grant reserved for data donation research', date: 'July 14, 2026',
-      summary: 'The ODISSEI 2026 LISS Panel Grant call is open until 24 September 2026. Six grants are available, including one for data donation research using the representative LISS panel.' }
+    { title: 'Ready to reproduce: export your data donation study', date: '2026-11-09', href: '#',
+      image: '/_blob/602c390b0d903ebae8848aa9d652dea1', image_alt: 'RO-Crate preview of an exported study, listing its name, type, description, publication date and authors.',
+      summary: 'Port users running a data donation study on Next can now export the complete study setup as an RO-Crate: one .zip file containing study configuration, consent and info texts, and provenance and license metadata.' },
+    { title: 'Building a Shared Knowledge Base for Data Donation: Join the DDP Tracker Initiative', date: '2026-11-03', href: '#',
+      image: '/_blob/4998b556079e3c8a56d5e415ad8d7d28' },
+    { title: 'D3I and TDCC RIGHTS at the Data Donation Symposium 2026 in Berlin', date: '2026-10-09', href: '#',
+      image: '/_blob/21c72e424312bd0a49f3cb9ebab51cb7' },
+    { title: 'Meet Lennert: Postdoctoral Researcher in the Macroscope Project', date: '2026-10-01', href: '#',
+      image: '/_blob/6beefd4e2636a7995a4ad98726f6a560' },
+    { title: 'Workshop Recap: Towards Shared Standards for Data Donation Research', date: '2026-09-21', href: '#',
+      image: '/_blob/25cfbd555184e9439ac63c17e21999d7', image_alt: 'Photo from Data Donation Workshop' },
+    { title: 'Data Donation Symposium Program Available', date: '2026-09-08', href: 'https://dds26.platformresearch.eu/program', external: true },
+    { title: 'Welcome our new research engineer, Erik van Haeringen', date: '2026-07-14', href: '#',
+      image: '/_blob/9c3ade12af154b650e2975f5ab1680cd' }
+  ];
+  // The row form, for a list elsewhere.
+  var rows = [
+    { title: 'Data Donation Symposium Program Available', date: '2026-09-08', href: '#',
+      summary: 'The schedule for the 2026 Data Donation symposium has been published, featuring a keynote from Jasper Tjaden.' },
+    { title: 'LISS Panel Grant 2026: One grant reserved for data donation research', date: '2026-07-14', href: '#',
+      summary: 'The ODISSEI 2026 LISS Panel Grant call is open until 24 September 2026. Six grants are available, including one for data donation research.' }
   ];
   ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
-    h(D.NewsCard.Band, { title: 'Latest news', moreLink: { label: 'More news', href: '#' } },
-      items.map(function (it, i) { return h(D.NewsCard, Object.assign({ key: i, href: '#' }, it)); })
-    ),
-    h('div', { className: 'pv-row' },
-      h(D.NewsCard.List, null,
-        h(D.NewsCard, {
-          variant: 'row', accent: 1, href: '#',
-          title: 'Meet our new community manager, Dachi Shanidze',
-          date: 'July 14, 2026',
-          summary: 'Dachi Shanidze joins D3I and TDCC RIGHTS as community manager, supporting project operations, administration, communication, and events.'
-        })
-      )
-    )
+    h(D.NewsCard.Index, { items: items }),
+    h('div', { className: 'pv-gap' }),
+    h(D.NewsCard.List, null, rows.map(function (it, i) { return h(D.NewsCard, Object.assign({ key: i }, it)); }))
   ));
 </script>
 </body>

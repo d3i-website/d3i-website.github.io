@@ -12,8 +12,16 @@ of a copy; Claude does the Artifact calls in between. INSTALL.md walks through t
             under project/ except the images, the preview image URLs pointed at the new
             uploads, a new index, and publish.json with the arguments for the publish call.
 
-  python3 -I docs/design-system/tools/install_copy.py batches
-  python3 -I docs/design-system/tools/install_copy.py stage --uploads RESULTS.txt --out DIR --by "Name"
+A file recorded without a "blob" (the Slides and Network groups) is new to every copy, so
+batches always lists it too, and stage fails, naming each file, if any image is left without
+an upload id after reading the results.
+
+A file recorded with "placeholder": true has an id that was never uploaded (the MD5 of its
+bytes), so that a preview can point at it. batches always lists it, and stage replaces its
+id like any other and drops the flag from the staged index.
+
+  python3 -I docs/design-system-2/tools/install_copy.py batches
+  python3 -I docs/design-system-2/tools/install_copy.py stage --uploads RESULTS.txt --out DIR --by "Name"
 """
 import argparse
 import datetime
@@ -31,7 +39,7 @@ IMAGE_TYPES = {".svg", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".mp4", ".webm"
 SKIP = {"tokens.css", "manifest.json"}
 # One line of an upload result:
 # - "/abs/…/project/assets/Logos/eyra.png" (16091 bytes, image/png) → "/_blob/<id>" (id <id>)
-RESULT = re.compile(r'"(?P<path>[^"]+)" \((?P<size>\d+) bytes, [^)]*\) → "/_blob/(?P<id1>[0-9a-f]{32})" \(id (?P<id2>[0-9a-f]{32})\)')
+RESULT = re.compile(r'"(?P<path>[^"]+)" \((?P<size>\d+) bytes, (?P<type>[^)]*)\) → "/_blob/(?P<id1>[0-9a-f]{32})" \(id (?P<id2>[0-9a-f]{32})\)')
 BLOB = re.compile(r"/_blob/([0-9a-f]{32})")
 
 
@@ -39,8 +47,11 @@ def die(msg):
     sys.exit("install_copy: " + msg)
 
 
+INDEX = PROJECT / "design-system.json"  # --index overrides it (the tests use a fixture)
+
+
 def repo_index():
-    return json.loads((PROJECT / "design-system.json").read_text())
+    return json.loads(INDEX.read_text())
 
 
 def images(index):
@@ -51,16 +62,25 @@ def images(index):
             yield f"{group}/{name}", grp["files"][name]
 
 
+def placeholders(index):
+    """Images recorded with a placeholder id ("placeholder": true): never uploaded yet, though a
+    preview points at the id. A copy always uploads them, whatever an existing copy records."""
+    return {key for key, rec in images(index) if rec.get("placeholder")}
+
+
 def reusable(existing_path):
-    """Images whose name and size are unchanged in an existing copy keep that copy's upload."""
+    """Images whose name and size are unchanged in an existing copy keep that copy's upload,
+    except those this repository records with a placeholder id. "Unchanged" compares the file's
+    size with the record's source_size (an SVG the store normalized) or else its size."""
     if not existing_path:
         return {}
     existing = json.loads(pathlib.Path(existing_path).read_text())
+    fresh = placeholders(repo_index())
     keep = {}
     for key, rec in images(existing):
         local = PROJECT / "assets" / key
-        if local.is_file() and local.stat().st_size == rec["size"]:
-            keep[key] = rec["blob"]
+        if key not in fresh and not rec.get("placeholder") and "blob" in rec and local.is_file() and local.stat().st_size == rec.get("source_size", rec["size"]):
+            keep[key] = rec
     return keep
 
 
@@ -73,7 +93,8 @@ def cmd_batches(args):
 
 
 def parse_uploads(text):
-    """Map "Group/name" -> new upload id from pasted upload results, checking each line."""
+    """Map "Group/name" -> (new upload id, stored size) from pasted upload results, checking each line.
+    The store normalizes SVGs on upload, so only an SVG may come back at a different size."""
     found = {}
     for m in RESULT.finditer(text):
         if m["id1"] != m["id2"]:
@@ -85,9 +106,9 @@ def parse_uploads(text):
         local = PROJECT / "assets" / key
         if not local.is_file():
             die(f"{key} was uploaded but is not in project/assets/")
-        if local.stat().st_size != int(m["size"]):
+        if local.stat().st_size != int(m["size"]) and m["type"] != "image/svg+xml":
             die(f"{key}: uploaded {m['size']} bytes, the repository file has {local.stat().st_size}")
-        found[key] = m["id1"]
+        found[key] = (m["id1"], int(m["size"]))
     return found
 
 
@@ -104,15 +125,18 @@ def cmd_stage(args):
     src = repo_index()
     new_ids = parse_uploads(pathlib.Path(args.uploads).read_text()) if args.uploads else {}
     keep = reusable(args.existing_index)
-    ids = {**keep, **new_ids}
+    ids = {**{k: (rec["blob"], rec["size"], rec.get("source_size")) for k, rec in keep.items()},
+           **{k: (i, size, None) for k, (i, size) in new_ids.items()}}
     missing = [key for key, _ in images(src) if key not in ids]
     if missing:
-        die(f"{len(missing)} images have no upload yet, e.g. {missing[:3]}; upload them and add their results")
+        die(f"{len(missing)} images have no upload id: {', '.join(missing)}; upload them and add their results")
 
     out = pathlib.Path(args.out).resolve()
     if (out / "project").exists():
         shutil.rmtree(out / "project")
-    old_to_new = {rec["blob"]: ids[key] for key, rec in images(src)}
+    # a file recorded before its first upload (no "blob" yet) has no old id for the text to point at;
+    # a placeholder id is an old id like any other, and is replaced by the upload's
+    old_to_new = {rec["blob"]: ids[key][0] for key, rec in images(src) if "blob" in rec}
 
     staged = []
     for path in sorted(PROJECT.rglob("*")):
@@ -138,19 +162,25 @@ def cmd_stage(args):
     now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     if args.existing_index:
         index = json.loads(pathlib.Path(args.existing_index).read_text())
-        note = f"Re-synced from docs/design-system: {len(new_ids)} images uploaded, {len(keep)} kept."
+        note = f"Re-synced from docs/design-system-2: {len(new_ids)} images uploaded, {len(keep)} kept."
     else:
         index = {"v": 3, "layout": "files", "createdOnFiles": {"v": 1, "at": now}, "title": args.title,
                  "sections": {}, "blobs": {}, "docs": {"readme": "project/README.md", "sections": []}}
-        note = "Installed from docs/design-system in d3i-website/d3i-website.github.io."
+        note = "Installed from docs/design-system-2 in d3i-website/d3i-website.github.io."
     for key in ("namespace", "libraries", "groups"):
         index[key] = src[key]
     groups = {}
     for name in src["groups"]:
         grp = json.loads(json.dumps(src["assetGroups"][name]))
         for rec in grp["files"].values():
-            rec["blob"] = ids[f"{name}/{rec['name']}"]
+            blob, size, _ = ids[f"{name}/{rec['name']}"]
+            repo_size = rec["size"]
+            rec["blob"] = blob
+            rec["size"] = size  # what the artifact holds
+            if size != repo_size:
+                rec["source_size"] = repo_size
             rec.pop("sha256", None)
+            rec.pop("placeholder", None)
         groups[name] = grp
     index["assetGroups"] = groups
     index["lastChange"] = {"by": args.by, "at": now, "via": f"Claude Code · d3i-website/d3i-website.github.io@{git_ref()}", "note": note}
@@ -175,14 +205,19 @@ def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = p.add_subparsers(dest="cmd", required=True)
     b = sub.add_parser("batches", help="print the image upload batches")
+    b.add_argument("--index", help="the repository's index to read (default: project/design-system.json)")
     b.add_argument("--existing-index", help="the copy's project/design-system.json, read from it, for a re-sync")
     s = sub.add_parser("stage", help="stage the files and the index for publishing")
     s.add_argument("--uploads", help="a text file holding the upload results, copied exactly")
     s.add_argument("--out", required=True, help="the folder to stage in (the publish call's root)")
-    s.add_argument("--title", default="datadonation.eu", help="the new system's name (ignored on a re-sync)")
+    s.add_argument("--title", default="datadonation.eu 2026", help="the new system's name (ignored on a re-sync, which keeps the copy's title)")
     s.add_argument("--by", default="Claude", help="the person the copy is installed for")
+    s.add_argument("--index", help="the repository's index to read (default: project/design-system.json)")
     s.add_argument("--existing-index", help="the copy's project/design-system.json, read from it, for a re-sync")
     args = p.parse_args()
+    if args.index:
+        global INDEX
+        INDEX = pathlib.Path(args.index)
     {"batches": cmd_batches, "stage": cmd_stage}[args.cmd](args)
 
 

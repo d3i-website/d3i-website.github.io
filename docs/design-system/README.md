@@ -2,6 +2,8 @@
 
 The datadonation.eu design system: the colours, type, spacing and components for slides and for this website, kept here so it is versioned with the site and anyone with the repository has it. Its home for editing is a claude.ai Design System artifact, https://claude.ai/artifact/XLSnPVHXtRLypPh8ZdPy9n (private to its owner).
 
+The system in the new look is in `docs/design-system-2/`, published as "datadonation.eu 2026".
+
 **To use it in Claude Design or for decks, install your own copy:** `INSTALL.md` has the one prompt to paste into Claude Code. It gives you the same system in your own claude.ai account, with nothing shared.
 
 Start with `project/README.md`, the brand book: what every token is for, the slide rules, the slide palette in hex, and the components.

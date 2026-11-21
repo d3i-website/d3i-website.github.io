@@ -1,16 +1,37 @@
-<!-- @dsCard group="Slides" height=540 width=960 subtitle="Cover and closing slide: the road band over the title" -->
+<!-- @dsCard group="Slides" height=1096 width=960 subtitle="Cover and closing slide, two layouts: the network band over the title, and the website band with the title in it over the speakers and logos" -->
 <!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><title>SlideCover — preview</title>
-<style>html,body{margin:0;background:#f5f7fb}.stage{width:960px;height:540px;overflow:hidden}#root{width:1920px;height:1080px;transform:scale(.5);transform-origin:top left}</style></head>
+<style>html,body{margin:0;background:#f5f7fb}.stage{width:960px;height:540px;overflow:hidden}.stage+.stage{margin-top:16px}.slide{width:1920px;height:1080px;transform:scale(.5);transform-origin:top left}</style></head>
 <body>
-<div class="stage"><div id="root"></div></div>
+<div class="stage"><div class="slide" id="network"></div></div>
+<div class="stage"><div class="slide" id="band-title"></div></div>
 <script>
 var D = window.D3I, h = React.createElement;
-ReactDOM.createRoot(document.getElementById('root')).render(h(D.SlideCover, {
+ReactDOM.createRoot(document.getElementById('network')).render(h(D.SlideCover, {
+ "layout": "network",
+ "markSrc": "/_blob/be4813582be16fc83074c1ca7f78674a",
  "title": "Data donation as a data collection method",
- "lead": "Collecting digital trace data through participants' right of access",
- "byline": "Speaker name · Affiliation · Venue, October 13, 2026"
+ "subtitle": "Trace data, donated to science",
+ "speakers": "Speaker name",
+ "venue": "Venue, 2026"
+}));
+ReactDOM.createRoot(document.getElementById('band-title')).render(h(D.SlideCover, {
+ "layout": "band-title",
+ "title": "[Title of the\npresentation]",
+ "subtitle": "Trace data, donated by citizens",
+ "speakers": "Niek de Schipper · Danielle McCool",
+ "venue": "ODISSEI Conference 2026",
+ "logos": [
+  { "key": "uu", "src": "/_blob/7d397e017f62efccfed2ba8d019a8c9c", "alt": "Utrecht University" },
+  { "key": "uva", "src": "/_blob/4ec43883eac01a33e5d5864c32999307", "alt": "University of Amsterdam" },
+  { "key": "ru", "src": "/_blob/c438daf10b358b08b20c82e29dae56d1", "alt": "Radboud University" },
+  { "key": "eur", "src": "/_blob/10ea37205ed505cd1ba4e829676d4071", "alt": "Erasmus University Rotterdam" },
+  { "key": "tilburg", "src": "/_blob/d1769f20027f6cb5100e43666aea06ff", "alt": "Tilburg University" },
+  { "key": "vu", "src": "/_blob/697d04a26664bdb26e8d271a26e127b3", "alt": "Vrije Universiteit Amsterdam" },
+  { "key": "odissei", "src": "/_blob/693138a09fb55860252fdf53cdfdee18", "alt": "ODISSEI" },
+  { "key": "eyra", "src": "/_blob/87afcf44ac9de2aea316b5c81eda8dd5", "alt": "Eyra" }
+ ]
 }));
 </script>
 </body>

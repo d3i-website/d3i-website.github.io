@@ -10,4 +10,4 @@ The homepage hero composition: a sky layer behind the headline and a road strip 
 - `car.png` — 107px, at 63%, bottom 46px.
 - `cyclist.png` — 71px, at 72%, bottom 56px.
 
-The road itself is CSS: a 24px `road` bar with `blue` dashes (30px on, 58px off) in a 120px strip. Under 900px the sky layer hides; under 600px the strip shrinks to 60px and the travellers hide. See the HomepageHero component.
+The road itself is CSS: a 24px `road` bar with `blue` dashes (30px on, 58px off) in a 120px strip. Under 900px the sky layer hides; under 600px the strip shrinks to 60px and the travellers hide. The earlier front page drew them; the HomepageHero component that did so is retired, and the front page now has the Band.

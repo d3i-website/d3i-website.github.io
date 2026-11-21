@@ -1,8 +1,19 @@
-The site's one call to action: a bold coral Nunito link with a trailing arrow and an underline that appears on hover. There are no buttons.
+The call to action, in the front page's "More" form: the label in text, a short dotted `sky` line and the small arrow disc. It is the thing to click, one per card or section; there are no buttons. On the front page itself "More" is drawn by `ListRow.List`, and the note carries its own disc.
 
-`D3I.ActionLink` takes `href` and the label as children: a verb phrase with no arrow, because the component appends `<span aria-hidden="true">→</span>` as the site's template does. `variant` picks the form below: `section` (the default), `compact`, or `accent` with `accent` set to `primary`, `secondary` or `tertiary`. `external` opens the link in a new tab with `rel="noopener noreferrer"`. One per card or section: it is the thing to click.
+PageIntro's actions, Routes' step links and ArchiveCard's further actions are ActionLinks. The site's action links (`.section-cta`, `.cta-link`) still end in a text arrow; they take this markup when their pages are redone.
 
-- `.section-cta` is the standard form: `label` style in `coral`, with a 2px transparent bottom border that turns `coral` on hover and focus over 0.15s. `.homepage-hero__cta` and `.hub__movement-link` are the same look in other places.
-- `.cta-link` is the compact form inside cards and section headers ("Read more →", "More news →"): it inherits the surrounding size, with a 1.5px underline and `white-space: nowrap`.
-- `variant="accent"` colours the link in the item's text colour (`blue`, `coral` or `yellow-text`) and underlines in `currentColor`.
-- `coral` measures 3.0:1 on `surface` and `yellow-text` 1.9:1; the site accepts that for this bold link and nowhere else. Never use the style for body-sized regular text.
+## What you provide
+
+- The label, as children: plain words, a verb phrase or "More" ("Learn about data donation", "Read more"). No arrow: the disc is added.
+- `href`, and `external` to open the link in a new tab (`target="_blank" rel="noopener noreferrer"`).
+- `hiddenLabel` (optional): words for screen readers only, in a `<span class="visually-hidden">` straight after the label (inside `.more__end`), for what a short label leaves out: " news" after "More", so the link reads "More news".
+- `variant`: `section` (the default, `.section-cta`) for a call to action under a section, or `compact` (`.cta-link`) inside cards and section headers.
+
+There are no pictures to pass. The disc is `ArrowDisc`, drawn inline.
+
+## The values it draws
+
+- `.section-cta` is `link` in `text` (Nunito Sans 700, 16px), with no underline. A long label wraps like text, but its last word, the dots and the disc sit in one `.more__end` span that never breaks (`white-space: nowrap`), `space-8` apart and centred on each other, so the disc never lands on a line of its own. A label that is not plain text goes into that span whole.
+- `.cta-link` is the same in `label` (14px).
+- `.more__dots` is 28px wide: a dot `line-dot-page` high every `line-dot-spacing`, in `sky`. On hover and on keyboard focus it turns into a solid `sky` line; the colour of the text never changes.
+- `.go` is the arrow disc at `disc-arrow-sm` (24px).

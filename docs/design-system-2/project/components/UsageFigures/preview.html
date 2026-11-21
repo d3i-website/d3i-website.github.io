@@ -1,4 +1,4 @@
-<!-- @dsCard group="Content" height=740 -->
+<!-- @dsCard group="Content" height=776 -->
 <!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><title>UsageFigures — preview</title>
@@ -9,7 +9,7 @@
   var D = window.D3I, h = React.createElement, U = D.UsageFigures;
   /* The site draws the globe with JavaScript from _data/usage.yml; a plain disc stands in for it here. */
   var disc = h('svg', { viewBox: '0 0 200 200', role: 'img', 'aria-label': 'Globe (drawn by the site)' },
-    h('circle', { cx: 100, cy: 100, r: 92, fill: 'var(--surface-tint)', stroke: 'var(--border)', strokeWidth: 2 }));
+    h('circle', { cx: 100, cy: 100, r: 92, fill: 'none', stroke: 'var(--border)', strokeWidth: 2 }));
   ReactDOM.createRoot(document.getElementById('root')).render(
     h(U, null,
       h(U.Figure, { title: 'Where D3I studies happen', caption: "Data donation studies making use of D3I's Port are happening worldwide." },

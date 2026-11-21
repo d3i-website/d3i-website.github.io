@@ -1,0 +1,21 @@
+<!-- @dsCard group="Content" height=888 width=960 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>ScriptSelector — preview</title>
+<style>.pv{padding:0.5rem 1.5rem 0;max-width:54rem}.pv .script-selector{margin:1.5rem 0 0}.pv .script-selector__frame-wrap:has(>.script-selector__frame){height:520px;min-height:0}</style></head>
+<body>
+<div id="root" class="pv"></div>
+<script>
+  var D = window.D3I, h = React.createElement;
+  var SRC = 'https://sramtest.d3idatadonation.src.surf-hosted.nl/select?embed=1';
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', null,
+      h(D.ScriptSelector, { src: SRC, title: 'Script selector', still: '/_blob/676cd8e4bf4945b248d5adab6da5cdca' }),
+      h(D.ScriptSelector, { src: SRC, title: 'Script selector', down: {
+        message: 'The selector runs on SURF Research Cloud and isn’t responding right now. It’s usually back within minutes; if it stays offline, SURF itself is probably down. Try again later or email DataDonation@uu.nl.'
+      } })
+    )
+  );
+</script>
+</body>
+</html>

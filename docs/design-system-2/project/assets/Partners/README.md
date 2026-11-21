@@ -1,6 +1,6 @@
 # Partners
 
-The six project partner universities, in the footer's order. Each is drawn in a logo cell 2.2rem tall with the image capped at 1.6rem; the per-logo caps and scale factors in `bundle.css` (`.site-footer__logo--uva` to `--eur`) even out their visual weight. Use them only together and only at that size; they are the partners' own marks.
+The six project partner universities, in the footer's order. The footer sizes each to the same ink area by its measured ink box (SiteFooter's keys `uva`, `ru`, `uu`, `vu`, `tilburg`, `eur`; see its README). The files are the site's own, as they are: the sizes are measured from them, so do not trim or re-export them. Use them only together and only at that size; they are the partners' own marks.
 
 - `uva.png` — University of Amsterdam (compact English lock-up).
 - `radboud.png` — Radboud University.
