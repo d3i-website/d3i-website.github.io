@@ -91,7 +91,17 @@ test('header, d3i and folders agree', () => {
   const src = readFileSync(join(components, 'bundle.js'), 'utf8');
   const first = src.split('\n')[0];
   const header = JSON.parse(first.match(/^\/\* @ds-bundle: (\{.*\}) \*\/$/)[1]);
-  const fromHeader = header.components.map((c) => c.name).sort();
+  // A header entry with "page": true is a showcase card: a folder whose preview is marked `page`,
+  // not a D3I export, and listed directly after the component its README names.
+  const cards = header.components.filter((c) => c.page === true).map((c) => c.name).sort();
+  const fromHeader = header.components.filter((c) => c.page !== true).map((c) => c.name).sort();
+  assert.deepEqual(header.components.filter((c) => c.page !== undefined && c.page !== true), [], 'page is only ever true');
+  assert.deepEqual(cards, pages, 'header "page" entries against the folders whose preview is marked page');
+  header.components.forEach((c, i) => {
+    if (c.page !== true) return;
+    const of = readFileSync(join(components, c.name, 'README.md'), 'utf8').match(/`components\/([A-Z]\w*)\/`/)?.[1];
+    assert.equal(header.components[i - 1]?.name, of, `${c.name} directly after ${of} in the header`);
+  });
 
   const { D3I } = bundle();
   const fromD3I = Object.keys(D3I).filter((k) => /^[A-Z]/.test(k)).sort();
