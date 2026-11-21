@@ -903,6 +903,7 @@ test('desktop current link has no tint', () => {
     && /background(-color)?:(?!none)/.test(decl)).map(([sel]) => sel);
   assert.deepEqual(tinted, [], 'no background on the current link at any width');
   assert.match(ruleFor('.site-nav__item.is-active a'), /background:none/, 'the old tint is undone');
+  assert.match(ruleFor('.site-nav__item.is-active a'), /color:var\(--heading\)/, 'the label in heading, as the Menu panel\'s current row');
   assert.match(ruleFor('.site-nav__item.is-active a::before'), /transform:scaleX\(1\)/, 'the 4px blue bar, shown at rest');
   assert.match(ruleFor('.site-nav__item a::before'), /height:4px;background:var\(--blue\)/, 'the hover bar');
 });

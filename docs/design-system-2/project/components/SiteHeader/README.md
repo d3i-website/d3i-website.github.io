@@ -4,7 +4,7 @@ Use it once, at the top of every page. Pass `brand`, `tagline` and the six `link
 
 - One row, 58px high at every width: 16px above, a 41px row and a 1px hairline, `heading` at 6%. Sticky, `surface` at 96%, blurred behind.
 - `.site-header__name` is 16px at 800 in `ink`; `.site-header__subtitle` is 14px in `nav-text`, 3px under it. The two are one link home; on hover it turns `blue` and underlines.
-- From 1000px: `.site-nav__item a` is 15px at 500 in `nav-text`, 14px of padding either side (28px between labels; the last ends on the page edge). On hover and focus it turns `blue` and a 4px `blue` bar grows from the centre (0.2s). The current link shows that bar at rest, under its label, and has no tint; the bar is its only mark.
+- From 1000px: `.site-nav__item a` is 15px at 500 in `nav-text`, 14px of padding either side (28px between labels; the last ends on the page edge). On hover and focus it turns `blue` and a 4px `blue` bar grows from the centre (0.2s). The current link shows that bar at rest, under its label in `heading`, as the Menu panel's current row, and has no tint.
 - Below 1000px: `.site-header__menu`, "Menu" in `heading`, 15px at 600, with the same bar while hovered or open. The panel is the nav itself, at the header's full width under it, over the page rather than pushing it down: `surface`, `border` hairlines above and below and between the rows, one link per 44px row, the hover bar standing at the row's left end instead of under the label. The current row has that bar standing, in `blue`, with its label in `heading`, and no tint.
 - `menu: 'none'`: no button; the links wrap under the name, and the header is 107, 148 and 189px high at 800, 600 and 390px.
 

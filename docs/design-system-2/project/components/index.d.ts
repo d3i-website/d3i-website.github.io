@@ -47,7 +47,7 @@ export interface DetailRow {
 export interface HeaderLink {
   label: string;
   href: string;
-  /** The current page or its section: takes is-active, marked by the blue bar alone and no tint: from 1000px the bar under the label, at rest; in the Menu panel the bar standing at the row's left end. */
+  /** The current page or its section: takes is-active, marked by the blue bar and a heading label, no tint: from 1000px the bar under the label, at rest; in the Menu panel the bar standing at the row's left end. */
   current?: boolean;
 }
 export interface SiteHeaderProps {
