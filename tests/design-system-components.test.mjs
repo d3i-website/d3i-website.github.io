@@ -991,6 +991,14 @@ test('script selector shows the outage inside the frame', () => {
   assert.ok(selector({ down: { heading: 'Down for maintenance', message: 'x' } }).includes('<h2>Down for maintenance</h2>'), 'a heading of its own');
   assert.ok(selector({ caption: 'Runs elsewhere.' }).includes('<p>Runs elsewhere.</p>'), 'a caption of its own');
 
+  // The title is never re-cased (proper nouns: SURF, Port); the link has fixed words unless linkText is given.
+  const port = selector({ title: 'Port Script Selector', down: { message: 'x' } });
+  assert.ok(port.includes('<h2>Port Script Selector unavailable</h2>'), 'heads the notice unchanged');
+  assert.ok(selector({ title: 'Port Script Selector' }).includes('title="Port Script Selector"'), 'names the frame unchanged');
+  assert.ok(port.includes('>Open the script selector in a new <span class="more__end">tab'), 'the link keeps its fixed words');
+  assert.ok(!/port script selector/.test(port), 'nothing lowercased');
+  assert.ok(selector({ linkText: 'Open in SURF' }).includes('>Open in <span class="more__end">SURF'), 'linkText verbatim');
+
   const still = selector({ still: '/_blob/1' });
   assert.ok(still.includes('<div class="script-selector__frame-wrap"><img class="script-selector__frame" src="/_blob/1" alt="Script selector"/></div>'),
     'a still of the app in place of the live one');

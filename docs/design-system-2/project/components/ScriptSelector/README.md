@@ -5,7 +5,8 @@ Use it once, on the script selector's page (`_pages/software/script-selector.md`
 ## What you provide
 
 - `src`: the app's URL, `site.data.script_selector.url` (`https://sramtest.d3idatadonation.src.surf-hosted.nl/select?embed=1`). The frame loads it, and the caption's link opens it in a new tab.
-- `title`: "Script selector". It names the frame for screen readers, heads the notice ("Script selector unavailable") and words the link ("Open the script selector in a new tab").
+- `title`: "Script selector". It names the frame for screen readers, is the still's alt text and heads the notice ("Script selector unavailable"). It is used as given, never re-cased.
+- `linkText`, optional: the caption link's words, used verbatim. Default "Open the script selector in a new tab".
 - `caption`, optional: the sentence before the link. Default "Runs on SURF Research Cloud."
 - `down`, optional: `{ message }`, the outage notice, `fallback.message` in `_data/script_selector.yml`. `down.heading` replaces "<title> unavailable" (`fallback.heading`). The notice has no link of its own: the caption under it is the way out.
 - `still`, optional: a picture of the app, shown in the frame in place of the live one. A preview, a mock-up or a slide passes one, so that nothing calls the workspace. `assets/Screens/script-selector.png` is the selector's first step at the reading column's width; this card's preview shows it.

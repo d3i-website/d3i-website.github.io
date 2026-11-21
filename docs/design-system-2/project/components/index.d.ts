@@ -744,12 +744,14 @@ export declare function Figure(props: FigureProps): React.ReactElement;
 export interface ScriptSelectorProps {
   /** The app's URL, framed and linked from the caption: site.data.script_selector.url. */
   src: string;
-  /** The frame's title, the still's alt text, the notice's heading ("… unavailable") and the caption link's words ("Open the … in a new tab"). Default "Script selector". */
+  /** The frame's title, the still's alt text and the notice's heading ("<title> unavailable"), each used as given, never re-cased. Default "Script selector". */
   title?: string;
   /** The caption's sentence before the link. Default "Runs on SURF Research Cloud." */
   caption?: React.ReactNode;
   /** The app does not answer: its notice takes the app's place inside the frame (role="status"). heading defaults to "<title> unavailable". */
   down?: { message: React.ReactNode; heading?: React.ReactNode };
+  /** The caption link's words, used verbatim. Default "Open the script selector in a new tab". */
+  linkText?: string;
   /** A picture of the app shown in the frame in place of the live app, so a preview or a slide calls nothing. */
   still?: string;
   className?: string;

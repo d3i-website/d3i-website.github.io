@@ -800,10 +800,11 @@
      caption with the way out, closed by another. With `down` the outage notice takes the app's place
      inside the same frame and the caption stays, so the link is never there twice. With `still` a
      picture of the app stands in for the live one (previews, slides), so nothing calls the app. The
-     component renders the state it is given; the site's script decides it by a timeout. */
+     component renders the state it is given; the site's script decides it by a timeout. The title is
+     used as given, never re-cased; the caption's link has fixed words unless linkText replaces them. */
   function ScriptSelector(p) {
     var title = p.title || 'Script selector';
-    var attrs = rest(p, ['src', 'title', 'caption', 'down', 'still', 'className']);
+    var attrs = rest(p, ['src', 'title', 'caption', 'down', 'still', 'linkText', 'className']);
     attrs.className = cx('script-selector', p.className);
     var inner;
     if (p.down) {
@@ -820,7 +821,7 @@
       h('div', { className: 'script-selector__frame-wrap' }, inner),
       h('div', { className: 'script-selector__caption' },
         h('p', null, p.caption || 'Runs on SURF Research Cloud.'),
-        h(ActionLink, { href: p.src, external: true, variant: 'compact' }, 'Open the ' + title.toLowerCase() + ' in a new tab')));
+        h(ActionLink, { href: p.src, external: true, variant: 'compact' }, p.linkText || 'Open the script selector in a new tab')));
   }
 
   /* A news post as _layouts/page.html writes it for the news collection: the date over the title
