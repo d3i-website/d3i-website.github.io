@@ -47,7 +47,7 @@ export interface DetailRow {
 export interface HeaderLink {
   label: string;
   href: string;
-  /** The current page or its section: takes is-active, the faint tint behind the label. */
+  /** The current page or its section: takes is-active. From 1000px a faint tint behind the label; in the Menu panel the blue bar standing at the row's left end, and no tint. */
   current?: boolean;
 }
 export interface SiteHeaderProps {
@@ -609,7 +609,7 @@ export interface TableOfContentsProps {
   className?: string;
 }
 /**
- * An in-page contents list at the top of a long content page: a soft panel, a bold title and the headings as a bulleted list of running-text links (ul.toc__menu, as the site's generator writes it).
+ * An in-page contents list under the title of a long content page: a small "Contents" heading over one row of the headings as running-text links, a small grey dot between them (ul.toc__menu, as the site's generator writes it). No panel, no tint, no current mark; a wrapped row starts without a dot.
  * @example
  * <TableOfContents items={[{ label: "What the software does", href: "#" }, { label: "How to get access", href: "#" }]} />
  */
@@ -740,6 +740,28 @@ export interface FigureProps {
  * <Figure src={cloudFilesUrl} alt="Files moving to and from a cloud" caption="Participants request their data from the platform, then process it locally." />
  */
 export declare function Figure(props: FigureProps): React.ReactElement;
+
+export interface ScriptSelectorProps {
+  /** The app's URL, framed and linked from the caption: site.data.script_selector.url. */
+  src: string;
+  /** The frame's title, the still's alt text, the notice's heading ("… unavailable") and the caption link's words ("Open the … in a new tab"). Default "Script selector". */
+  title?: string;
+  /** The caption's sentence before the link. Default "Runs on SURF Research Cloud." */
+  caption?: React.ReactNode;
+  /** The app does not answer: its notice takes the app's place inside the frame (role="status"). heading defaults to "<title> unavailable". */
+  down?: { message: React.ReactNode; heading?: React.ReactNode };
+  /** A picture of the app shown in the frame in place of the live app, so a preview or a slide calls nothing. */
+  still?: string;
+  className?: string;
+}
+/**
+ * The Software section's script selector, as _includes/script-selector-embed.html: the app in one square border hairline, like a Figure,
+ * and a caption under it ("Runs on SURF Research Cloud." and the open-in-a-new-tab link), closed by another. When the app is down, the
+ * outage notice shows inside the same frame and the caption stays.
+ * @example
+ * <ScriptSelector src="https://sramtest.d3idatadonation.src.surf-hosted.nl/select?embed=1" title="Script selector" />
+ */
+export declare function ScriptSelector(props: ScriptSelectorProps): React.ReactElement;
 
 /** One row of the "Latest news" rail. */
 export interface NewsRailItem {
@@ -1092,6 +1114,7 @@ declare global {
       HubStep: typeof HubStep;
       Prose: typeof Prose;
       Figure: typeof Figure;
+      ScriptSelector: typeof ScriptSelector;
       NewsArticle: typeof NewsArticle;
       EventDetails: typeof EventDetails;
       UsageFigures: typeof UsageFigures;

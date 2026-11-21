@@ -101,7 +101,7 @@ test('every preview renders', () => {
 // built site does not have yet. Each is listed here under its component; the site adopts it when
 // that page is redone, and then it leaves the map. Only these components may have entries.
 const PENDING_COMPONENTS = ['ActionLink', 'JourneyNext', 'Postit', 'HubStep', 'NewsCard', 'ArchiveCard',
-  'ProjectCard', 'Callout', 'SidebarPanel', 'ContactBlock'];
+  'ProjectCard', 'Callout', 'SidebarPanel', 'ContactBlock', 'ScriptSelector'];
 const PENDING_SITE_CLASSES = {
   ActionLink: [
     'more__end', // new markup, site adopts on redo
@@ -139,11 +139,14 @@ const PENDING_SITE_CLASSES = {
     'project-card__year', // new markup, site adopts on redo
     'project-card__body', // new markup, site adopts on redo
   ],
+  ScriptSelector: [
+    'script-selector__caption', // new markup, site adopts on redo
+  ],
 };
 
 const websitePreviews = () => previews.filter((n) => !n.startsWith('Slide'));
 // Components that draw another component inside them, and so emit its pending classes too.
-const DRAWS = { PageIntro: ['ActionLink'], Routes: ['ActionLink'], ArchiveCard: ['ActionLink'] };
+const DRAWS = { PageIntro: ['ActionLink'], Routes: ['ActionLink'], ArchiveCard: ['ActionLink'], ScriptSelector: ['ActionLink'] };
 const pendingFor = (name) => [name, ...(DRAWS[name] || [])].flatMap((n) => PENDING_SITE_CLASSES[n] || []);
 
 test('every class a website component emits is used by the site', () => {
@@ -570,6 +573,29 @@ test('section subnav carries the header bar', () => {
   assert.doesNotMatch(ruleFor('.section-subnav'), /surface-tint/, 'no tinted strip');
 });
 
+// Round 2, variant 3: a small "Contents" heading over one row of the section links, a small grey dot
+// between them. The dot is the item's ::before, so it is never inside a link, and the list is pulled
+// left past its first dot and clipped there, so a wrapped row never starts with one.
+test('toc is one row with dot separators', () => {
+  const { D3I, React } = bundle();
+  const html = renderToHtml(React.createElement(D3I.TableOfContents, { items: [
+    { label: 'Key takeaway', href: '#key' }, { label: 'What is at stake?', href: '#stake' }, { label: 'Conclusion', href: '#end' }] }));
+  assert.ok(html.startsWith('<nav class="content-page__toc" aria-label="Contents"><p class="content-page__toc-title">Contents</p>'), 'the small heading');
+  assert.ok(html.includes('<ul class="toc__menu"><li><a href="#key">Key takeaway</a></li><li><a href="#stake">What is at stake?</a></li>'
+    + '<li><a href="#end">Conclusion</a></li></ul>'), 'the links alone, nothing drawn between them in the markup');
+  assert.match(ruleFor('.content-page__toc .toc__menu'), /display:flex;flex-wrap:wrap/, 'one row, wrapping');
+  assert.match(ruleFor('.content-page__toc .toc__menu li::before'), /width:4px;height:4px;border-radius:var\(--radius-circle\);background:var\(--text-muted\)/,
+    'a small grey dot before each item');
+  assert.deepEqual(rulesWith(/content-page__toc[^,]*\sa(::?(before|after))/, 'content'), [], 'the dot is not inside a link');
+  const list = ruleFor('.content-page__toc .toc__menu');
+  assert.match(list, /margin:0 0 0 calc\(-1 \* var\(--toc-gap\)\)/, 'pulled left by one gap');
+  assert.match(list, /clip-path:inset\([^)]*calc\(var\(--toc-gap\) \/ 2 \+ 2px\)\)/, 'and clipped just past the first dot of each row');
+  assert.match(ruleFor('.content-page__toc-title'), /font:var\(--text-eyebrow\)/, 'a small heading');
+  assert.deepEqual(rulesWith(/content-page__toc/, 'surface-tint'), [], 'no tint');
+  assert.doesNotMatch(ruleFor('.content-page__toc'), /background:(?!none)|border:(?!0)|border-radius:(?!0)/, 'no box');
+  assert.deepEqual(rulesWith(/content-page__toc.*(is-active|aria-current|:target)/, ''), [], 'no current mark');
+});
+
 /* NewsCard, ArchiveCard, ProjectCard, EventDetails ------------------------------------------- */
 
 const NEWS = [
@@ -857,6 +883,19 @@ test('header marks the current link', () => {
   assert.ok(!header({ tagline: undefined }).includes('site-header__subtitle'), 'no tagline, no subtitle');
 });
 
+// Round 2, variant a: in the Menu panel the current row carries the header's blue bar at its left
+// end, standing, and no tint.
+test('menu current row has no tint', () => {
+  assert.ok(header({ menu: 'open' }).includes('<li class="site-nav__item is-active"><a href="#">Software</a></li>'), 'the current row');
+  const css = bundleCss();
+  const panel = css.slice(css.indexOf('@media(max-width: 999px){.site-header__menu{display:block'));
+  const row = '.site-header__menu+.site-nav .site-nav__item.is-active a';
+  assert.ok(panel.includes(row + '{'), 'a rule for the current row, in the panel below 1000px');
+  assert.match(ruleFor(row), /background:none/, 'no tint');
+  assert.match(ruleFor(row), /color:var\(--heading\)/, 'the label in heading');
+  assert.match(ruleFor(row + '::before'), /transform:scaleY\(1\)/, 'the bar standing at the row\'s left end');
+});
+
 const PROVIDERS = [
   { name: 'ODISSEI', key: 'odissei', logo: '/_blob/693138a09fb55860252fdf53cdfdee18' },
   { name: 'Eyra', key: 'eyra', logo: '/_blob/87afcf44ac9de2aea316b5c81eda8dd5' },
@@ -919,6 +958,51 @@ test('floated figure emits page-section__figure', () => {
   const { D3I, React } = bundle();
   const html = renderToHtml(React.createElement(D3I.Figure, { variant: 'panel', float: 'right', src: '/_blob/1', alt: 'x' }));
   assert.equal(html, '<figure class="page-section__figure page-section__figure--right"><img src="/_blob/1" alt="x"/></figure>');
+});
+
+/* ScriptSelector ----------------------------------------------------------------------------- */
+
+// _includes/script-selector-embed.html in variant A: the app in a frame like a Figure's (one square
+// hairline), a caption under it with the way out, closed by another hairline. When the app does not
+// answer, its notice takes the app's place in the same frame, and the caption stays.
+const SELECTOR = 'https://selector.example.org/select?embed=1';
+const OUTAGE = 'The selector runs on SURF Research Cloud and isn\'t responding right now.';
+const selector = (props) => {
+  const { D3I, React } = bundle();
+  return renderToHtml(React.createElement(D3I.ScriptSelector, { src: SELECTOR, title: 'Script selector', ...props }));
+};
+
+test('script selector shows the outage inside the frame', () => {
+  const caption = '<div class="script-selector__caption"><p>Runs on SURF Research Cloud.</p>'
+    + `<a class="cta-link" href="${SELECTOR}" target="_blank" rel="noopener noreferrer">Open the script selector in a new <span class="more__end">tab`;
+  const up = selector({});
+  assert.ok(up.startsWith('<div class="script-selector"><div class="script-selector__frame-wrap">'
+    + `<iframe class="script-selector__frame" src="${SELECTOR}" title="Script selector" loading="lazy"`), 'the app in the frame');
+  assert.ok(up.includes('allow="downloads"></iframe></div>' + caption), 'the caption under the frame, with the way out');
+  assert.ok(!up.includes('script-selector__fallback'), 'no notice while it answers');
+
+  const down = selector({ down: { message: OUTAGE } });
+  assert.ok(down.startsWith('<div class="script-selector"><div class="script-selector__frame-wrap">'
+    + `<div class="script-selector__fallback" role="status"><h2>Script selector unavailable</h2><p>${OUTAGE.replace("'", '&#x27;')}</p></div></div>`),
+    'the notice inside the frame, in the app\'s place');
+  assert.ok(!down.includes('<iframe'), 'and no app');
+  assert.ok(down.includes(caption), 'the caption stays, the one way out');
+  assert.equal(count(down, `href="${SELECTOR}"`), 1, 'once');
+  assert.ok(selector({ down: { heading: 'Down for maintenance', message: 'x' } }).includes('<h2>Down for maintenance</h2>'), 'a heading of its own');
+  assert.ok(selector({ caption: 'Runs elsewhere.' }).includes('<p>Runs elsewhere.</p>'), 'a caption of its own');
+
+  const still = selector({ still: '/_blob/1' });
+  assert.ok(still.includes('<div class="script-selector__frame-wrap"><img class="script-selector__frame" src="/_blob/1" alt="Script selector"/></div>'),
+    'a still of the app in place of the live one');
+  assert.ok(!still.includes('<iframe'), 'with no iframe');
+
+  assert.match(ruleFor('.script-selector__frame-wrap'), /border:1px solid var\(--border\);border-radius:0/, 'one square hairline round the frame');
+  assert.match(ruleFor('.script-selector__frame'), /border:0/, 'the app has none of its own');
+  assert.match(ruleFor('.script-selector__fallback'), /border:0.*background:none/, 'nor has the notice');
+  assert.match(ruleFor('.script-selector__frame-wrap:has(>.script-selector__fallback)'), /height:auto;min-height:0/, 'the frame closes round the notice');
+  assert.match(ruleFor('.script-selector__caption'), /border-bottom:1px solid var\(--border\)/, 'the caption closed by a hairline');
+  assert.deepEqual(rulesWith(/script-selector/, 'surface-tint'), [], 'no tint');
+  assert.deepEqual(rulesWith(/script-selector/, 'radius-sm'), [], 'no rounded corners');
 });
 
 // _includes/content-page-intro.html writes the date as %-d %B %Y in a <time> with %Y-%m-%d, and

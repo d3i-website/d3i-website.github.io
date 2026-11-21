@@ -1,4 +1,4 @@
-<!-- @dsCard group="Wayfinding" height=240 -->
+<!-- @dsCard group="Wayfinding" height=192 -->
 <!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><title>TableOfContents — preview</title>
@@ -8,12 +8,17 @@
 <script>
   var D = window.D3I, h = React.createElement;
   ReactDOM.createRoot(document.getElementById('root')).render(
-    h(D.TableOfContents, { items: [
-      { label: 'What the software does', href: '#' },
-      { label: 'How to get access', href: '#' },
-      { label: 'Hosting options', href: '#' },
-      { label: 'Questions', href: '#' }
-    ] })
+    h('div', null,
+      h('div', { className: 'content-page__intro' },
+        h('header', { className: 'content-page__header' },
+          h('h1', { className: 'content-page__title' }, 'Urgent Call to Reject the Omnibus Regulation with Regard to the GDPR’s Right of Access'))),
+      h(D.TableOfContents, { items: [
+        { label: 'Key takeaway', href: '#' },
+        { label: 'Why is the right of data access important?', href: '#' },
+        { label: 'What is at stake?', href: '#' },
+        { label: 'Conclusion', href: '#' }
+      ] })
+    )
   );
 </script>
 </body>

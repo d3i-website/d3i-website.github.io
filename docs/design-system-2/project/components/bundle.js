@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"D3I","components":[{"name":"SiteHeader"},{"name":"SectionSubnav"},{"name":"SiteFooter"},{"name":"FrontPage"},{"name":"Band"},{"name":"Note"},{"name":"ArrowDisc"},{"name":"Link"},{"name":"HomeCard"},{"name":"ListRow"},{"name":"ActionLink"},{"name":"ContactBlock"},{"name":"Postit"},{"name":"Callout"},{"name":"NewsCard"},{"name":"ArchiveCard"},{"name":"InstitutionCard"},{"name":"ProjectCard"},{"name":"PeopleGrid"},{"name":"PageIntro"},{"name":"SidebarPanel"},{"name":"TableOfContents"},{"name":"Routes"},{"name":"JourneyNext"},{"name":"HubStep"},{"name":"Prose"},{"name":"Figure"},{"name":"NewsArticle"},{"name":"EventDetails"},{"name":"UsageFigures"},{"name":"SlideCover"},{"name":"SlideFrame"},{"name":"SlidePlan"},{"name":"SlideSectionStop"},{"name":"SlideBuild"},{"name":"SlideStats"},{"name":"SlideFunnel"},{"name":"SlideWindow"},{"name":"SlideQuestions"}]} */
+/* @ds-bundle: {"format":4,"namespace":"D3I","components":[{"name":"SiteHeader"},{"name":"SectionSubnav"},{"name":"SiteFooter"},{"name":"FrontPage"},{"name":"Band"},{"name":"Note"},{"name":"ArrowDisc"},{"name":"Link"},{"name":"HomeCard"},{"name":"ListRow"},{"name":"ActionLink"},{"name":"ContactBlock"},{"name":"Postit"},{"name":"Callout"},{"name":"NewsCard"},{"name":"ArchiveCard"},{"name":"InstitutionCard"},{"name":"ProjectCard"},{"name":"PeopleGrid"},{"name":"PageIntro"},{"name":"SidebarPanel"},{"name":"TableOfContents"},{"name":"Routes"},{"name":"JourneyNext"},{"name":"HubStep"},{"name":"Prose"},{"name":"Figure"},{"name":"ScriptSelector"},{"name":"NewsArticle"},{"name":"EventDetails"},{"name":"UsageFigures"},{"name":"SlideCover"},{"name":"SlideFrame"},{"name":"SlidePlan"},{"name":"SlideSectionStop"},{"name":"SlideBuild"},{"name":"SlideStats"},{"name":"SlideFunnel"},{"name":"SlideWindow"},{"name":"SlideQuestions"}]} */
 /*
  * datadonation.eu components, as window.D3I.
  *
@@ -793,6 +793,34 @@
     }
     attrs.className = cx('section-figure', p.className);
     return h('figure', attrs, img, p.caption ? h('figcaption', null, p.caption) : null);
+  }
+
+  /* The Software section's script selector, as _includes/script-selector-embed.html writes it, framed
+     like a Figure: the app in one square hairline (script-selector__frame-wrap), and under it a
+     caption with the way out, closed by another. With `down` the outage notice takes the app's place
+     inside the same frame and the caption stays, so the link is never there twice. With `still` a
+     picture of the app stands in for the live one (previews, slides), so nothing calls the app. The
+     component renders the state it is given; the site's script decides it by a timeout. */
+  function ScriptSelector(p) {
+    var title = p.title || 'Script selector';
+    var attrs = rest(p, ['src', 'title', 'caption', 'down', 'still', 'className']);
+    attrs.className = cx('script-selector', p.className);
+    var inner;
+    if (p.down) {
+      inner = h('div', { className: 'script-selector__fallback', role: 'status' },
+        h('h2', null, p.down.heading || title + ' unavailable'),
+        p.down.message ? h('p', null, p.down.message) : null);
+    } else if (p.still) {
+      inner = h('img', { className: 'script-selector__frame', src: p.still, alt: title });
+    } else {
+      inner = h('iframe', { className: 'script-selector__frame', src: p.src, title: title, loading: 'lazy',
+        referrerPolicy: 'no-referrer-when-downgrade', allow: 'downloads' });
+    }
+    return h('div', attrs,
+      h('div', { className: 'script-selector__frame-wrap' }, inner),
+      h('div', { className: 'script-selector__caption' },
+        h('p', null, p.caption || 'Runs on SURF Research Cloud.'),
+        h(ActionLink, { href: p.src, external: true, variant: 'compact' }, 'Open the ' + title.toLowerCase() + ' in a new tab')));
   }
 
   /* A news post as _layouts/page.html writes it for the news collection: the date over the title
@@ -1592,6 +1620,7 @@
     HubStep: HubStep,
     Prose: Prose,
     Figure: Figure,
+    ScriptSelector: ScriptSelector,
     NewsArticle: NewsArticle,
     EventDetails: EventDetails,
     UsageFigures: UsageFigures,
