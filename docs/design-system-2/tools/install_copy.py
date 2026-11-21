@@ -12,12 +12,16 @@ of a copy; Claude does the Artifact calls in between. INSTALL.md walks through t
             under project/ except the images, the preview image URLs pointed at the new
             uploads, a new index, and publish.json with the arguments for the publish call.
 
+A file recorded without a "blob" (the Slides and Network groups) is new to every copy, so
+batches always lists it too, and stage fails, naming each file, if any image is left without
+an upload id after reading the results.
+
 A file recorded with "placeholder": true has an id that was never uploaded (the MD5 of its
 bytes), so that a preview can point at it. batches always lists it, and stage replaces its
 id like any other and drops the flag from the staged index.
 
-  python3 -I docs/design-system/tools/install_copy.py batches
-  python3 -I docs/design-system/tools/install_copy.py stage --uploads RESULTS.txt --out DIR --by "Name"
+  python3 -I docs/design-system-2/tools/install_copy.py batches
+  python3 -I docs/design-system-2/tools/install_copy.py stage --uploads RESULTS.txt --out DIR --by "Name"
 """
 import argparse
 import datetime
@@ -119,7 +123,7 @@ def cmd_stage(args):
     ids = {**keep, **new_ids}
     missing = [key for key, _ in images(src) if key not in ids]
     if missing:
-        die(f"{len(missing)} images have no upload yet, e.g. {missing[:3]}; upload them and add their results")
+        die(f"{len(missing)} images have no upload id: {', '.join(missing)}; upload them and add their results")
 
     out = pathlib.Path(args.out).resolve()
     if (out / "project").exists():
@@ -152,11 +156,11 @@ def cmd_stage(args):
     now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     if args.existing_index:
         index = json.loads(pathlib.Path(args.existing_index).read_text())
-        note = f"Re-synced from docs/design-system: {len(new_ids)} images uploaded, {len(keep)} kept."
+        note = f"Re-synced from docs/design-system-2: {len(new_ids)} images uploaded, {len(keep)} kept."
     else:
         index = {"v": 3, "layout": "files", "createdOnFiles": {"v": 1, "at": now}, "title": args.title,
                  "sections": {}, "blobs": {}, "docs": {"readme": "project/README.md", "sections": []}}
-        note = "Installed from docs/design-system in d3i-website/d3i-website.github.io."
+        note = "Installed from docs/design-system-2 in d3i-website/d3i-website.github.io."
     for key in ("namespace", "libraries", "groups"):
         index[key] = src[key]
     groups = {}

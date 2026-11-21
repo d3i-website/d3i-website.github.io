@@ -85,5 +85,66 @@ class Placeholders(unittest.TestCase):
         self.assertIn(fake_id(PROJECT / "assets/News/export-study-crate-card.webp"), text)
 
 
+def batch_arrays(*extra):
+    out = run("batches", *extra)
+    return [json.loads(line) for line in out.stdout.splitlines() if line.startswith("[")]
+
+
+def uploads_text(skip=()):
+    lines = []
+    for key, _ in records(repo_index()):
+        path = PROJECT / "assets" / key
+        if key in skip:
+            continue
+        i = fake_id(path)
+        lines.append(f'- "{path}" ({path.stat().st_size} bytes, image/x) \u2192 "/_blob/{i}" (id {i})')
+    return "\n".join(lines)
+
+
+class Network(unittest.TestCase):
+    def test_batches_include_network(self):
+        arrays = batch_arrays()
+        for arr in arrays:
+            self.assertLessEqual(len(arr), 25)
+        listed = [p for arr in arrays for p in arr]
+        for p in listed:
+            self.assertTrue(pathlib.Path(p).is_absolute() and pathlib.Path(p).is_file(), p)
+        network = sorted(str(p) for p in (PROJECT / "assets/Network").glob("*.svg"))
+        self.assertEqual(len(network), 21)
+        self.assertLessEqual(set(network), set(listed))
+        self.assertEqual(len(listed), len(set(listed)))
+        self.assertEqual(len(listed), sum(1 for _ in records(repo_index())))
+
+    def test_recorded_sizes_match_files(self):
+        for key, rec in records(repo_index()):
+            self.assertEqual(rec["size"], (PROJECT / "assets" / key).stat().st_size, key)
+
+    def test_stage_with_fake_uploads(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            uploads = pathlib.Path(tmp) / "uploads.txt"
+            uploads.write_text(uploads_text())
+            out = pathlib.Path(tmp) / "out"
+            run("stage", "--uploads", str(uploads), "--out", str(out), "--by", "Test")
+            publish = json.loads((out / "publish.json").read_text())
+            staged = json.loads((out / "project/design-system.json").read_text())
+        files = publish["files"]
+        for key in files:
+            self.assertNotIn(key, {"project/tokens.css", "project/manifest.json"})
+            self.assertFalse(key.startswith("project/api/"), key)
+        self.assertEqual(files["project/components/index.d.ts"]["contentType"], "text/plain")
+        for path in (PROJECT / "assets/Network").glob("*.svg"):
+            self.assertEqual(staged["assetGroups"]["Network"]["files"][path.name]["blob"], fake_id(path))
+
+    def test_stage_refuses_missing_upload(self):
+        victim = "Network/globe.svg"
+        with tempfile.TemporaryDirectory() as tmp:
+            uploads = pathlib.Path(tmp) / "uploads.txt"
+            uploads.write_text(uploads_text(skip={victim}))
+            r = subprocess.run([sys.executable, "-I", str(TOOL), "stage", "--uploads", str(uploads),
+                                "--out", str(pathlib.Path(tmp) / "out"), "--by", "Test"], capture_output=True, text=True)
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn(victim, r.stderr)
+
+
 if __name__ == "__main__":
     unittest.main()
