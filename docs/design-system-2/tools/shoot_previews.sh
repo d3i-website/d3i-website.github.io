@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Screenshots one component's preview as the design system's page shows it, at each width.
 #
-#   tools/shoot_previews.sh Postit                 390 and 1280px wide
+#   tools/shoot_previews.sh Postit                 at its card's width (@dsCard width=, else 1280)
 #   tools/shoot_previews.sh Postit 600 1000        the widths given
 #   OUT=/some/dir tools/shoot_previews.sh Postit   into /some/dir instead of a fresh temp dir
 #   HEIGHT=260 tools/shoot_previews.sh Postit 1280 in a window 260px tall instead of 4000
@@ -25,13 +25,17 @@ fi
 name=$1
 shift
 widths=("$@")
-[ ${#widths[@]} -gt 0 ] || widths=(390 1280)
 
 project=$(cd "$(dirname "$0")/../project" && pwd)
 preview=$project/components/$name/preview.html
 if [ ! -f "$preview" ]; then
   echo "no preview at $preview" >&2
   exit 1
+fi
+if [ ${#widths[@]} -eq 0 ]; then
+  # the width the card lays the preview out at, as fit_preview_heights.sh measures it
+  width=$(head -n 1 "$preview" | sed -nE 's/.*[[:space:]]width=([0-9]+).*/\1/p')
+  widths=("${width:-1280}")
 fi
 
 out=${OUT:-$(mktemp -d)}

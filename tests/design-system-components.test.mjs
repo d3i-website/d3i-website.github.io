@@ -22,14 +22,30 @@ const site = join(root, '_site');
 // fits, and draws in the new look; see "the cover card").
 const NOT_COMPONENTS = ['lib', 'Cover'];
 
-const folders = readdirSync(components, { withFileTypes: true })
+const previewPath = (name) => join(components, name, 'preview.html');
+// A preview's first line, its @dsCard marker, and one of its attributes (a bare one, such as
+// `page`, reads as true).
+const markerOf = (name) => readFileSync(previewPath(name), 'utf8').split('\n')[0];
+const cardAttr = (name, key) => {
+  const body = markerOf(name).match(/^<!--\s*@dsCard\b(.*?)-->/)?.[1] ?? '';
+  const attrs = {};
+  for (const m of body.matchAll(/([\w-]+)(?:=(?:"([^"]*)"|(\S+)))?/g)) attrs[m[1]] = m[2] ?? m[3] ?? true;
+  return attrs[key];
+};
+// A folder whose preview carries the `page` marker is a showcase card, not a bundle export (the
+// type's preview contract): SiteHeaderPhone is SiteHeader at a phone's width. Like Cover, it is left
+// out of the folder agreement but is under every check that applies to a preview.
+const isPage = (name) => existsSync(previewPath(name)) && cardAttr(name, 'page') !== undefined;
+
+const dirs = readdirSync(components, { withFileTypes: true })
   .filter((d) => d.isDirectory() && !NOT_COMPONENTS.includes(d.name))
   .map((d) => d.name)
   .sort();
-const previews = folders.filter((name) => existsSync(join(components, name, 'preview.html')));
-const previewPath = (name) => join(components, name, 'preview.html');
-// Every preview the artifact page shows: the components' and the system's cover card.
-const allPreviews = [...previews, 'Cover'];
+const folders = dirs.filter((name) => !isPage(name));
+const pages = dirs.filter(isPage);
+const previews = folders.filter((name) => existsSync(previewPath(name)));
+// Every preview the artifact page shows: the components', the showcase pages and the system's cover card.
+const allPreviews = [...previews, ...pages, 'Cover'];
 
 function bundle() {
   return loadBundle(join(components, 'bundle.js'));
@@ -213,9 +229,12 @@ test('every preview\'s group is one the brand book names', () => {
   assert.ok(Object.keys(lines).length >= 7, 'the brand book lists its component groups');
   assert.match(book, /components in the \*\*Slides\*\* group/, 'the brand book names the Slides group');
   const wrong = [];
-  for (const name of previews) {
-    const group = (readFileSync(previewPath(name), 'utf8').split('\n')[0].match(/\sgroup="([^"]*)"/) || [])[1];
-    if (name.startsWith('Slide')) {
+  for (const name of [...previews, ...pages]) {
+    const group = cardAttr(name, 'group');
+    if (pages.includes(name)) {
+      // a showcase page is not on the brand book's list; it sits in one of its groups
+      if (!(group in lines) && group !== 'Slides') wrong.push(`${name}: group "${group}" is not one the brand book names`);
+    } else if (name.startsWith('Slide')) {
       if (group !== 'Slides') wrong.push(`${name}: group "${group}", not Slides`);
     } else if (!(group in lines)) {
       wrong.push(`${name}: group "${group}" is not one the brand book names (${Object.keys(lines).join(', ')})`);
@@ -225,6 +244,88 @@ test('every preview\'s group is one the brand book names', () => {
   }
   assert.deepEqual(wrong, [], wrong.join('\n  '));
   assert.ok(!/\sgroup=/.test(readFileSync(previewPath('Cover'), 'utf8').split('\n')[0]), 'the cover card has no group');
+});
+
+/* Card widths ------------------------------------------------------------------------------ */
+
+// The artifact's page lays a preview out at its card's `width=` and scales it down to the column;
+// with no width it is laid out at the column's own width, about 600 to 700px. The components answer
+// the window, not their container, so one that changes at 768px or wider would show its narrow form
+// there (the header's Menu, the front page's note under the band, the dossier stacked).
+
+// Where a query's layout changes, in px: a min-width at its value, a max-width one past it (below
+// 768px is (max-width: 767px)); em and rem are 16px. The widest bound of the query counts.
+const breakpointOf = (query) => {
+  let bp = null;
+  for (const q of query.matchAll(/(min|max)-width:\s*([\d.]+)(px|r?em)/g)) {
+    const v = +q[2] * (q[3] === 'px' ? 1 : 16) + (q[1] === 'max' ? 1 : 0);
+    bp = Math.max(bp ?? 0, v);
+  }
+  return bp;
+};
+// Each selector inside a media query at or above 768px: [breakpoint, query, selector, its classes].
+const wideRules = (css) => {
+  const out = [];
+  for (const m of css.matchAll(/@media\s*([^{]*)\{((?:[^{}]*\{[^{}]*\})*)\}/g)) {
+    const bp = breakpointOf(m[1]);
+    if (bp == null || bp < 768) continue;
+    for (const r of m[2].matchAll(/([^{}]+)\{[^{}]*\}/g)) {
+      for (const s of r[1].split(',')) {
+        const classes = [...s.replace(/:not\([^)]*\)/g, '').matchAll(/\.([A-Za-z_][\w-]*)/g)].map((c) => c[1]);
+        if (classes.length) out.push([bp, m[1].trim(), s.trim(), classes]);
+      }
+    }
+  }
+  return out;
+};
+
+test('breakpoints are read in px', () => {
+  assert.equal(breakpointOf('(max-width: 767px)'), 768);
+  assert.equal(breakpointOf('(min-width: 48rem)'), 768);
+  assert.equal(breakpointOf('(min-width: 66.32em)'), 66.32 * 16);
+  assert.equal(breakpointOf('(min-width: 1000px)and (max-width: 1279px)'), 1280);
+  assert.equal(breakpointOf('(max-width: 599px)'), 600);
+  assert.equal(breakpointOf('(prefers-reduced-motion: reduce)'), null);
+  assert.deepEqual(wideRules('@media(max-width: 599px){.a{x:1}}@media(min-width: 900px){.b .c:not(.d),.e{x:1}}')
+    .map(([bp, , s, c]) => [bp, s, c]), [[900, '.b .c:not(.d)', ['b', 'c']], [900, '.e', ['e']]]);
+});
+
+// A website component falls under a rule when its preview renders every class the selector names.
+// Each one that does declares a card width at or above the widest such breakpoint, so its card shows
+// the desktop layout (the brand book's Website · Components: 1280px).
+test('a component that changes at 768px or wider declares a desktop card width', () => {
+  const rules = wideRules(readFileSync(join(components, 'bundle.css'), 'utf8'));
+  assert.ok(rules.length > 0, 'bundle.css has media queries at 768px or wider');
+  const wrong = [];
+  let covered = 0;
+  for (const name of websitePreviews()) {
+    const rendered = classesIn(runPreview(previewPath(name), bundle()));
+    const hits = rules.filter(([, , , classes]) => classes.every((c) => rendered.has(c)));
+    if (!hits.length) continue;
+    covered += 1;
+    const [bp, query, selector] = hits.reduce((a, b) => (b[0] > a[0] ? b : a));
+    const width = Number(cardAttr(name, 'width'));
+    if (!width) wrong.push(`${name}: no width= in its card, and ${selector} changes at @media${query}`);
+    else if (width < bp) wrong.push(`${name}: width=${width}, under @media${query} (${selector})`);
+  }
+  assert.ok(covered > 0, 'some component falls under a wide media query');
+  assert.deepEqual(wrong, [], wrong.join('\n  '));
+});
+
+// Five components also show their narrow form, on a showcase page of their own at a phone's width:
+// a `page` card in the component's group, whose README points at the component.
+test('each showcase page shows a component, in its group, at its own width', () => {
+  assert.ok(pages.length > 0, 'the phone cards are pages');
+  const wrong = [];
+  for (const name of pages) {
+    const readme = join(components, name, 'README.md');
+    const of = existsSync(readme) && readFileSync(readme, 'utf8').match(/`components\/([A-Z]\w*)\/`/);
+    if (!of || !previews.includes(of[1])) { wrong.push(`${name}: its README names no component folder`); continue; }
+    if (cardAttr(name, 'group') !== cardAttr(of[1], 'group')) wrong.push(`${name}: not in ${of[1]}'s group`);
+    if (!Number(cardAttr(name, 'width'))) wrong.push(`${name}: no width=`);
+    if (typeof cardAttr(name, 'subtitle') !== 'string') wrong.push(`${name}: no subtitle`);
+  }
+  assert.deepEqual(wrong, [], wrong.join('\n  '));
 });
 
 /* Band ------------------------------------------------------------------------------------ */
