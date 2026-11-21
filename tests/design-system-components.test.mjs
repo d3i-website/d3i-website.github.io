@@ -896,6 +896,17 @@ test('menu current row has no tint', () => {
   assert.match(ruleFor(row + '::before'), /transform:scaleY\(1\)/, 'the bar standing at the row\'s left end');
 });
 
+// The owner's ruling after round 2: the current link is marked by the blue bar alone at every width.
+// From 1000px it is the hover bar, shown at rest; no is-active rule paints a background.
+test('desktop current link has no tint', () => {
+  const tinted = cssRules(bundleCss()).filter(([sel, decl]) => /is-active/.test(sel) && /site-nav/.test(sel)
+    && /background(-color)?:(?!none)/.test(decl)).map(([sel]) => sel);
+  assert.deepEqual(tinted, [], 'no background on the current link at any width');
+  assert.match(ruleFor('.site-nav__item.is-active a'), /background:none/, 'the old tint is undone');
+  assert.match(ruleFor('.site-nav__item.is-active a::before'), /transform:scaleX\(1\)/, 'the 4px blue bar, shown at rest');
+  assert.match(ruleFor('.site-nav__item a::before'), /height:4px;background:var\(--blue\)/, 'the hover bar');
+});
+
 const PROVIDERS = [
   { name: 'ODISSEI', key: 'odissei', logo: '/_blob/693138a09fb55860252fdf53cdfdee18' },
   { name: 'Eyra', key: 'eyra', logo: '/_blob/87afcf44ac9de2aea316b5c81eda8dd5' },
