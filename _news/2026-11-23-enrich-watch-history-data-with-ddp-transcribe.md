@@ -10,13 +10,13 @@ layout: page
 
 Watch histories from participant donations contain a list of dates and links which tell you what videos a participant watched. Most researchers who collect watch histories are interested in exposure data, which requires enriching the data after it's donated. DDP Transcribe provides this functionality by generating transcriptions for the set of URLs.
 
-![A JSON file listing 25 viewings, each with a date and a link to a TikTok video from a news organisation such as NOS, RTL, BBC News or Al Jazeera English](/assets/images/news/ddp-transcribe-01-watch-history.webp "A test file in the format of a donated watch history, with public videos from news organisations.")
+![A JSON file listing 25 viewings, each with a date and a link to a TikTok video from a news organisation such as NOS, RTL, BBC News or Al Jazeera English](/assets/images/news/ddp-transcribe-01-watch-history.webp)
 
 ### How it works
 
 After exporting the donations from Next, put them on a secure server like Yoda or Research Drive and link it, or upload them directly into a folder on the workspace. The pipeline runs five steps, and all transcription is handled locally:
 
-![Diagram of the five steps: ingest, fetch, transcribe, store, retry and report, with the tools used in each step](/assets/images/news/ddp-transcribe-02-pipeline.webp "Only step 3 needs the GPU.")
+![Diagram of the five steps: ingest, fetch, transcribe, store, retry and report, with the tools used in each step](/assets/images/news/ddp-transcribe-02-pipeline.webp)
 
 1. **Ingest.** It reads the files and queues each video once, however many participants watched it. You can limit a run to a period of viewing.
 2. **Fetch.** It downloads the audio of each public video with yt-dlp and converts it with ffmpeg.
