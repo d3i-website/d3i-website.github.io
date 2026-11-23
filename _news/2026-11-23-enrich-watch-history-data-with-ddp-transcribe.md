@@ -12,7 +12,7 @@ Watch histories from participant donations contain a list of dates and links whi
 
 ![A JSON file listing 25 viewings, each with a date and a link to a TikTok video from a news organisation such as NOS, RTL, BBC News or Al Jazeera English](/assets/images/news/ddp-transcribe-01-watch-history-1.webp)
 
-### How it works
+## How it works
 
 After exporting the donations from Next, put them on a secure server like Yoda or Research Drive and link it, or upload them directly into a folder on the workspace. The pipeline runs five steps, and all transcription is handled locally:
 
@@ -34,7 +34,7 @@ You can read the transcripts in DDP Inspector, next to the donated watch history
 
 ![The DDP Inspector page for one video: the full English transcript of a 38-second BBC News item about a school protest in Lincolnshire, a table with the confidence of each segment between 0.90 and 1.00, and a panel with the video's caption, uploader, posting date and numbers of views, likes and comments](/assets/images/news/ddp-transcribe-03-inspector-transcript.webp "One transcript from the test, complete and unedited, in DDP Inspector. Video: BBC News on TikTok.")
 
-### What a study needs
+## What a study needs
 
 - The watch-history files from your data donation study.
 - A collaboration on SURF Research Cloud that can start a GPU workspace.
