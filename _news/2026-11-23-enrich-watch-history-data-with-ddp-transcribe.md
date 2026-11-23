@@ -10,7 +10,7 @@ layout: page
 
 Watch histories from participant donations contain a list of dates and links which tell you what videos a participant watched. Most researchers who collect watch histories are interested in exposure data, which requires enriching the data after it's donated. DDP Transcribe provides this functionality by generating transcriptions for the set of URLs.
 
-![A JSON file listing 25 viewings, each with a date and a link to a TikTok video from a news organisation such as NOS, RTL, BBC News or Al Jazeera English](/assets/images/news/ddp-transcribe-01-watch-history.webp)
+![A JSON file listing 25 viewings, each with a date and a link to a TikTok video from a news organisation such as NOS, RTL, BBC News or Al Jazeera English](/assets/images/news/ddp-transcribe-01-watch-history-1.webp)
 
 ### How it works
 
