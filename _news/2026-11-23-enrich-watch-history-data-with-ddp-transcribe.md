@@ -12,7 +12,7 @@ Watch histories from participant donations contain a list of dates and links whi
 
 ![A JSON file listing 25 viewings, each with a date and a link to a TikTok video from a news organisation such as NOS, RTL, BBC News or Al Jazeera English](/assets/images/news/ddp-transcribe-01-watch-history.webp "A test file in the format of a donated watch history, with public videos from news organisations.")
 
-## How it works
+### How it works
 
 After exporting the donations from Next, put them on a secure server like Yoda or Research Drive and link it, or upload them directly into a folder on the workspace. The pipeline runs five steps, and all transcription is handled locally:
 
@@ -26,7 +26,7 @@ After exporting the donations from Next, put them on a secure server like Yoda o
 
 A batch that stops, for any reason, resumes where it left off.
 
-## What comes back
+### What comes back
 
 For every video you get two files, named after the video ID. The text file holds the transcript. The JSON file holds the link to the video, its duration, the detected language, the model and the time of transcription. It also holds the probability Whisper gave to every token, so you can set your own threshold for which transcripts to trust. The pipeline also keeps what the platform showed for each video at the time of fetching: the description, the uploader and the numbers of views, likes and comments.
 
@@ -34,15 +34,15 @@ You can read the transcripts in DDP Inspector, next to the donated watch history
 
 ![The DDP Inspector page for one video: the full English transcript of a 38-second BBC News item about a school protest in Lincolnshire, a table with the confidence of each segment between 0.90 and 1.00, and a panel with the video's caption, uploader, posting date and numbers of views, likes and comments](/assets/images/news/ddp-transcribe-03-inspector-transcript.webp "One transcript from the test, complete and unedited, in DDP Inspector. Video: BBC News on TikTok.")
 
-## What a study needs
+### What a study needs
 
 - The watch-history files from your data donation study.
 - A collaboration on SURF Research Cloud that can start a GPU workspace.
 
-## Beside DDP Inspector and DDP Comments
+### Beside DDP Inspector and DDP Comments
 
 DDP Transcribe is one of three tools on SURF Research Cloud that start from the same donated watch history. [DDP Comments](/news/2026-11-23-zeeschuimer-integration-now-available-for-donation-enrichment/) collects the comments under the same videos, with student collectors and 4CAT. DDP Inspector shows the donations and the transcripts in the browser, read-only.
 
-## Getting access
+### Getting access
 
 DDP Transcribe runs on SURF Research Cloud, in your own collaboration. To use it for a study, email [DataDonation@uu.nl](mailto:DataDonation@uu.nl).
