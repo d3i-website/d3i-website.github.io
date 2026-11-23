@@ -10,13 +10,13 @@ layout: page
 
 A donated watch history is a list of dates and links. It tells you which videos a participant watched, but most researchers who collect this data want to know what participants were _exposed to._ That means enriching the data by adding the content of the videos after donation. DDP Transcribe does this by transcribing the speech in each video.
 
-![A JSON file listing 25 viewings, each with a date and a link to a TikTok video from a news organisation such as NOS, RTL, BBC News or Al Jazeera English](/assets/images/news/ddp-transcribe-01-watch-history-1.webp)
+![A JSON file listing 25 viewings, each with a date and a link to a TikTok video from a news organisation such as NOS, RTL, BBC News or Al Jazeera English](/assets/images/news/ddp-transcribe-01-watch-history-1.webp "What a watch history looks like when it is donated: one date and one link for every video a participant watched, and nothing about what the video contained. This example is a test file in the donation format, filled with public videos from news organisations. The first ten of its 25 viewings are shown.")
 
 ### How it works
 
 Export the donations from Next and put them where the workspace can read them: on Yoda, on a mounted Research Drive, or in a folder in the workspace. The pipeline then runs five steps, with transcription handled locally on the workspace so no audio goes to an outside service.
 
-![Diagram of the five steps: ingest, fetch, transcribe, store, retry and report, with the tools used in each step](/assets/images/news/ddp-transcribe-02-pipeline.webp)
+![Diagram of the five steps: ingest, fetch, transcribe, store, retry and report, with the tools used in each step](/assets/images/news/ddp-transcribe-02-pipeline.webp "The five steps of the pipeline and the tools each one uses. Only the second step, fetch needs external access; the other four can be run in a SANE environment.")
 
 1. **Ingest.** It reads the files and queues each video once, however many participants watched it. You can limit a run to a period of viewing.
 2. **Fetch.** It downloads the audio of each public video with yt-dlp and converts it with ffmpeg.
@@ -32,7 +32,7 @@ For every video you get two files, named after the video ID. The text file holds
 
 You can read the transcripts in DDP Inspector, next to the donated watch history.
 
-![The DDP Inspector page for one video: the full English transcript of a 38-second BBC News item about a school protest in Lincolnshire, a table with the confidence of each segment between 0.90 and 1.00, and a panel with the video's caption, uploader, posting date and numbers of views, likes and comments](/assets/images/news/ddp-transcribe-03-inspector-transcript.webp "One transcript from the test, complete and unedited, in DDP Inspector. Video: BBC News on TikTok.")
+![The DDP Inspector page for one video: the full English transcript of a 38-second BBC News item about a school protest in Lincolnshire, a table with the confidence of each segment between 0.90 and 1.00, and a panel with the video's caption, uploader, posting date and numbers of views, likes and comments](/assets/images/news/ddp-transcribe-03-inspector-transcript.webp "One transcript in DDP Inspector, complete and unedited: the spoken text, the detected language and length, Whisper's confidence for each segment, and what the platform showed for the video when it was fetched. The video is a BBC News item on TikTok.")
 
 ### What a study needs
 
