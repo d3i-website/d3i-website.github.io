@@ -2,7 +2,7 @@
 title: Zeeschuimer integration now available for donation enrichment
 date: 2026-11-23
 summary: A participant's TikTok donated watch history lists only the videos a participant watched. D3I now integrates with Zeeschuimer and the 4CAT suite to provide a way for these data to be enriched with the comments these videos had. DDP Comments is a secured workspace on SURF Research Cloud where your own collectors gather those comments, starting from the donated video IDs, and store them on your own local backend.
-image: /assets/images/news/ddp-comments-card.webp
+image: /assets/images/news/ddp-comments-card-1.webp
 image_alt: Screenshot of the TikTok comment capture desk with hidden video and donation queue open to the side
 external_url: ''
 layout: page
@@ -12,7 +12,7 @@ A donated TikTok history tells you which videos a participant watched, liked or 
 
 DDP Comments can be started as a workspace on SURF Research Cloud and integrates with the Surf SRAM Collaboration system for access. Your own collectors, for example student assistants, sign in with their institutional account and work through a shared list of videos, in a browser that runs on the workspace. What they collect goes to a local instance of [4CAT](https://4cat.nl/), where you can then combine and export it.
 
-![A donated TikTok history lists the videos a participant watched, not the comments written under them. DDP Comments is a workspace on SURF Research Cloud where your own collectors gather those comments, starting from the donated video IDs, and send them to 4CAT.](/assets/images/news/ddp-comments-1-desk.webp "A collector's page. Open next video (1) opens a video in the browser on the left, where the video is hidden (2) and the collector opens the comments (3). A timer (4) counts down. Zeeschuimer (5) records the comments, and a note (6) says whether they have reached 4CAT. Names, comment text and video IDs are covered in this picture.")
+![A browser showing a TikTok video page with the video hidden and the comments open; on the right the collector's queue of five videos, one of them open with a timer.](/assets/images/news/ddp-comments-1-desk-1.webp "A collector's page. (Here we're using synthetic names, comments, and video IDs.)")
 
 ## How it works
 
@@ -23,23 +23,15 @@ DDP Comments can be started as a workspace on SURF Research Cloud and integrates
 5. If a video has been removed, is private, needs a login or is not available in the region, the collector picks that reason from a list and goes on to the next one.
 6. When they're finished collecting, they send the captured comments through to the local database.
 
-![A panel in place of the video reads: Video hidden on purpose by the comment collection app. If the comments load, all is well. Beside it the Comments tab is open; the names and the text of three comments are covered by grey blocks.](/assets/images/news/ddp-comments-2-hidden-video.webp "The video can be replaced by a panel for reducing exposure to sensitive content. The comments load beside it. Names and comment text are covered in this picture.")
-
-![The queue: five videos on a line. Videos 2 and 3 are marked Video unavailable or removed, Video 4 is open with 2:12 on its timer and a Report a problem menu under it, and Video 5 is still to do.](/assets/images/news/ddp-comments-3-queue.webp "The queue. Video 4 is open with 2:12 left on its timer, and two earlier videos were no longer available.")
-
 ## What you see as a study lead
 
 The admin page shows the collection as it stands: how many videos are waiting, how many are with a collector, how many are done and how many records have been captured. You add videos to the list on the same page.
 
-![The admin page with sample data: of 12,000 videos, 11,480 are waiting in the pool, 20 are with a collector now and 500 are done by 4 collectors, 38 of them reported as a problem; 31,250 records ](/assets/images/news/ddp-comments-4-collection.webp "The collection on the admin page. Sample data.")
+![The admin page with sample data: of 12,000 videos, 11,480 are waiting in the pool, 20 are with a collector now and 500 are done by 4 collectors, 38 of them reported as a problem; 31,250 records](/assets/images/news/ddp-comments-4-collection.webp)
 
 For each collector you can see who's active in the system, and whether or not they've uploaded their data to the database.
 
-![A table of four students with sample data: time worked this week and in total, whether their captures were uploaded and when, and whether their session is running. One row is marked: no, captures since Tue 16:20.](/assets/images/news/ddp-comments-5-students.webp "Showing whether each collector's captures have reached 4CAT.")
-
-Videos that could not be collected are listed with the reason.
-
-![A table of two reported problems with sample data: one video unavailable or removed, one marked Something else with the note kept spinning, each with the student and the time. ](/assets/images/news/ddp-comments-6-problems.webp "Videos that could not be collected, with the reason the collector gave.")
+![A table of four students with sample data: time worked this week and in total, whether their captures were uploaded and when, and whether their session is running. One row is marked: no, captures since Tue 16:20.](/assets/images/news/ddp-comments-5-students.webp)
 
 ## What a study needs
 
